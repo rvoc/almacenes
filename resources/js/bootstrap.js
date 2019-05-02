@@ -9,8 +9,16 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    require('./adminlte');
+    require('bootstrap/dist/js/bootstrap.bundle');
+    require('admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js');
+    require('admin-lte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js');
+    require('admin-lte/plugins/slimScroll/jquery.slimscroll.min.js');
 
-    require('bootstrap');
+    window.dt =  require( 'datatables.net-responsive-bs4' )( window.$ );
+    window.moment = require('moment');
+
+
 } catch (e) {}
 
 /**

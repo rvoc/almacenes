@@ -1,13 +1,91 @@
+
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+// @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
+// @import url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css');
 
 // Variables
-@import 'variables';
+// @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/dist/css/bootstrap';
+@import 'adminlte';
+// @import '~admin-lte/dist/css/adminlte.css';
+// @import '~admin-lte/plugins/font-awesome/css/font-awesome.min.css';
+// @import '~admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+// @import '~datatables.net-dt/css/jquery.dataTables';
+@import '~datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css';
+// @import '~fullcalendar/dist/fullcalendar';
+
+@import '~toastr/build/toastr';
+@import '~sweetalert2/dist/sweetalert2';
+// @import url('https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css');
+//instalar en casode de ser necesario
+// @import "~switchery/standalone/switchery.css";
+// @import "~vue-multiselect/dist/vue-multiselect.min.css";
+
+$blanco: #ffffff;
+$blanco2: #c4c8e4;
+// @import "~@material/button/mdc-button";
+// .cards {
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+
+// .element-card {
+//   width: 15em;
+//   margin: 16px;
+// }
+
+// .element-card > .mdc-card__media {
+//   height: 6em;
+//   padding: 16px;
+
+// }
+// .element-card.wind {
+//   background-color:$primary-card;
+//   color: $blanco
+// }
+// .subtitulo{
+//   color: $blanco2;
+// }
+
+.card-calendar{
+  background-color: #0d0446;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  color: #ffffff
+}
 
 .navbar-laravel {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  background-color: #0d0446;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.navbar-laravel a{
+  color: #ffffff;
+}
+.laravel-modal-bg {
+  background-color: #0d0446;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  color: #ffffff
+}
+.laravel-modal-green{
+  background-color: #6BC181;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  color: #ffffff
+}
+.laravel-table-bg {
+  background-color: #b0d6facc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+// para la transision
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }

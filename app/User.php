@@ -5,11 +5,16 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\DB;
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
 
+    // protected $connection = 'public';
+    protected $guard_name = 'web';
+    protected $table = 'public._bp_usuarios';
     /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +41,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function person(){
+        $person = DB::table('public._bp_personas')
+                ->where('prs_id','=',$this->usr_prs_id)
+                ->first();
+        return $person;
+    }
+
+    public function getFullName(){
+        $person = DB::table('public._bp_personas')
+                ->where('prs_id','=',$this->usr_prs_id)
+                ->first();
+        return $person->prs_nombres.' '.$person->prs_paterno.' '.$person->prs_materno;
+    }
 }

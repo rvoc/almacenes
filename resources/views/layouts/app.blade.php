@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,68 +14,345 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    {{--
+    <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    {{--
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"> --}}
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vuetify.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+<body class="hold-transition sidebar-collapse sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-ligth navbar-laravel border-bottom fixed-top">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
+                {{-- <li class="nav-item d-none d-sm-inline-block">
+                    <a href="../../index3.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li> --}}
+            </ul>
+
+            <!-- SEARCH FORM -->
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
+                @hasrole('Admin')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('users') }}" data-toggle="tooltip" data-placement="bottom" title="Gestion de Usuarios">
+                        <i class="fa fa-users"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('roles') }}" data-toggle="tooltip" data-placement="bottom" title="Gestion de Roles">
+                        <i class="fa fa-building"></i>
+                    </a>
+                </li>
+                @endhasrole
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                            {{Auth::user()->getFullName()}}  <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle elevation-2"  alt="User Image">
+                    </a>
+                    {{-- <div > --}}
+                        {{-- <span class="dropdown-item dropdown-header">15 Notifications</span> --}}
+                        <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                            <li class="dropdown-item" id="perfil">
+                                <i class="fa fa-user mr-4"></i> Perfil
+                                <span class="float-right"></span>
+                            </li>
+                            <li class="dropdown-item" id="config">
+                                <i class="fa fa-user-cog mr-4"></i> Configuracion
+                                <span class="float-right"></span>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item" id="logout" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fa fa-sign-out-alt mr-4"></i> Salir
+                                <span class="float-right"></span>
+                            </li>
+                        </ul>
+                        {{-- <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                                <i class="fa fa-user mr-4"></i> Perfil
+                            <span class="float-right"></span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-cogs mr-4"></i>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-sign-out mr-4"></i> Salir
+                        </a> --}}
+                        {{-- <div class="dropdown-divider"></div> --}}
+                        {{-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
+                    {{-- </div> --}}
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar elevation-4 sidebar-dark-primary">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link ">
+                <img src="{!!url('/img/logo_eba_blanck.png')!!}" alt="Eba Logo" class="brand-image " style="opacity: .8; margin-left: 0.2rem">
+                <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar ">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex ">
+                    <div class="image">
+                        <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                            <a href="#" class="d-block"> {{Auth::user()->getFullName()}}</a>
+
+						{{-- <nav class="mt-2">
+
+								<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+									<!-- Add icons to the links using the .nav-icon class
+							   with font-awesome or any other icon font library -->
+
+								<li class="nav-item has-treeview">
+									<a href="#" class="nav-link d-block">
+										<p>
+											{{Auth::user()->name}}
+											<i class="right fa fa-angle-left"></i>
+										</p>
+									</a>
+									<ul class="nav nav-treeview">
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												<i class="fa fa-user nav-icon"></i>
+												<p>Perfil</p>
+											</a>
+										</li>
+										<li class="nav-item">
+                                            <a href="{{ route('logout') }}" class="nav-link"
+                                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+												<i class="fa fa-sign-out nav-icon"></i>
+                                                <p>Salir</p>
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+										</li>
+
+									</ul>
+								</li>
+
+								</ul>
+						</nav> --}}
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+				   with font-awesome or any other icon font library -->
+
+                        <li class="nav-item">
+                            <a href="{{ url('action_medium_term') }}" class="nav-link">
+                                <i class="nav-icon fas fa-calendar"></i>
+                                <p>
+                                    Planificacion
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/') }}" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                {{-- <i class=" nav-icon material-icons" height="42px" width="42px"> event_note </i> --}}
+                                <p>
+                                    Tareas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('execution_specific_tasks') }}" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-day"></i>
+                                {{-- <i class=" nav-icon material-icons"> event_available </i> --}}
+                                <p>
+                                    Tareas Especificas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('report') }}" class="nav-link">
+                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <p>
+                                    Reportes
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('chart') }}" class="nav-link">
+                                <i class="nav-icon fas fa-chart-area"></i>
+                                <p>
+                                    Graficos
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('configuration') }}" class="nav-link">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                <p>
+                                    Configuracion
+                                </p>
+                            </a>
+                        </li>
 
                     </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+            <section class="content-header "style=" padding-top: 60px;">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1> @yield('title')</h1>
+                        </div>
+                        <nav class="col-sm-6" aria-label="breadcrumb">
+                            <ol class="breadcrumb float-sm-right">
+								@yield('breadcrums')
+                                {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Blank Page</li> --}}
+                            </ol>
+                        </nav>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="container-fluid">
+
+                <div id="app">
+                    @yield('content')
+                </div>
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        {{-- <footer class="main-footer fixed-bottom">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 3.0.0-alpha
+            </div>
+            <strong>Copyright &copy; 2019 <a href="http://adminlte.io">EBA</a>.</strong> Todos los derechos reservados.
+        </footer> --}}
+
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header laravel-modal-bg">
+                    <h5 class="modal-title" id="logoutModalLabel">Cerrar Sesion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Esta seguro de cerrar session ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success"><i class="nav-icon fa fa-sign-out-alt"></i>Si </button>
+                    </form>
                 </div>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </div>
     </div>
+    <!-- ./wrapper -->
+    <script>
+        window.onload = function () {
+            // $.extend( $.fn.dataTable.defaults, {
+            //     responsive: true
+            // } );
+            // console.log(spanish_lang);
+            $('#lista').DataTable({
+                // responsive: {
+                //     details: {
+                //         renderer: function ( api, rowIdx, columns ) {
+                //             var data = $.map( columns, function ( col, i ) {
+                //                 return col.hidden ?
+                //                     '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                //                         '<td> <strong>'+col.title+':'+'</strong> </td> '+
+                //                         '<td>'+col.data+'</td>'+
+                //                     '</tr>' :
+                //                     '';
+                //             } ).join('');
+                //             return data ?
+                //                 $('<table/>').append( data ) :
+                //                 false;
+                //         }
+                //     }
+                // },
+                responsive: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 10002, targets: 2 },
+                    { responsivePriority: 10001, targets: 4 },
+                    { responsivePriority: 2, targets: -1 }
+                ],
+                language: spanish_lang
+
+            });
+            var message =@json(session('message'));
+            var deleteMessage = @json(session('delete'));
+            var error = @json(session('error'));
+            var info = @json(session('info'));
+            if(message){
+                toastr.success(message,'Registro Exitoso');
+            }
+            if(deleteMessage){
+                toastr.warning(deleteMessage,'Registro Eliminado');
+            }
+            if(error){
+                toastr.error( error,'Error');
+            }
+            if(info){
+                toastr.info(info, 'Alerta' );
+            }
+            $('#perfil').click(function(){
+                console.log('perfil click');
+            });
+            $('#config').click(function(){
+                console.log('config click');
+            });
+            $('#logout').click(function(){
+                console.log('logout click');
+            });
+            @yield('script')
+        };
+    </script>
 </body>
+
 </html>
