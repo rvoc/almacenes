@@ -8,6 +8,21 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+window.spanish_lang = require('./datatable_spanish');
+window.Swal = require('sweetalert2');
+window.moment = require('moment');
+window.numeral = require('numeral');
+window.toastr = require('toastr');
+window.moment.locale('es');
+
+
+window.Chart = require('chart.js');
+
+toastr.options = {
+    "closeButton": false,
+    "progressBar": true,
+}
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -20,6 +35,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('provider-component', require('./components/ProviderEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +45,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    mounted(){
+        //loading config default
+        $('[data-toggle="tooltip"]').tooltip();
+        // var elem =document.querySelector('.js-switch');
+        // var init = new Switchery(elem,  { color: '#41b7f1',size: 'larger' });
+    }
 });

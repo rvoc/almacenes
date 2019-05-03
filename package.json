@@ -33,6 +33,7 @@
         "sweetalert2": "^8.9.0",
         "tilt.js": "^1.2.1",
         "toastr": "^2.1.4",
-        "vee-validate": "^2.2.5"
+        "vee-validate": "^2.2.5",
+        "vuetify": "^1.5.14"
     }
 }

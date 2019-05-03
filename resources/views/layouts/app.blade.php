@@ -22,7 +22,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/vuetify.css') }}" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-collapse sidebar-mini">
@@ -48,8 +47,8 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
-                @hasrole('Admin')
-                <li class="nav-item">
+
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ url('users') }}" data-toggle="tooltip" data-placement="bottom" title="Gestion de Usuarios">
                         <i class="fa fa-users"></i>
                     </a>
@@ -58,8 +57,8 @@
                     <a class="nav-link" href="{{ url('roles') }}" data-toggle="tooltip" data-placement="bottom" title="Gestion de Roles">
                         <i class="fa fa-building"></i>
                     </a>
-                </li>
-                @endhasrole
+                </li> --}}
+
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                             {{Auth::user()->getFullName()}}  <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle elevation-2"  alt="User Image">
@@ -166,17 +165,16 @@
 				   with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="{{ url('action_medium_term') }}" class="nav-link">
-                                <i class="nav-icon fas fa-calendar"></i>
+                            <a href="{{ url('provider') }}" class="nav-link">
+                                <i class="nav-icon fa fa-address-book"></i>
                                 <p>
-                                    Planificacion
+                                    Proveedores
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ url('/') }}" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
-                                {{-- <i class=" nav-icon material-icons" height="42px" width="42px"> event_note </i> --}}
                                 <p>
                                     Tareas
                                 </p>
@@ -185,7 +183,7 @@
                         <li class="nav-item">
                             <a href="{{ url('execution_specific_tasks') }}" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-day"></i>
-                                {{-- <i class=" nav-icon material-icons"> event_available </i> --}}
+
                                 <p>
                                     Tareas Especificas
                                 </p>
@@ -214,7 +212,7 @@
                                     Configuracion
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </nav>

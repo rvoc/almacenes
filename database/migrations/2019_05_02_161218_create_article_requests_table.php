@@ -20,8 +20,9 @@ class CreateArticleRequestsTable extends Migration
             $table->foreign('storage_id')->references('id')->on('storages');
             $table->integer("number_reuest")->nullable();
             $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('public._bp_usuarios');
             $table->boolean('is_approved')->default(false);
+            // falta adicionar lo de la gerencia
             $table->timestamps();
             $table->softDeletes();
         });
