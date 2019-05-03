@@ -18,6 +18,7 @@ class CreateUfvsTable extends Migration
             $table->decimal('price',8,5);
             $table->date("date");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

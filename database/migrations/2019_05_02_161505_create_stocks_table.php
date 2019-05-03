@@ -22,6 +22,7 @@ class CreateStocksTable extends Migration
             $table->integer('quantity');
             $table->decimal('cost',8,5);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -23,6 +23,7 @@ class CreateProvidersTable extends Migration
             $table->string("mother_last_name");//apellido materno
             $table->string("cellphone");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
