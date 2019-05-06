@@ -172,32 +172,32 @@
                                 </p>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a href="{{ url('/') }}" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                        <li class="nav-item">
+                            <a href="{{ url('category') }}" class="nav-link">
+                                <i class="nav-icon fa fa-boxes"></i>
                                 <p>
-                                    Tareas
+                                    Categorias
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('execution_specific_tasks') }}" class="nav-link">
-                                <i class="nav-icon fas fa-calendar-day"></i>
+                            <a href="{{ url('unit') }}" class="nav-link">
+                                <i class="nav-icon fa fa-ruler"></i>
 
                                 <p>
-                                    Tareas Especificas
+                                    Unidades
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('report') }}" class="nav-link">
-                                <i class="nav-icon fas fa-file-invoice"></i>
+                            <a href="{{ url('budge_item') }}" class="nav-link">
+                                <i class="nav-icon fas fa-archive"></i>
                                 <p>
-                                    Reportes
+                                    Partidas
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ url('chart') }}" class="nav-link">
                                 <i class="nav-icon fas fa-chart-area"></i>
                                 <p>
