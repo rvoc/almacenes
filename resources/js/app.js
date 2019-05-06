@@ -22,6 +22,7 @@ window.Chart = require('chart.js');
 toastr.options = {
     "closeButton": false,
     "progressBar": true,
+    "positionClass": "toast-bottom-right",
 }
 
 Vue.use(VeeValidate, {
@@ -47,6 +48,7 @@ Vue.component('provider-component', require('./components/ProviderEdit.vue').def
 Vue.component('unit-component', require('./components/UnitEdit.vue').default);
 Vue.component('category-component', require('./components/CategoryEdit.vue').default);
 Vue.component('budge-item-component', require('./components/BudgeItemEdit.vue').default);
+Vue.component('storage-component', require('./components/StorageEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

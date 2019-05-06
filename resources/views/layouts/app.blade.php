@@ -165,6 +165,14 @@
 				   with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
+                            <a href="{{ url('storage') }}" class="nav-link">
+                                <i class="nav-icon fa fa-store-alt"></i>
+                                <p>
+                                    Alamcenes
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ url('provider') }}" class="nav-link">
                                 <i class="nav-icon fa fa-address-book"></i>
                                 <p>

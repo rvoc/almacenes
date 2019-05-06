@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('unit', 'UnitController');
     Route::resource('category', 'CategoryController');
     Route::resource('budge_item', 'BudgeItemController');
+    Route::resource('storage', 'StorageController');
 
 });
 
