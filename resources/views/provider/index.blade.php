@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Proveedores
+    {{-- Proveedores --}}
 @endsection
 @section('breadcrums')
     {{-- {{ Breadcrumbs::render('action_medium_term') }} --}}
@@ -14,7 +14,7 @@
                 <div class="card-header card-calendar">
 
                     <h4 class="card-title ">
-                        {{$title??''}}
+                        {{$title??'Proveedores Registrados'}}
                         <small class="float-sm-right">
                             {{-- <a href="{{url('amp_report_excel')}}" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o"></i> </a>  --}}
                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ProviderModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button>
@@ -52,9 +52,9 @@
                                 <td>{{$item->last_name.' '.$item->mother_last_name }}</td>
                                 <td>{{$item->cellphone }}</td>
                                 <td>
-                                    {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a>
-                                    <a href="#" data-toggle="modal" data-target="#ActionMediumTermModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
-                                    <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a> --}}
+                                    {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
+                                    <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
+                                    <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a>
                                 </td>
 
                             </tr>
@@ -86,7 +86,7 @@
             var data = JSON.parse(this.getAttribute("data-json"));
 
             Swal.fire({
-            title: 'Esta Seguro de Eliminar '+data.code+'?',
+            title: 'Esta Seguro de Eliminar '+data.name+'?',
             text: "una vez eliminado no se podra revertir la accion!",
             type: 'warning',
             showCancelButton: true,
@@ -97,7 +97,7 @@
             }).then((result) => {
             if (result.value) {
 
-                axios.delete(`action_medium_term/${data.id}`)
+                axios.delete(`provider/${data.id}`)
                     .then(response=>{
                         console.log(response);
                         location.reload();

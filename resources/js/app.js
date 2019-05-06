@@ -6,8 +6,9 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import VeeValidate from "vee-validate";
 
+window.Vue = require('vue');
 window.spanish_lang = require('./datatable_spanish');
 window.Swal = require('sweetalert2');
 window.moment = require('moment');
@@ -23,6 +24,13 @@ toastr.options = {
     "progressBar": true,
 }
 
+Vue.use(VeeValidate, {
+    classes: true,
+    classNames: {
+        valid: "is-valid",
+        invalid: "is-invalid"
+    }
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

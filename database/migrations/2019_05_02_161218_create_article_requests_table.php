@@ -19,8 +19,8 @@ class CreateArticleRequestsTable extends Migration
             $table->integer('storage_id');
             $table->foreign('storage_id')->references('id')->on('storages');
             $table->integer("number_reuest")->nullable();
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('public._bp_usuarios');
+            $table->integer('prs_id');
+            $table->foreign('prs_id')->references('prs_id')->on('public._bp_personas');
             $table->boolean('is_approved')->default(false);
             // falta adicionar lo de la gerencia
             $table->timestamps();

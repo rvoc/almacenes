@@ -37,6 +37,23 @@ class ProviderController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has("id")){
+            $provider = Provider::find($request->id);
+        }else{
+            $provider = new Provider;
+        }
+        $provider->name = $request->name;
+        $provider->phone = $request->phone;
+        $provider->address = $request->address;
+        $provider->first_name = $request->first_name;
+        $provider->last_name = $request->last_name;
+        $provider->mother_last_name = $request->mother_last_name;
+        $provider->cellphone = $request->cellphone;
+        $provider->save();
+
+        session()->flash('message','Se registro al proveedor '.$provider->name);
+
+        return back()->withInput();
     }
 
     /**
@@ -48,6 +65,8 @@ class ProviderController extends Controller
     public function show($id)
     {
         //
+        $provider = Provider::find($id);
+        return response()->json(compact('provider'));
     }
 
     /**
@@ -59,6 +78,8 @@ class ProviderController extends Controller
     public function edit($id)
     {
         //
+
+
     }
 
     /**
@@ -82,5 +103,12 @@ class ProviderController extends Controller
     public function destroy($id)
     {
         //
+        $provider = Provider::find($id);
+        $name = $provider->name;
+        $provider->delete();
+        session()->flash('delete','se elimino el registro '.$name);
+        return $id;
+        // return response()->json(compact('provider'));
+
     }
 }
