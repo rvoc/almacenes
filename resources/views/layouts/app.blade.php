@@ -296,28 +296,10 @@
             // } );
             // console.log(spanish_lang);
             $('#lista').DataTable({
-                // responsive: {
-                //     details: {
-                //         renderer: function ( api, rowIdx, columns ) {
-                //             var data = $.map( columns, function ( col, i ) {
-                //                 return col.hidden ?
-                //                     '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-                //                         '<td> <strong>'+col.title+':'+'</strong> </td> '+
-                //                         '<td>'+col.data+'</td>'+
-                //                     '</tr>' :
-                //                     '';
-                //             } ).join('');
-                //             return data ?
-                //                 $('<table/>').append( data ) :
-                //                 false;
-                //         }
-                //     }
-                // },
                 responsive: true,
                 columnDefs: [
                     { responsivePriority: 1, targets: 0 },
                     { responsivePriority: 10002, targets: 2 },
-                    { responsivePriority: 10001, targets: 4 },
                     { responsivePriority: 2, targets: -1 }
                 ],
                 language: spanish_lang
