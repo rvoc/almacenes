@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Category;
 class CategoryController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::all();
+        return view("category.index",compact("categories"));
     }
 
     /**
@@ -35,6 +37,18 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has("id")){
+            $category = Category::find($request->id);
+        }else{
+            $category = new Category;
+        }
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+
+        session()->flash('message','Se registro la categoria '.$category->name);
+
+        return back()->withInput();
     }
 
     /**
@@ -46,6 +60,8 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
+        $category = Category::find($id);
+        return response()->json(compact('category'));
     }
 
     /**
@@ -80,5 +96,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+        $category = Category::find($id);
+        $name = $category->name;
+        $category->delete();
+        session()->flash('delete','se elimino el registro '.$name);
+        return $id;
     }
 }

@@ -45,6 +45,7 @@ Vue.use(VeeValidate, {
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('provider-component', require('./components/ProviderEdit.vue').default);
 Vue.component('unit-component', require('./components/UnitEdit.vue').default);
+Vue.component('category-component', require('./components/CategoryEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
