@@ -101,7 +101,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar elevation-4 sidebar-dark-primary">
+        <aside class="main-sidebar elevation-4 sidebar-dark-success">
             <!-- Brand Logo -->
             <a href="#" class="brand-link ">
                 <img src="{!!url('/img/logo_eba_blanck.png')!!}" alt="Eba Logo" class="brand-image " style="opacity: .8; margin-left: 0.2rem">
@@ -160,12 +160,12 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
 				   with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="{{ url('storage') }}" class="nav-link">
+                            <a href="{{ url('storage') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
                                 <i class="nav-icon fa fa-store-alt"></i>
                                 <p>
                                     Alamcenes
@@ -173,7 +173,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('provider') }}" class="nav-link">
+                            <a href="{{ url('provider') }}" class="nav-link {{ Navigation::isActiveRoute('provider.index') }}">
                                 <i class="nav-icon fa fa-address-book"></i>
                                 <p>
                                     Proveedores
@@ -181,7 +181,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('category') }}" class="nav-link">
+                            <a href="{{ url('category') }}" class="nav-link {{ Navigation::isActiveRoute('category.index') }}">
                                 <i class="nav-icon fa fa-boxes"></i>
                                 <p>
                                     Categorias
@@ -189,7 +189,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('unit') }}" class="nav-link">
+                            <a href="{{ url('unit') }}" class="nav-link {{ Navigation::isActiveRoute('unit.index') }}">
                                 <i class="nav-icon fa fa-ruler"></i>
 
                                 <p>
@@ -198,7 +198,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('budge_item') }}" class="nav-link">
+                            <a href="{{ url('budge_item') }}" class="nav-link {{ Navigation::isActiveRoute('budge_item.index') }}">
                                 <i class="nav-icon fas fa-archive"></i>
                                 <p>
                                     Partidas

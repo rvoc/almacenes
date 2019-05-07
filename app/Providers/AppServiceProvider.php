@@ -24,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        require_once __DIR__ . '/../Http/Helpers/Navigation.php';
     }
 }
