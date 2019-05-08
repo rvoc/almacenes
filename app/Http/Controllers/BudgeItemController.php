@@ -19,6 +19,11 @@ class BudgeItemController extends Controller
         return view("budge_item.index",compact("budge_items"));
     }
 
+    public function getData()
+    {
+        $budge_items = BudgetItem::all();
+        return $budge_items;
+    }
     /**
      * Show the form for creating a new resource.
      *

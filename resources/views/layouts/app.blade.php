@@ -172,15 +172,63 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ url('provider') }}" class="nav-link {{ Navigation::isActiveRoute('provider.index') }}">
-                                <i class="nav-icon fa fa-address-book"></i>
+                        <li class="nav-item has-treeview menu-close">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-window-restore"></i>
                                 <p>
-                                    Proveedores
+                                    Datos
+                                    <i class="right fa fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('provider') }}" class="nav-link {{ Navigation::isActiveRoute('provider.index') }}">
+                                        <i class="fa fa-address-book nav-icon"></i>
+                                        <p>Proveedores</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('category') }}" class="nav-link {{ Navigation::isActiveRoute('category.index') }}">
+                                        <i class="fa fa-boxes nav-icon"></i>
+                                        <p>Categorias</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('unit') }}" class="nav-link {{ Navigation::isActiveRoute('unit.index') }}">
+                                        <i class="fa fa-ruler nav-icon"></i>
+                                        <p>Unidades</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('budge_item') }}" class="nav-link {{ Navigation::isActiveRoute('budge_item.index') }}">
+                                        <i class="fas fa-archive nav-icon"></i>
+                                        <p>Partidas</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item has-treeview menu-close">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-box"></i>
+                                <p>
+                                    Articulos
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @foreach ( Auth::user()->getStorages() as $item)
+
+                                <li class="nav-item">
+                                    <a href="{{ url('articles/'.$item->id) }}" class="nav-link">
+                                        <i class="fa fa-store-alt nav-icon"></i>
+                                        <p>{{$item->name}}</p>
+                                    </a>
+                                </li>
+                                @endforeach
+
+                            </ul>
+                        </li>
+                        {{-- <li class="nav-item">
                             <a href="{{ url('category') }}" class="nav-link {{ Navigation::isActiveRoute('category.index') }}">
                                 <i class="nav-icon fa fa-boxes"></i>
                                 <p>
@@ -204,7 +252,7 @@
                                     Partidas
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item">
                             <a href="{{ url('chart') }}" class="nav-link">
                                 <i class="nav-icon fas fa-chart-area"></i>

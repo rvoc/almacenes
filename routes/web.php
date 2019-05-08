@@ -25,6 +25,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('category', 'CategoryController');
     Route::resource('budge_item', 'BudgeItemController');
     Route::resource('storage', 'StorageController');
+    Route::resource('article', 'ArticleController');
+
+    Route::get('articles/{storage_id}','ArticleController@storage_article');
+
+    //array data from model
+
+    Route::get('list_categories','CategoryController@getData');
+    Route::get('list_units','UnitController@getData');
+    Route::get('list_budget_items','BudgeItemController@getData');
+    Route::get('list_providers','ProviderController@getData');
+
+
+
 
 });
 

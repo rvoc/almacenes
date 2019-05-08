@@ -7,6 +7,7 @@
 require('./bootstrap');
 
 import VeeValidate from "vee-validate";
+import Multiselect from 'vue-multiselect';
 
 window.Vue = require('vue');
 window.spanish_lang = require('./datatable_spanish');
@@ -42,6 +43,7 @@ Vue.use(VeeValidate, {
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.component('multiselect', Multiselect)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('provider-component', require('./components/ProviderEdit.vue').default);
@@ -49,6 +51,7 @@ Vue.component('unit-component', require('./components/UnitEdit.vue').default);
 Vue.component('category-component', require('./components/CategoryEdit.vue').default);
 Vue.component('budge-item-component', require('./components/BudgeItemEdit.vue').default);
 Vue.component('storage-component', require('./components/StorageEdit.vue').default);
+Vue.component('article-component', require('./components/ArticleEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

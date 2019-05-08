@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Provider;
-class ProviderController extends Controller
+use App\Storage;
+use App\Article;
+
+class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +16,12 @@ class ProviderController extends Controller
     public function index()
     {
         //
-        $providers = Provider::all();
-        return view('provider.index',compact('providers'));
     }
 
-    public function getData(){
-        $providers = Provider::all();
-        return $providers;
+    public function storage_article($storage_id){
+        $storage = Storage::find($storage_id);
+        $articles = Article::where('storage_id',$storage_id)->get();
+        return view('article.index',compact('articles','storage'));
     }
 
     /**
@@ -42,23 +43,6 @@ class ProviderController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->has("id")){
-            $provider = Provider::find($request->id);
-        }else{
-            $provider = new Provider;
-        }
-        $provider->name = $request->name;
-        $provider->phone = $request->phone;
-        $provider->address = $request->address;
-        $provider->first_name = $request->first_name;
-        $provider->last_name = $request->last_name;
-        $provider->mother_last_name = $request->mother_last_name;
-        $provider->cellphone = $request->cellphone;
-        $provider->save();
-
-        session()->flash('message','Se registro al proveedor '.$provider->name);
-
-        return back()->withInput();
     }
 
     /**
@@ -70,8 +54,6 @@ class ProviderController extends Controller
     public function show($id)
     {
         //
-        $provider = Provider::find($id);
-        return response()->json(compact('provider'));
     }
 
     /**
@@ -83,8 +65,6 @@ class ProviderController extends Controller
     public function edit($id)
     {
         //
-
-
     }
 
     /**
@@ -108,12 +88,5 @@ class ProviderController extends Controller
     public function destroy($id)
     {
         //
-        $provider = Provider::find($id);
-        $name = $provider->name;
-        $provider->delete();
-        session()->flash('delete','se elimino el registro '.$name);
-        return $id;
-        // return response()->json(compact('provider'));
-
     }
 }

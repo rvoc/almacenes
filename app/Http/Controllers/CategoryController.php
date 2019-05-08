@@ -18,6 +18,12 @@ class CategoryController extends Controller
         return view("category.index",compact("categories"));
     }
 
+    public function getData()
+    {
+        $categories = Category::all();
+        return $categories;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

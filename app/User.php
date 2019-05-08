@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\DB;
+use App\Article;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -55,4 +56,17 @@ class User extends Authenticatable
                 ->first();
         return $person->prs_nombres.' '.$person->prs_paterno.' '.$person->prs_materno;
     }
+
+    public function getArticles()
+    {
+        $articles = Article::all();//validar de acuerdo a tabla de user_storage
+        return $articles;
+    }
+
+    public function getStorages(){
+        $storages = Storage::all();
+        return $storages;
+    }
+
+
 }

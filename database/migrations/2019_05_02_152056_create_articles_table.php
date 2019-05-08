@@ -23,6 +23,10 @@ class CreateArticlesTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->integer('unit_id');
             $table->foreign('unit_id')->references('id')->on('units');
+            $table->integer('storage_id');
+            $table->foreign('storage_id')->references('id')->on('storages');
+            $table->integer('provider_id');
+            $table->foreign('provider_id')->references('id')->on('providers');
             $table->timestamps();
             $table->softDeletes();
 
