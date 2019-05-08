@@ -19,6 +19,10 @@ class StorageController extends Controller
         return view("storage.index",compact("storages"));
     }
 
+    public function getData(){
+        $storages = Storage::all();
+        return $storages;
+    }
     /**
      * Show the form for creating a new resource.
      *

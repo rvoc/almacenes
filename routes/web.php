@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('list_units','UnitController@getData');
     Route::get('list_budget_items','BudgeItemController@getData');
     Route::get('list_providers','ProviderController@getData');
+    Route::get('list_storages','StorageController@getData');
 
 
 

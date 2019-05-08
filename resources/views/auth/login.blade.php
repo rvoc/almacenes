@@ -9,9 +9,9 @@
         </span>
         <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
             {{-- <input class="input100" type="text" name="email" placeholder="Usuario"> --}}
-            <input id="username" type="text" class="input100" name="username" value="{{ old('username') }}" required autofocus>
+            <input id="usr_usuario" type="text" class="input100" name="usr_usuario" value="{{ old('usr_usuario') }}" required autofocus>
 
-            {{-- @if ($errors->has('username'))
+            {{-- @if ($errors->has('usr_usuario'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('email') }}</strong>
                 </span>

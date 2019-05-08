@@ -26,18 +26,16 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Id.</th>
-                                <th>Nombre</th>
-                                <th>abreviatura</th>
+                                <th>Codigo</th>
+                                <th>Description</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($articles as $item)
                             <tr>
-                                <td>{{$item->id}}</td>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->short_name}}</td>
+                                <td>{{$item->code}}</td>
+                                <td>{{$item->description}}</td>
 
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
@@ -58,7 +56,7 @@
         </div>
 
         {{-- aqui los modals --}}
-        <article-component url='{{url('category')}}' csrf='{!! csrf_field('POST') !!}'></article-component>
+        <article-component url='{{url('article')}}' csrf='{!! csrf_field('POST') !!}' :storage="{{$storage}}"></article-component>
 
 
     </div>

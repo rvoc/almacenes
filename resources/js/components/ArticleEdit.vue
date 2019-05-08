@@ -59,7 +59,7 @@
 									</multiselect>
 									<div class="invalid-feedback">{{ errors.first("categoria") }}</div>
 								</div>
-                                <div class="form-group  col-md-6">
+                                <div class="form-group  col-md-8">
 									<label for="proveedor">Proveedor</label>
 									<multiselect
 										v-model="form.provider"
@@ -75,11 +75,11 @@
 									</multiselect>
 									<div class="invalid-feedback">{{ errors.first("proveedor") }}</div>
 								</div>
-                                <div class="form-group col-md-8">
+                                <!-- <div class="form-group col-md-8">
                                     <label for="lbdescription">Descripcion</label>
                                     <input type="text" class="form-control" id="description" name="description" v-model="form.description" placeholder="Descripcion" v-validate="'required'">
                                     <div class="invalid-feedback">{{ errors.first("description") }}</div>
-                                </div>
+                                </div> -->
                                 <div class="form-group  col-md-4">
 									<label for="unidad">Unidad</label>
 									<multiselect
@@ -112,7 +112,7 @@
 </template>
 <script>
 export default {
-    props:['url','csrf'],
+    props:['url','csrf','storage'],
     data:()=>({
         form:{},
         budget_items:[],
@@ -145,6 +145,11 @@ export default {
                  this.providers = response.data;
                  console.log(response.data)
              });
+        // axios.get('../list_storages')
+        //      .then(response => {
+        //          this.storages = response.data;
+        //          console.log(response.data)
+        //      });
 
 
 

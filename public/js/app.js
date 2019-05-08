@@ -2741,7 +2741,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url', 'csrf'],
+  props: ['url', 'csrf', 'storage'],
   data: function data() {
     return {
       form: {},
@@ -2771,7 +2771,12 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('../list_providers').then(function (response) {
       _this.providers = response.data;
       console.log(response.data);
-    });
+    }); // axios.get('../list_storages')
+    //      .then(response => {
+    //          this.storages = response.data;
+    //          console.log(response.data)
+    //      });
+
     $('#ArticleModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); // Button that triggered the modal
 
@@ -106006,7 +106011,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "form-group  col-md-6" },
+                        { staticClass: "form-group  col-md-8" },
                         [
                           _c("label", { attrs: { for: "proveedor" } }, [
                             _vm._v("Proveedor")
@@ -106038,53 +106043,6 @@ var render = function() {
                         ],
                         1
                       ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-8" }, [
-                        _c("label", { attrs: { for: "lbdescription" } }, [
-                          _vm._v("Descripcion")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.description,
-                              expression: "form.description"
-                            },
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "description",
-                            name: "description",
-                            placeholder: "Descripcion"
-                          },
-                          domProps: { value: _vm.form.description },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "description",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "invalid-feedback" }, [
-                          _vm._v(_vm._s(_vm.errors.first("description")))
-                        ])
-                      ]),
                       _vm._v(" "),
                       _c(
                         "div",

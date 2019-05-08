@@ -15,7 +15,8 @@ class User extends Authenticatable
 
     // protected $connection = 'public';
     protected $guard_name = 'web';
-    protected $table = 'public._bp_usuarios';
+    protected $table = 'siscor._bp_usuarios';
+    protected $primaryKey = "usr_id";
     /**
      * The attributes that are mass assignable.
      *
@@ -44,14 +45,14 @@ class User extends Authenticatable
     ];
 
     public function person(){
-        $person = DB::table('public._bp_personas')
+        $person = DB::table('siscor._bp_personas')
                 ->where('prs_id','=',$this->usr_prs_id)
                 ->first();
         return $person;
     }
 
     public function getFullName(){
-        $person = DB::table('public._bp_personas')
+        $person = DB::table('siscor._bp_personas')
                 ->where('prs_id','=',$this->usr_prs_id)
                 ->first();
         return $person->prs_nombres.' '.$person->prs_paterno.' '.$person->prs_materno;
