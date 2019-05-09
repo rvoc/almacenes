@@ -2740,8 +2740,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url', 'csrf', 'storage'],
+  props: ['url', 'csrf'],
   data: function data() {
     return {
       form: {},
@@ -2780,21 +2783,21 @@ __webpack_require__.r(__webpack_exports__);
     $('#ArticleModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); // Button that triggered the modal
 
-      var Article = button.data('json'); // Extract info from data-* attributes
+      var article = button.data('json'); // Extract info from data-* attributes
 
       _this.title = 'Nueva Articulo ';
 
-      if (Article) {
-        _this.title = 'Editar ' + Article.name;
-        axios.get("Article/".concat(Article.id)).then(function (response) {
-          _this.form = response.data.Article;
+      if (article) {
+        _this.title = 'Editar ' + article.name;
+        axios.get("article/".concat(article.id)).then(function (response) {
+          _this.form = response.data.article;
           console.log(_this.form);
-        }); // this.form = Article;
+        }); // this.form = article;
       } else {
         _this.form = {};
       }
 
-      console.log(Article);
+      console.log(article);
     });
   },
   methods: {
@@ -105831,27 +105834,6 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.storage.id,
-                          expression: "storage.id"
-                        }
-                      ],
-                      attrs: { type: "text", name: "storage_id", hidden: "" },
-                      domProps: { value: _vm.storage.id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.storage, "id", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "form-group col-md-8" }, [
                         _c("label", { attrs: { for: "lbname" } }, [
@@ -105943,6 +105925,17 @@ var render = function() {
                         "div",
                         { staticClass: "form-group  col-md-6" },
                         [
+                          _vm.form.budget_item
+                            ? _c("input", {
+                                attrs: {
+                                  type: "text",
+                                  name: "budget_item_id",
+                                  hidden: ""
+                                },
+                                domProps: { value: _vm.form.budget_item.id }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("label", { attrs: { for: "partida" } }, [
                             _vm._v("Partida")
                           ]),
@@ -105978,6 +105971,17 @@ var render = function() {
                         "div",
                         { staticClass: "form-group  col-md-6" },
                         [
+                          _vm.form.category
+                            ? _c("input", {
+                                attrs: {
+                                  type: "text",
+                                  name: "category_id",
+                                  hidden: ""
+                                },
+                                domProps: { value: _vm.form.category.id }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("label", { attrs: { for: "categoria" } }, [
                             _vm._v("Categoria")
                           ]),
@@ -106013,6 +106017,17 @@ var render = function() {
                         "div",
                         { staticClass: "form-group  col-md-8" },
                         [
+                          _vm.form.provider
+                            ? _c("input", {
+                                attrs: {
+                                  type: "text",
+                                  name: "provider_id",
+                                  hidden: ""
+                                },
+                                domProps: { value: _vm.form.provider.id }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("label", { attrs: { for: "proveedor" } }, [
                             _vm._v("Proveedor")
                           ]),
@@ -106048,6 +106063,17 @@ var render = function() {
                         "div",
                         { staticClass: "form-group  col-md-4" },
                         [
+                          _vm.form.unit
+                            ? _c("input", {
+                                attrs: {
+                                  type: "text",
+                                  name: "unit_id",
+                                  hidden: ""
+                                },
+                                domProps: { value: _vm.form.unit.id }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("label", { attrs: { for: "unidad" } }, [
                             _vm._v("Unidad")
                           ]),

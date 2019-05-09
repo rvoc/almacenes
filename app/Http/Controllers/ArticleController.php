@@ -16,6 +16,8 @@ class ArticleController extends Controller
     public function index()
     {
         //
+        $articles = Article::withTrashed()->get();
+        return view('article.index',compact('articles'));
     }
 
     public function storage_article($storage_id){
@@ -43,7 +45,23 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
-        return $request->all();
+        //return $request->all();
+        if($request->has("id")){
+            $article = Article::find($request->id);
+        }else{
+            $article = new Article;
+        }
+        $article->name = $request->name;
+        $article->code = $request->code;
+        $article->budget_item_id = $request->budget_item_id;
+        $article->category_id = $request->category_id;
+        $article->provider_id = $request->provider_id;
+        $article->unit_id = $request->unit_id;
+        $article->save();
+
+        session()->flash('message','Se registro el Articulo '.$article->name);
+
+        return back()->withInput();
         // $article = new Article;
         // $article->
     }
@@ -57,6 +75,8 @@ class ArticleController extends Controller
     public function show($id)
     {
         //
+        $article = Article::with('unit','category','budget_item','provider')->find($id);
+        return response()->json(compact('article'));
     }
 
     /**
@@ -68,6 +88,11 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
+        $article = Article::withTrashed()->find($id);
+        $article->deleted_at = null;
+        $article->save();
+        session()->flash('message','se Activo el articulo '.$article->name);
+        return $id;
     }
 
     /**
@@ -91,5 +116,10 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+        $article = Article::find($id);
+        $name = $article->name;
+        $article->delete();
+        session()->flash('delete','se Inactivo el articulo '.$name);
+        return $id;
     }
 }

@@ -14,7 +14,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-							<input type="text" name="storage_id" v-model="storage.id" hidden>
 
 							<div class="row">
                                 <div class="form-group col-md-8">
@@ -28,6 +27,7 @@
                                     <div class="invalid-feedback">{{ errors.first("code") }}</div>
                                 </div>
                                 <div class="form-group  col-md-6">
+                                    <input type="text" name="budget_item_id" v-if="form.budget_item" :value="form.budget_item.id" hidden>
 									<label for="partida">Partida</label>
 									<multiselect
 										v-model="form.budget_item"
@@ -44,6 +44,7 @@
 									<div class="invalid-feedback">{{ errors.first("partida") }}</div>
 								</div>
                                 <div class="form-group  col-md-6">
+                                    <input type="text" name="category_id" v-if="form.category" :value="form.category.id" hidden>
 									<label for="categoria">Categoria</label>
 									<multiselect
 										v-model="form.category"
@@ -60,6 +61,7 @@
 									<div class="invalid-feedback">{{ errors.first("categoria") }}</div>
 								</div>
                                 <div class="form-group  col-md-8">
+                                    <input type="text" name="provider_id" v-if="form.provider" :value="form.provider.id" hidden>
 									<label for="proveedor">Proveedor</label>
 									<multiselect
 										v-model="form.provider"
@@ -81,6 +83,7 @@
                                     <div class="invalid-feedback">{{ errors.first("description") }}</div>
                                 </div> -->
                                 <div class="form-group  col-md-4">
+                                    <input type="text" name="unit_id" v-if="form.unit" :value="form.unit.id" hidden>
 									<label for="unidad">Unidad</label>
 									<multiselect
 										v-model="form.unit"
@@ -112,7 +115,7 @@
 </template>
 <script>
 export default {
-    props:['url','csrf','storage'],
+    props:['url','csrf'],
     data:()=>({
         form:{},
         budget_items:[],
@@ -156,24 +159,24 @@ export default {
 
         $('#ArticleModal').on('show.bs.modal',(event)=> {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var Article = button.data('json') // Extract info from data-* attributes
+            var article = button.data('json') // Extract info from data-* attributes
             this.title ='Nueva Articulo ';
-            if(Article)
+            if(article)
             {
-                this.title='Editar '+Article.name;
+                this.title='Editar '+article.name;
 
-                axios.get(`Article/${Article.id}`).then(response=>{
-                        this.form = response.data.Article;
+                axios.get(`article/${article.id}`).then(response=>{
+                        this.form = response.data.article;
                         console.log(this.form);
                 });
 
-                // this.form = Article;
+                // this.form = article;
             }else
             {
                 this.form={};
 
             }
-            console.log(Article);
+            console.log(article);
 
         })
 	},

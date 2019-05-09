@@ -16,14 +16,19 @@ class Article extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function budge_item()
+    public function budget_item()
     {
-        return $this->belongsTo("App\BudgeItem");
+        return $this->belongsTo("App\BudgetItem");
     }
 
     public function unit()
     {
         return $this->belongsTo("App\Unit");
+    }
+
+    public function provider()
+    {
+        return $this->belongsTo("App\Provider");
     }
 
 }

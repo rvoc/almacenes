@@ -164,14 +164,7 @@
                         <!-- Add icons to the links using the .nav-icon class
 				   with font-awesome or any other icon font library -->
 
-                        <li class="nav-item">
-                            <a href="{{ url('storage') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
-                                <i class="nav-icon fa fa-store-alt"></i>
-                                <p>
-                                    Alamcenes
-                                </p>
-                            </a>
-                        </li>
+
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-window-restore"></i>
@@ -205,13 +198,25 @@
                                         <p>Partidas</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('article') }}" class="nav-link {{ Navigation::isActiveRoute('budge_item.index') }}">
+                                        <i class="fas fa-box nav-icon"></i>
+                                        <p>Articulos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('storage') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
+                                        <i class="nav-icon fa fa-store-alt"></i>
+                                        <p>Alamcenes</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fa fa-box"></i>
+                                <i class="nav-icon fa fa-cubes"></i>
                                 <p>
-                                    Articulos
+                                    Stock
                                     <i class="right fa fa-angle-left"></i>
                                 </p>
                             </a>
