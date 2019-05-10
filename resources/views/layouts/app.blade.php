@@ -53,15 +53,16 @@
                         <i class="fa fa-users"></i>
                     </a>
                 </li>
+                 --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('roles') }}" data-toggle="tooltip" data-placement="bottom" title="Gestion de Roles">
-                        <i class="fa fa-building"></i>
+                    <a class="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="Almacen">
+                        <i class="fa fa-store-alt"></i> {{Auth::user()->getStorage()->name}}
                     </a>
-                </li> --}}
+                </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                            {{Auth::user()->getFullName()}}  <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle elevation-2"  alt="User Image">
+                            <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle elevation-2"  alt="User Image"> {{Auth::user()->usr_usuario}}
                     </a>
                     {{-- <div > --}}
                         {{-- <span class="dropdown-item dropdown-header">15 Notifications</span> --}}
@@ -164,6 +165,26 @@
                         <!-- Add icons to the links using the .nav-icon class
 				   with font-awesome or any other icon font library -->
 
+                        <li class="nav-item">
+                            <a href="{{ url('home') }}" class="nav-link {{ Navigation::isActiveRoute('home') }}">
+                                <i class="nav-icon fa fa-tachometer-alt"></i>
+                                <p>Inicio</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ url('article') }}" class="nav-link {{ Navigation::isActiveRoute('article.index') }}">
+                                <i class="nav-icon fa fa-box"></i>
+                                <p>Articulos</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ url('stock') }}" class="nav-link {{ Navigation::isActiveRoute('stock.index') }}">
+                                <i class="nav-icon fa fa-cubes"></i>
+                                <p>Stock</p>
+                            </a>
+                        </li>
 
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
@@ -213,7 +234,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview menu-close">
+                        {{-- <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-cubes"></i>
                                 <p>
@@ -233,7 +254,8 @@
                                 @endforeach
 
                             </ul>
-                        </li>
+                        </li> --}}
+
                         {{-- <li class="nav-item">
                             <a href="{{ url('category') }}" class="nav-link {{ Navigation::isActiveRoute('category.index') }}">
                                 <i class="nav-icon fa fa-boxes"></i>

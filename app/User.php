@@ -69,5 +69,10 @@ class User extends Authenticatable
         return $storages;
     }
 
+    public function getStorage(){
+        $storage = Storage::find(session('storage_id'));
+        return $storage;
+    }
+
 
 }
