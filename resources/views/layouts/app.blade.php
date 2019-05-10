@@ -175,6 +175,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="{{ url('storage') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
+                                        <i class="nav-icon fa fa-store-alt"></i>
+                                        <p>Alamcenes</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ url('provider') }}" class="nav-link {{ Navigation::isActiveRoute('provider.index') }}">
                                         <i class="fa fa-address-book nav-icon"></i>
                                         <p>Proveedores</p>
@@ -204,12 +210,7 @@
                                         <p>Articulos</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('storage') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
-                                        <i class="nav-icon fa fa-store-alt"></i>
-                                        <p>Alamcenes</p>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
                         <li class="nav-item has-treeview menu-close">

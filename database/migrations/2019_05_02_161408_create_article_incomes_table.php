@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStocksTable extends Migration
+class CreateArticleIncomesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateStocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('article_incomes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('article_id');
-            $table->foreign('article_id')->references('id')->on('articles');
             $table->integer('storage_id');
             $table->foreign('storage_id')->references('id')->on('storages');
-            $table->integer('article_income_item_id');
-            $table->foreign('article_income_item_id')->references('id')->on('article_income_items');
-            $table->integer('quantity');
-            $table->decimal('cost',8,5);
+            $table->string('path_invoice')->nullable();
+            $table->string('remision_number')->nullable();
+            $table->date('date');
+            $table->enum('type', ['Ingreso', 'Traspaso' ,'Reingreso']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -35,6 +32,6 @@ class CreateStocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('article_incomes');
     }
 }

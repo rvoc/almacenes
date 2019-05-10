@@ -2739,10 +2739,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'csrf'],
   data: function data() {
@@ -106008,52 +106004,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "invalid-feedback" }, [
                             _vm._v(_vm._s(_vm.errors.first("categoria")))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "form-group  col-md-8" },
-                        [
-                          _vm.form.provider
-                            ? _c("input", {
-                                attrs: {
-                                  type: "text",
-                                  name: "provider_id",
-                                  hidden: ""
-                                },
-                                domProps: { value: _vm.form.provider.id }
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("label", { attrs: { for: "proveedor" } }, [
-                            _vm._v("Proveedor")
-                          ]),
-                          _vm._v(" "),
-                          _c("multiselect", {
-                            attrs: {
-                              options: _vm.providers,
-                              id: "proveedor",
-                              placeholder: "Seleccionar Proveedor",
-                              "select-label": "Seleccionar",
-                              "deselect-label": "Remover",
-                              "selected-label": "Seleccionado",
-                              label: "name",
-                              "track-by": "name"
-                            },
-                            model: {
-                              value: _vm.form.provider,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "provider", $$v)
-                              },
-                              expression: "form.provider"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(_vm._s(_vm.errors.first("proveedor")))
                           ])
                         ],
                         1

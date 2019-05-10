@@ -26,9 +26,9 @@ class Article extends Model
         return $this->belongsTo("App\Unit");
     }
 
-    public function provider()
-    {
-        return $this->belongsTo("App\Provider");
-    }
+    // public function provider()
+    // {
+    //     return $this->belongsTo("App\Provider");
+    // }
 
 }

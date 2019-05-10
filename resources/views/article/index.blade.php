@@ -31,7 +31,6 @@
                                 <th>Cantidad</th>
                                 <th>Unidad</th>
                                 <th>Categoria</th>
-                                <th>Proveedor</th>
                                 <th>Partida</th>
                                 <th>Estado</th>
 
@@ -46,7 +45,6 @@
                                 <td>0</td>
                                 <td>{{$item->unit->name}}</td>
                                 <td>{{$item->category->name}}</td>
-                                <td>{{$item->provider->name}}</td>
                                 <td>{{$item->budget_item->name}}</td>
                                 <td>{{$item->deleted_at?'Inactivo':'Activo'}}</td>
                                 <td>

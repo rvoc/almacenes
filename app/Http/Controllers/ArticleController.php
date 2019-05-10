@@ -55,7 +55,7 @@ class ArticleController extends Controller
         $article->code = $request->code;
         $article->budget_item_id = $request->budget_item_id;
         $article->category_id = $request->category_id;
-        $article->provider_id = $request->provider_id;
+        // $article->provider_id = $request->provider_id;
         $article->unit_id = $request->unit_id;
         $article->save();
 
@@ -75,7 +75,7 @@ class ArticleController extends Controller
     public function show($id)
     {
         //
-        $article = Article::with('unit','category','budget_item','provider')->find($id);
+        $article = Article::with('unit','category','budget_item')->find($id);
         return response()->json(compact('article'));
     }
 

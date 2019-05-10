@@ -60,7 +60,7 @@
 									</multiselect>
 									<div class="invalid-feedback">{{ errors.first("categoria") }}</div>
 								</div>
-                                <div class="form-group  col-md-8">
+                                <!-- <div class="form-group  col-md-8">
                                     <input type="text" name="provider_id" v-if="form.provider" :value="form.provider.id" hidden>
 									<label for="proveedor">Proveedor</label>
 									<multiselect
@@ -76,12 +76,8 @@
 
 									</multiselect>
 									<div class="invalid-feedback">{{ errors.first("proveedor") }}</div>
-								</div>
-                                <!-- <div class="form-group col-md-8">
-                                    <label for="lbdescription">Descripcion</label>
-                                    <input type="text" class="form-control" id="description" name="description" v-model="form.description" placeholder="Descripcion" v-validate="'required'">
-                                    <div class="invalid-feedback">{{ errors.first("description") }}</div>
-                                </div> -->
+								</div> -->
+
                                 <div class="form-group  col-md-4">
                                     <input type="text" name="unit_id" v-if="form.unit" :value="form.unit.id" hidden>
 									<label for="unidad">Unidad</label>
