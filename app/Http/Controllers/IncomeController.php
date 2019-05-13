@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Storage;
-use App\Income;
+use App\Article;
+use App\Provider;
+use App\ArticleIncome;
+use Illuminate\Support\Facades\Auth;
+
 class IncomeController extends Controller
 {
     /**
@@ -15,6 +19,9 @@ class IncomeController extends Controller
     public function index()
     {
         //
+        $incomes = ArticleIncome::where('storage_id',Auth::user()->getStorage()->id)->get();
+        return view('income.index',compact('incomes'));
+
     }
 
     // public function storage_article($storage_id){
@@ -31,6 +38,9 @@ class IncomeController extends Controller
     public function create()
     {
         //
+        $articles = Article::with('budget_item')->get();
+        $providers = Provider::all();
+        return view('income.create',compact('articles','providers'));
     }
 
     /**

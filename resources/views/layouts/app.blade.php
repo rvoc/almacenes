@@ -186,6 +186,13 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ url('income') }}" class="nav-link {{ Navigation::isActiveRoute('income.index') }}">
+                                <i class="nav-icon fa fa-parachute-box"></i>
+                                <p>Ingresos</p>
+                            </a>
+                        </li>
+
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-window-restore"></i>

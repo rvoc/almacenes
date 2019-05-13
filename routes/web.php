@@ -11,13 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('provider', 'ProviderController');
@@ -26,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('budge_item', 'BudgeItemController');
     Route::resource('storage', 'StorageController');
     Route::resource('article', 'ArticleController');
+    Route::resource('income', 'IncomeController');
 
     Route::get('articles/{storage_id}','ArticleController@storage_article');
 

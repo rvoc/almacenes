@@ -52,6 +52,7 @@ Vue.component('category-component', require('./components/CategoryEdit.vue').def
 Vue.component('budge-item-component', require('./components/BudgeItemEdit.vue').default);
 Vue.component('storage-component', require('./components/StorageEdit.vue').default);
 Vue.component('article-component', require('./components/ArticleEdit.vue').default);
+Vue.component('income-component', require('./components/IncomeCreate.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
