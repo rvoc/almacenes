@@ -24,7 +24,7 @@ class CreateArticleIncomesTable extends Migration
             $table->string('path_invoice')->nullable();
             $table->string('dependence')->nullable();
             $table->string('remision_number')->nullable();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->enum('type', ['Ingreso', 'Traspaso' ,'Reingreso']);
             $table->timestamps();
         });

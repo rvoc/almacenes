@@ -27,7 +27,7 @@
 
 
                         <template slot="option" slot-scope="props">
-                        <button class="btn btn-primary" @click="addIncome(props.row)"><i class='fa fa-cart-plus'></i></button>
+                        <button class="btn btn-info" @click="addIncome(props.row)"><i class='fa fa-cart-plus'></i></button>
 
 
                             <!-- <v-icon @click="getDetail(props)" data-toggle="modal" data-target="#taskModalDetail"
@@ -51,7 +51,7 @@
 
                      Ingresos Pendientes
                       <small class="float-sm-right">
-                           <button class="btn btn-success" ><i class="fa fa-shopping-cart"></i> Registrar  </button>
+                           <button class="btn btn-success" data-toggle="modal" data-target="#registerModal" ><i class="fa fa-shopping-cart"></i> Registrar  </button>
                            <button class="btn btn-default" ><i class="fa fa-ban"></i> Cancelar  </button>
                         </small>
                 </div>
@@ -74,14 +74,130 @@
                             <td>{{item.cost}}</td>
                             <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td>
                             </tr>
-
+                            <tr >
+                                <td colspan="2" class="text-right " > <strong>TOTAL:</strong> </td>
+                                <td>{{getTotalQuantity}}</td>
+                                <td>{{getTotalCost}}</td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-    </div>
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form enctype="multipart/form-data" id='formCategory' method="post" :action="url" @submit.prevent="validateBeforeSubmit">
+                    <div v-html='csrf'></div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModalLabel">Datos de Ingreso</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <legend>Datos de Ingreso</legend> -->
+
+                        <div class="row">
+                            <div class="form-group  col-md-6">
+                                <input type="text" name="provider_id" v-if="form.provider" :value="form.provider.id" hidden>
+                                <label for="proveedor">Proveedor</label>
+                                <multiselect
+                                    v-model="form.provider"
+                                    :options="providers"
+                                    id="proveedor"
+                                    placeholder="Seleccionar Proveedor"
+                                    select-label="Seleccionar"
+                                    deselect-label="Remover"
+                                    selected-label="Seleccionado"
+                                    label="name"
+                                    track-by="name" >
+                                </multiselect>
+                                <div class="invalid-feedback">{{ errors.first("proveedor") }}</div>
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <input type="text" name="type" v-if="form.type" :value="form.type.name" hidden>
+                                <label for="tipo">Tipo</label>
+                                <multiselect
+                                    v-model="form.type"
+                                    :options="types"
+                                    id="tipo"
+                                    placeholder="Seleccionar tipo"
+                                    select-label="Seleccionar"
+                                    deselect-label="Remover"
+                                    selected-label="Seleccionado"
+                                    label="name"
+                                    track-by="name" >
+                                </multiselect>
+                                <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group  col-md-6">
+                                <!-- <input type="text" name="provider_id" v-if="form.provider" :value="form.provider.id" hidden> -->
+                                <label for="tipo">Factura</label>
+                                <div class="input-group ">
+                                    <div >
+                                        <input type="file"  name="path_invoice" @change="onFileChange" >
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
+                            </div>
+                            <div class="form-group  col-md-3" v-if="hasFile">
+                                <label for="tipo">Nota Remision</label>
+                                    <input type="text" name="remision_number" class="form-control" v-model="form.remision_number">
+                                <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
+                            </div>
+                            <div class="form-group  col-md-3" v-if="hasFile">
+                                <label for="tipo">Fecha</label>
+                                    <input type="text" name="date" class="form-control" v-model="form.date">
+                                <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
+                            </div>
+                            <input type="text" name="articles" :value="JSON.stringify(incomes)">
+                        </div>
+                        <h5>Detalle de Ingreso</h5>
+
+                        <div class="row">
+                            <table class="table  table-bordered">
+                                <thead>
+                                    <tr class="bg-gray">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Articulo</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Costo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item,index) in incomes" :key="index">
+                                        <th scope="row">{{index+1}}</th>
+                                        <td>{{item.article.name}}</td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>{{item.cost}}</td>
+                                        <!-- <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td> -->
+                                    </tr>
+                                    <tr >
+                                        <td colspan="2" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                        <td>{{getTotalQuantity}}</td>
+                                        <td>{{getTotalCost}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+
+    </div> <!-- end row -->
 </template>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
@@ -92,6 +208,7 @@ export default {
         title:'',
         rows: [],
         incomes: [],
+        types:[{name: 'Ingreso'},{name:'Traspaso'},{name:'Reingreso'}],
         columns: [
             {
                 label: "Partida",
@@ -148,6 +265,7 @@ export default {
 			show_refresh_button:  false,
 			show_reset_button:  false,
         },
+        hasFile: false,
 
     }),
     mounted() {
@@ -165,6 +283,42 @@ export default {
         deleteIncome(index){
 
             this.incomes.splice(index,1);
+        },
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            !files.length?this.hasFile=false:this.hasFile = true;
+            console.log(this.hasFile);
+        },
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                let form = document.getElementById("formCategory");
+
+                    form.submit();
+                    return;
+                }
+                toastr.error('Debe completar la informacion correctamente')
+            });
+        },
+    },
+    computed:{
+        getTotalCost(){
+            let cost= 0;
+            this.incomes.forEach(item => {
+                // this.cost += parseInt(item.cost)
+                cost += Number(item.cost)
+                console.log(item.cost);
+            });
+            return cost;
+        },
+        getTotalQuantity(){
+            let quantity= 0;
+            this.incomes.forEach(item => {
+                // this.quantity += parseInt(item.quantity)
+                quantity += Number(item.quantity)
+                console.log(item.quantity);
+            });
+            return quantity;
         }
     },
     components: {

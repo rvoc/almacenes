@@ -60,23 +60,7 @@
 									</multiselect>
 									<div class="invalid-feedback">{{ errors.first("categoria") }}</div>
 								</div>
-                                <!-- <div class="form-group  col-md-8">
-                                    <input type="text" name="provider_id" v-if="form.provider" :value="form.provider.id" hidden>
-									<label for="proveedor">Proveedor</label>
-									<multiselect
-										v-model="form.provider"
-										:options="providers"
-										id="proveedor"
-										placeholder="Seleccionar Proveedor"
-										select-label="Seleccionar"
-										deselect-label="Remover"
-										selected-label="Seleccionado"
-										label="name"
-										track-by="name" >
 
-									</multiselect>
-									<div class="invalid-feedback">{{ errors.first("proveedor") }}</div>
-								</div> -->
 
                                 <div class="form-group  col-md-4">
                                     <input type="text" name="unit_id" v-if="form.unit" :value="form.unit.id" hidden>

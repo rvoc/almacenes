@@ -7,6 +7,7 @@ use App\Storage;
 use App\Article;
 use App\Provider;
 use App\ArticleIncome;
+use App\ArticleIncomeItem;
 use Illuminate\Support\Facades\Auth;
 
 class IncomeController extends Controller
@@ -52,6 +53,35 @@ class IncomeController extends Controller
     public function store(Request $request)
     {
         //
+        // return $request->all();
+        $articles = json_decode($request->articles);
+        // return $articles;
+        $article_income = new ArticleIncome;
+        $article_income->provider_id = $request->provider_id;
+        $article_income->storage_id = Auth::user()->getStorage()->id;
+        $article_income->prs_id = Auth::user()->person()->prs_id;
+        $article_income->type = $request->type;
+        $article_income->save();
+
+
+        // $article_income->path_invoce = $request->path_invoce;
+        // $article_income->remision_number = $request->remision_number;
+        // $article_income->date = $request->date;
+        foreach($articles as $article)
+        {
+            $article_income_item = new ArticleIncomeItem;
+            $article_income_item->article_income_id = $article_income->id;
+            $article_income_item->article_id = $article->article->id;
+            $article_income_item->cost = $article->cost;
+            $article_income_item->quantity = $article->quantity;
+            $article_income_item->save();
+            // $article_income_item->article_id = $article->;
+        }
+
+
+
+        return $article_income;
+        return $request->all();
     }
 
     /**

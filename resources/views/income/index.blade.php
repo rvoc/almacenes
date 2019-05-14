@@ -25,8 +25,8 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Fecha</th>
-                                <th>Nota Remision</th>
+                                <th>Id</th>
+                                <th>Persona</th>
                                 <th>Proveedor</th>
                                 <th>Telefono</th>
                                 <th>Opciones</th>
@@ -35,15 +35,15 @@
                         <tbody>
                             @foreach ($incomes as $item)
                             <tr>
-                                <td>{{$item->date}}</td>
-                                <td>{{$item->number_remision}}</td>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->provider->name}}</td>
                                 <td>{{$item->provider->phone}}</td>
-                                <td>{{$item->budget_item->name}}</td>
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
+                                    <a href="#" > <i class="material-icons text-info">description</i> </a>
                                     <a href="#" data-toggle="modal" data-target="#ArticleModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
-                                    <a href="#"> <i class="material-icons text-success deleted" data-json='{{$item}}'>check_box</i></a>
+                                    <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a>
                                 </td>
 
                             </tr>

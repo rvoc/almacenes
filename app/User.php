@@ -71,7 +71,16 @@ class User extends Authenticatable
 
     public function getStorage(){
         $storage = Storage::find(session('storage_id'));
+        if(!$storage){
+            session()->put('storage_id', 1);
+            $storage = Storage::find(session('storage_id'));
+        }
         return $storage;
+    }
+
+    public function getGerencia(){
+        $gerencia = DB::table('siscor.sia_gerencia_area')->where('ga_id','=',$this->usr_ga_id)->first();
+        return $gerencia?$gerencia->ga_nombre:'';
     }
 
 

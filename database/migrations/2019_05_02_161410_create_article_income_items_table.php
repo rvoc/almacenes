@@ -19,8 +19,8 @@ class CreateArticleIncomeItemsTable extends Migration
             $table->foreign('article_income_id')->references('id')->on('article_incomes');
             $table->integer('article_id');
             $table->foreign('article_id')->references('id')->on('articles');
-            $table->integer('quantity');
-            $table->decimal('cost',8,5);
+            $table->decimal('quantity');
+            $table->decimal('cost');
             $table->timestamps();
             $table->softDeletes();
         });
