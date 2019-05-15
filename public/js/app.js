@@ -3245,6 +3245,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['articles', 'providers', 'url', 'csrf', 'storage'],
@@ -3278,21 +3283,11 @@ __webpack_require__.r(__webpack_exports__);
         },
         sort: true
       }, {
-        label: "Cantidad",
-        name: "quantity" // filter: {
-        //     type: "simple",
-        //     placeholder: "cantidad"
-        // },
-        // sort: true,
-
+        label: "Costo Unitario",
+        name: "cost"
       }, {
-        label: "Costo",
-        name: "cost" // filter: {
-        //     type: "simple",
-        //     placeholder: "Ejecucion"
-        // },
-        // sort: true,
-
+        label: "Cantidad",
+        name: "quantity"
       }, {
         label: "Opcion",
         name: "option",
@@ -3347,15 +3342,20 @@ __webpack_require__.r(__webpack_exports__);
 
         toastr.error('Debe completar la informacion correctamente');
       });
+    },
+    subTotal: function subTotal(item) {
+      var sum = Number(item.quantity) * Number(item.cost);
+      return sum;
     }
   },
   computed: {
     getTotalCost: function getTotalCost() {
+      var _this = this;
+
       var cost = 0;
       this.incomes.forEach(function (item) {
         // this.cost += parseInt(item.cost)
-        cost += Number(item.cost);
-        console.log(item.cost);
+        cost += _this.subTotal(item); // console.log(item.cost);
       });
       return cost;
     },
@@ -107088,9 +107088,11 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.article.name))]),
                     _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.cost))]),
+                    _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.quantity))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.cost))]),
+                    _c("td", [_vm._v(_vm._s(_vm.subTotal(item)))]),
                     _vm._v(" "),
                     _c("td", [
                       _c("i", {
@@ -107353,7 +107355,7 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _c("input", {
-                        attrs: { type: "text", name: "articles" },
+                        attrs: { type: "text", name: "articles", hidden: "" },
                         domProps: { value: JSON.stringify(_vm.incomes) }
                       })
                     ]),
@@ -107375,9 +107377,11 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.article.name))]),
                                 _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.cost))]),
+                                _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.quantity))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.cost))])
+                                _c("td", [_vm._v(_vm._s(_vm.subTotal(item)))])
                               ])
                             }),
                             _vm._v(" "),
@@ -107442,9 +107446,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Articulo")]),
         _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo Unitario")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Cantidad")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Subtotal")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } })
       ])
@@ -107454,7 +107460,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-right ", attrs: { colspan: "2" } }, [
+    return _c("td", { staticClass: "text-right ", attrs: { colspan: "3" } }, [
       _c("strong", [_vm._v("TOTAL:")])
     ])
   },
@@ -107493,9 +107499,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Articulo")]),
         _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Cantidad")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Subtotal")])
       ])
     ])
   },
@@ -107505,7 +107513,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "td",
-      { staticClass: "text-right bg-gray", attrs: { colspan: "2" } },
+      { staticClass: "text-right bg-gray", attrs: { colspan: "3" } },
       [_c("strong", [_vm._v("TOTAL:")])]
     )
   },

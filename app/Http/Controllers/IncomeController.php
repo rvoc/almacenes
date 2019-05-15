@@ -78,10 +78,8 @@ class IncomeController extends Controller
             // $article_income_item->article_id = $article->;
         }
 
+        return redirect('income');
 
-
-        return $article_income;
-        return $request->all();
     }
 
     /**

@@ -61,21 +61,23 @@
                             <tr>
                             <th scope="col">#</th>
                             <th scope="col">Articulo</th>
+                            <th scope="col">Costo Unitario</th>
                             <th scope="col">Cantidad</th>
-                            <th scope="col">Costo</th>
+                            <th scope="col">Subtotal</th>
                             <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(item,index) in incomes" :key="index">
-                            <th scope="row">{{index+1}}</th>
-                            <td>{{item.article.name}}</td>
-                            <td>{{item.quantity}}</td>
-                            <td>{{item.cost}}</td>
-                            <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td>
+                                <th scope="row">{{index+1}}</th>
+                                <td>{{item.article.name}}</td>
+                                <td>{{item.cost}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{subTotal(item)}}</td>
+                                <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td>
                             </tr>
                             <tr >
-                                <td colspan="2" class="text-right " > <strong>TOTAL:</strong> </td>
+                                <td colspan="3" class="text-right " > <strong>TOTAL:</strong> </td>
                                 <td>{{getTotalQuantity}}</td>
                                 <td>{{getTotalCost}}</td>
                                 <td></td>
@@ -156,7 +158,7 @@
                                     <input type="text" name="date" class="form-control" v-model="form.date">
                                 <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
                             </div>
-                            <input type="text" name="articles" :value="JSON.stringify(incomes)">
+                            <input type="text" name="articles" :value="JSON.stringify(incomes)" hidden>
                         </div>
                         <h5>Detalle de Ingreso</h5>
 
@@ -166,20 +168,23 @@
                                     <tr class="bg-gray">
                                     <th scope="col">#</th>
                                     <th scope="col">Articulo</th>
-                                    <th scope="col">Cantidad</th>
                                     <th scope="col">Costo</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item,index) in incomes" :key="index">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{item.article.name}}</td>
-                                        <td>{{item.quantity}}</td>
                                         <td>{{item.cost}}</td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>{{ subTotal(item) }}</td>
+
                                         <!-- <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td> -->
                                     </tr>
                                     <tr >
-                                        <td colspan="2" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
                                         <td>{{getTotalQuantity}}</td>
                                         <td>{{getTotalCost}}</td>
                                     </tr>
@@ -229,22 +234,12 @@ export default {
                 sort: true,
             },
             {
-                label: "Cantidad",
-                name: "quantity",
-                // filter: {
-                //     type: "simple",
-                //     placeholder: "cantidad"
-                // },
-                // sort: true,
+                label: "Costo Unitario",
+                name: "cost",
             },
             {
-                label: "Costo",
-                name: "cost",
-                // filter: {
-                //     type: "simple",
-                //     placeholder: "Ejecucion"
-                // },
-                // sort: true,
+                label: "Cantidad",
+                name: "quantity",
             },
 
             {
@@ -300,14 +295,18 @@ export default {
                 toastr.error('Debe completar la informacion correctamente')
             });
         },
+        subTotal(item){
+            let sum = Number(item.quantity) * Number(item.cost);
+            return sum;
+        }
     },
     computed:{
         getTotalCost(){
             let cost= 0;
             this.incomes.forEach(item => {
                 // this.cost += parseInt(item.cost)
-                cost += Number(item.cost)
-                console.log(item.cost);
+                cost += this.subTotal(item)
+                // console.log(item.cost);
             });
             return cost;
         },

@@ -34,11 +34,17 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('web')->except('logout');
     }
 
     public function username()
     {
         return 'usr_usuario';
+    }
+    //TODO: Revisar la redireccion XD
+
+    protected function redirectTo()
+    {
+        return redirect('/home');
     }
 }
