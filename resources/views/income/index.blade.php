@@ -25,7 +25,7 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>Nro. Ingreso</th>
                                 <th>Persona</th>
                                 <th>Proveedor</th>
                                 <th>Telefono</th>
@@ -35,7 +35,7 @@
                         <tbody>
                             @foreach ($incomes as $item)
                             <tr>
-                                <td>{{$item->id}}</td>
+                                <td>{{$item->correlative}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->provider->name}}</td>
                                 <td>{{$item->provider->phone}}</td>

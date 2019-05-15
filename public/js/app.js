@@ -3250,6 +3250,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['articles', 'providers', 'url', 'csrf', 'storage'],
@@ -107357,6 +107358,11 @@ var render = function() {
                       _c("input", {
                         attrs: { type: "text", name: "articles", hidden: "" },
                         domProps: { value: JSON.stringify(_vm.incomes) }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { type: "text", name: "total_cost", hidden: "" },
+                        domProps: { value: _vm.getTotalCost }
                       })
                     ]),
                     _vm._v(" "),

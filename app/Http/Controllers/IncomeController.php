@@ -56,11 +56,26 @@ class IncomeController extends Controller
         // return $request->all();
         $articles = json_decode($request->articles);
         // return $articles;
+        $last_income = ArticleIncome::max('correlative');
+        $counter=0;
+        // return $counter;
+        if(!$last_income){
+            $counter=1;
+        }
+        else{
+            $counter=$last_income+1;
+        }
+        // return $counter;
+        // return $last_income;
+        // return $request->all();
         $article_income = new ArticleIncome;
+
         $article_income->provider_id = $request->provider_id;
-        $article_income->storage_id = Auth::user()->getStorage()->id;
+        $article_income->correlative = $counter;
         $article_income->prs_id = Auth::user()->person()->prs_id;
+        $article_income->storage_id = Auth::user()->getStorage()->id;
         $article_income->type = $request->type;
+        $article_income->total_cost = $request->total_cost;
         $article_income->save();
 
 

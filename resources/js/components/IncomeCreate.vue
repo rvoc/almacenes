@@ -159,6 +159,7 @@
                                 <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
                             </div>
                             <input type="text" name="articles" :value="JSON.stringify(incomes)" hidden>
+                            <input type="text" name="total_cost" :value="getTotalCost" hidden>
                         </div>
                         <h5>Detalle de Ingreso</h5>
 

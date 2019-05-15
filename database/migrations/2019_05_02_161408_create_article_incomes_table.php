@@ -15,6 +15,7 @@ class CreateArticleIncomesTable extends Migration
     {
         Schema::create('article_incomes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger("correlative");
             $table->integer('storage_id');
             $table->foreign('storage_id')->references('id')->on('storages');
             $table->integer('provider_id');
@@ -26,6 +27,7 @@ class CreateArticleIncomesTable extends Migration
             $table->string('remision_number')->nullable();
             $table->date('date')->nullable();
             $table->enum('type', ['Ingreso', 'Traspaso' ,'Reingreso']);
+            $table->decimal('total_cost');
             $table->timestamps();
         });
     }
