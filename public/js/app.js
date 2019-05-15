@@ -3251,6 +3251,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['articles', 'providers', 'url', 'csrf', 'storage'],
@@ -107528,6 +107529,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-footer" }, [
+      _c("button", { staticClass: "btn btn-info", attrs: { type: "button" } }, [
+        _vm._v("Vista Previa")
+      ]),
+      _vm._v(" "),
       _c(
         "button",
         {
