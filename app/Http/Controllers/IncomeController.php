@@ -8,6 +8,7 @@ use App\Article;
 use App\Provider;
 use App\ArticleIncome;
 use App\ArticleIncomeItem;
+use App\Stock;
 use Illuminate\Support\Facades\Auth;
 
 class IncomeController extends Controller
@@ -90,6 +91,15 @@ class IncomeController extends Controller
             $article_income_item->cost = $article->cost;
             $article_income_item->quantity = $article->quantity;
             $article_income_item->save();
+
+            $stock = new Stock;
+            $stock->article_id = $article_income_item->article_id;
+            $stock->storage_id = $article_income->storage_id;
+            $stock->article_income_item_id = $article_income_item->id;
+            $stock->quantity = $article_income_item->quantity;
+            $stock->cost = $article_income_item->cost;
+            $stock->save();
+
             // $article_income_item->article_id = $article->;
         }
 

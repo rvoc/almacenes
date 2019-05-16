@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('storage', 'StorageController');
     Route::resource('article', 'ArticleController');
     Route::resource('income', 'IncomeController');
+    Route::resource('stock', 'StockController');
 
     Route::get('articles/{storage_id}','ArticleController@storage_article');
 
