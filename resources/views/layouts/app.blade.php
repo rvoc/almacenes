@@ -192,6 +192,18 @@
                                 <p>Ingresos</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('request_person') }}" class="nav-link {{ Navigation::isActiveRoute('request.index_person') }}">
+                                <i class="nav-icon fa fa-truck-loading"></i>
+                                <p>Solicitudes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('request') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
+                                <i class="nav-icon fa fa-people-carry"></i>
+                                <p>Solicitudes Almacen</p>
+                            </a>
+                        </li>
 
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\DB;
 use App\Article;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -70,11 +71,15 @@ class User extends Authenticatable
     }
 
     public function getStorage(){
-        $storage = Storage::find(session('storage_id'));
-        if(!$storage){
+        //en caso de no existir session se genera uno trabajar esto a mas detalle
+        if(!session()->exists('storage_id')){
             session()->put('storage_id', 1);
-            $storage = Storage::find(session('storage_id'));
         }
+        // return session('storage_id');
+        $storage = Storage::find(session('storage_id'));
+        // if(!$storage){
+        //     $storage = Storage::find(session('storage_id'));
+        // }
         return $storage;
     }
 

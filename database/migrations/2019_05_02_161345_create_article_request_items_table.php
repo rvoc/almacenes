@@ -17,6 +17,8 @@ class CreateArticleRequestItemsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('article_request_id');
             $table->foreign('article_request_id')->references('id')->on('article_requests');
+            $table->integer('article_id');
+            $table->foreign('article_id')->references('id')->on('articles');
             $table->integer('quantity');
             $table->integer('quantity_apro');
             $table->timestamps();

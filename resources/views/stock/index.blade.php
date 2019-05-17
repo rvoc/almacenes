@@ -36,7 +36,7 @@
                             <tr>
                                 <td>{{$item->article->name}}</td>
                                 <td>{{$item->quantity}}</td>
-                                <td>0</td>
+                                <td> <i class="material-icons text-info">list</i> </td>
 
                                 {{-- <td>
                                     <a href="#" data-toggle="modal" data-target="#ArticleModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>

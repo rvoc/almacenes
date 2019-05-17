@@ -18,10 +18,16 @@ class CreateArticleRequestsTable extends Migration
             //establecer usuarios yo funcionarios
             $table->integer('storage_id');
             $table->foreign('storage_id')->references('id')->on('storages');
-            $table->integer("number_reuest")->nullable();
-            $table->integer('prs_id');
+            // $table->integer("number_request")->nullable();// correlativo
+            $table->integer('prs_id'); //persona que solicita el articulo
             $table->foreign('prs_id')->references('prs_id')->on('siscor._bp_personas');
-            $table->boolean('is_approved')->default(false);
+
+            $table->integer('user_id')->nullable();//usuario quien aprueba o rechaza el articulo
+            $table->foreign('user_id')->references('usr_id')->on('siscor._bp_usuarios');
+
+            $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente'])->default('Pendiente');
+            $table->unsignedInteger('correlative')->index();
+            $table->unique( array('storage_id','correlative'));
             // falta adicionar lo de la gerencia
             $table->timestamps();
             $table->softDeletes();
