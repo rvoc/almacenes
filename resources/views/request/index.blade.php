@@ -42,11 +42,31 @@
                             <tr>
                                 <td>{{$item->correlative}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
-                                <td>{{$item->state}}</td>
+                                <td>
+                                    @switch($item->state)
+                                        @case('Aprobado')
+                                            <span class="badge badge-primary">{{$item->state}}</span>
+                                            @break
+
+                                        @case('Entregado')
+                                            <span class="badge badge-success">{{$item->state}}</span>
+                                            @break
+
+                                        @case('Pendiente')
+                                            <span class="badge badge-info">{{$item->state}}</span>
+                                            @break
+                                        @case('Rechazado')
+                                            <span class="badge badge-danger">{{$item->state}}</span>
+                                            @break
+                                    @endswitch
+                                </td>
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
-                                    <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
-                                    <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a>
+                                    <a href="{{url('request/'.$item->id.'/edit')}}" ><i class="material-icons text-info">assignment</i></a>
+                                    @if($item->state == 'Aprobado')
+                                        {{-- <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">local_shipping</i></a> --}}
+                                        <a href="#"> <i class="material-icons text-primary delivery" data-json='{{$item}}'>local_shipping</i></a>
+                                    @endif
                                 </td>
 
                             </tr>
@@ -62,7 +82,7 @@
         </div>
 
         {{-- aqui los modals --}}
-        <provider-component url='{{url('provider')}}' csrf='{!! csrf_field('POST') !!}'></provider-component>
+        {{-- <provider-component url='{{url('provider')}}' csrf='{!! csrf_field('POST') !!}'></provider-component> --}}
 
 
     </div>
@@ -71,27 +91,27 @@
 <script>
 
     @section('script')
-        var classname = document.getElementsByClassName("deleted");
+        var classname = document.getElementsByClassName("delivery");
         // console.log(classname);
         function deleteItem(){
 
             var data = JSON.parse(this.getAttribute("data-json"));
-
+            console.log(data);
             Swal.fire({
-            title: 'Esta Seguro de Eliminar '+data.name+'?',
-            text: "una vez eliminado no se podra revertir la accion!",
+            title: 'Entrega de articulos de solicitud '+data.correlative+'?',
+            text: "una vez realizada esta accion no se podra revertir!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, borrar!',
+            confirmButtonText: 'Si',
             cancelButtonText: 'No'
             }).then((result) => {
             if (result.value) {
 
-                axios.delete(`provider/${data.id}`)
+                axios.post(`request/delivery_request`,{data})
                     .then(response=>{
-                        console.log(response);
+                        console.log(response.data);
                         location.reload();
                     })
                     .catch(error=>{

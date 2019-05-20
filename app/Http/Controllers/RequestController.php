@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Stock;
 use App\Article;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 class RequestController extends Controller
 {
     /**
@@ -164,13 +165,34 @@ class RequestController extends Controller
             $article_request_item = ArticleRequestItem::find($article->id);
             $article_request_item->quantity_apro =$article->quantity_apro;
             //obtener lista de los productos en stock de este almacen
-            // $stock = Stock::where('article_id',$article->id)
-            //                 ->where('storage_id',Auth::user()->getStorage()->id)
-            //                 ->select(DB::raw('sum(quantity) as stock'))
-            //                 ->groupBy('article_id')
-            //                 ->first();
+            $stocks = Stock::where('article_id',$article->id)
+                            ->where('storage_id',Auth::user()->getStorage()->id)
+                            ->orderBy('created_at','Asc')
+                            ->get();
 
+            // return $stocks;
+            $quantity=$article->quantity_apro;
+            // return $quantity;
+            foreach($stocks as $stock)
+            {
+                // Log::warning($quantity);
+                    if($quantity>0){
+                        if($quantity >= $stock->quantity){
+                            $stock->quantity = $quantity - $stock->quantity;
+                            $quantity = $quantity - $stock->quantity;
+                            // Log::info('cantidad >=: '.$stock->quantity);
+                        }else
+                        {
+                            $stock->quantity = $stock->quantity - $quantity;
+                            $quantity = $quantity - $stock->quantity ;
+                            // Log::info('cantidad <: '.$stock->quantity);
+                        }
 
+                        $stock->save();
+                    }
+            }
+
+            // return $stocks;
             $article_request_item->save();
         }
         $article_request = ArticleRequest::find($request->article_request_id);
@@ -179,6 +201,15 @@ class RequestController extends Controller
 
         return redirect('request');
         // return $articles;
+    }
+
+    public function delivery(Request $request){
+        //
+        $article_request = ArticleRequest::find($request->data['id']);
+        $article_request->state ="Entregado";
+        $article_request->save();
+        return $article_request;
+        // return ;
     }
     /**
      * Update the specified resource in storage.

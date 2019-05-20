@@ -42,11 +42,28 @@
                             <tr>
                                 <td>{{$item->correlative}}</td>
                                 <td>{{$item->storage->name}}</td>
-                                <td>{{$item->state}}</td>
+                                <td>
+                                    @switch($item->state)
+                                        @case('Aprobado')
+                                            <span class="badge badge-primary">{{$item->state}}</span>
+                                            @break
+
+                                        @case('Entregado')
+                                            <span class="badge badge-success">{{$item->state}}</span>
+                                            @break
+
+                                        @case('Pendiente')
+                                            <span class="badge badge-info">{{$item->state}}</span>
+                                            @break
+                                        @case('Rechazado')
+                                            <span class="badge badge-danger">{{$item->state}}</span>
+                                            @break
+                                    @endswitch
+                                </td>
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
-                                    <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
-                                    <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a>
+                                    <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                    {{-- <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a> --}}
                                 </td>
 
                             </tr>
@@ -62,7 +79,7 @@
         </div>
 
         {{-- aqui los modals --}}
-        <provider-component url='{{url('provider')}}' csrf='{!! csrf_field('POST') !!}'></provider-component>
+        {{-- <provider-component url='{{url('provider')}}' csrf='{!! csrf_field('POST') !!}'></provider-component> --}}
 
 
     </div>

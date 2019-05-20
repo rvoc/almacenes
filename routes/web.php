@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
     //route person
     Route::get('request_person','RequestController@index_person');
     Route::post('request/confirm_request','RequestController@confirmRequest');
+    Route::post('request/delivery_request','RequestController@delivery');
 
     Route::get('articles/{storage_id}','ArticleController@storage_article');
 
