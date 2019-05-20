@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('request', 'RequestController');
     //route person
     Route::get('request_person','RequestController@index_person');
+    Route::post('request/confirm_request','RequestController@confirmRequest');
 
     Route::get('articles/{storage_id}','ArticleController@storage_article');
 

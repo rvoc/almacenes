@@ -125,13 +125,61 @@ class RequestController extends Controller
     public function edit($id)
     {
         //
-        $article_request = ArticleRequest::with('article_request_items')->find($id);
+
+        $article_request = ArticleRequest::with('person')->find($id);
         $article_request_items = $article_request->article_request_items;
 
-        return view('request.check_request',compact('article_request'));
+
+
+        // $stock = Stock::where('article_id',1)
+        //                 ->where('storage_id',1)
+        //                 ->select(DB::raw('sum(quantity) as stock'))
+        //                 ->groupBy('article_id')
+        //                 ->first();
+        //return $article_request_items;
+        // return $stock;
+        // $articles = array();
+        foreach($article_request_items as $items)
+        {
+            $items->stock = Stock::where('article_id',$items->article->id)
+                            ->where('storage_id',Auth::user()->getStorage()->id)
+                            ->select(DB::raw('sum(quantity) as stock'))
+                            ->groupBy('article_id')
+                            ->first();
+
+            // array_push($articles,array('article'))
+        }
+        // return $article_request_items;
+
+        // $articles;
+        return view('request.check_request',compact('article_request','article_request_items'));
 
     }
 
+    public function confirmRequest(Request $request){
+        $articles = json_decode($request->articles);
+
+
+        foreach($articles as $article){
+            $article_request_item = ArticleRequestItem::find($article->id);
+            $article_request_item->quantity_apro =$article->quantity_apro;
+            //obtener lista de los productos en stock de este almacen
+            // $stock = Stock::where('article_id',$article->id)
+            //                 ->where('storage_id',Auth::user()->getStorage()->id)
+            //                 ->select(DB::raw('sum(quantity) as stock'))
+            //                 ->groupBy('article_id')
+            //                 ->first();
+
+
+            $article_request_item->save();
+        }
+        $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Aprobado";
+        $article_request->save();
+
+        return redirect('request');
+        // return $articles;
+    }
     /**
      * Update the specified resource in storage.
      *

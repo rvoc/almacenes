@@ -14,7 +14,7 @@
                 <div class="card-header card-calendar">
 
                     <h4 class="card-title ">
-                        {{$title??'Solicitudes Realizadas '.Auth::user()->getStorage()->name}}
+                        {{$title??'Solicitudes Recibidas '.Auth::user()->getStorage()->name}}
                         <small class="float-sm-right">
                             {{-- <a href="{{url('amp_report_excel')}}" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o"></i> </a>  --}}
                             {{-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ProviderModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button> --}}

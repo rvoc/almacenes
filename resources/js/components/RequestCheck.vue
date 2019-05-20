@@ -3,14 +3,49 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                   Solicitud de Articulos {{storage.name}}
+                  {{storage.name}}: Solicitud {{request.correlative}}
+                  <br>
+                   Solicitante: {{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}}
+                    <!-- {{rows}} -->
                      <small class="float-sm-right">
-                           <button class="btn btn-success" data-toggle="modal" data-target="#registerModal" ><i class="fa fa-shopping-cart"></i> Solicitar  </button>
-                           <button class="btn btn-default" ><i class="fa fa-ban"></i> Cancelar  </button>
+                           <button class="btn btn-success" data-toggle="modal" data-target="#registerModal" ><i class="fa fa-user-check"></i> Aprobar  </button>
+                           <button class="btn btn-danger" ><i class="fa fa-user-times"></i> Rechazar  </button>
+                           <a :href="url" class="btn btn-default"><i class="fa fa-ban"></i> Cancelar </a>
+                           <!-- <button class="btn btn-default" ><i class="fa fa-ban"></i> Cancelar  </button> -->
                         </small>
                 </div>
                 <div class="card-body">
-                    <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
+                      <table class="table  table-bordered">
+                                <thead>
+                                    <tr class="bg-gray">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Articulo</th>
+                                        <th scope="col">Unidad</th>
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Cantidad Sol.</th>
+                                        <th scope="col">Cantidad Aprob.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <tr v-for="(item,index) in rows" :key="index">
+                                        <th scope="row">{{index+1}}</th>
+                                        <td>{{item.article.name}}</td>
+                                        <td>{{item.article.unit.name}}</td>
+                                        <td>{{item.stock.stock}}</td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>
+                                            <input type="text" class="form-control" v-model="item.quantity_apro">
+                                            <!-- {{item.quantity_apro}} -->
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td colspan="5" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                        <td>{{getTotalQuantity}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                    <!-- <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
                         <template slot="sort-asc-icon">
                             <i class="fa fa-sort-asc"></i>
                         </template>
@@ -21,29 +56,11 @@
                             <i class="fa fa-sort"></i>
                         </template>
 
-                        <template slot="quantity" slot-scope="props">
-                            <input class='form-control' v-model="props.row.quantity" >
+                        <template slot="quantity_apro" slot-scope="props">
+                            <input class='form-control' v-model="props.row.quantity_apro" >
                         </template>
-                        <!-- <template slot="cost" slot-scope="props">
-                            <input class='form-control' v-model="props.row.cost" >
-                        </template> -->
 
-
-
-                        <template slot="option" slot-scope="props">
-                        <button class="btn btn-info" @click="addIncome(props.row)"><i class='fa fa-cart-plus'></i></button>
-
-
-                            <!-- <v-icon @click="getDetail(props)" data-toggle="modal" data-target="#taskModalDetail"
-                                small>
-                                remove_red_eye
-                            </v-icon>
-                            <v-icon @click="edit(props)" data-toggle="modal" data-target="#taskModalExecuted"
-                                small>
-                                edit
-                            </v-icon> -->
-                        </template>
-                    </vue-bootstrap4-table>
+                    </vue-bootstrap4-table> -->
                 </div>
             </div>
 
@@ -52,26 +69,28 @@
         <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form enctype="multipart/form-data" id='formCategory' method="post" :action="url" @submit.prevent="validateBeforeSubmit">
+                <form enctype="multipart/form-data" id='formCategory' method="post" :action="url+'/confirm_request'" @submit.prevent="validateBeforeSubmit">
                     <div v-html='csrf'></div>
                     <div class="modal-header">
-                        <h5 class="modal-title" id="registerModalLabel">Registro de Solicitud</h5>
+                        <h5 class="modal-title" id="registerModalLabel">Aprobar Solicitud  Nro {{request.correlative}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- <legend>Datos de Ingreso</legend> -->
-
-                        <!-- <div class="row">
+                        <h5>Datos del Solicitante</h5>
+                        <div class="row">
                             <div class="form-group  col-md-8">
-                                <label for="tipo">Solicitante:</label>
-                                    <input type="text" name="person" class="form-control" :value="person" disabled >
-                                <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
+                                <label for="tipo">Funcionario: {{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}} </label>
+                                <br><label for="tipo"> Gerencia: {{gerencia}} </label>
                             </div>
-                        </div> -->
+                            <div class="form-group  col-md-4">
+                                <label for="tipo"> Fecha de solicitud: {{request.created_at}} </label>
+                            </div>
 
-                        <input type="text" name="articles" :value="JSON.stringify(incomes)" hidden>
+                        </div>
+                        <input type="text" name="article_request_id" :value="request.id " hidden>
+                        <input type="text" name="articles" :value="JSON.stringify(rows)" hidden>
                         <h5>Detalle de Solicitud</h5>
 
                         <div class="row">
@@ -85,11 +104,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     <tr v-for="(item,index) in incomes" :key="index">
+                                     <tr v-for="(item,index) in rows" :key="index">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{item.article.name}}</td>
                                         <td>{{item.article.unit.name}}</td>
-                                        <td>{{item.quantity}}</td>
+                                        <td>{{item.quantity_apro}}</td>
                                     </tr>
                                     <tr >
                                         <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
@@ -101,9 +120,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info" >Vista Previa</button>
+                        <button type="button" class="btn btn-secondary" >Vista Previa</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-success">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -115,7 +134,7 @@
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
-    props:['articles','url','csrf','storage'],
+    props:['articles','url','csrf','storage','request','gerencia'],
     data: ()=>({
         form:{},
         title:'',
@@ -125,26 +144,18 @@ export default {
         columns: [
 
             {
-                label: "Nombre",
+                label: "Articulo",
                 name: "article.name",
                 filter: {
                     type: "simple",
-                    placeholder: "nombre"
+                    placeholder: "articulo"
                 },
                 sort: true,
             },
-            {
-                label: "Categoria",
-                name: "category.name",
-                filter: {
-                    type: "simple",
-                    placeholder: "categoria"
-                },
-                sort: true,
-            },
+
             {
                 label: "Unidad",
-                name: "unit.name",
+                name: "article.unit.name",
                 filter: {
                     type: "simple",
                     placeholder: "unidad"
@@ -153,15 +164,21 @@ export default {
             },
 
             {
-                label: "Cantidad",
+                label: "Stock",
+                name: "stock.stock",
+                sort: true,
+            },
+            {
+                label: "Cantidad Solicitada",
                 name: "quantity",
+                sort: true,
             },
 
             {
-                label: "Opcion",
-                name: "option",
-                sort: false,
-            }
+                label: "Cantidad",
+                name: "quantity_apro",
+                sort: true,
+            },
         ],
         config: {
 			card_mode: false,
@@ -180,8 +197,8 @@ export default {
     }),
     mounted() {
         this.rows = this.articles;
-        console.log(this.articles);
-        console.log(this.person);
+        // console.log(this.articles);
+        // console.log(this.gerencia);
     },
     methods: {
         addIncome(item){
@@ -210,15 +227,14 @@ export default {
                 toastr.error('Debe completar la informacion correctamente')
             });
         },
+
     },
     computed:{
 
         getTotalQuantity(){
             let quantity= 0;
-            this.incomes.forEach(item => {
-                // this.quantity += parseInt(item.quantity)
-                quantity += Number(item.quantity)
-                // console.log(item.quantity);
+            this.rows.forEach(item => {
+                quantity += Number(item.quantity_apro)
             });
             return quantity;
         }
