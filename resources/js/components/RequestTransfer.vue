@@ -11,6 +11,10 @@
                             <a class="dropdown-item" href="#" @click="setStorage(item)"  v-for="(item, index) in storages" :key="index" >{{item.name}} </a>
                         </div>
                     </div>
+                        <i class="fa fa-arrow-alt-circle-right"></i>
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-store-alt"></i>  {{storage.name}}
+                    </button>
                 </div>
                 <div class="card-body">
                     <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
