@@ -55,7 +55,7 @@
                 </li>
                  --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="Almacen">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-store-alt"></i> {{Auth::user()->getStorage()->name}}
                     </a>
                 </li>
@@ -202,6 +202,12 @@
                             <a href="{{ url('request') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
                                 <i class="nav-icon fa fa-people-carry"></i>
                                 <p>Solicitudes Almacen</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('transfer_request') }}" class="nav-link {{ Navigation::isActiveRoute('request.transfer') }}">
+                                <i class="nav-icon fa fa-exchange-alt"></i>
+                                <p>Transferencia Articulos</p>
                             </a>
                         </li>
 
@@ -351,6 +357,13 @@
 
                 <div id="app">
                     @yield('content')
+                    {{-- adicionando modal change --}}
+                    <change-storage
+                        url='{{url('change_storage')}}'
+                        csrf='{!! csrf_field('POST') !!}'
+                        :storages="{{Auth::user()->getStorages()}}"
+                        :storage= "{{ Auth::user()->getStorage()}}"
+                    ></change-storage>
                 </div>
 
             </section>

@@ -55,6 +55,8 @@ Vue.component('article-component', require('./components/ArticleEdit.vue').defau
 Vue.component('income-component', require('./components/IncomeCreate.vue').default);
 Vue.component('request-component', require('./components/RequestCreate.vue').default);
 Vue.component('check-component', require('./components/RequestCheck.vue').default);
+Vue.component('transfer-component', require('./components/RequestTransfer.vue').default);
+Vue.component('change-storage', require('./components/ChangeStorage.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

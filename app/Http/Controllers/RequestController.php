@@ -8,6 +8,7 @@ use App\ArticleRequestItem;
 use Illuminate\Support\Facades\Auth;
 use App\Stock;
 use App\Article;
+use App\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 class RequestController extends Controller
@@ -27,11 +28,18 @@ class RequestController extends Controller
 
     public function index_person(){
         $request_articles = ArticleRequest::where('prs_id',Auth::user()->person()->prs_id)
-                                            ->where('storage_id',Auth::user()->getStorage()->id)
+                                            // ->where('storage_id',Auth::user()->getStorage()->id)
+                                            // ->orderBy('storage_id','Asc')
                                             ->get();
         return view('request.index_person',compact('request_articles'));
     }
 
+    public function transfer()
+    {
+        // return 'test';
+        $storages = Storage::all();
+        return view('request.transfer',compact('storages'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -55,6 +63,18 @@ class RequestController extends Controller
         return view('request.create',compact('articles'));
     }
 
+    public function storageArticles($storage_id){
+
+        $articles = Article::with('category','unit')
+                            ->join('stocks','stocks.article_id','=','articles.id')
+                            ->where('storage_id',$storage_id)
+                            ->select('article_id','articles.name','articles.category_id','articles.unit_id',DB::raw('sum(stocks.quantity) as quantity_stock'))
+                            ->groupBy('stocks.article_id','articles.name','articles.category_id','articles.unit_id')
+                            ->get();
+
+        return response()->json($articles);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -64,7 +84,13 @@ class RequestController extends Controller
     public function store(Request $request)
     {
         //
-        $last_income = ArticleRequest::max('correlative');
+        if($request->has('storage_id')){
+            $storage_id = $request->storage_id;
+        }else{
+            $storage_id = Auth::user()->getStorage()->id;
+        }
+
+        $last_income = ArticleRequest::where('storage_id',$storage_id)->max('correlative');
         $counter=0;
         // return $counter;
         if(!$last_income){
@@ -78,7 +104,7 @@ class RequestController extends Controller
         $articles = json_decode($request->articles);
         // return $articles;
         $article_request = new ArticleRequest;
-        $article_request->storage_id = Auth::user()->getStorage()->id;
+        $article_request->storage_id = $storage_id;
         $article_request->prs_id = Auth::user()->person()->prs_id;
         $article_request->correlative = $counter;
         $article_request->save();

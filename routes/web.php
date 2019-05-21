@@ -36,6 +36,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('request/confirm_request','RequestController@confirmRequest');
     Route::post('request/delivery_request','RequestController@delivery');
 
+    Route::get('transfer_request','RequestController@transfer');
+    Route::get('articles/{storage_id}','ArticleController@storage_article');
+
+    //cambiar de sucursal
+    Route::post('change_storage','UserController@changeStore');
+
+    //listado para transferencia entre almacenes
+    Route::get('storage_articles/{storage_id}','RequestController@storageArticles');
+
     Route::get('articles/{storage_id}','ArticleController@storage_article');
 
     //array data from model
