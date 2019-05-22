@@ -14,6 +14,7 @@
     :storage="{{Auth::user()->getStorage()}}"
     :request="{{$article_request}}"
     gerencia="{{Auth::user()->getGerencia()}}"
+    :providers = "{{$providers}}"
     {{-- :person={{Auth::user()->person()}} --}}
     >
     </check-component>

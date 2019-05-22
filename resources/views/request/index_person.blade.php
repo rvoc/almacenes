@@ -33,6 +33,7 @@
                             <tr>
                                 <th>Numero de solicitud</th>
                                 <th>Almacen</th>
+                                <th>Tipo de Solicitud</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
                             </tr>
@@ -41,7 +42,8 @@
                             @foreach ($request_articles as $item)
                             <tr>
                                 <td>{{$item->correlative}}</td>
-                                <td>{{$item->storage->name}}</td>
+                                <td>{{$item->storage_destiny->name}}</td>
+                                <td>{{$item->type}}</td>
                                 <td>
                                     @switch($item->state)
                                         @case('Aprobado')

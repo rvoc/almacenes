@@ -16,8 +16,10 @@ class CreateArticleRequestsTable extends Migration
         Schema::create('article_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
             //establecer usuarios yo funcionarios
-            $table->integer('storage_id');
-            $table->foreign('storage_id')->references('id')->on('storages');
+            $table->integer('storage_origin_id'); //origin
+            $table->foreign('storage_origin_id')->references('id')->on('storages');
+            $table->integer('storage_destiny_id'); //origin
+            $table->foreign('storage_destiny_id')->references('id')->on('storages');
             // $table->integer("number_request")->nullable();// correlativo
             $table->integer('prs_id'); //persona que solicita el articulo
             $table->foreign('prs_id')->references('prs_id')->on('siscor._bp_personas');
@@ -27,7 +29,8 @@ class CreateArticleRequestsTable extends Migration
 
             $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente'])->default('Pendiente');
             $table->unsignedInteger('correlative')->index();
-            $table->unique( array('storage_id','correlative'));
+            $table->enum('type', ['Funcionario', 'Almacen'])->default('Funcionario');
+            $table->unique( array('storage_destiny_id','correlative'));
             // falta adicionar lo de la gerencia
             $table->timestamps();
             $table->softDeletes();

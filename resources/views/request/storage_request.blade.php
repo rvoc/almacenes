@@ -33,8 +33,6 @@
                             <tr>
                                 <th>Numero de solicitud</th>
                                 <th>Funcionario</th>
-                                <th>Tipo de Solicitud</th>
-                                <th>Origen de Solicitud</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
                             </tr>
@@ -44,8 +42,6 @@
                             <tr>
                                 <td>{{$item->correlative}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
-                                <td>{{$item->type}}</td>
-                                <td>{{$item->storage_origin->name}}</td>
                                 <td>
                                     @switch($item->state)
                                         @case('Aprobado')

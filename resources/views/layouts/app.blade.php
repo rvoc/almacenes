@@ -172,12 +172,12 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ url('article') }}" class="nav-link {{ Navigation::isActiveRoute('article.index') }}">
                                 <i class="nav-icon fa fa-box"></i>
                                 <p>Articulos</p>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a href="{{ url('stock') }}" class="nav-link {{ Navigation::isActiveRoute('stock.index') }}">

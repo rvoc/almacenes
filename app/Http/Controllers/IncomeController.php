@@ -57,7 +57,7 @@ class IncomeController extends Controller
         // return $request->all();
         $articles = json_decode($request->articles);
         // return $articles;
-        $last_income = ArticleIncome::max('correlative');
+        $last_income = ArticleIncome::where('storage_id',Auth::user()->getStorage()->id)->max('correlative');
         $counter=0;
         // return $counter;
         if(!$last_income){

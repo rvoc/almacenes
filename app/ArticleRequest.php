@@ -8,8 +8,11 @@ class ArticleRequest extends Model
 {
     //
 
-    public function storage(){
-        return $this->belongsTo('App\Storage');
+    public function storage_origin(){
+        return $this->belongsTo('App\Storage','storage_origin_id');
+    }
+    public function storage_destiny(){
+        return $this->belongsTo('App\Storage','storage_destiny_id');
     }
 
     public function person(){

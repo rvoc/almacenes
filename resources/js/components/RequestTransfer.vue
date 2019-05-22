@@ -103,7 +103,8 @@
                                 <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
                             </div>
                         </div> -->
-                        <input type="text" name="storage_id" :value="storage_select.id" hidden>
+                        <input type="text" name="type" value="Almacen" hidden>
+                        <input type="text" name="storage_destiny_id" :value="storage_select.id" hidden>
                         <input type="text" name="articles" :value="JSON.stringify(incomes)" hidden>
                         <h5>Detalle de Solicitud</h5>
 

@@ -21,6 +21,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Articulo</th>
                                         <th scope="col">Unidad</th>
+                                        <th scope="col" v-if="isRequestStorage">Costo Unitario</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Cantidad Sol.</th>
                                         <th scope="col">Cantidad Aprob.</th>
@@ -31,6 +32,9 @@
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{item.article.name}}</td>
                                         <td>{{item.article.unit.name}}</td>
+                                        <td v-if="isRequestStorage">
+                                            <input type="text" class="form-control" v-model="item.cost">
+                                        </td>
                                         <td>{{item.stock.stock}}</td>
                                         <td>{{item.quantity}}</td>
                                         <td>
@@ -38,7 +42,11 @@
                                             <!-- {{item.quantity_apro}} -->
                                         </td>
                                     </tr>
-                                    <tr >
+                                    <tr v-if="isRequestStorage" >
+                                        <td colspan="6" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                        <td>{{getTotalQuantity}}</td>
+                                    </tr>
+                                    <tr v-else>
                                         <td colspan="5" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
                                         <td>{{getTotalQuantity}}</td>
                                     </tr>
@@ -72,7 +80,8 @@
                 <form enctype="multipart/form-data" id='formCategory' method="post" :action="url+'/confirm_request'" @submit.prevent="validateBeforeSubmit">
                     <div v-html='csrf'></div>
                     <div class="modal-header">
-                        <h5 class="modal-title" id="registerModalLabel">Aprobar Solicitud  Nro {{request.correlative}}</h5>
+                        <h5 class="modal-title" id="registerModalLabel" v-if="isRequestStorage">Aprobar Solicitud de Traspaso Nro {{request.correlative}}</h5>
+                        <h5 class="modal-title" id="registerModalLabel" v-else>Aprobar Solicitud  Nro {{request.correlative}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -87,10 +96,31 @@
                             <div class="form-group  col-md-4">
                                 <label for="tipo"> Fecha de solicitud: {{request.created_at}} </label>
                             </div>
+                            <div class="form-group  col-md-6">
+                                <input type="text" name="provider_id" v-if="provider" :value="provider.id" hidden>
+                                <label for="proveedor">Proveedor</label>
+                                <multiselect
+                                    v-model="provider"
+                                    :options="providers"
+                                    id="proveedor"
+                                    placeholder="Seleccionar Proveedor"
+                                    select-label="Seleccionar"
+                                    deselect-label="Remover"
+                                    selected-label="Seleccionado"
+                                    label="name"
+                                    track-by="name" >
+                                </multiselect>
+                                <div class="invalid-feedback">{{ errors.first("proveedor") }}</div>
+                            </div>
+                            <!-- <div class="form-group  col-md-6" v-if="isRequestStorage">
+                                <label for="tipo"> Tipo:  </label>
+                            </div> -->
 
                         </div>
                         <input type="text" name="article_request_id" :value="request.id " hidden>
                         <input type="text" name="articles" :value="JSON.stringify(rows)" hidden>
+                        <input type="text" name="type" value="Traspaso" v-if="isRequestStorage" hidden>
+                        <input type="text" name="total_cost" :value="getTotalCost" v-if="isRequestStorage" hidden>
                         <h5>Detalle de Solicitud</h5>
 
                         <div class="row">
@@ -100,7 +130,10 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Articulo</th>
                                         <th scope="col">Unidad</th>
+                                        <th scope="col" v-if="isRequestStorage">costo</th>
                                         <th scope="col">Cantidad</th>
+                                        <th scope="col" v-if="isRequestStorage">Subtotal</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -108,11 +141,18 @@
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{item.article.name}}</td>
                                         <td>{{item.article.unit.name}}</td>
+                                        <td v-if="isRequestStorage">{{item.cost}}</td>
                                         <td>{{item.quantity_apro}}</td>
+                                        <td v-if="isRequestStorage">{{subTotal(item)}}</td>
+
                                     </tr>
-                                    <tr >
-                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                    <tr v-if="!isRequestStorage" >
+                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL XDS:</strong> </td>
                                         <td>{{getTotalQuantity}}</td>
+                                    </tr>
+                                    <tr v-else>
+                                        <td colspan="5" class="text-right bg-gray" > <strong>TOTAL Bs:</strong> </td>
+                                        <td>{{getTotalCost}}</td>
                                     </tr>
 
                                 </tbody>
@@ -134,69 +174,71 @@
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
-    props:['articles','url','csrf','storage','request','gerencia'],
+    props:['articles','url','csrf','storage','request','gerencia','providers'],
     data: ()=>({
         form:{},
         title:'',
         rows: [],
         incomes: [],
         types:[{name: 'Ingreso'},{name:'Traspaso'},{name:'Reingreso'}],
-        columns: [
+        provider:{},
+        // columns: [
 
-            {
-                label: "Articulo",
-                name: "article.name",
-                filter: {
-                    type: "simple",
-                    placeholder: "articulo"
-                },
-                sort: true,
-            },
+        //     {
+        //         label: "Articulo",
+        //         name: "article.name",
+        //         filter: {
+        //             type: "simple",
+        //             placeholder: "articulo"
+        //         },
+        //         sort: true,
+        //     },
 
-            {
-                label: "Unidad",
-                name: "article.unit.name",
-                filter: {
-                    type: "simple",
-                    placeholder: "unidad"
-                },
-                sort: true,
-            },
+        //     {
+        //         label: "Unidad",
+        //         name: "article.unit.name",
+        //         filter: {
+        //             type: "simple",
+        //             placeholder: "unidad"
+        //         },
+        //         sort: true,
+        //     },
 
-            {
-                label: "Stock",
-                name: "stock.stock",
-                sort: true,
-            },
-            {
-                label: "Cantidad Solicitada",
-                name: "quantity",
-                sort: true,
-            },
+        //     {
+        //         label: "Stock",
+        //         name: "stock.stock",
+        //         sort: true,
+        //     },
+        //     {
+        //         label: "Cantidad Solicitada",
+        //         name: "quantity",
+        //         sort: true,
+        //     },
 
-            {
-                label: "Cantidad",
-                name: "quantity_apro",
-                sort: true,
-            },
-        ],
-        config: {
-			card_mode: false,
-			checkbox_rows: false,
-			rows_selectable: false,
-			global_search:  {
-					placeholder:  "Enter custom Search text",
-					visibility: false,
-					case_sensitive:  false
-			},
-			show_refresh_button:  false,
-			show_reset_button:  false,
-        },
+        //     {
+        //         label: "Cantidad",
+        //         name: "quantity_apro",
+        //         sort: true,
+        //     },
+        // ],
+        // config: {
+		// 	card_mode: false,
+		// 	checkbox_rows: false,
+		// 	rows_selectable: false,
+		// 	global_search:  {
+		// 			placeholder:  "Enter custom Search text",
+		// 			visibility: false,
+		// 			case_sensitive:  false
+		// 	},
+		// 	show_refresh_button:  false,
+		// 	show_reset_button:  false,
+        // },
         hasFile: false,
 
     }),
     mounted() {
         this.rows = this.articles;
+        this.provider = this.providers[0];
         // console.log(this.articles);
         // console.log(this.gerencia);
     },
@@ -227,16 +269,37 @@ export default {
                 toastr.error('Debe completar la informacion correctamente')
             });
         },
+        subTotal(item){
+            let sum = Number(item.quantity) * Number(item.cost);
+            return sum;
+        }
+
 
     },
     computed:{
 
+         getTotalCost(){
+            let cost= 0;
+            this.rows.forEach(item => {
+                // this.cost += parseInt(item.cost)
+                cost += this.subTotal(item)
+                // console.log(item.cost);
+            });
+            return cost;
+        },
         getTotalQuantity(){
             let quantity= 0;
             this.rows.forEach(item => {
                 quantity += Number(item.quantity_apro)
             });
             return quantity;
+        },
+        isRequestStorage() {
+            let res=false;
+            if(this.request.type =='Almacen'){
+                res=true;
+            }
+            return res;
         }
     },
     components: {
