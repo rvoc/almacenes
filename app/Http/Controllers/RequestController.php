@@ -210,8 +210,9 @@ class RequestController extends Controller
         $articles = json_decode($request->articles);
         $article_request = ArticleRequest::find($request->article_request_id);
         // return $request->all();
-        if($article_request->type=="Almacen")
+        if($article_request->type=="Almacen") //en caso de que el request es tipo almacen
         {
+            Log::info("inegresando modo almacen");
             //realizar solicitud de ingreso
             $last_income = ArticleIncome::where('storage_id',Auth::user()->getStorage()->id)->max('correlative');
             $counter=0;
@@ -228,7 +229,7 @@ class RequestController extends Controller
             $article_income->provider_id = $request->provider_id;
             $article_income->correlative = $counter;
             $article_income->prs_id =$article_request->prs_id;
-            $article_income->storage_id = $article_request->storage_destiny_id;
+            $article_income->storage_id = $article_request->storage_origin_id;
             $article_income->type = $request->type;
             $article_income->total_cost = $request->total_cost;
             $article_income->save();
@@ -273,21 +274,24 @@ class RequestController extends Controller
             // return $stocks;
             $article_request_item->save();
 
-            //realizar solicitud con items e ingresar lo aprobado al almacen destino XD
-            $article_income_item = new ArticleIncomeItem;
-            $article_income_item->article_income_id = $article_income->id;
-            $article_income_item->article_id = $article->article->id;
-            $article_income_item->cost = $article->cost;
-            $article_income_item->quantity = $article->quantity_apro;
-            $article_income_item->save();
-
-            $stock = new Stock;
-            $stock->article_id = $article_income_item->article_id;
-            $stock->storage_id = $article_income->storage_id;
-            $stock->article_income_item_id = $article_income_item->id;
-            $stock->quantity = $article->quantity_apro;
-            $stock->cost = $article->cost;
-            $stock->save();
+            if($article_request->type=="Almacen"){
+                Log::info("generando solicitud");
+                //realizar solicitud con items e ingresar lo aprobado al almacen destino XD
+                $article_income_item = new ArticleIncomeItem;
+                $article_income_item->article_income_id = $article_income->id;
+                $article_income_item->article_id = $article->article->id;
+                $article_income_item->cost = $article->cost;
+                $article_income_item->quantity = $article->quantity_apro;
+                $article_income_item->save();
+                Log::info(json_encode($article_income_item));
+                $stock = new Stock;
+                $stock->article_id = $article_income_item->article_id;
+                $stock->storage_id = $article_income->storage_id;
+                $stock->article_income_item_id = $article_income_item->id;
+                $stock->quantity = $article->quantity_apro;
+                $stock->cost = $article->cost;
+                $stock->save();
+            }
 
         }
         $article_request = ArticleRequest::find($request->article_request_id);
