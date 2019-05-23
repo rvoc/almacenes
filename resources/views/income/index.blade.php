@@ -16,7 +16,7 @@
                     <h4 class="card-title ">
                         Ingresos {{Auth::user()->getStorage()->name}}
                         <small class="float-sm-right">
-                            <a href="{{url('income/create')}}" class="btn btn-success btn-sm">Nuevo  <i class="fa fa-plus-circle"></i></a>
+                            <a href="{{url('income/create')}}" class="btn btn-success btn-sm">Nuevo Ingreso  <i class="fa fa-plus-circle"></i></a>
                         </small>
                     </h4>
                 </div>
