@@ -3,6 +3,12 @@
         <div class="col-md-7">
             <div class="card">
                 <div class="card-header">
+                    {{url}}
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-store-alt"></i>  {{storage.name}}
+                    </button>
+                    <i class="fa fa-cart-arrow-down text-secundary  "></i>
+                    <i class="fa fa-arrow-alt-circle-left"></i>
                    <div class="btn-group">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" :disabled="disable_storage">
                             <i class="fa fa-store-alt"></i> {{storage_select.name}}
@@ -11,10 +17,8 @@
                             <a class="dropdown-item" href="#" @click="setStorage(item)"  v-for="(item, index) in storages" :key="index" >{{item.name}} </a>
                         </div>
                     </div>
-                        <i class="fa fa-arrow-alt-circle-right"></i>
-                    <button class="btn btn-secondary">
-                        <i class="fa fa-store-alt"></i>  {{storage.name}}
-                    </button>
+
+
                 </div>
                 <div class="card-body">
                     <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">

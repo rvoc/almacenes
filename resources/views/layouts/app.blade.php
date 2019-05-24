@@ -207,7 +207,7 @@
                         <li class="nav-item">
                             <a href="{{ url('transfer_request') }}" class="nav-link {{ Navigation::isActiveRoute('request.transfer') }}">
                                 <i class="nav-icon fa fa-exchange-alt"></i>
-                                <p>Transferencia Articulos</p>
+                                <p>Traspaso</p>
                             </a>
                         </li>
 

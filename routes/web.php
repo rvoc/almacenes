@@ -36,7 +36,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('request/confirm_request','RequestController@confirmRequest');
     Route::post('request/delivery_request','RequestController@delivery');
 
+    //manejo de transferencia entre almacenes
     Route::get('transfer_request','RequestController@transfer');
+    Route::get('transfer_request_create','RequestController@create_transfer');
+    Route::post('transfer_request_store','RequestController@store_transfer_confirm');
+    Route::get('transfer_request_check/{article_request_id}','RequestController@check_transfer');
+
+
     Route::get('articles/{storage_id}','ArticleController@storage_article');
 
     //cambiar de sucursal

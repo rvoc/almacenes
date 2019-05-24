@@ -66,7 +66,12 @@
                                 </td>
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
-                                    <a href="{{url('request/'.$item->id.'/edit')}}" ><i class="material-icons text-info">assignment</i></a>
+                                    {{-- {{$item}} --}}
+                                    @if($item->type == 'Funcionario' )
+                                        <a href="{{url('request/'.$item->id.'/edit')}}" ><i class="material-icons text-info">assignment</i></a>
+                                    @else
+                                        <a href="{{url('transfer_request_check/'.$item->id)}}" ><i class="material-icons text-info">assignment</i></a>
+                                    @endif
                                     @if($item->state == 'Aprobado')
                                         {{-- <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">local_shipping</i></a> --}}
                                         <a href="#"> <i class="material-icons text-primary delivery" data-json='{{$item}}'>local_shipping</i></a>

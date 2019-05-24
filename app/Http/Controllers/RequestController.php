@@ -50,8 +50,141 @@ class RequestController extends Controller
     public function transfer()
     {
         // return 'test';
+        $request_articles = ArticleRequest::where('storage_origin_id',Auth::user()->getStorage()->id)
+                                            ->where('type','=','Almacen')
+                                            ->get();
+        return view('request.storage.index',compact('request_articles'));
+    }
+
+    public function create_transfer(){
+
         $storages = Storage::all();
-        return view('request.transfer',compact('storages'));
+        return view('request.storage.create',compact('storages'));
+    }
+
+    public function check_transfer($article_request_id){
+
+        $article_request = ArticleRequest::with('person')->find($article_request_id);
+        // return $article_request;
+        $article_request_items = $article_request->article_request_items;
+
+        foreach($article_request_items as $items)
+        {
+            $items->stock = Stock::where('article_id',$items->article->id)
+                            ->where('storage_id',Auth::user()->getStorage()->id)
+                            ->select(DB::raw('sum(quantity) as stock'))
+                            ->groupBy('article_id')
+                            ->first();
+        }
+        // return $article_request_items;
+        $providers = Provider::all();
+
+        return view('request.storage.check',compact('article_request','article_request_items','providers'));
+    }
+
+    public function store_transfer_confirm(Request $request){
+
+        // return $request->all();
+        $articles = json_decode($request->articles);
+        $article_request = ArticleRequest::find($request->article_request_id);
+        // return $request->all();
+        //se asume que todo esta ingresando a a almacen
+        Log::info("inegresando modo almacen");
+        //realizar solicitud de ingreso
+        $last_income = ArticleIncome::where('storage_id',$article_request->storage_origin_id)->max('correlative');
+        $counter=0;
+        // return $counter;
+        if(!$last_income){
+            $counter=1;
+        }
+        else{
+            $counter=$last_income+1;
+        }
+
+        $article_income = new ArticleIncome;
+
+        $article_income->provider_id = $request->provider_id;
+        $article_income->correlative = $counter;
+        $article_income->prs_id =$article_request->prs_id;
+        $article_income->storage_id = $article_request->storage_origin_id;
+        $article_income->type = $request->type;
+        $article_income->total_cost = $request->total_cost;
+        // return $article_income;
+        $article_income->save();
+            //hasta aqui el registro del nuevo ingreso
+
+        // return $article_request;
+        foreach($articles as $article){
+
+            // return json_encode($article);
+            $article_request_item = ArticleRequestItem::find($article->id);
+            $article_request_item->quantity_apro =$article->quantity_apro;
+            //obtener lista de los productos en stock de este almacen
+
+            $stocks = Stock::where('article_id','=',$article->article_id)
+                            ->where('storage_id',$article_request->storage_destiny_id)
+                            ->where('quantity','>',0)
+                            ->orderBy('created_at','Asc')
+                            ->get();
+
+            $quantity=$article->quantity_apro;
+            Log::warning('cantidad aprobada :'.$quantity);
+
+            //Modulo delicado tener cuidado con este algoritmo  XD
+
+            foreach($stocks as $stock)
+            {
+                 Log::warning('stock: '.$stock->article->name.'  cant:'.$stock->quantity);
+
+                    if($quantity>0)
+                    {
+                        if($quantity >= $stock->quantity)
+                        {
+                            Log::info($quantity.'>='.$stock->quantity);
+                            $quantity_desc = $quantity - $stock->quantity;
+                        }else
+                        {
+                            Log::info($quantity.'<'.$stock->quantity);
+                            $quantity_desc =  $quantity;
+                        }
+
+                        Log::info('descuento :'.$quantity_desc);
+                        $stock->quantity = $stock->quantity - $quantity_desc;
+                        Log::info('new stock:'.$stock->quantity);
+                        $quantity = $quantity -$quantity_desc;
+                        Log::info('new cant:'.$quantity);
+                        //verificar el monto que se esta descontando
+                        $stock->save();
+                    }
+            }
+
+            // return $stocks;
+            $article_request_item->save();
+
+
+                Log::info("generando solicitud item");
+                //realizar solicitud con items e ingresar lo aprobado al almacen destino XD
+                $article_income_item = new ArticleIncomeItem;
+                $article_income_item->article_income_id = $article_income->id;
+                $article_income_item->article_id = $article->article->id;
+                $article_income_item->cost = $article->cost;
+                $article_income_item->quantity = $article->quantity_apro;
+                $article_income_item->save();
+                Log::info(json_encode($article_income_item));
+                $stock = new Stock;
+                $stock->article_id = $article_income_item->article_id;
+                $stock->storage_id = $article_income->storage_id;
+                $stock->article_income_item_id = $article_income_item->id;
+                $stock->quantity = $article->quantity_apro;
+                $stock->cost = $article->cost;
+                $stock->save();
+
+        }
+        $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Aprobado";
+        $article_request->save();
+
+        return redirect('transfer_request');
     }
     /**
      * Show the form for creating a new resource.
@@ -244,31 +377,37 @@ class RequestController extends Controller
             // return json_encode($article);
             $stocks = Stock::where('article_id','=',$article->article_id)
                             ->where('storage_id',$article_request->storage_destiny_id)
+                            ->where('quantity','>',0)
                             ->orderBy('created_at','Asc')
                             ->get();
             // return $stocks;
             $quantity=$article->quantity_apro;
+            Log::warning('cantidad aprobada funcionario:'.$quantity);
             // return $quantity;
             foreach($stocks as $stock)
             {
-                 Log::warning('Cantidad:'.$quantity);
-                    if($quantity>0){
-                        if($quantity >= $stock->quantity){
-                            $stock->quantity = $quantity - $stock->quantity;
-                            //cantidad descontada
-                            $quantity = $quantity - $stock->quantity;
-                            Log::info('cantidad >=: '.$quantity);
-                            //verificar el monto que se esta descontando
+                Log::warning('stock: '.$stock->article->name.'  cant:'.$stock->quantity);
 
-                        }else
-                        {
-                            $stock->quantity = $stock->quantity - $quantity;
-                            $quantity = $quantity - $stock->quantity ;
-                            Log::info('cantidad <: '.$stock->quantity);
-                        }
-
-                        $stock->save();
+                if($quantity>0)
+                {
+                    if($quantity >= $stock->quantity)
+                    {
+                        Log::info($quantity.'>='.$stock->quantity);
+                        $quantity_desc = $quantity - $stock->quantity;
+                    }else
+                    {
+                        Log::info($quantity.'<'.$stock->quantity);
+                        $quantity_desc =  $quantity;
                     }
+
+                    Log::info('descuento :'.$quantity_desc);
+                    $stock->quantity = $stock->quantity - $quantity_desc;
+                    Log::info('new stock:'.$stock->quantity);
+                    $quantity = $quantity -$quantity_desc;
+                    Log::info('new cant:'.$quantity);
+                    //verificar el monto que se esta descontando
+                    $stock->save();
+                }
             }
 
             // return $stocks;
