@@ -14,7 +14,7 @@
                 <div class="card-header card-calendar">
 
                     <h4 class="card-title ">
-                        Stock
+                        Stock en {{Auth::user()->getStorage()->name}}
                         <small class="float-sm-right">
                             {{-- <a href="{{url('amp_report_excel')}}" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o"></i> </a>  --}}
                             {{-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ArticleModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button> --}}
@@ -36,7 +36,7 @@
                             <tr>
                                 <td>{{$item->article->name}}</td>
                                 <td>{{$item->quantity}}</td>
-                                <td> <i class="material-icons text-info">list</i> </td>
+                                <td> <i class="material-icons text-info">remove_red_eye</i> </td>
 
                                 {{-- <td>
                                     <a href="#" data-toggle="modal" data-target="#ArticleModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>

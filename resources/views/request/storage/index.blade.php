@@ -32,6 +32,7 @@
                         <thead>
                             <tr>
                                 <th>Numero de solicitud</th>
+                                <th>Fecha</th>
                                 <th>Almacen</th>
                                 <th>Tipo de Solicitud</th>
                                 <th>Estado</th>
@@ -42,6 +43,7 @@
                             @foreach ($request_articles as $item)
                             <tr>
                                 <td>{{$item->correlative}}</td>
+                                <td>{{$item->created_at}}</td>
                                 <td>{{$item->storage_destiny->name}}</td>
                                 <td>{{$item->type}}</td>
                                 <td>

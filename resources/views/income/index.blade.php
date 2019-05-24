@@ -26,9 +26,13 @@
                         <thead>
                             <tr>
                                 <th>Nro. Ingreso</th>
+                                <th>Nota de Ingreso</th>
+                                <th>Acta de Recpcion</th>
+                                <th>Factura</th>
+                                <th>Fecha Registro</th>
                                 <th>Persona</th>
+                                <th>Costo</th>
                                 <th>Proveedor</th>
-                                <th>Telefono</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -36,9 +40,13 @@
                             @foreach ($incomes as $item)
                             <tr>
                                 <td>{{$item->correlative}}</td>
+                                <td><a href="#">{{$item->correlative}}</a> </td>
+                                <td><a href="#">{{$item->correlative}}</a> </td>
+                                <td><a href="#">{{$item->path_invoice}}</a> </td>
+                                <td>{{$item->created_at}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
+                                <td>{{$item->total_cost}}</td>
                                 <td>{{$item->provider->name}}</td>
-                                <td>{{$item->provider->phone}}</td>
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
                                     <a href="#" > <i class="material-icons text-info">description</i> </a>

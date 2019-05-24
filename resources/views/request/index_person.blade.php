@@ -14,9 +14,9 @@
                 <div class="card-header card-calendar">
 
                     <h4 class="card-title ">
-                        {{$title??'Solicitudes Realizadas'}}
+                        {{$title??'Mis Solicitudes Realizadas'}}
                         <small class="float-sm-right">
-                            <a href="{{url('request/create')}}" class="btn btn-primary btn-sm"> Nuevo  <i class="fa fa-plus-circle"></i> </a>
+                            <a href="{{url('request/create')}}" class="btn btn-primary btn-sm"> Nuevo Solicitud <i class="fa fa-plus-circle"></i> </a>
                             {{-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ProviderModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button> --}}
                         </small>
                     </h4>
@@ -31,9 +31,10 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Numero de solicitud</th>
+                                <th>Nº Solicitud</th>
+                                <th>Nota Solicitud</th>
+                                <th>Fecha</th>
                                 <th>Almacen</th>
-                                <th>Tipo de Solicitud</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
                             </tr>
@@ -42,8 +43,9 @@
                             @foreach ($request_articles as $item)
                             <tr>
                                 <td>{{$item->correlative}}</td>
+                                <td> <a href="#">{{$item->correlative}}</a> </td>
+                                <td>{{$item->created_at}}</td>
                                 <td>{{$item->storage_destiny->name}}</td>
-                                <td>{{$item->type}}</td>
                                 <td>
                                     @switch($item->state)
                                         @case('Aprobado')

@@ -194,20 +194,20 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('request_person') }}" class="nav-link {{ Navigation::isActiveRoute('request.index_person') }}">
-                                <i class="nav-icon fa fa-truck-loading"></i>
-                                <p>Solicitudes</p>
+                                <i class="nav-icon fa fa-boxes"></i>
+                                <p>Mis Solicitudes</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('request') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
-                                <i class="nav-icon fa fa-people-carry"></i>
+                                <i class="nav-icon fa fa-truck-loading"></i>
                                 <p>Solicitudes Almacen</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('transfer_request') }}" class="nav-link {{ Navigation::isActiveRoute('request.transfer') }}">
-                                <i class="nav-icon fa fa-exchange-alt"></i>
-                                <p>Traspaso</p>
+                                <i class="nav-icon fa fa-people-carry"></i>
+                                <p>Solicitudes Traspaso</p>
                             </a>
                         </li>
 
