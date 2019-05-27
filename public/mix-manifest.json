@@ -1,6 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/login.css": "/css/login.css",
+    "/css/wkhtml.css": "/css/wkhtml.css",
+    "/css/materialicons.css": "/css/materialicons.css",
     "/css/app.css": "/css/app.css",
     "/js/login.js": "/js/login.js"
 }

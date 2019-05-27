@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('income', 'IncomeController');
     Route::resource('stock', 'StockController');
     Route::resource('request', 'RequestController');
+
+    Route::resource('print', 'ReportController');
     //route person
     Route::get('request_person','RequestController@index_person');
     Route::post('request/confirm_request','RequestController@confirmRequest');
