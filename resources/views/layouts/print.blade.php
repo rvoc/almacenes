@@ -19,7 +19,7 @@
                 </th>
                 <th class="w-50 align-center text-center  ">
                     <span class="font-semibold uppercase leading-tight " >
-                        {{-- {{ $institution ?? 'EMPRESA BOLIVIANA DE ALIMENTOS Y DERIVADOS' }} <br> --}}
+                        {{ $institution ?? 'EMPRESA BOLIVIANA DE ALIMENTOS Y DERIVADOS' }} <br>
 
                         {{ $storage ?? 'GERENCIA DE PLANIFICACIÓN Y DESARROLLO' }} <br>
                         {{-- {{ $direction ?? '  DE BENEFICIOS ECONÓMICOS' }} <br>
@@ -37,6 +37,10 @@
                             <tr>
                                 <td class="text-center bg-grey-darker text-xxs text-white">Usuario</td>
                                 <td class="text-xs">{!! $username !!}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center bg-grey-darker text-xxs text-white">Codigo</td>
+                                <td class="text-xs">{!! $code !!}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -33,24 +33,20 @@
                                 <th>Persona</th>
                                 <th>Costo</th>
                                 <th>Proveedor</th>
-                                <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($incomes as $item)
                             <tr>
                                 <td>{{$item->correlative}}</td>
-                                <td><a href="#">{{$item->correlative}}</a> </td>
+                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}">{{$item->correlative}}</a>
+                                </td>
                                 <td><a href="#">{{$item->correlative}}</a> </td>
                                 <td><a href="#">{{$item->path_invoice}}</a> </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->total_cost}}</td>
                                 <td>{{$item->provider->name}}</td>
-                                <td>
-                                    {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
-                                <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}" > <i class="material-icons text-info">description</i> </a>
-                                </td>
 
                             </tr>
                             @endforeach

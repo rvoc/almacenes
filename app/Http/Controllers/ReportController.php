@@ -73,9 +73,10 @@ class ReportController extends Controller
         $persona = Auth::user()->getFullName();
         $gerencia = Auth::user()->getGerencia();
         $storage = Auth::user()->getStorage()->name;
+        $code =  $article_income->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_income->created_at)->year;
         // // $html = '<h1>Hello world</h1>';
         // return view('layouts.print', compact('username','date','title'));
-         $view = \View::make('report.income_note', compact('username','date','title','storage','article_income','persona','gerencia'));
+         $view = \View::make('report.income_note', compact('username','date','title','storage','article_income','persona','gerencia','code'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
