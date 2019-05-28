@@ -43,7 +43,7 @@
                             @foreach ($request_articles as $item)
                             <tr>
                                 <td>{{$item->correlative}}</td>
-                                <td> <a href="#">{{$item->correlative}}</a> </td>
+                                <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{$item->correlative}}</a> </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->storage_destiny->name}}</td>
                                 <td>
@@ -64,11 +64,9 @@
                                             @break
                                     @endswitch
                                 </td>
-                                <td>
-                                    {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
+                                {{-- <td>
                                     <a href="#"data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}"><i class="material-icons text-primary">remove_red_eye</i></a>
-                                    {{-- <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a> --}}
-                                </td>
+                                </td> --}}
 
                             </tr>
 

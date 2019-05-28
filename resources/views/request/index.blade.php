@@ -42,7 +42,7 @@
                         <tbody>
                             @foreach ($request_articles as $item)
                             <tr>
-                                <td>{{$item->correlative}}</td>
+                                <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{$item->correlative}}</a> </td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->type}}</td>
                                 <td>{{$item->storage_origin->name}}</td>
@@ -67,14 +67,20 @@
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
                                     {{-- {{$item}} --}}
-                                    @if($item->type == 'Funcionario' )
-                                        <a href="{{url('request/'.$item->id.'/edit')}}" ><i class="material-icons text-info">assignment</i></a>
-                                    @else
-                                        <a href="{{url('transfer_request_check/'.$item->id)}}" ><i class="material-icons text-info">assignment</i></a>
+                                    @if($item->state == 'Pendiente' )
+                                        @if($item->type == 'Funcionario' )
+                                            <a href="{{url('request/'.$item->id.'/edit')}}" ><i class="material-icons text-info">assignment</i></a>
+                                        @else
+                                            <a href="{{url('transfer_request_check/'.$item->id)}}" ><i class="material-icons text-info">assignment</i></a>
+                                        @endif
                                     @endif
                                     @if($item->state == 'Aprobado')
                                         {{-- <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">local_shipping</i></a> --}}
                                         <a href="#"> <i class="material-icons text-primary delivery" data-json='{{$item}}'>local_shipping</i></a>
+                                    @endif
+                                    @if($item->state == 'Entregado')
+                                        {{-- <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">local_shipping</i></a> --}}
+                                        <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="material-icons text-success " data-json='{{$item}}'>remove_red_eye</i></a>
                                     @endif
                                 </td>
 
@@ -96,10 +102,37 @@
 
     </div>
 
+    <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPdfTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 <script>
 
     @section('script')
+        $('#modalPdf').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var url = button.data('url') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            console.log(url);
+            var modal = $(this)
+            modal.find('.modal-title').text('' )
+            modal.find('.modal-body iframe').attr('src', url)
+
+        })
         var classname = document.getElementsByClassName("delivery");
         // console.log(classname);
         function deleteItem(){
