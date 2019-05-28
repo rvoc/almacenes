@@ -65,7 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     //reportes
 
-    Route::get('income_note/{artilce_income_id}','ReportController@income_note');
+    Route::get('income_note/{article_income_id}','ReportController@income_note');
+    Route::get('request_note/{article_request_id}','ReportController@request_note');
 
 
 

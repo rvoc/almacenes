@@ -12,7 +12,10 @@ use App\Article;
 use App\Provider;
 use App\ArticleIncome;
 use App\ArticleIncomeItem;
+use App\ArticleRequest;
+use App\ArticleRequestItem;
 use App\Stock;
+use App\User;
 class ReportController extends Controller
 {
     /**
@@ -72,11 +75,39 @@ class ReportController extends Controller
         $date =Carbon::now();
         $persona = Auth::user()->getFullName();
         $gerencia = Auth::user()->getGerencia();
-        $storage = Auth::user()->getStorage()->name;
+        $storage = Auth::user()->getStorage()->name;//cambiar esto no me acuerdo por que lo deje estatico XD
         $code =  $article_income->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_income->created_at)->year;
         // // $html = '<h1>Hello world</h1>';
         // return view('layouts.print', compact('username','date','title'));
          $view = \View::make('report.income_note', compact('username','date','title','storage','article_income','persona','gerencia','code'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+    }
+
+    public function request_note($article_request_id)
+    {
+        $article_request = ArticleRequest::find($article_request_id);
+        $username = Auth::user()->usr_usuario;
+        $title = "NOTA DE SOLICITUD ";
+        $date =Carbon::now();
+        $user = User::where('usr_prs_id',$article_request->prs_id)->first();
+        $persona = $user->getFullName(); //esto esta mal tambien
+        $gerencia = $user->getGerencia();
+        $storage = $article_request->storage_destiny->name;
+        $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
+
+        $view = \View::make('report.request_note', compact('username','date','title','storage','article_request','persona','gerencia','code'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
