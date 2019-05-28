@@ -49,9 +49,7 @@
                                 <td>{{$item->provider->name}}</td>
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
-                                    <a href="#" > <i class="material-icons text-info">description</i> </a>
-                                    <a href="#" data-toggle="modal" data-target="#ArticleModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
-                                    <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a>
+                                <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}" > <i class="material-icons text-info">description</i> </a>
                                 </td>
 
                             </tr>
@@ -69,10 +67,39 @@
 
     </div>
 
+    <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPdfTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 <script>
 
     @section('script')
+
+        $('#modalPdf').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var url = button.data('url') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            console.log(url);
+            var modal = $(this)
+            modal.find('.modal-title').text('' )
+            modal.find('.modal-body iframe').attr('src', url)
+
+        })
+
         var classname = document.getElementsByClassName("deleted");
         // console.log(classname);
         function deleteItem(){

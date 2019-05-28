@@ -63,6 +63,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('list_providers','ProviderController@getData');
     Route::get('list_storages','StorageController@getData');
 
+    //reportes
+
+    Route::get('income_note/{artilce_income_id}','ReportController@income_note');
 
 
 

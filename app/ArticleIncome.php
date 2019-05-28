@@ -16,4 +16,9 @@ class ArticleIncome extends Model
     {
         return $this->belongsTo("App\Person","prs_id","prs_id");
     }
+
+    public function article_income_items ()
+    {
+        return $this->hasMany('App\ArticleIncomeItem');
+    }
 }
