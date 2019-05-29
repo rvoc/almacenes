@@ -201,7 +201,7 @@
                         <li class="nav-item">
                             <a href="{{ url('request') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
                                 <i class="nav-icon fa fa-truck-loading"></i>
-                                <p>Solicitudes Almacen</p>
+                                <p>Solicitudes recibidas</p>
                             </a>
                         </li>
                         <li class="nav-item">
