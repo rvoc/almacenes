@@ -201,14 +201,31 @@
                         <li class="nav-item">
                             <a href="{{ url('request') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
                                 <i class="nav-icon fa fa-truck-loading"></i>
-                                <p>Solicitudes recibidas</p>
+                                <p>Solicitudes Realizadas</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ url('transfer_request') }}" class="nav-link {{ Navigation::isActiveRoute('request.transfer') }}">
+                        <li class="nav-item has-treeview menu-close">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-people-carry"></i>
-                                <p>Solicitudes Traspaso</p>
+                                <p>
+                                    Traspaso
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ url('request_storage') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
+                                            <i class="nav-icon fa fa-file-import"></i>
+                                            <p>Solicitudes recibidas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('request_storage_done') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
+                                            <i class="nav-icon fa fa-inbox"></i>
+                                            <p>Solicitudes Realizadas</p>
+                                        </a>
+                                    </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item has-treeview menu-close">
@@ -259,27 +276,6 @@
 
                             </ul>
                         </li>
-                        {{-- <li class="nav-item has-treeview menu-close">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fa fa-cubes"></i>
-                                <p>
-                                    Stock
-                                    <i class="right fa fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                @foreach ( Auth::user()->getStorages() as $item)
-
-                                <li class="nav-item">
-                                    <a href="{{ url('articles/'.$item->id) }}" class="nav-link">
-                                        <i class="fa fa-store-alt nav-icon"></i>
-                                        <p>{{$item->name}}</p>
-                                    </a>
-                                </li>
-                                @endforeach
-
-                            </ul>
-                        </li> --}}
 
                         {{-- <li class="nav-item">
                             <a href="{{ url('category') }}" class="nav-link {{ Navigation::isActiveRoute('category.index') }}">

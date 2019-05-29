@@ -14,7 +14,7 @@
             <tr>
                 <th class="w-20 text-left no-padding no-margins align-middle">
                     <div class="text-center">
-                        <img src="{{ public_path('img/logo.jpg') }}" class="w-101">
+                        <img src="{{ public_path('img/logo_sm.png') }}" class="w-101">
                     </div>
                 </th>
                 <th class="w-50 align-center text-center  ">

@@ -25,15 +25,40 @@ class RequestController extends Controller
     {
         // para articulos de almacen
         $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
+                                            ->where('type','Funcionario')
                                             ->get();
-        return view('request.index',compact('request_articles'));
+        $count = 1;
+        return view('request.index',compact('request_articles','count'));
     }
 
-    public function index_person(){
+    public function index_storage()
+    {
+        // para articulos de almacen
+        $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
+                                            ->where('type','Almacen')
+                                            ->where('state','!=','Entregado')
+                                            ->get();
+        $count = 1;
+        return view('request.index_storage',compact('request_articles','count'));
+    }
+    public function index_storage_done()
+    {
+        // para articulos de almacen
+        $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
+                                            ->where('type','Almacen')
+                                            ->where('state','Entregado')
+                                            ->get();
+        $title = "Solicitudes de Traspaso Realizadas ".Auth::user()->getStorage()->name;
+        $count = 1;
+        return view('request.index_storage',compact('request_articles','count','title'));
+    }
+
+    public function index_person()
+    {
         $request_articles = ArticleRequest::where('prs_id',Auth::user()->person()->prs_id)
-                                            // ->where('storage_id',Auth::user()->getStorage()->id)
+                                            ->where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             // ->where('type','=','Funcionario')
-                                            // ->orderBy('storage_id','Asc')
+                                            ->orderBy('id','DESC')
                                             ->get();
         return view('request.index_person',compact('request_articles'));
     }

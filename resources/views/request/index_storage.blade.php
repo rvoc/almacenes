@@ -14,9 +14,11 @@
                 <div class="card-header card-calendar">
 
                     <h4 class="card-title ">
-                        {{$title??'Solicitudes Recibidas '.Auth::user()->getStorage()->name}}
+                        {{$title??'Traspasos Recibidas '.Auth::user()->getStorage()->name}}
                         <small class="float-sm-right">
-                            {{-- <a href="{{url('amp_report_excel')}}" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o"></i> </a>  --}}
+                            @if(isset($title))
+                            <a href="{{url('transfer_request_create')}}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Nueva Solicitud de Traspaso</a>
+                            @endif
                             {{-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ProviderModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button> --}}
                         </small>
                     </h4>
@@ -34,7 +36,7 @@
                                 <th>Nº</th>
                                 <th>Numero Nota solicitud</th>
                                 <th>Funcionario</th>
-                                <th>Tipo de Solicitud</th>
+                                <th>Fecha Solicitud</th>
                                 <th>Origen de Solicitud</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
@@ -47,7 +49,7 @@
                                 <td>{{$count++}}</td>
                                 <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{$item->correlative}}</a> </td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
-                                <td>{{$item->type}}</td>
+                                <td>{{$item->created_at}}</td>
                                 <td>{{$item->storage_origin->name}}</td>
                                 <td>
                                     @switch($item->state)

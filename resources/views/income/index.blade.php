@@ -85,10 +85,15 @@
     @section('script')
 
         var url_flash = @json(session('url'));
-
-        if(url_flash){
-            $('#modalPdf .modal-body iframe').attr('src', url_flash)
-            $('#modalPdf').modal('show')
+        console.log('printer flash')
+        console.log(url_flash);
+        if(url_flash)
+        {
+            if(url_flash.length >0)
+            {
+                $('#modalPdf .modal-body iframe').attr('src', url_flash)
+                $('#modalPdf').modal('show')
+            }
         }
 
         $('#modalPdf').on('show.bs.modal', function (event) {
