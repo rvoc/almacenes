@@ -106,7 +106,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalPdfTitle">Modal title</h5>
+                <h5 class="modal-title" id="modalPdfTitle"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -122,6 +122,15 @@
 <script>
 
     @section('script')
+
+        var url_flash = @json(session('url'));
+
+        if(url_flash){
+            $('#modalPdf .modal-body iframe').attr('src', url_flash)
+            $('#modalPdf').modal('show')
+        }
+
+
         $('#modalPdf').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var url = button.data('url') // Extract info from data-* attributes

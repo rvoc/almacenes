@@ -285,6 +285,10 @@ class RequestController extends Controller
 
             // $article_income_item->article_id = $article->;
         }
+
+        session()->flash('message','Se realizo la solicitud '.$article_request->correlative);
+        session()->flash('url',url('request_note/'.$article_request->id));
+
         return redirect('request_person');
     }
 
@@ -312,16 +316,6 @@ class RequestController extends Controller
         $article_request = ArticleRequest::with('person')->find($id);
         $article_request_items = $article_request->article_request_items;
 
-
-
-        // $stock = Stock::where('article_id',1)
-        //                 ->where('storage_id',1)
-        //                 ->select(DB::raw('sum(quantity) as stock'))
-        //                 ->groupBy('article_id')
-        //                 ->first();
-        //return $article_request_items;
-        // return $stock;
-        // $articles = array();
         foreach($article_request_items as $items)
         {
             $items->stock = Stock::where('article_id',$items->article->id)
@@ -391,6 +385,9 @@ class RequestController extends Controller
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Aprobado";
         $article_request->save();
+
+        session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
+        session()->flash('url',url('out_note/'.$article_request->id));
 
         return redirect('request');
         // return $articles;

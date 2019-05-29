@@ -96,25 +96,6 @@
                             <div class="form-group  col-md-4">
                                 <label for="tipo"> Fecha de solicitud: {{request.created_at}} </label>
                             </div>
-                            <div class="form-group  col-md-6">
-                                <input type="text" name="provider_id" v-if="provider" :value="provider.id" hidden>
-                                <label for="proveedor">Proveedor</label>
-                                <multiselect
-                                    v-model="provider"
-                                    :options="providers"
-                                    id="proveedor"
-                                    placeholder="Seleccionar Proveedor"
-                                    select-label="Seleccionar"
-                                    deselect-label="Remover"
-                                    selected-label="Seleccionado"
-                                    label="name"
-                                    track-by="name" >
-                                </multiselect>
-                                <div class="invalid-feedback">{{ errors.first("proveedor") }}</div>
-                            </div>
-                            <!-- <div class="form-group  col-md-6" v-if="isRequestStorage">
-                                <label for="tipo"> Tipo:  </label>
-                            </div> -->
 
                         </div>
                         <input type="text" name="article_request_id" :value="request.id " hidden>
@@ -146,13 +127,9 @@
                                         <td v-if="isRequestStorage">{{subTotal(item)}}</td>
 
                                     </tr>
-                                    <tr v-if="!isRequestStorage" >
-                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL XDS:</strong> </td>
+                                    <tr>
+                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
                                         <td>{{getTotalQuantity}}</td>
-                                    </tr>
-                                    <tr v-else>
-                                        <td colspan="5" class="text-right bg-gray" > <strong>TOTAL Bs:</strong> </td>
-                                        <td>{{getTotalCost}}</td>
                                     </tr>
 
                                 </tbody>

@@ -103,6 +103,9 @@ class IncomeController extends Controller
             // $article_income_item->article_id = $article->;
         }
 
+        session()->flash('message','Se realizo el ingreso '.$article_income->correlative);
+        session()->flash('url',url('income_note/'.$article_income->id));
+
         return redirect('income');
 
     }
