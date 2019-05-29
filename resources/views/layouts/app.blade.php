@@ -213,18 +213,18 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ url('request_storage') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
-                                            <i class="nav-icon fa fa-file-import"></i>
-                                            <p>Solicitudes recibidas</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ url('request_storage_done') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
-                                            <i class="nav-icon fa fa-inbox"></i>
-                                            <p>Solicitudes Realizadas</p>
-                                        </a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('request_storage') }}" class="nav-link {{ Navigation::isActiveRoute('request.index_storage') }}">
+                                        <i class="nav-icon fa fa-file-import"></i>
+                                        <p>Solicitudes recibidas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('request_storage_done') }}" class="nav-link {{ Navigation::isActiveRoute('request.index_storage') }}">
+                                        <i class="nav-icon fa fa-inbox"></i>
+                                        <p>Solicitudes Realizadas</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

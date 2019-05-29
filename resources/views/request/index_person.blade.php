@@ -31,8 +31,8 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Nº Solicitud</th>
-                                <th>Nota Solicitud</th>
+                                <th>Nro </th>
+                                <th>Nro Nota Solicitud</th>
                                 <th>Fecha</th>
                                 <th>Almacen</th>
                                 <th>Estado</th>
@@ -42,7 +42,7 @@
                         <tbody>
                             @foreach ($request_articles as $item)
                             <tr>
-                                <td>{{$item->correlative}}</td>
+                                <td>{{$count++}}</td>
                                 <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{$item->correlative}}</a> </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->storage_destiny->name}}</td>

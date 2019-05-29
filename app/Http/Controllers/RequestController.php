@@ -26,6 +26,7 @@ class RequestController extends Controller
         // para articulos de almacen
         $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->where('type','Funcionario')
+                                            ->orderBy('id','DESC')
                                             ->get();
         $count = 1;
         return view('request.index',compact('request_articles','count'));
@@ -60,7 +61,8 @@ class RequestController extends Controller
                                             // ->where('type','=','Funcionario')
                                             ->orderBy('id','DESC')
                                             ->get();
-        return view('request.index_person',compact('request_articles'));
+        $count = 1;
+        return view('request.index_person',compact('request_articles','count'));
     }
 
     // public function request_storage(){

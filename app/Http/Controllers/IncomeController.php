@@ -22,7 +22,8 @@ class IncomeController extends Controller
     {
         //
         $incomes = ArticleIncome::where('storage_id',Auth::user()->getStorage()->id)->get();
-        return view('income.index',compact('incomes'));
+        $count =1;
+        return view('income.index',compact('incomes','count'));
 
     }
 

@@ -33,13 +33,13 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Nº</th>
-                                <th>Numero Nota solicitud</th>
+                                <th>Nro</th>
+                                <th>Nro Nota solicitud</th>
                                 <th>Funcionario</th>
                                 <th>Fecha Solicitud</th>
                                 <th>Origen de Solicitud</th>
                                 <th>Estado</th>
-                                <th>Opciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

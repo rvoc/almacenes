@@ -25,8 +25,8 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Nro. Ingreso</th>
-                                <th>Nota de Ingreso</th>
+                                <th>Nro</th>
+                                <th>Nro Nota Ingreso</th>
                                 <th>Acta de Recpcion</th>
                                 <th>Factura</th>
                                 <th>Fecha Registro</th>
@@ -38,7 +38,7 @@
                         <tbody>
                             @foreach ($incomes as $item)
                             <tr>
-                                <td>{{$item->correlative}}</td>
+                                <td>{{$count++}}</td>
                                 <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}">{{$item->correlative}}</a>
                                 </td>
                                 <td><a href="#">{{$item->correlative}}</a> </td>
@@ -47,7 +47,6 @@
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->total_cost}}</td>
                                 <td>{{$item->provider->name}}</td>
-
                             </tr>
                             @endforeach
                         </tbody>
