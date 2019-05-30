@@ -41,16 +41,27 @@ class AppServiceProvider extends ServiceProvider
         ArticleIncomeItem::saved(function ($model) {
             Log::info('funciona saved');
             Log::info($model);
-            $stocks = Stock::where('storage_id',Auth::user()->getStorage()->id)
+
+            $stock = Stock::where('storage_id',Auth::user()->getStorage()->id)
                             ->where('article_id',$model->article_id)
                             ->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))
-                            ->groupBy('stocks.article_id')->get();
+                            ->groupBy('stocks.article_id')->first();
+            $amount = 0;
+            Log::info($stock);
+            if($stock)
+            {
+                Log::info('existe el stock');
+                $amount += $stock->quantity;
+            }
+
+
             $article_history = new ArticleHistory;
             $article_history->article_income_item_id =$model->id;
             $article_history->article_id =$model->article_id;
             $article_history->type ='Entrada';
-            $article_history->stock_quantity =  $stocks[0]->quantity;
+            $article_history->stock_quantity = $amount+$model->quantity;
             $article_history->save();
+
         });
         // Stock::saved(function ($model){
         //     Log::info('actualizando la hueva del stokc');
@@ -63,16 +74,26 @@ class AppServiceProvider extends ServiceProvider
             {
                 Log::info("se esta realizando los calculos  XD");
 
-                $stocks = Stock::where('storage_id',Auth::user()->getStorage()->id)
+                $stock = Stock::where('storage_id',Auth::user()->getStorage()->id)
                                 ->where('article_id',$model->article_id)
                                 ->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))
-                                ->groupBy('stocks.article_id')->get();
+                                ->groupBy('stocks.article_id')->first();
+                $amount = 0;
+                Log::info($stock);
+                if($stock)
+                {
+                    Log::info('existe el stock');
+                    $amount += $stock->quantity;
+                }
+                Log::info("monto: ".$amount);
+
                 $article_history = new ArticleHistory;
                 $article_history->article_request_item_id =$model->id;
                 $article_history->article_id =$model->article_id;
                 $article_history->type ='Salida';
-                $article_history->stock_quantity =  $stocks[0]->quantity;
+                $article_history->stock_quantity =  $amount;
                 $article_history->save();
+
             }
         });
 
