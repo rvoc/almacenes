@@ -16,6 +16,7 @@ use App\ArticleRequest;
 use App\ArticleRequestItem;
 use App\Stock;
 use App\User;
+use App\ArticleHistory;
 use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
@@ -221,19 +222,41 @@ class ReportController extends Controller
 
     public function kardex_fisico($article_id)
     {
-        $stocks = Stock::with('article_income_item','article') //historial de articulo en ingreso XD
-                        ->where('storage_id',Auth::user()->getStorage()->id)
-                        ->where('article_id',$article_id)
-                        ->select('stocks.*')
-                        // ->groupBy('stocks.article_id')
-                        ->get();
+        $history = ArticleHistory::where('article_id',$article_id)->get();
+        $article = Article::find($article_id);
+        $username = Auth::user()->usr_usuario;
+        $date =Carbon::now();
+        $count=1;
+        $code =  $article_id .'/'.$date->year;
+        $title = "Kardex Fisico";
+        $view = \View::make('report.kardex_fisico',compact('history','article','count','title','date','username','code'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
 
-        $article_income_items = ArticleRequestItem::join('article_requests','article_request_items.article_request_id','=','article_requests.id')
-                                                ->where('article_request_items.article_id',$article_id)
-                                                ->where('article_requests.state','=','Aprobado')
-                                                ->select('article_request_items.*')
-                                                ->get();
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
 
-        return $article_income_items ;
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+        // return view('report.kardex_fisico',compact('history','article','count','title','date','username','code'));
+        // $stocks = Stock::with('article_income_item','article') //historial de articulo en ingreso XD
+        //                 ->where('storage_id',Auth::user()->getStorage()->id)
+        //                 ->where('article_id',$article_id)
+        //                 ->select('stocks.*')
+        //                 // ->groupBy('stocks.article_id')
+        //                 ->get();
+
+        // $article_income_items = ArticleRequestItem::join('article_requests','article_request_items.article_request_id','=','article_requests.id')
+        //                                         ->where('article_request_items.article_id',$article_id)
+        //                                         ->where('article_requests.state','=','Aprobado')
+        //                                         ->select('article_request_items.*')
+        //                                         ->get();
+
+        // return $article_income_items ;
     }
 }

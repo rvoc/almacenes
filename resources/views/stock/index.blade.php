@@ -27,16 +27,20 @@
                         <thead>
                             <tr>
                                 <th>Articulo</th>
+                                <th>Kardex Fisico</th>
+                                <th>Kardex Valorado</th>
                                 <th>Cantidad</th>
-                                <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($stocks as $item)
                             <tr>
                                 <td>{{$item->article->name}}</td>
+                                <td>
+                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('kardex_fisico/'.$item->article->id)}}">{{$item->article_id}}</a>
+                                </td>
+                                <td>{{$item->article->id}}</td>
                                 <td>{{$item->quantity}}</td>
-                                <td> <i class="material-icons text-info">remove_red_eye</i> </td>
 
                                 {{-- <td>
                                     <a href="#" data-toggle="modal" data-target="#ArticleModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
@@ -65,13 +69,52 @@
 
     </div>
 
+    <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPdfTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 <script>
 
     @section('script')
+        var url_flash = @json(session('url'));
+        console.log('printer flash')
+        console.log(url_flash);
+        if(url_flash)
+        {
+            if(url_flash.length >0)
+            {
+                $('#modalPdf .modal-body iframe').attr('src', url_flash)
+                $('#modalPdf').modal('show')
+            }
+        }
         var classname = document.getElementsByClassName("deleted");
         var class_endabled = document.getElementsByClassName("enabled");
         // console.log(classname);
+        $('#modalPdf').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var url = button.data('url') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            console.log(url);
+            var modal = $(this)
+            modal.find('.modal-title').text('' )
+            modal.find('.modal-body iframe').attr('src', url)
+
+        })
         function deleteItem(){
 
             var data = JSON.parse(this.getAttribute("data-json"));
