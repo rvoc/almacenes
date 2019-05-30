@@ -52,6 +52,7 @@ class StockController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**

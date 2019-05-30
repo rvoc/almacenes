@@ -114,6 +114,8 @@ class RequestController extends Controller
         // return $request->all();
         $articles = json_decode($request->articles);
         $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Aprobado";
+        $article_request->save();
         // return $request->all();
         //se asume que todo esta ingresando a a almacen
         Log::info("inegresando modo almacen");
@@ -207,9 +209,7 @@ class RequestController extends Controller
                 $stock->save();
 
         }
-        $article_request = ArticleRequest::find($request->article_request_id);
-        $article_request->state = "Aprobado";
-        $article_request->save();
+
 
         return redirect('transfer_request');
     }
@@ -363,6 +363,8 @@ class RequestController extends Controller
     public function confirmRequest(Request $request){
         $articles = json_decode($request->articles);
         $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Aprobado";
+        $article_request->save();
         // return $request->all();
                // return $article_request;
         foreach($articles as $article){

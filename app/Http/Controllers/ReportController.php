@@ -16,6 +16,7 @@ use App\ArticleRequest;
 use App\ArticleRequestItem;
 use App\Stock;
 use App\User;
+use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     /**
@@ -217,4 +218,22 @@ class ReportController extends Controller
         //
     }
 
+
+    public function kardex_fisico($article_id)
+    {
+        $stocks = Stock::with('article_income_item','article') //historial de articulo en ingreso XD
+                        ->where('storage_id',Auth::user()->getStorage()->id)
+                        ->where('article_id',$article_id)
+                        ->select('stocks.*')
+                        // ->groupBy('stocks.article_id')
+                        ->get();
+
+        $article_income_items = ArticleRequestItem::join('article_requests','article_request_items.article_request_id','=','article_requests.id')
+                                                ->where('article_request_items.article_id',$article_id)
+                                                ->where('article_requests.state','=','Aprobado')
+                                                ->select('article_request_items.*')
+                                                ->get();
+
+        return $article_income_items ;
+    }
 }
