@@ -32,18 +32,15 @@
         </tr>
     </thead>
     <tbody>
-        <?php $count=1;
-            $total_quantity=0;
-        ?>
+
         @foreach ($article_request->article_request_items as $item)
             <tr class="text-sm">
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count }}</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count++ }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article->unit->name }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article->name }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->quantity }}</td>
             </tr>
             <?php
-                $count++;
                 $total_quantity += $item->quantity;
             ?>
         @endforeach

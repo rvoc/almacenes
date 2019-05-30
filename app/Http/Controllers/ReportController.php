@@ -106,8 +106,9 @@ class ReportController extends Controller
         $gerencia = $user->getGerencia();
         $storage = $article_request->storage_destiny->name;
         $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
-
-        $view = \View::make('report.request_note', compact('username','date','title','storage','article_request','persona','gerencia','code'));
+        $count = 1;
+        $total_quantity=0;
+        $view = \View::make('report.request_note', compact('username','date','title','storage','article_request','persona','gerencia','code','total_quantity','count'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
