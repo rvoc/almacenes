@@ -26,20 +26,28 @@
                     <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
+                                <th>Nro</th>
                                 <th>Articulo</th>
                                 <th>Kardex Fisico</th>
                                 <th>Kardex Valorado</th>
+                                <th>Unidad</th>
+                                <th>Categoria</th>
                                 <th>Cantidad</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($stocks as $item)
                             <tr>
+                                <td>{{$count++}}</td>
                                 <td>{{$item->article->name}}</td>
                                 <td>
                                     <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('kardex_fisico/'.$item->article->id)}}">{{$item->article_id}}</a>
                                 </td>
-                                <td>{{$item->article->id}}</td>
+                                <td>
+                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('kardex_valorado/'.$item->article->id)}}">{{$item->article_id}}</a>
+                                </td>
+                                <td>{{$item->article->unit->name}}</td>
+                                <td>{{$item->article->category->name}}</td>
                                 <td>{{$item->quantity}}</td>
 
                                 {{-- <td>

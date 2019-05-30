@@ -21,6 +21,8 @@ class CreateArticleRequestItemsTable extends Migration
             $table->foreign('article_id')->references('id')->on('articles');
             $table->integer('quantity');
             $table->integer('quantity_apro');
+            $table->integer('article_income_item_id')->nullable(); //entradas
+            $table->foreign('article_income_item_id')->references('id')->on('article_income_items');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -8,7 +8,7 @@
     <td colspan="3" class="text-xs uppercase">{{$article->name}}</td>
     </tr>
     <tr>
-        <td  class="text-center bg-grey-darker text-xs text-white">Dependencia</td>
+        <td  class="text-center bg-grey-darker text-xs text-white">Unidad</td>
     <td colspan="3" class="text-xs uppercase">{{$article->unit->name}}</td>
     </tr>
 

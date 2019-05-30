@@ -360,7 +360,9 @@ class RequestController extends Controller
 
     }
 
-    public function confirmRequest(Request $request){
+    //confirmacion del funcionario hdp
+    public function confirmRequest(Request $request)
+    {
         $articles = json_decode($request->articles);
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Aprobado";

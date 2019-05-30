@@ -18,8 +18,8 @@ class StockController extends Controller
     {
         //
         $stocks = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
-
-        return view('stock.index',compact('stocks'));
+        $count=1;
+        return view('stock.index',compact('stocks','count'));
     }
 
     /**
