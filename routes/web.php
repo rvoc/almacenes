@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('income_note/{article_income_id}','ReportController@income_note');
     Route::get('request_note/{article_request_id}','ReportController@request_note');
     Route::get('out_note/{article_request_id}','ReportController@out_note');
+    Route::get('minute_note/{article_request_id}','ReportController@minute_note');
     Route::get('kardex_fisico/{article_id}','ReportController@kardex_fisico');
     Route::get('kardex_valorado/{article_id}','ReportController@kardex_valorado');
 

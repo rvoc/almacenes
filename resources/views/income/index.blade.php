@@ -42,7 +42,9 @@
                                 <td>{{$count++}}</td>
                                 <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}">{{$item->correlative}}</a>
                                 </td>
-                                <td><a href="#">{{$item->correlative}}</a> </td>
+                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('minute_note/'.$item->id)}}">{{$item->correlative}}</a>
+                                </td>
+
                                 <td><a href="#">{{$item->path_invoice}}</a> </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>

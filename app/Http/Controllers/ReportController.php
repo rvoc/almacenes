@@ -125,6 +125,33 @@ class ReportController extends Controller
         // Output the generated PDF to Browser
         $dompdf->stream('my.pdf',array('Attachment'=>0));
     }
+    public function minute_note($article_income_id)
+    {
+        $article_income = ArticleIncome::find($article_income_id);
+        $username = Auth::user()->usr_usuario;
+        $title = "ACTA DE RECEPCION ";
+        $date =Carbon::now();
+        $persona = Auth::user()->getFullName();
+        $gerencia = Auth::user()->getGerencia();
+        $storage = Auth::user()->getStorage()->name;//cambiar esto no me acuerdo por que lo deje estatico XD
+        $code =  $article_income->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_income->created_at)->year;
+        // // $html = '<h1>Hello world</h1>';
+        // return view('layouts.print', compact('username','date','title'));
+         $view = \View::make('report.minute_note', compact('username','date','title','storage','article_income','persona','gerencia','code'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+    }
 
     public function out_note($article_request_id)
     {
