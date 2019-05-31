@@ -26,9 +26,7 @@
             <td rowspan="1" class="px-15 py text-center text-xxs">
                 Detalle
             </td>
-            <td rowspan="1" class="px-15 py text-center text-xxs">
-                Articulo
-            </td>
+
             <td colspan="3" class="px-15 py text-center text-xxs">
                 Entrada
             </td>
@@ -40,7 +38,6 @@
             </td>
         </tr>
         <tr class="font-medium text-white text-sm">
-            <td class="px-15 py text-center  text-xxs"></td>
             <td class="px-15 py text-center  text-xxs"></td>
             <td class="px-15 py text-center  text-xxs"></td>
             <td class="px-15 py text-center  text-xxs"></td>
@@ -61,21 +58,20 @@
         @foreach ($history as $item)
             <tr class="text-sm">
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count++ }}</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->created_at }}</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{Carbon\Carbon::parse($item->created_at, 'UTC')->format('d-m-Y')}}</td>
                 @if($item->article_income_item_id!=null and $item->type == 'Entrada')
                     <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NIº'.$item->article_income_item->article_income->correlative.')' }}</td>
                 @else
                     <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NSº '.$item->article_request_item->article_request->correlative.')' }}</td>
                 @endif
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article->name }}</td>
                 @if($item->article_income_item_id !=null and $item->type == 'Entrada')
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity }}</td>
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost }}</td>
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity * $item->article_income_item->cost}}</td>
                 @else
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">-</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">-</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">-</td>
                 @endif
 
                 @if($item->article_request_item_id !=null)
@@ -83,9 +79,9 @@
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost }}</td>
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->quantity_desc * $item->article_income_item->cost }}</td>
                 @else
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">-</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">-</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">-</td>
                 @endif
 
                 @if($item->type == 'Entrada')
