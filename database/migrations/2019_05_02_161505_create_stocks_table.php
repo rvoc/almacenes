@@ -21,7 +21,7 @@ class CreateStocksTable extends Migration
             $table->foreign('storage_id')->references('id')->on('storages');
             $table->integer('article_income_item_id');
             $table->foreign('article_income_item_id')->references('id')->on('article_income_items');
-            $table->integer('quantity');
+            $table->decimal('quantity');
             $table->decimal('cost',8,5);
             $table->timestamps();
             $table->softDeletes();

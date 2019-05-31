@@ -21,4 +21,13 @@ class ArticleIncome extends Model
     {
         return $this->hasMany('App\ArticleIncomeItem');
     }
+
+    public function getTotalQuantity()
+    {
+        $quantity=0;
+        foreach($this->article_income_items as $item){
+            $quantity += $item->quantity;
+        }
+        return $quantity;
+    }
 }

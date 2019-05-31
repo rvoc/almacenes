@@ -35,7 +35,7 @@
             <td colspan="3" class="px-15 py text-center text-xxs">
                 Salida
             </td>
-            <td class="px-15 py text-center text-xxs">
+            <td colspan="3" class="px-15 py text-center text-xxs">
                 Saldo
             </td>
         </tr>
@@ -51,6 +51,8 @@
             <td class="px-15 py text-center  text-xxs">C.U.</td>
             <td class="px-15 py text-center  text-xxs">Total </td>
             <td class="px-15 py text-center  text-xxs">Cant.</td>
+            <td class="px-15 py text-center  text-xxs">C.U.</td>
+            <td class="px-15 py text-center  text-xxs">Total </td>
 
         </tr>
     </thead>
@@ -60,29 +62,56 @@
             <tr class="text-sm">
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count++ }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->created_at }}</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->type }}</td>
+                @if($item->article_income_item_id!=null and $item->type == 'Entrada')
+                    <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NIº'.$item->article_income_item->article_income->correlative.')' }}</td>
+                @else
+                    <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NSº '.$item->article_request_item->article_request->correlative.')' }}</td>
+                @endif
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article->name }}</td>
-                @if($item->article_income_item_id !=null)
+                @if($item->article_income_item_id !=null and $item->type == 'Entrada')
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity }}</td>
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost }}</td>
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity * $item->article_income_item->cost}}</td>
                 @else
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
                 @endif
 
                 @if($item->article_request_item_id !=null)
-                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_request_item->quantity_apro }}</td>
-                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_request_item->quantity_apro??'' }}</td>
-                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_request_item->quantity_apro??'' }}</td>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->quantity_desc }}</td>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost }}</td>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->quantity_desc * $item->article_income_item->cost }}</td>
                 @else
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">0.00</td>
                 @endif
 
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->stock_quantity }}</td>
+                @if($item->type == 'Entrada')
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity }}</td>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost }}</td>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity * $item->article_income_item->cost}}</td>
+                @else
+                    <?php
+                        $income_item =  $income_items->where('id',$item->article_income_item_id)->first();
+                        $income_item->quantity = $income_item->quantity - $item->quantity_desc
+                    ?>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $income_item->quantity}}</td>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost}}</td>
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $income_item->quantity *  $item->article_income_item->cost }}</td>
+                    {{-- @if($item->quantity_desc >= $item->article_request_item->quantity_apro )
+                        <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ 0}}</td>
+                        <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost }}</td>
+                        <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ 0* $item->article_income_item->cost }}</td>
+                    @else
+
+                        <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_request_item->quantity_apro-= $item->quantity_desc }}</td>
+                        <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->cost }}</td>
+                        <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_request_item->quantity_apro * $item->article_income_item->cost }}</td>
+                    @endif --}}
+                @endif
+
             </tr>
         @endforeach
     </tbody>

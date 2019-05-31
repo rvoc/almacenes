@@ -22,8 +22,9 @@ class CreateArticleHistoriesTable extends Migration
             $table->foreign('article_income_item_id')->references('id')->on('article_income_items');
             $table->integer('article_request_item_id')->nullable();//salidas
             $table->foreign('article_request_item_id')->references('id')->on('article_request_items');
-            $table->integer('stock_quantity');
+            $table->decimal('quantity_desc')->nullable();//cantidad descontada
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

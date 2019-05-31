@@ -11,4 +11,9 @@ class ArticleIncomeItem extends Model
     {
         return $this->belongsTo('App\Article');
     }
+
+    public function article_income()
+    {
+        return $this->belongsTo('App\ArticleIncome');
+    }
 }

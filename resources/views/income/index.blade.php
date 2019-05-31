@@ -31,8 +31,9 @@
                                 <th>Factura</th>
                                 <th>Fecha Registro</th>
                                 <th>Persona</th>
-                                <th>Costo</th>
                                 <th>Proveedor</th>
+                                <th>Costo</th>
+                                <th>Cantidad Articulos</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,8 +46,9 @@
                                 <td><a href="#">{{$item->path_invoice}}</a> </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
-                                <td>{{$item->total_cost}}</td>
                                 <td>{{$item->provider->name}}</td>
+                                <td>{{$item->total_cost}}</td>
+                                <td>{{$item->getTotalQuantity()}}</td>
                             </tr>
                             @endforeach
                         </tbody>

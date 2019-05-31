@@ -46,11 +46,23 @@
             <tr class="text-sm">
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count++ }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->created_at }}</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->type }}</td>
+                @if($item->article_income_item_id!=null and $item->type == 'Entrada')
+                    <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NIº'.$item->article_income_item->article_income->correlative.')' }}</td>
+                @else
+                    <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NSº '.$item->article_request_item->article_request->correlative.')' }}</td>
+                @endif
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article->name }}</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity??'' }}</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_request_item->quantity_apro??'' }}</td>
-                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->stock_quantity }}</td>
+                @if($item->article_income_item_id!=null and $item->type == 'Entrada')
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity??'' }}</td>
+                @else
+                    <td></td>
+                @endif
+                <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->quantity_desc??'' }}</td>
+                @if($item->type == 'Entrada')
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $quantity += $item->article_income_item->quantity }}</td>
+                @else
+                    <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $quantity -= $item->quantity_desc }}</td>
+                @endif
             </tr>
         @endforeach
     </tbody>

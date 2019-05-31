@@ -227,9 +227,10 @@ class ReportController extends Controller
         $username = Auth::user()->usr_usuario;
         $date =Carbon::now();
         $count=1;
+        $quantity=0;
         $code =  $article_id .'/'.$date->year;
         $title = "Kardex Fisico";
-        $view = \View::make('report.kardex_fisico',compact('history','article','count','title','date','username','code'));
+        $view = \View::make('report.kardex_fisico',compact('history','article','count','title','date','username','code','quantity'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
@@ -251,10 +252,22 @@ class ReportController extends Controller
         $article = Article::find($article_id);
         $username = Auth::user()->usr_usuario;
         $date =Carbon::now();
+        $quantity=0;
         $count=1;
         $code =  $article_id .'/'.$date->year;
+        $income_items = ArticleIncomeItem::where('article_id',$article_id)
+                                        ->get();
+                                        // return $income_items;
+        // $income_item = $income_items->where('id',1)->first();
+        // $income_item->quantity = 2;
+        // $income_item = $income_items->where('id',2)->first();
+        // $income_item->quantity = 10;
+
+
+        // return $income_items;
         $title = "Kardex Valorado";
-        $view = \View::make('report.kardex_valorado',compact('history','article','count','title','date','username','code'));
+        // return var_dump($incomes);
+        $view = \View::make('report.kardex_valorado',compact('history','article','count','title','date','username','code','quantity','income_items'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
