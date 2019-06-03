@@ -17,11 +17,11 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
     Route::resource('provider', 'ProviderController');
     Route::resource('unit', 'UnitController');
     Route::resource('category', 'CategoryController');

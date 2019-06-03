@@ -166,7 +166,7 @@
 				   with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="{{ url('home') }}" class="nav-link {{ Navigation::isActiveRoute('home') }}">
+                            <a href="{{ url('/') }}" class="nav-link {{ Navigation::isActiveRoute('home') }}">
                                 <i class="nav-icon fa fa-tachometer-alt"></i>
                                 <p>Inicio</p>
                             </a>

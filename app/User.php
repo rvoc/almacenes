@@ -15,9 +15,9 @@ class User extends Authenticatable
     use HasRoles;
 
     // protected $connection = 'public';
-    protected $guard_name = 'web';
     protected $table = '_bp_usuarios';
     protected $primaryKey = "usr_id";
+    protected $guard_name = 'web';
     /**
      * The attributes that are mass assignable.
      *
