@@ -171,20 +171,28 @@ class RequestController extends Controller
                         if($quantity >= $stock->quantity)
                         {
                             Log::info($quantity.'>='.$stock->quantity);
-                            $quantity_desc = $quantity - $stock->quantity;
+                            $quantity = $quantity - $stock->quantity;
+                            $descuento = $stock->quantity;//descuento que se realizo
+                            $stock->quantity = 0;
                         }else
                         {
                             Log::info($quantity.'<'.$stock->quantity);
-                            $quantity_desc =  $quantity;
-                        }
+                            $stock->quantity = $stock->quantity - $quantity;
+                            $descuento = $quantity;
+                            $quantity = 0;
 
-                        Log::info('descuento :'.$quantity_desc);
-                        $stock->quantity = $stock->quantity - $quantity_desc;
+                        }
+                        Log::info('new cant :'.$quantity);
                         Log::info('new stock:'.$stock->quantity);
-                        $quantity = $quantity -$quantity_desc;
-                        Log::info('new cant:'.$quantity);
-                        //verificar el monto que se esta descontando
-                        $stock->save();
+
+                        $article_history = new ArticleHistory;
+                        $article_history->article_request_item_id =$article_request_item->id;//para salida
+                        $article_history->article_income_item_id =$stock->article_income_item_id;//para costo de ingreso
+                        $article_history->article_id =$article_request_item->article_id;
+                        $article_history->type ='Salida';
+                        $article_history->quantity_desc =$descuento;
+                        $article_history->storage_id = Auth::user()->getStorage()->id;
+                        $article_history->save();
                     }
             }
 
@@ -420,6 +428,7 @@ class RequestController extends Controller
                         $article_history->article_id =$article_request_item->article_id;
                         $article_history->type ='Salida';
                         $article_history->quantity_desc =$descuento;
+                        $article_history->storage_id = Auth::user()->getStorage()->id;
                         $article_history->save();
                     }
             }

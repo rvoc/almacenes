@@ -18,7 +18,7 @@ class CreateArticleRequestsTable extends Migration
             //establecer usuarios yo funcionarios
             $table->integer('storage_origin_id'); //origin
             $table->foreign('storage_origin_id')->references('id')->on('storages');
-            $table->integer('storage_destiny_id'); //origin
+            $table->integer('storage_destiny_id'); //destitny
             $table->foreign('storage_destiny_id')->references('id')->on('storages');
             // $table->integer("number_request")->nullable();// correlativo
             $table->integer('prs_id'); //persona que solicita el articulo

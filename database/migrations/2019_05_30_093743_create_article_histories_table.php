@@ -17,6 +17,8 @@ class CreateArticleHistoriesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('article_id');
             $table->foreign('article_id')->references('id')->on('articles');
+            $table->integer('storage_id');//para  diferenciar los historiales
+            $table->foreign('storage_id')->references('id')->on('storages');
             $table->enum('type', ['Entrada', 'Salida']);
             $table->integer('article_income_item_id')->nullable(); //entradas
             $table->foreign('article_income_item_id')->references('id')->on('article_income_items');
