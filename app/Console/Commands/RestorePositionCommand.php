@@ -3,7 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use App\User;
+use App\Person;
+use DB;
+use Auth;
 class RestorePositionCommand extends Command
 {
     /**
@@ -38,6 +41,18 @@ class RestorePositionCommand extends Command
     public function handle()
     {
         //
-        $this->info("Restableciendo Cargos");
+        $this->info("Restaurando cargos de la tabla usuario XD");
+        $personas = Person::all();
+        foreach ($personas as $persona) {
+            # code...
+            $persona->prs_ga_id = $persona->getUser()->usr_ga_id;
+            $persona->save();
+            $this->info($persona);
+        }
+        // $users = User::all();
+        // foreach($users as $user){
+        //     $this->info($user->person);
+        // }
+        // $this->info($users);
     }
 }

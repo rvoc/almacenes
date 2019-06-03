@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Person extends Model
 {
     //
-    protected $table = "_bp_personas";
-
+    protected $table = "public._bp_personas";
+    public $timestamps = false;
     protected $primaryKey = "prs_id";
 
     public function getUser(){
