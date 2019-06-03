@@ -12,7 +12,7 @@ class ProviderSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('providers')->insert([
+        DB::table('sisme.providers')->insert([
             'name' =>  'David Corp ',
             'address' =>  'villa adela',
             'phone' =>  '22831015',

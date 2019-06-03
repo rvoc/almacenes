@@ -13,17 +13,17 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('sisme.articles', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string("name");
             $table->string("code");
             $table->integer('budget_item_id');
-            $table->foreign('budget_item_id')->references('id')->on('budget_items');
+            $table->foreign('budget_item_id')->references('id')->on('sisme.budget_items');
             $table->integer('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('sisme.categories');
             $table->integer('unit_id');
-            $table->foreign('unit_id')->references('id')->on('units');
+            $table->foreign('unit_id')->references('id')->on('sisme.units');
 
 
             // $table->integer('storage_id');
@@ -43,6 +43,6 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('sisme.articles');
     }
 }

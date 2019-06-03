@@ -12,11 +12,11 @@ class UnitSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('units')->insert([
+        DB::table('sisme.units')->insert([
             'name' =>  'caja',
             'short_name' =>  'caja'
         ]);
-        DB::table('units')->insert([
+        DB::table('sisme.units')->insert([
             'name' =>  'litros',
             'short_name' =>  'lt'
         ]);

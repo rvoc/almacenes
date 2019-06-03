@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Article extends Model
 {
     //
+    protected $table = "sisme.articles";
     use SoftDeletes;
 
     public function category()

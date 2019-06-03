@@ -13,7 +13,7 @@ class CreateProvidersTable extends Migration
      */
     public function up()
     {
-        Schema::create('providers', function (Blueprint $table) {
+        Schema::create('sisme.providers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("name");
             $table->string("address");
@@ -34,6 +34,6 @@ class CreateProvidersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('providers');
+        Schema::dropIfExists('sisme.providers');
     }
 }

@@ -12,7 +12,7 @@ class StorageSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('storages')->insert([
+        DB::table('sisme.storages')->insert([
             'name' =>  'Almacen Central ',
             'description' =>  'Almacen Princilpal'
         ]);

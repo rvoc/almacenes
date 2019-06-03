@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         //
 
-        DB::table('users')->insert([
+        DB::table('sisme.users')->insert([
             'username' =>  'admin',
             'name' =>  'admin',
             // 'email' => 'admin@gmail.com',

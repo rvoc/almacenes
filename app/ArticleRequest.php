@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleRequest extends Model
 {
     //
+    protected $table = "sisme.article_requests";
 
     public function storage_origin(){
         return $this->belongsTo('App\Storage','storage_origin_id');

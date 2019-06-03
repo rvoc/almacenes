@@ -9,4 +9,5 @@ class Unit extends Model
 {
     //
     use SoftDeletes;
+    protected $table = "sisme.units";
 }

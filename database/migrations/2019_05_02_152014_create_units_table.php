@@ -13,7 +13,7 @@ class CreateUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('sisme.units', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("name");
             $table->string("short_name");//abreviatura
@@ -29,6 +29,6 @@ class CreateUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('sisme.units');
     }
 }

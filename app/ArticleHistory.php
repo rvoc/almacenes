@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleHistory extends Model
 {
     //
+    protected $table = "sisme.article_histories";
+
     public function article()
     {
         return $this->belongsTo('App\Article');
