@@ -73,7 +73,7 @@ class User extends Authenticatable
     public function getStorage(){
         //en caso de no existir session se genera uno trabajar esto a mas detalle
         if(!session()->exists('storage_id')){
-            session()->put('storage_id', 1);
+            session()->put('storage_id', $this->storages[0]->id);
         }
         // return session('storage_id');
         $storage = Storage::find(session('storage_id'));
@@ -90,7 +90,6 @@ class User extends Authenticatable
 
     public function storages()
     {
-        // return $this->belongsToMany('App\OfferType','offer_type_providers');
         return $this->belongsToMany('App\Storage','sisme.user_storage');
     }
 

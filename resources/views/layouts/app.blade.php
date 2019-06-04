@@ -50,10 +50,18 @@
 
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ url('users') }}" data-toggle="tooltip" data-placement="bottom" title="Gestion de Usuarios">
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-users"> Usuario</i>
                     </a>
-                </li>
-                 --}}
+                </li> --}}
+                @hasrole('Administrador')
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" >
+                            <i class="fa fa-users"></i> Usuarios
+                        </a>
+                    </li>
+                @endhasrole
+
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-store-alt"></i> {{Auth::user()->getStorage()->name}}
@@ -354,12 +362,14 @@
                 <div id="app">
                     @yield('content')
                     {{-- adicionando modal change --}}
-                    <change-storage
-                        url='{{url('change_storage')}}'
-                        csrf='{!! csrf_field('POST') !!}'
-                        :storages="{{Auth::user()->getStorages()}}"
-                        :storage= "{{ Auth::user()->getStorage()}}"
-                    ></change-storage>
+                    @hasrole('Administrador')
+                        <change-storage
+                            url='{{url('change_storage')}}'
+                            csrf='{!! csrf_field('POST') !!}'
+                            :storages="{{Auth::user()->storages}}"
+                            :storage= "{{ Auth::user()->getStorage()}}"
+                        ></change-storage>
+                    @endhasrole
                 </div>
 
             </section>
@@ -391,10 +401,10 @@
                     Esta seguro de cerrar session ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-success"><i class="nav-icon fa fa-sign-out-alt"></i>Si </button>
+                        @csrf
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-success"><i class="nav-icon fa fa-sign-out-alt"></i>Si </button>
                     </form>
                 </div>
             </div>
