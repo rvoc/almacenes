@@ -88,5 +88,10 @@ class User extends Authenticatable
         return $gerencia?$gerencia->ga_nombre:'';
     }
 
+    public function storages()
+    {
+        // return $this->belongsToMany('App\OfferType','offer_type_providers');
+        return $this->belongsToMany('App\Storage','sisme.user_storage');
+    }
 
 }

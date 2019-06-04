@@ -17,8 +17,8 @@ class CreateUserStorage extends Migration
             $table->bigIncrements('id');
             $table->integer('storage_id');
             $table->foreign('storage_id')->references('id')->on('sisme.storages');
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('usr_id')->on('_bp_usuarios');
+            $table->integer('user_usr_id');
+            $table->foreign('user_usr_id')->references('usr_id')->on('_bp_usuarios');
             $table->timestamps();
             $table->softDeletes();
         });
