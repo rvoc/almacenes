@@ -72,6 +72,7 @@ Vue.component('transfer-component', require('./components/RequestTransfer.vue').
 Vue.component('change-storage', require('./components/ChangeStorage.vue').default);
 
 Vue.component('users-index', require('./components/UsersIndex.vue').default);
+Vue.component('role-edit', require('./components/RoleEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

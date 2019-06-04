@@ -17,16 +17,21 @@
                             <i class="fa fa-sort"></i>
                         </template>
 
-
-
-
-
                         <template slot="option" slot-scope="props">
 
-                                <!-- <i class="fa fa-pen text-primary" @click="edit(props.row)"></i> -->
+                            <!-- <i class="fa fa-pen text-primary" @click="edit(props.row)"></i> -->
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <!-- <button type="button" class="btn btn-secondary">Left</button>
+                                 -->
+                                <button type="button" class="btn btn-sm btn-secondary"><i class="material-icons " @click="edit(props.row)">remove_red_eye</i></button>
+                                <button type="button" class="btn btn-sm btn-secondary"><i class="material-icons" @click="edit(props.row)">edit</i></button>
+
+
+                            </div>
+
                             <span>
-                                <i class="material-icons text-info" @click="edit(props.row)">remove_red_eye</i>
-                                <i class="material-icons text-primary" @click="edit(props.row)">edit</i>
+                                <!-- <i class="material-icons text-info" @click="edit(props.row)">remove_red_eye</i>
+                                <i class="material-icons text-primary" @click="edit(props.row)">edit</i> -->
 
                             </span>
 

@@ -75,6 +75,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('kardex_valorado/{article_id}','ReportController@kardex_valorado');
 
         Route::resource('user', 'UserController');
+        Route::get('system','UserController@system');
+        Route::post('store_system','UserController@storeSystem')->name('save_system');
     });
 
 

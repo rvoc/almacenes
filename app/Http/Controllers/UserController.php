@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class UserController extends Controller
 {
     /**
@@ -19,7 +21,16 @@ class UserController extends Controller
         return view('user.index',compact('users'));
     }
 
-    public function changeStore(Request $request){
+    public function system()
+    {
+        $permissions = Permission::all();
+        $roles = Role::all();
+        // return $roles;
+        return view('system.index',compact('roles','permissions'));
+    }
+
+    public function changeStore(Request $request)
+    {
         session()->put('storage_id', $request->storage_id);
         // return $request->all();
         return back()->withInput();
@@ -43,6 +54,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function storeSystem(Request $request)
+    {
+        //
+        $system = Permission::find($request->id);
+        $system->name = $request->name;
+        $system->save();
+        return back()->withInput();
     }
 
     /**
