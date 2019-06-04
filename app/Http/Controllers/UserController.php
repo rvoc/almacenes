@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
 class UserController extends Controller
 {
     /**
@@ -14,6 +14,9 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::with('person')->get();
+        // return $users;
+        return view('user.index',compact('users'));
     }
 
     public function changeStore(Request $request){

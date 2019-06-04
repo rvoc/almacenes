@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('kardex_fisico/{article_id}','ReportController@kardex_fisico');
         Route::get('kardex_valorado/{article_id}','ReportController@kardex_valorado');
 
+        Route::resource('user', 'UserController');
     });
 
 

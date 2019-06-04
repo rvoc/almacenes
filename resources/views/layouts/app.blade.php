@@ -56,7 +56,7 @@
                 @hasrole('Administrador')
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" >
+                        <a class="nav-link" href="{{ url('user') }}" >
                             <i class="fa fa-users"></i> Usuarios
                         </a>
                     </li>

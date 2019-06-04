@@ -45,12 +45,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function person(){
-        $person = DB::table('_bp_personas')
-                ->where('prs_id','=',$this->usr_prs_id)
-                ->first();
-        return $person;
+    public function person()
+    {
+        return $this->belongsTo('App\Person','usr_prs_id','prs_id');
     }
+
+    // public function person(){
+    //     $person = DB::table('_bp_personas')
+    //             ->where('prs_id','=',$this->usr_prs_id)
+    //             ->first();
+    //     return $person;
+    // }
 
     public function getFullName(){
         $person = DB::table('_bp_personas')

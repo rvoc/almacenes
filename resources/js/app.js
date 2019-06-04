@@ -71,6 +71,8 @@ Vue.component('check-request-store', require('./components/RequestStoreCheck.vue
 Vue.component('transfer-component', require('./components/RequestTransfer.vue').default);
 Vue.component('change-storage', require('./components/ChangeStorage.vue').default);
 
+Vue.component('users-index', require('./components/UsersIndex.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

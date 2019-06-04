@@ -235,7 +235,7 @@ class RequestController extends Controller
         //                 ->groupBy('stocks.article_id','articles.name')->get();
 
         $articles = Article::with('category','unit')
-                            ->join('stocks','stocks.article_id','=','articles.id')
+                            ->join('sisme.stocks','stocks.article_id','=','articles.id')
                             ->where('storage_id',Auth::user()->getStorage()->id)
                             ->select('article_id','articles.name','articles.category_id','articles.unit_id',DB::raw('sum(stocks.quantity) as quantity_stock'))
                             ->groupBy('stocks.article_id','articles.name','articles.category_id','articles.unit_id')
