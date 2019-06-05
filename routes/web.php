@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,10 +9,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 Auth::routes();
+
 // primer filtro  de acceso al sistema
 Route::group(['middleware' => ['auth']], function () {
 
@@ -80,7 +77,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('user', 'UserController');
         Route::get('system','UserController@system');
         Route::post('store_system','UserController@storeSystem')->name('save_system');
+
+        //reportes Excel
+        Route::resource('report_excel','ReportExcelController');
+        Route::get('rptInventario','ReportExcelController@rptInventarioExcel');
+        Route::get('rptResumido','ReportExcelController@rptResumidoExcel');
+        Route::get('listalmacenes','ReportExcelController@listalmacenes');
+        Route::get('listalmacenes1/{id}','ReportExcelController@listalmacenes1');
+
+       
     });
+
 
 
 
