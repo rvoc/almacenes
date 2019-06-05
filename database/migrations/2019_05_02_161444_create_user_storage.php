@@ -13,12 +13,12 @@ class CreateUserStorage extends Migration
      */
     public function up()
     {
-        Schema::create('user_storage', function (Blueprint $table) {
+        Schema::create('sisme.user_storage', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('storage_id');
-            $table->foreign('storage_id')->references('id')->on('storages');
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('usr_id')->on('siscor._bp_usuarios');
+            $table->foreign('storage_id')->references('id')->on('sisme.storages');
+            $table->integer('user_usr_id');
+            $table->foreign('user_usr_id')->references('usr_id')->on('_bp_usuarios');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,6 @@ class CreateUserStorage extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_storage');
+        Schema::dropIfExists('sisme.user_storage');
     }
 }

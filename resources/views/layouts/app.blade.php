@@ -50,10 +50,23 @@
 
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ url('users') }}" data-toggle="tooltip" data-placement="bottom" title="Gestion de Usuarios">
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-users"> Usuario</i>
                     </a>
-                </li>
-                 --}}
+                </li> --}}
+                @hasrole('Administrador')
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('system') }}" >
+                            <i class="fa fa-cogs"></i> Roles y Accesos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('user') }}" >
+                            <i class="fa fa-users"></i> Usuarios
+                        </a>
+                    </li>
+                @endhasrole
+
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-store-alt"></i> {{Auth::user()->getStorage()->name}}
@@ -62,7 +75,8 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                            <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle elevation-2"  alt="User Image"> {{Auth::user()->usr_usuario}}
+                            <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle"  alt="User Image">
+                            {{Auth::user()->usr_usuario}}
                     </a>
                     {{-- <div > --}}
                         {{-- <span class="dropdown-item dropdown-header">15 Notifications</span> --}}
@@ -162,7 +176,7 @@
                    with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="{{ url('home') }}" class="nav-link {{ Navigation::isActiveRoute('home') }}">
+                            <a href="{{ url('/') }}" class="nav-link {{ Navigation::isActiveRoute('home') }}">
                                 <i class="nav-icon fa fa-tachometer-alt"></i>
                                 <p>Inicio</p>
                             </a>
@@ -379,12 +393,14 @@
                 <div id="app">
                     @yield('content')
                     {{-- adicionando modal change --}}
-                    <change-storage
-                        url='{{url('change_storage')}}'
-                        csrf='{!! csrf_field('POST') !!}'
-                        :storages="{{Auth::user()->getStorages()}}"
-                        :storage= "{{ Auth::user()->getStorage()}}"
-                    ></change-storage>
+                    @hasrole('Administrador')
+                        <change-storage
+                            url='{{url('change_storage')}}'
+                            csrf='{!! csrf_field('POST') !!}'
+                            :storages="{{Auth::user()->storages}}"
+                            :storage= "{{ Auth::user()->getStorage()}}"
+                        ></change-storage>
+                    @endhasrole
                 </div>
 
             </section>
@@ -416,10 +432,10 @@
                     Esta seguro de cerrar session ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-success"><i class="nav-icon fa fa-sign-out-alt"></i>Si </button>
+                        @csrf
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-success"><i class="nav-icon fa fa-sign-out-alt"></i>Si </button>
                     </form>
                 </div>
             </div>

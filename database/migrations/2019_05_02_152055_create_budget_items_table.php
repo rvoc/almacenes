@@ -13,7 +13,7 @@ class CreateBudgetItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('budget_items', function (Blueprint $table) {
+        Schema::create('sisme.budget_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("name");
             $table->string("description")->nullable();
@@ -29,6 +29,6 @@ class CreateBudgetItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('budget_items');
+        Schema::dropIfExists('sisme.budget_items');
     }
 }

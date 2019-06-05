@@ -15,9 +15,9 @@ class User extends Authenticatable
     use HasRoles;
 
     // protected $connection = 'public';
-    protected $guard_name = 'web';
-    protected $table = 'siscor._bp_usuarios';
+    protected $table = '_bp_usuarios';
     protected $primaryKey = "usr_id";
+    protected $guard_name = 'web';
     /**
      * The attributes that are mass assignable.
      *
@@ -45,15 +45,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function person(){
-        $person = DB::table('siscor._bp_personas')
-                ->where('prs_id','=',$this->usr_prs_id)
-                ->first();
-        return $person;
+    public function person()
+    {
+        return $this->belongsTo('App\Person','usr_prs_id','prs_id');
     }
 
+    // public function person(){
+    //     $person = DB::table('_bp_personas')
+    //             ->where('prs_id','=',$this->usr_prs_id)
+    //             ->first();
+    //     return $person;
+    // }
+
     public function getFullName(){
-        $person = DB::table('siscor._bp_personas')
+        $person = DB::table('_bp_personas')
                 ->where('prs_id','=',$this->usr_prs_id)
                 ->first();
         return $person->prs_nombres.' '.$person->prs_paterno.' '.$person->prs_materno;
@@ -73,7 +78,7 @@ class User extends Authenticatable
     public function getStorage(){
         //en caso de no existir session se genera uno trabajar esto a mas detalle
         if(!session()->exists('storage_id')){
-            session()->put('storage_id', 1);
+            session()->put('storage_id', $this->storages[0]->id);
         }
         // return session('storage_id');
         $storage = Storage::find(session('storage_id'));
@@ -84,9 +89,13 @@ class User extends Authenticatable
     }
 
     public function getGerencia(){
-        $gerencia = DB::table('siscor.sia_gerencia_area')->where('ga_id','=',$this->usr_ga_id)->first();
+        $gerencia = DB::table('sia_gerencia_area')->where('ga_id','=',$this->usr_ga_id)->first();
         return $gerencia?$gerencia->ga_nombre:'';
     }
 
+    public function storages()
+    {
+        return $this->belongsToMany('App\Storage','sisme.user_storage');
+    }
 
 }

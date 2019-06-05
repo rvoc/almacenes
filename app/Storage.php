@@ -9,4 +9,5 @@ class Storage extends Model
 {
     //
     use SoftDeletes;
+    protected $table = "sisme.storages";
 }

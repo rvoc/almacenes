@@ -16,18 +16,22 @@ class UsersTableSeeder extends Seeder
     {
         //
 
-        DB::table('users')->insert([
-            'username' =>  'admin',
-            'name' =>  'admin',
-            // 'email' => 'admin@gmail.com',
-            'password' => bcrypt('123456'),
-        ]);
+        DB::table('public._bp_usuarios')->insert(
+            [
+                'usr_usuario'=>'sys.admin',
+                'password'=> bcrypt('123456'),
+                'usr_controlar_ip' => 'N',
+                'usr_corr_id'=>1,
+                'usr_ga_id'=>1,
+                'usr_usr_id'=> 1,
+                'usr_estado'=>'A',
 
-        $role = Role::create(['name' => 'Admin']);
-        $role = Role::create(['name' => 'Encargado Alamcen']);
-        $role = Role::create(['name' => 'Usuario General']);
+            ]
+        );
 
-        $user = User::find(1);
-        $user->assignRole('Admin');
+        $user = User::where('usr_usuario','sys.admin')->first();
+        $user->assignRole('Administrador');
+
+
     }
 }

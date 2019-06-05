@@ -13,7 +13,7 @@ class CreateUfvsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ufvs', function (Blueprint $table) {
+        Schema::create('sisme.ufvs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('price',8,5);
             $table->date("date");
@@ -29,6 +29,6 @@ class CreateUfvsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ufvs');
+        Schema::dropIfExists('sisme.ufvs');
     }
 }

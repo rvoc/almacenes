@@ -12,7 +12,7 @@ class BudgeItemSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('budget_items')->insert([
+        DB::table('sisme.budget_items')->insert([
             'name' =>  'Partida Financiera ',
             'description' =>  'Financiera'
         ]);

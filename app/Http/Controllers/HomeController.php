@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class HomeController extends Controller
 {
 
@@ -14,7 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        session()->put('storage_id', 1);
+        $user = Auth::user()->getStorage(); //importante no borrar obliga a que el usuario se le asigne un almacen de acuerdo a base
+        // session()->put('storage_id', 1);
         return view('home');
     }
 }

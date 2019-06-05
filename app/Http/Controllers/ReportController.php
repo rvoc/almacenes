@@ -249,7 +249,9 @@ class ReportController extends Controller
 
     public function kardex_fisico($article_id)
     {
-        $history = ArticleHistory::where('article_id',$article_id)->get();
+        $history = ArticleHistory::where('article_id',$article_id)
+                                ->where('storage_id',Auth::user()->getStorage()->id)
+                                ->get();
         $article = Article::find($article_id);
         $username = Auth::user()->usr_usuario;
         $date =Carbon::now();
@@ -273,9 +275,12 @@ class ReportController extends Controller
         $dompdf->stream('my.pdf',array('Attachment'=>0));
 
     }
+
     public function kardex_valorado($article_id)
     {
-        $history = ArticleHistory::where('article_id',$article_id)->get();
+        $history = ArticleHistory::where('article_id',$article_id)
+                                    ->where('storage_id',Auth::user()->getStorage()->id)
+                                    ->get();
         $article = Article::find($article_id);
         $username = Auth::user()->usr_usuario;
         $date =Carbon::now();

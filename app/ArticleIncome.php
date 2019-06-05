@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleIncome extends Model
 {
     //
+    protected $table = "sisme.article_incomes";
     public function provider()
     {
         return $this->belongsTo("App\Provider");

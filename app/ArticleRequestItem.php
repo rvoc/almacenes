@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleRequestItem extends Model
 {
     //
+    protected $table = "sisme.article_request_items";
 
     public function article()
     {

@@ -5745,6 +5745,11 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-material@^1.0.0-beta-11:
+  version "1.0.0-beta-11"
+  resolved "https://registry.yarnpkg.com/vue-material/-/vue-material-1.0.0-beta-11.tgz#11baf0cdb22a35d35859c619099d6c3cb3cc2cc3"
+  integrity sha512-1+dIVkQafMIA/zNONb7OwGaTjAxaWk/JhUA2/FInQvbArxf1ToKB+yIdeSfzopQ1KICnBTAmk9E0Vdr5p4MWNA==
+
 vue-multiselect@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.1.6.tgz#5be5d811a224804a15c43a4edbb7485028a89c7f"
@@ -5756,6 +5761,13 @@ vue-style-loader@^4.1.0:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-switches@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vue-switches/-/vue-switches-2.0.1.tgz#f23436259c7fe4ffca9c4a6df49ac78941e20a20"
+  integrity sha512-rDqBtK3TKy1pEvyZeWmnSHVeXqAcn+ozch7LiNThBzr1QMjg5rhvqBY7uWeli/baDDslf6CXmBJbHPwASJLqoA==
+  dependencies:
+    vue "^2.2.6"
 
 vue-template-compiler@^2.6.10:
   version "2.6.10"
@@ -5769,7 +5781,7 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
 
-vue@^2.5.17:
+vue@^2.2.6, vue@^2.5.17:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
 

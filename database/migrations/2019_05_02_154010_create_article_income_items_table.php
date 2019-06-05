@@ -13,12 +13,12 @@ class CreateArticleIncomeItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_income_items', function (Blueprint $table) {
+        Schema::create('sisme.article_income_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('article_income_id');
-            $table->foreign('article_income_id')->references('id')->on('article_incomes');
+            $table->foreign('article_income_id')->references('id')->on('sisme.article_incomes');
             $table->integer('article_id');
-            $table->foreign('article_id')->references('id')->on('articles');
+            $table->foreign('article_id')->references('id')->on('sisme.articles');
             $table->decimal('quantity');
             $table->decimal('cost');
             $table->timestamps();
@@ -33,6 +33,6 @@ class CreateArticleIncomeItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_income_items');
+        Schema::dropIfExists('sisme.article_income_items');
     }
 }
