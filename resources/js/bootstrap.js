@@ -16,6 +16,7 @@ try {
     require('admin-lte/plugins/slimScroll/jquery.slimscroll.min.js');
 
     window.dt =  require( 'datatables.net-responsive-bs4' )( window.$ );
+    require( 'datatables.net-buttons' )( window, $ );
     window.moment = require('moment');
 
 
