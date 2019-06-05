@@ -54,7 +54,6 @@
                     </a>
                 </li> --}}
                 @hasrole('Administrador')
-
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('system') }}" >
                             <i class="fa fa-cogs"></i> Roles y Accesos
@@ -192,32 +191,39 @@
                                 <p>Articulos</p>
                             </a>
                         </li> --}}
-
+                        @hasanyrole('Administrador|Encargado de Almacen|Encargado de Oficina Central|Jefe de Planta')
                         <li class="nav-item">
                             <a href="{{ url('stock') }}" class="nav-link {{ Navigation::isActiveRoute('stock.index') }}">
                                 <i class="nav-icon fa fa-cubes"></i>
                                 <p>Stock</p>
                             </a>
                         </li>
+                        @endhasanyrole
 
+                        @hasanyrole('Administrador|Encargado de Almacen|Encargado de Oficina Central')
                         <li class="nav-item">
                             <a href="{{ url('income') }}" class="nav-link {{ Navigation::isActiveRoute('income.index') }}">
                                 <i class="nav-icon fa fa-parachute-box"></i>
                                 <p>Ingresos</p>
                             </a>
                         </li>
+                        @endhasanyrole
+
                         <li class="nav-item">
                             <a href="{{ url('request_person') }}" class="nav-link {{ Navigation::isActiveRoute('request.index_person') }}">
                                 <i class="nav-icon fa fa-boxes"></i>
                                 <p>Mis Solicitudes</p>
                             </a>
                         </li>
+                        @hasanyrole('Administrador|Encargado de Almacen|Encargado de Oficina Central')
                         <li class="nav-item">
                             <a href="{{ url('request') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
-                                <i class="nav-icon fa fa-truck-loading"></i>
-                                <p>Solicitudes Realizadas</p>
-                            </a>
-                        </li>
+                                    <i class="nav-icon fa fa-truck-loading"></i>
+                                    <p>Solicitudes Realizadas</p>
+                                </a>
+                            </li>
+                        @endhasanyrole
+                        @hasanyrole('Administrador|Encargado de Almacen|Encargado de Oficina Central')
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-people-carry"></i>
@@ -241,7 +247,8 @@
                                 </li>
                             </ul>
                         </li>
-
+                        @endhasanyrole
+                        @hasanyrole('Administrador|Encargado de Oficina Central')
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-window-restore"></i>
@@ -290,7 +297,7 @@
 
                             </ul>
                         </li>
-
+                        @endhasanyrole
                         {{-- <li class="nav-item">
                             <a href="{{ url('category') }}" class="nav-link {{ Navigation::isActiveRoute('category.index') }}">
                                 <i class="nav-icon fa fa-boxes"></i>
