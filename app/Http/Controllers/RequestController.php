@@ -57,7 +57,7 @@ class RequestController extends Controller
 
     public function index_person()
     {
-        $request_articles = ArticleRequest::where('prs_id',Auth::user()->person()->prs_id)
+        $request_articles = ArticleRequest::where('prs_id',Auth::user()->person->prs_id)
                                             ->where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             // ->where('type','=','Funcionario')
                                             ->orderBy('id','DESC')
@@ -292,7 +292,7 @@ class RequestController extends Controller
         $article_request = new ArticleRequest;
         $article_request->storage_origin_id = $storage_origin_id;
         $article_request->storage_destiny_id = $storage_destiny_id;
-        $article_request->prs_id = Auth::user()->person()->prs_id;
+        $article_request->prs_id = Auth::user()->person->prs_id;
         $article_request->correlative = $counter;
 
         if($request->has('type')){

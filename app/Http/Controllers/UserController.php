@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Log;
 class UserController extends Controller
 {
     /**
@@ -35,6 +36,33 @@ class UserController extends Controller
         // return $request->all();
         return back()->withInput();
     }
+
+    public function storeRole(Request $request)
+    {
+        //creando roles y adicionando permisos
+        if($request->has('id'))
+        {
+            $role = Role::find($request->id);
+        }else {
+
+            $role = Role::create(['name' => $request->name]);
+        }
+        // return $request->all();
+        $permissions = json_decode($request->permissions);
+        foreach ($permissions as $permission)
+        {
+            # code...
+            if($permission->enabled)
+            {
+                $role->givePermissionTo(''.$permission->name);
+            }else {
+                $role->revokePermissionTo(''.$permission->name);
+            }
+        }
+
+        return back()->withInput();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -65,6 +93,38 @@ class UserController extends Controller
         return back()->withInput();
     }
 
+    public function getPermissionRol($role_id)
+    {
+        if($role_id > 0)
+        {
+            $role = Role::find($role_id);
+        }else
+        {
+            $role = null;
+        }
+
+        $permissions = Permission::all();
+        Log::info($permissions->count());
+        foreach ($permissions as $permission) {
+
+           if($role){
+
+               if($role->hasPermissionTo($permission->name)){
+                   $permission->enabled = true;
+               }else
+               {
+                   $permission->enabled = false;
+               }
+           }else
+           {
+                $permission->enabled = false;
+           }
+
+        }
+
+        return response()->json(compact('role','permissions'));
+    }
+
     /**
      * Display the specified resource.
      *
@@ -85,6 +145,8 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $user = User::find($id);
+        return $id;
     }
 
     /**

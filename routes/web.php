@@ -65,6 +65,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('list_providers','ProviderController@getData');
         Route::get('list_storages','StorageController@getData');
 
+        //manejo de Roles
+        Route::get('get_permission_role/{role_id}','UserController@getPermissionRol');
+        Route::post('store_role','UserController@storeRole');
         //reportes
 
         Route::get('income_note/{article_income_id}','ReportController@income_note');

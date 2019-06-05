@@ -29,15 +29,17 @@
         "animate.css": "^3.7.0",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-responsive-bs4": "^2.2.3",
+        "mdi": "^2.1.99",
         "moment": "^2.24.0",
         "numeral": "^2.0.6",
-        "mdi": "^2.1.99",
         "sweetalert2": "^8.9.0",
         "tilt.js": "^1.2.1",
         "toastr": "^2.1.4",
         "vee-validate": "^2.2.5",
         "vue-bootstrap4-table": "^1.1.5",
+        "vue-material": "^1.0.0-beta-11",
         "vue-multiselect": "^2.1.6",
+        "vue-switches": "^2.0.1",
         "vuetify": "^1.5.14"
     }
 }

@@ -9,6 +9,12 @@ require('./bootstrap');
 import VeeValidate from "vee-validate";
 import Multiselect from 'vue-multiselect';
 
+// import VueMaterial from 'vue-material'
+// import 'vue-material/dist/vue-material.min.css'
+// import { MdSwicth } from 'vue-material/dist/components';
+// import 'vue-material/dist/components/MdSwitch/index.css';//realizar modulo de compatibilidad a futuro es una muy buena herramienta
+// import 'vue-material/dist/components/MdSwitch/theme.scss';
+
 window.Vue = require('vue');
 window.spanish_lang = require('./datatable_spanish');
 window.Swal = require('sweetalert2');
@@ -37,7 +43,7 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
   }
-
+// Vue.use(MdSwicth) //adicionando por modulos
 Vue.use(VeeValidate, {
     classes: true,
     classNames: {
@@ -45,6 +51,7 @@ Vue.use(VeeValidate, {
         invalid: "is-invalid"
     }
 });
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -73,6 +80,7 @@ Vue.component('change-storage', require('./components/ChangeStorage.vue').defaul
 
 Vue.component('users-index', require('./components/UsersIndex.vue').default);
 Vue.component('role-edit', require('./components/RoleEdit.vue').default);
+Vue.component('user-edit', require('./components/UserEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -88,4 +96,5 @@ const app = new Vue({
         // var elem =document.querySelector('.js-switch');
         // var init = new Switchery(elem,  { color: '#41b7f1',size: 'larger' });
     }
+
 });

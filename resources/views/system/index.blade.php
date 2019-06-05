@@ -48,7 +48,7 @@
         </div>
 
         {{-- aqui los modals --}}
-        <div class="col-md-6">
+        <div class="col">
             <div class="card">
 
                 <div class="card-header card-calendar">
@@ -57,7 +57,7 @@
 
                         Roles
                         <small class="float-sm-right">
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#systemModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#RoleModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button>
                         </small>
                     </h4>
                 </div>
@@ -76,12 +76,12 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>
-                                    @foreach ($item->getPermissionNames() as $item)
-                                        <span class="badge badge-primary">{{$item}}</span>
+                                    @foreach ($item->getPermissionNames() as $name)
+                                        <span class="badge badge-primary">{{$name}}</span>
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="#" data-toggle="modal" data-target="#ArticleModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
+                                    <a href="#" data-toggle="modal" data-target="#RoleModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
 
                                     <a href="#"> <i class="material-icons text-danger enabled" data-json='{{$item}}'>delete</i></a>
                                 </td>
@@ -97,8 +97,10 @@
 
 
     </div>
+    {{-- importar componentes aqui --}}
+    <role-edit url='{{url('store_role')}}' csrf='{!! csrf_field('POST') !!}' ></role-edit>
 
-
+        {{-- <role-edit url='{{url('article')}}' csrf='{!! csrf_field('POST') !!}' :permissions = "{{$permissions}}" ></role-edit> --}}
         {{-- aqui los modals --}}
         <form method="post" action="{{url('store_system')}}" method="POST" >
             {{csrf_field('POST')}}
@@ -130,7 +132,6 @@
             </div>
         </form>
 
-
 @endsection
 <script>
 
@@ -148,7 +149,7 @@
                     modal.find('.modal-body #id').val(data.id)
             }
 
-        )
+        );
 
         // var classname = document.getElementsByClassName("deleted");
         // // console.log(classname);

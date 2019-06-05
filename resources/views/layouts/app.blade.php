@@ -56,6 +56,11 @@
                 @hasrole('Administrador')
 
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url('system') }}" >
+                            <i class="fa fa-cogs"></i> Roles y Accesos
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url('user') }}" >
                             <i class="fa fa-users"></i> Usuarios
                         </a>
@@ -70,7 +75,8 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                            <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle elevation-2"  alt="User Image"> {{Auth::user()->usr_usuario}}
+                            <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="navbar-img img-circle"  alt="User Image">
+                            {{Auth::user()->usr_usuario}}
                     </a>
                     {{-- <div > --}}
                         {{-- <span class="dropdown-item dropdown-header">15 Notifications</span> --}}

@@ -57,7 +57,7 @@
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
-    props:['users'],
+    props:['users','url'],
     data: ()=>({
         form:{},
         title:'',
@@ -123,6 +123,7 @@ export default {
     mounted(){
         console.log(this.users);
         this.rows = this.users;
+        console.log(this.url);
     },
     methods:{
         edit(item){
