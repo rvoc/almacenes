@@ -119,43 +119,39 @@
                     <div class="info">
                             <a href="#" class="d-block"> {{Auth::user()->getFullName()}}</a>
 
-						{{-- <nav class="mt-2">
-
-								<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-									<!-- Add icons to the links using the .nav-icon class
-							   with font-awesome or any other icon font library -->
-
-								<li class="nav-item has-treeview">
-									<a href="#" class="nav-link d-block">
-										<p>
-											{{Auth::user()->name}}
-											<i class="right fa fa-angle-left"></i>
-										</p>
-									</a>
-									<ul class="nav nav-treeview">
-										<li class="nav-item">
-											<a href="#" class="nav-link">
-												<i class="fa fa-user nav-icon"></i>
-												<p>Perfil</p>
-											</a>
-										</li>
-										<li class="nav-item">
+                        {{-- <nav class="mt-2">
+                                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                    <!-- Add icons to the links using the .nav-icon class
+                               with font-awesome or any other icon font library -->
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link d-block">
+                                        <p>
+                                            {{Auth::user()->name}}
+                                            <i class="right fa fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="fa fa-user nav-icon"></i>
+                                                <p>Perfil</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="{{ route('logout') }}" class="nav-link"
                                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
-												<i class="fa fa-sign-out nav-icon"></i>
+                                                <i class="fa fa-sign-out nav-icon"></i>
                                                 <p>Salir</p>
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     @csrf
                                                 </form>
-										</li>
-
-									</ul>
-								</li>
-
-								</ul>
-						</nav> --}}
+                                        </li>
+                                    </ul>
+                                </li>
+                                </ul>
+                        </nav> --}}
                     </div>
                 </div>
 
@@ -163,7 +159,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-				   with font-awesome or any other icon font library -->
+                   with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
                             <a href="{{ url('home') }}" class="nav-link {{ Navigation::isActiveRoute('home') }}">
@@ -277,6 +273,36 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ url('report_excel') }}" class="nav-link {{ Navigation::isActiveRoute('stock.index') }}">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>
+                                Reportes
+                                 <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('report_excel') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
+                                        <i class="nav-icon fa fa-file-excel"></i>
+                                        <p>Reporte Generales</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('listalmacenes') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
+                                        <i class="nav-icon fa fa-file-excel"></i>
+                                        <p>Reporte Alamacenes</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                        
+
                         {{-- <li class="nav-item">
                             <a href="{{ url('category') }}" class="nav-link {{ Navigation::isActiveRoute('category.index') }}">
                                 <i class="nav-icon fa fa-boxes"></i>
@@ -288,7 +314,6 @@
                         <li class="nav-item">
                             <a href="{{ url('unit') }}" class="nav-link {{ Navigation::isActiveRoute('unit.index') }}">
                                 <i class="nav-icon fa fa-ruler"></i>
-
                                 <p>
                                     Unidades
                                 </p>
@@ -338,7 +363,7 @@
                         </div>
                         <nav class="col-sm-6" aria-label="breadcrumb">
                             <ol class="breadcrumb float-sm-right">
-								@yield('breadcrums')
+                                @yield('breadcrums')
                                 {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Blank Page</li> --}}
                             </ol>
@@ -415,7 +440,6 @@
                     { responsivePriority: 2, targets: -1 }
                 ],
                 language: spanish_lang
-
             });
             var message =@json(session('message'));
             var deleteMessage = @json(session('delete'));
