@@ -82,6 +82,31 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $user = User::find($request->id);
+        // return $user;
+        $permissions = json_decode($request->permissions);
+        $roles = json_decode($request->roles);
+        foreach($permissions as $permission){
+
+            if($permission->enabled)
+            {
+                $user->givePermissionTo($permission->name);
+            }else{
+                $user->revokePermissionTo($permission->name);
+            }
+        }
+
+        foreach($roles as $role){
+
+            if($role->enabled)
+            {
+                $user->assignRole($role->name);
+            }else{
+                $user->removeRole($role->name);
+            }
+        }
+        return redirect('user');
+        //return $request->all();
     }
 
     public function storeSystem(Request $request)
@@ -145,8 +170,36 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        $user = User::find($id);
-        return $id;
+        $user = User::with('person')->find($id);
+
+        $roles = Role::all();
+        foreach ($roles as $role)
+        {
+            # code...
+            if($user->hasRole($role->name))
+            {
+                $role->enabled = true;
+            }
+            else
+            {
+                $role->enabled = false;
+            }
+            $role->permissions = $role->getPermissionNames();
+        }
+
+        $permissions = Permission::all();
+
+        foreach($permissions as $permission)
+        {
+            if($user->hasPermissionTo($permission->name))
+            {
+                $permission->enabled = true;
+            }else{
+                $permission->enabled = false;
+            }
+        }
+        return view('user.edit',compact('user','roles','permissions'));
+        // return response()->json(compact('user','roles','permissions'));
     }
 
     /**

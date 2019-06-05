@@ -14,4 +14,5 @@ class Person extends Model
     public function getUser(){
         return User::where('usr_prs_id',$this->prs_id)->first();
     }
+
 }

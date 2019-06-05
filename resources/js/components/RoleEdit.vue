@@ -59,7 +59,7 @@
 </template>
 <script>
 import Switches from 'vue-switches';
-import { constants } from 'crypto';
+
 export default {
     props:['url','csrf'],
     data:()=>({

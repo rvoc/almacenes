@@ -23,8 +23,9 @@
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <!-- <button type="button" class="btn btn-secondary">Left</button>
                                  -->
-                                <button type="button" class="btn btn-sm btn-secondary"><i class="material-icons " @click="edit(props.row)">remove_red_eye</i></button>
-                                <button type="button" class="btn btn-sm btn-secondary"><i class="material-icons" @click="edit(props.row)">edit</i></button>
+                                 <a :href="url+'/'+props.row.usr_id+'/edit'"><i class="material-icons ">edit</i></a>
+                                <!-- <button type="button" class="btn btn-sm btn-secondary"></button> -->
+                                <!-- <button type="button" class="btn btn-sm btn-secondary"><i class="material-icons" @click="edit(props.row)">edit</i></button> -->
 
 
                             </div>

@@ -9,7 +9,7 @@
 
 
         {{-- aqui los modals --}}
-<users-index :users="{{$users}}" url="{{url('user')}}" ></users-index>
+    <users-index :users="{{$users}}" url="{{url('user')}}" ></users-index>
 
 
 

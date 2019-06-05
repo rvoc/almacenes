@@ -9,7 +9,15 @@
 
 
         {{-- aqui los modals --}}
-    <user-edit :user="{{$user}}" ></user-edit>
+    <user-edit
+         :user="{{$user}}"
+         :roles="{{$roles}}"
+         :permissions="{{$permissions}}"
+         url="{{url('user')}}"
+
+         csrf='{!! csrf_field('POST') !!}'
+    >
+    </user-edit>
 
 @endsection
 <script>
