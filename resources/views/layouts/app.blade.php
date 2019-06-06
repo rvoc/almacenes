@@ -315,7 +315,15 @@
                                 <li class="nav-item">
                                     <a href="{{ url('listalmacenes') }}" class="nav-link  {{ Navigation::isActiveRoute('reportExcel.rptalmacen') }}">
                                         <i class="nav-icon fa fa-file-excel"></i>
-                                        <p>Reporte Alamacenes</p>
+                                        <p>Reporte Alamacen Ingresos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('listalmacenesSal') }}" class="nav-link  {{ Navigation::isActiveRoute('reportExcel.rptalmacenSalida') }}">
+                                        <i class="nav-icon fa fa-file-excel"></i>
+                                        <p>Reporte Alamacen Salidas</p>
                                     </a>
                                 </li>
                             </ul>

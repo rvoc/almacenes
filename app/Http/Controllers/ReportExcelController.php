@@ -6,31 +6,36 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\ArticleHistory;
 use App\Article;
+use App\ArticleIncome;
+use App\ArticleRequest;
 use App\User;
 use App\Stock;
 use App\Storage;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Datatables;
 
 class ReportExcelController extends Controller
 {
 	public function index()
     {
-    	$articulos = \DB::table('sisme.stocks')
-                ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
-                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
+    	$articulos = \DB::table('sisme.article_histories')
+                ->join('sisme.articles as art', 'sisme.article_histories.article_id', '=', 'art.id')
                 ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
-                ->leftjoin('sisme.storages as alm', 'sisme.stocks.storage_id', '=', 'alm.id')
-                ->select('art.code as codigo','art.name as detalle', 'uni.name as unidad', 'cat.name as categoria',  'alm.name as almacenes','stocks.article_id',DB::raw('sum(stocks.quantity) as quantity'))
-                ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria', 'almacenes')
+                ->join('sisme.article_income_items as ing', 'sisme.article_histories.article_income_item_id', '=', 'ing.id')
+                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
+                ->leftjoin('sisme.article_request_items as sali', 'ing.article_income_id', '=', 'sali.article_request_id')
+                ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', 'ing.quantity as ingcant', 'sali.quantity_apro as salcant')
+                ->where('article_histories.type', 'Entrada')
+                
                 ->get();
-        // echo $articulos;
+        //echo $articulos;
         return view('reportExcel.index');
     }
 
       public function rptInventarioExcel()
     {
-    	$user= DB::table('siscor._bp_personas')
+    	$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
         $usr =collect($user);
@@ -68,7 +73,7 @@ class ReportExcelController extends Controller
 
      public function rptResumidoExcel()
     {
-    	$user= DB::table('siscor._bp_personas')
+    	$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
         $usr =collect($user);
@@ -80,7 +85,21 @@ class ReportExcelController extends Controller
 		})->export('xls');
     }
 
-        public function listalmacenes()
+    public function rptMensualExcel()
+    {
+        $user= DB::table('public._bp_personas')
+                ->where('prs_id','=',Auth::user()->usr_prs_id)
+                ->first();
+        $usr =collect($user);
+        $articulos = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
+        Excel::create('rptResumen', function($excel)  use ($articulos) {
+            $excel->sheet('New sheet', function($sheet)  use (&$articulos){
+                $sheet->loadView('reportExcel.rptMensual');
+            });
+        })->export('xls');
+    }
+
+    public function listalmacenes()
     {
          $data = Storage::select('id', 'name')
             // ->where('tipfr_estado', 'A')
@@ -90,12 +109,32 @@ class ReportExcelController extends Controller
 
     public function listalmacenes1($id)
     {
-        $almacen = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->where('storage_id', $id)->groupBy('stocks.article_id')->get();
+        $almacen = ArticleIncome::join('sisme.storages as sto', 'sisme.article_incomes.storage_id','=','sto.id')
+                                ->join('sisme.article_income_items as item', 'sisme.article_incomes.id', '=', 'item.article_income_id')
+                                ->join('sisme.articles as art', 'item.article_id', '=', 'art.id')
+                                ->select('sto.name as almacen', 'article_incomes.id as num', 'art.code as codigo', 'art.name as articulo', 'item.quantity as cantidad', 'item.cost as costo')
+                                ->where('article_incomes.storage_id',$id)
+                                ->get();
         return Datatables::of($almacen)
-    //     ->addColumn('acciones', function ($sum) {
-    //       return '<button value="' . $sum->prov_id1 . '" class="btn btn-primary" style="background:#F5B041" onClick="MostrarRegistro(this);" data-toggle="modal" data-target="#myCreate">REGISTRAR</button>
-    //                <a href="Acopio/listarDetalle/' . $sum->prov_id1 . '" class="btn btn-primary" style="background:#5499C7">LISTAR</i></a>';   
-  		// })
+        ->make(true);
+    }
+    public function listalmacenesSal()
+    {
+         $data = Storage::select('id', 'name')
+            // ->where('tipfr_estado', 'A')
+            ->get();
+        return view('reportExcel.rptalmacenSalida', compact('data'));
+    }
+
+    public function listalmacenesSal1($id)
+    {
+        $almacen = ArticleRequest::join('sisme.storages as sto', 'sisme.article_requests.storage_origin_id','=','sto.id')
+                                ->join('sisme.article_request_items as item', 'sisme.article_requests.id', '=', 'item.article_request_id')
+                                ->join('sisme.articles as art', 'item.article_id', '=', 'art.id')
+                                ->select('sto.name as almacen', 'article_requests.id as num', 'art.code as codigo', 'art.name as articulo', 'item.quantity as cantidad', 'item.quantity_apro as cantapro')
+                                ->where('article_requests.storage_origin_id',$id)
+                                ->get();
+        return Datatables::of($almacen)
         ->make(true);
     }
 

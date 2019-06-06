@@ -12,7 +12,7 @@
              <div class="card-header card-calendar">
 
                     <h4 class="card-title ">
-                        Almacenes Ingresos
+                        Almacenes Salidas
                     </h4>
                 </div>
             <div class="col-md-3">
@@ -38,14 +38,14 @@
             <div class="box">
                 <div class="box-header with-border"></div>
                     <div class="box-body">
-                        <table class="col-md-12 table-bordered table-striped table-condensed cf" id="lts-alamacen" style="width:100%">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf" id="lts-alamacensal" style="width:100%">
                             <thead class="cf">
                                 <tr>
                                     <th>
                                         Almacen
                                     </th>
                                     <th>
-                                        N° Ingreso
+                                        N° Salida
                                     </th>
                                     <th>
                                         Codigo
@@ -54,10 +54,10 @@
                                         Articulo
                                     </th>
                                     <th>
-                                        Cantidad
+                                        Cant. Solicitado
                                     </th>
                                     <th>
-                                        Costo
+                                        Cant. Aprob
                                     </th>
                                 </tr>
                             </thead>
@@ -78,7 +78,7 @@
 function listaralmacen(){
 var id= document.getElementById("alm").value;
 console.log(id);
-    $('#lts-alamacen').DataTable( {
+    $('#lts-alamacensal').DataTable( {
             "responsive": true,
             "processing": true,
             "destroy": true,
@@ -86,7 +86,7 @@ console.log(id);
             "serverSide": true,
             // "ajax": "/listalmacenes/create",
             "ajax":{
-               url : "/listalmacenes1/"+id,
+               url : "/listalmacenesSal1/"+id,
                type: "GET",
                // data: {"mes": $("#id_mes").val()}
              },
@@ -96,7 +96,7 @@ console.log(id);
                 {data: 'codigo'},
                 {data: 'articulo'},
                 {data: 'cantidad'},
-                {data: 'costo'},
+                {data: 'cantapro'},
         ],
         
         "language": {
