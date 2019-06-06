@@ -5,7 +5,7 @@
                 <div class="card-header">
                     Almacen Ingresos
                      <!-- <a :href=""  class="btn btn-secondary">Excel</a> -->
-                     <button type="button" class="btn btn-sm btn-secondary"></button>
+                    <!--  <button type="button" class="btn btn-sm btn-secondary"></button> -->
                 </div>
 
                 <!-- <select class="form-control" id="alm" name="alm" > -->
@@ -25,7 +25,7 @@
                             >
                             </multiselect>
                     <!-- </div> -->
-
+                      <a :href="'/rptIngresoAlm/'+form.data.id" v-if="form.data" class="btn btn-secondary">Excel</a>
                 </div>
 
                 <div class="card-body">
@@ -140,7 +140,7 @@ export default {
             console.log(this.form.data);
             if(this.form.data)
             {
-                axios.get(`listalmacenesSal/${this.form.data.id}`).then(response=>{
+                axios.get(`listalmacenes1/${this.form.data.id}`).then(response=>{
                         // this.form = response.data.article;
                         // console.log(response.data);
                         this.rows = response.data;
