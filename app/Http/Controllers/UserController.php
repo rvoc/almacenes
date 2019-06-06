@@ -119,8 +119,6 @@ class UserController extends Controller
             }
         }
         $user->storages()->sync($almacenes);
-
-
         return redirect('user');
         //return $request->all();
     }

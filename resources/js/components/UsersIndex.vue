@@ -65,6 +65,15 @@ export default {
         rows: [],
         columns: [
             {
+                label: "Id",
+                name: "usr_id",
+                filter: {
+                    type: "simple",
+                    placeholder: "Usuario"
+                },
+                sort: true,
+            },
+            {
                 label: "Usuario",
                 name: "usr_usuario",
                 filter: {
