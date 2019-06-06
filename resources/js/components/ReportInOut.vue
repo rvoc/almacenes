@@ -37,38 +37,7 @@
                             <i class="fa fa-sort"></i>
                         </template>
 
-                        <template slot="option" slot-scope="props">
 
-                            <!-- <i class="fa fa-pen text-primary" @click="edit(props.row)"></i> -->
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <!-- <button type="button" class="btn btn-secondary">Left</button>
-                                 -->
-                                 <!-- <a :href="url+'/'+props.row.usr_id+'/edit'"><i class="material-icons ">edit</i></a> -->
-                                <!-- <button type="button" class="btn btn-sm btn-secondary"></button> -->
-                                <!-- <button type="button" class="btn btn-sm btn-secondary"><i class="material-icons" @click="edit(props.row)">edit</i></button> -->
-
-
-                            </div>
-
-                            <span>
-                                <!-- <i class="material-icons text-info" @click="edit(props.row)">remove_red_eye</i>
-                                <i class="material-icons text-primary" @click="edit(props.row)">edit</i> -->
-
-                            </span>
-
-                            <!-- <button class="btn btn-primary">
-                            </button> -->
-
-
-                            <!-- <v-icon @click="getDetail(props)" data-toggle="modal" data-target="#taskModalDetail"
-                                small>
-                                remove_red_eye
-                            </v-icon> -->
-                            <!-- <v-icon @click="edit(props)" data-toggle="modal" data-target="#taskModalExecuted"
-                                small>
-
-                            </v-icon> -->
-                        </template>
                     </vue-bootstrap4-table>
                 </div>
             </div>
@@ -101,7 +70,7 @@ export default {
                     placeholder: "Almacen"
                 },
                 sort: true,
-            },  
+            },
             {
                 label: "Codigo",
                 name: "codigo",
@@ -129,7 +98,7 @@ export default {
                 },
                 sort: true,
             },
-            
+
             {
                 label: "Cantidad Aprobado",
                 name: "cantapro",
@@ -173,7 +142,7 @@ export default {
                         // console.log(response.data);
                         this.rows = response.data;
                         console.log(this.rows);
-                });   
+                });
             }
         },
         changeItem: function changeItem(rowId, event) {
