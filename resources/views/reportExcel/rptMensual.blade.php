@@ -1,14 +1,14 @@
  @php
-
 $articulos = \DB::table('sisme.article_histories')
                 ->join('sisme.articles as art', 'sisme.article_histories.article_id', '=', 'art.id')
                 ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
                 ->join('sisme.article_income_items as ing', 'sisme.article_histories.article_income_item_id', '=', 'ing.id')
                 ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
-                ->leftjoin('sisme.article_request_items as sali', 'ing.article_income_id', '=', 'sali.article_request_id')
-                ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', 'ing.quantity as ingcant', 'sali.quantity_apro as salcant')
-                ->where('article_histories.type', 'Entrada')
-                
+                //->join('')
+                ->leftjoin('sisme.article_request_items as sali', 'sisme.article_histories.article_request_item_id', '=', 'sali.id')
+                ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', 'ing.quantity as ingcant', 'article_histories.article_income_item_id',DB::raw('sum(article_histories.quantity_desc) as quantity'))
+                ->groupBy('article_histories.article_income_item_id', 'codigo', 'detalle', 'categoria', 'ingcost', 'unidad', 'ingcant')
+                //->where('article_histories.type', 'Entrada')
                 ->get();
 
 $user= DB::table('public._bp_personas')
@@ -75,22 +75,44 @@ $tam=count($almacen) + 4
    <?php
     // {{-- @foreach($provinces->chunk(500) as $chunk) --}}
      $nro_mod = 0;
+     $totaCost = 0;
+     $totaSalida = 0;
+     $totaSaldo = 0;
         foreach($articulos as $art){
          $nro_mod = $nro_mod +1;
+         $total= $art->ingcost*$art->ingcant;
+         $saldo1=$art->ingcant-$art->quantity;
+         $entrada1=$art->ingcost*$art->ingcant;
+         $salida1=$art->ingcost*$art->quantity;
+         $total1=$entrada1-$salida1;
              echo '<tr>';
              echo   '<td>',$nro_mod,'</td>';
              echo   '<td>',$art->codigo,'</td>';
              echo   '<td>',$art->detalle,'</td>';
              echo   '<td>',$art->categoria,'</td>';
              echo   '<td>',$art->ingcost,'</td>';
-             echo   '<td>','','</td>';
+             echo   '<td>',$total,'</td>';
              echo   '<td>',$art->unidad,'</td>';
              echo   '<td>',$art->ingcant,'</td>';
-             echo   '<td>',$art->salcant,'</td>';
+             echo   '<td>',$art->quantity,'</td>';
+             echo   '<td>',$saldo1,'</td>';
+             echo   '<td>',$entrada1,'</td>';
+             echo   '<td>',$salida1,'</td>';
+             echo   '<td>',$total1,'</td>';
              echo'</tr>';
+           $totaCost=$totaCost+$entrada1;
+           $totaSalida=$totaSalida+$salida1;
+           $totaSaldo=$totaSaldo+$total1;
         } 
     ?>
   </tbody>
+<tr align="center" BGCOLOR="#f3f0ff">
+          <td colspan="10" align="center" ><strong>TOTALES</strong></td>
+          <td>{{$totaCost}}</td>
+          <td>{{$totaSalida}}</td>
+          <td>{{$totaSaldo}}</td>                                            
+      </tr>; 
+  
     {{-- @endforeach --}}
 </table>
 
