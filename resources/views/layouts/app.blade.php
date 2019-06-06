@@ -465,6 +465,7 @@
                 ],
                 language: spanish_lang
             });
+
             var message =@json(session('message'));
             var deleteMessage = @json(session('delete'));
             var error = @json(session('error'));
