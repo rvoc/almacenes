@@ -8,7 +8,7 @@ $articulos = \DB::table('sisme.stocks')
                 ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
                 ->get();
 
-$user= DB::table('siscor._bp_personas')
+$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
 $date=date('Y-m-d')

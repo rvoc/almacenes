@@ -4,7 +4,7 @@
 <div class="row">
 
  
-    <div class="col-sm-2 col-1">
+    <div class="col-sm-3 col-1">
       <a href="{{ url('rptInventario') }}" class=""> 
       <!-- small box -->
       <div class="small-box bg-info">
@@ -20,8 +20,8 @@
     </div>
   
     <!-- ./col -->
-     <div class="col-sm-2 col-6">
-      <a href="#" class="">
+     <div class="col-sm-3 col-6">
+      <a href="{{ url('rptMensual') }}" class="">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
@@ -35,7 +35,7 @@
       </a>
     </div>
     <!-- ./col -->
-   <div class="col-sm-2 col-6">
+   <div class="col-sm-3 col-6">
       <a href="{{ url('rptResumido') }}" class="">
       <!-- small box -->
       <div class="small-box bg-info">
@@ -51,7 +51,7 @@
     </div>
     <!-- ./col -->
    {{--     <div class="col-sm-3 col-6">
-      <a href="#" class="">
+      <a href="{{ url('rptMensual') }}" class="">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
