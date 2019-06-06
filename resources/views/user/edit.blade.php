@@ -13,8 +13,8 @@
          :user="{{$user}}"
          :roles="{{$roles}}"
          :permissions="{{$permissions}}"
+         :storages ="{{$storages}}"
          url="{{url('user')}}"
-
          csrf='{!! csrf_field('POST') !!}'
     >
     </user-edit>

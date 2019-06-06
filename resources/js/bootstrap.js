@@ -9,6 +9,7 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    window.JSZip = require('jszip');
     require('./adminlte');
     require('bootstrap/dist/js/bootstrap.bundle');
     require('admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js');
@@ -16,7 +17,16 @@ try {
     require('admin-lte/plugins/slimScroll/jquery.slimscroll.min.js');
 
     window.dt =  require( 'datatables.net-responsive-bs4' )( window.$ );
-    require( 'datatables.net-buttons' )( window, $ );
+   // require( 'datatables.net-buttons' )( window, window.$ );
+    require( 'datatables.net-buttons-bs4' )(window.$ );
+    require('datatables.net-buttons/js/buttons.colVis')( window.$);
+    require('datatables.net-buttons/js/buttons.html5')( window.$);
+    require('datatables.net-buttons/js/buttons.print')( window.$);
+
+    // require( 'datatables.net-buttons/js/buttons.colVis.js' )(); // Column visibility
+    // require( 'datatables.net-buttons/js/buttons.html5.js' )();  // HTML 5 file export
+    // require( 'datatables.net-buttons/js/buttons.flash.js' )();  // Flash file export
+    // require( 'datatables.net-buttons/js/buttons.print.js' )();  // Print view button
     window.moment = require('moment');
 
 

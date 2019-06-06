@@ -74,9 +74,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('kardex_fisico/{article_id}','ReportController@kardex_fisico');
         Route::get('kardex_valorado/{article_id}','ReportController@kardex_valorado');
 
-        Route::resource('user', 'UserController');
-        Route::get('system','UserController@system');
-        Route::post('store_system','UserController@storeSystem')->name('save_system');
+        Route::group(['middleware' => ['role:Administrador','permission:SAE']], function ()
+        {
+            //
+            Route::resource('user', 'UserController');
+            Route::get('system','UserController@system');
+            Route::post('store_system','UserController@storeSystem')->name('save_system');
+        });
 
         //reportes Excel
         Route::resource('report_excel','ReportExcelController');
@@ -89,7 +93,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('listalmacenes1/{id}','ReportExcelController@listalmacenes1');
         Route::get('listalmacenesSal1/{id}','ReportExcelController@listalmacenesSal1');
 
-       
+
     });
 
 

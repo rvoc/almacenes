@@ -61,7 +61,8 @@ class User extends Authenticatable
         $person = DB::table('_bp_personas')
                 ->where('prs_id','=',$this->usr_prs_id)
                 ->first();
-        return $person->prs_nombres.' '.$person->prs_paterno.' '.$person->prs_materno;
+        // return $person->prs_nombres.' '.$person->prs_paterno.' '.$person->prs_materno;
+        return $person->prs_nombres;
     }
 
     public function getArticles()
