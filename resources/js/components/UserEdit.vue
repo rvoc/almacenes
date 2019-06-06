@@ -12,13 +12,40 @@
                                 <input type="text" name="id" :value="user.usr_id" hidden>
                                 <input type="text" name="permissions" :value="JSON.stringify(user_permissions)" hidden>
                                 <input type="text" name="roles" :value="JSON.stringify(user_roles)" hidden>
-                                <button  type="submit" class="btn btn-success btn-sm"> <i class="fa fa-user-edit"></i> Editar </button>
+                                <input type="text" name="storages" :value="JSON.stringify(user_storages)" hidden>
+                                <button  type="submit" class="btn btn-success btn-sm"> <i class="fa fa-user-edit"></i> Guardar </button>
                             </form>
                     </small>
                 </div>
                 <div class="card-body">
                     <span>Nombre:</span> <strong> {{user.person.prs_nombres+' '+user.person.prs_paterno+' '+user.person.prs_materno}}</strong><br>
                     <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <!-- <div class="card-header">
+
+                </div> -->
+                <div class="card-body">
+                     <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Almacenes</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(storage,index) in user_storages" :key="index">
+                                <td>{{storage.name}}</td>
+                                <td>
+                                    <switches v-model="storage.enabled" theme="bootstrap" color="primary"></switches>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -86,18 +113,21 @@
 <script>
 import Switches from 'vue-switches';
 export default {
-    props:['user','roles','permissions','url','csrf'],
+    props:['user','roles','permissions','url','csrf','storages'],
     data: ()=>({
+        user_storages: [],
         user_roles: [],
         user_permissions : []
     }),
     mounted()
     {
         this.user_roles = this.roles,
+        this.user_storages = this.storages,
         this.user_permissions = this.permissions;
         console.log(this.user_roles);
         console.log(this.user_permissions);
         console.log(this.user);
+        console.log(this.storages);
     },
     methods:{
 

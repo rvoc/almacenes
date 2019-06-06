@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Storage;
+use DB;
 use Log;
 class UserController extends Controller
 {
@@ -82,6 +84,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+
+
         $user = User::find($request->id);
         // return $user;
         $permissions = json_decode($request->permissions);
@@ -105,6 +109,18 @@ class UserController extends Controller
                 $user->removeRole($role->name);
             }
         }
+
+        $storages = json_decode($request->storages);
+        $almacenes=[];
+        foreach($storages as $storage){
+            if($storage->enabled){
+                array_push($almacenes,$storage->id);
+                // $almacenes+=$storage->id;
+            }
+        }
+        $user->storages()->sync($almacenes);
+
+
         return redirect('user');
         //return $request->all();
     }
@@ -170,7 +186,26 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $storages = Storage::all();
+
         $user = User::with('person')->find($id);
+
+        foreach($storages as $storage)
+        {
+            $st = DB::table('sisme.user_storage')
+                    ->where('user_usr_id',$user->usr_id)
+                    ->where('storage_id',$storage->id)
+                    ->first();
+            if($st)
+            {
+                $storage->enabled = true;
+            }
+            else
+            {
+                $storage->enabled = false;
+            }
+        }
+
 
         $roles = Role::all();
         foreach ($roles as $role)
@@ -198,7 +233,7 @@ class UserController extends Controller
                 $permission->enabled = false;
             }
         }
-        return view('user.edit',compact('user','roles','permissions'));
+        return view('user.edit',compact('user','roles','permissions','storages'));
         // return response()->json(compact('user','roles','permissions'));
     }
 
