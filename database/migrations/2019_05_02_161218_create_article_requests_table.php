@@ -27,7 +27,7 @@ class CreateArticleRequestsTable extends Migration
             $table->integer('user_id')->nullable();//usuario quien aprueba o rechaza el articulo
             $table->foreign('user_id')->references('usr_id')->on('_bp_usuarios');
 
-            $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente'])->default('Pendiente');
+            $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente','Pendiente Aprobacion'])->default('Pendiente Aprobacion');
             $table->unsignedInteger('correlative')->index();
             $table->enum('type', ['Funcionario', 'Almacen'])->default('Funcionario');
             $table->unique( array('storage_destiny_id','correlative'));
