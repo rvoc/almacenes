@@ -87,13 +87,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('rptInventario','ReportExcelController@rptInventarioExcel');
         Route::get('rptResumido','ReportExcelController@rptResumidoExcel');
         Route::get('rptMensual','ReportExcelController@rptMensualExcel');
+        Route::get('reporte_Ingreso_General','ReportExcelController@rptIngresoGeneralExcel');
+        Route::get('reporte_Salida_General','ReportExcelController@rptIngresoSalidasExcel');
+
         Route::get('rptIngresoAlm/{id}','ReportExcelController@rptIngresoAlmExcel');
         Route::get('listalmacenes','ReportExcelController@listalmacenes');
         Route::get('listalmacenesSal','ReportExcelController@listalmacenesSal');
         Route::get('listalmacenes1/{id}','ReportExcelController@listalmacenes1');
         Route::get('listalmacenesSal1/{id}','ReportExcelController@listalmacenesSal1');
-
-
     });
 
 

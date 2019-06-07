@@ -53,24 +53,32 @@ class ReportExcelController extends Controller
 
 		    $articulos = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
 
+            // $sheet->row(1, function ($row) {
+            // $row->setFontFamily('Arial');
+            // $row->setFontSize(15);
+            // $row->setAlignment('center');
+            // $row->setFontWeight('bold');
+            // });
+
+
 		    // $sheet->row(7, function($row) {
       //               $row->setBackground('#186BBA');    
       //               $row->setBackground('#186BBA'); 
       //           });
 
-			$total = count($articulos) + 8 ;
-			$totalsum = Stock::select(DB::raw("SUM(quantity) as totcant"))->first();
-			$sheet->mergeCells('A'.$total.':C'.$total.'');
-			$sheet->row($total, function ($row) {
-			$row->setFontFamily('Arial');
-			$row->setFontSize(10);
-			$row->setAlignment('center');
-			$row->setFontWeight('bold');
-			});
+			// $total = count($articulos) + 8 ;
+			// $totalsum = Stock::select(DB::raw("SUM(quantity) as totcant"))->first();
+			// $sheet->mergeCells('A'.$total.':C'.$total.'');
+			// $sheet->row($total, function ($row) {
+			// $row->setFontFamily('Arial');
+			// $row->setFontSize(10);
+			// $row->setAlignment('center');
+			// $row->setFontWeight('bold');
+			// });
 
-			$sheet->appendRow($total, array(
-			    'TOTAL','','',''.$totalsum['totcant'].''
-			));
+			// $sheet->appendRow($total, array(
+			//     'TOTAL','','',''.$totalsum['totcant'].''
+			// ));
 
 
 		    });
@@ -118,7 +126,7 @@ class ReportExcelController extends Controller
     //         });
     //     })->export('xls');
     // }
-       public function rptMensualExcel()
+    public function rptMensualExcel()
     {
         $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
@@ -128,6 +136,44 @@ class ReportExcelController extends Controller
         Excel::create('rptMensual', function($excel)  use ($articulos) {
             $excel->sheet('New sheet', function($sheet)  use (&$articulos){
                 $sheet->loadView('reportExcel.rptMensual');
+            });
+        })->export('xls');
+    }
+
+    public function rptIngresoGeneralExcel()
+    {
+        $user= DB::table('public._bp_personas')
+                ->where('prs_id','=',Auth::user()->usr_prs_id)
+                ->first();
+        $usr =collect($user);
+        $ingresos = ArticleIncome::join('sisme.storages as sto', 'sisme.article_incomes.storage_id','=','sto.id')
+                                ->join('sisme.article_income_items as item', 'sisme.article_incomes.id', '=', 'item.article_income_id')
+                                ->join('sisme.articles as art', 'item.article_id', '=', 'art.id')
+                                ->select('sto.name as almacen', 'article_incomes.id as num', 'art.code as codigo', 'art.name as articulo', 'item.quantity as cantidad', 'item.cost as costo')
+                                ->where('article_incomes.storage_id',1)
+                                ->get();
+        Excel::create('rptGeneralIngreso', function($excel)  use ($ingresos) {
+            $excel->sheet('rptGeneralIngreso', function($sheet)  use ($ingresos){
+                $sheet->loadView('reportExcel.rptIngresoGeneral', array('ingresos'=>$ingresos));
+            });
+        })->export('xls');
+    }
+
+    public function rptIngresoSalidasExcel()
+    {
+        $user= DB::table('public._bp_personas')
+                ->where('prs_id','=',Auth::user()->usr_prs_id)
+                ->first();
+        $usr =collect($user);
+        $salidas = ArticleRequest::join('sisme.storages as sto', 'sisme.article_requests.storage_origin_id','=','sto.id')
+                                ->join('sisme.article_request_items as item', 'sisme.article_requests.id', '=', 'item.article_request_id')
+                                ->join('sisme.articles as art', 'item.article_id', '=', 'art.id')
+                                ->select('sto.name as almacen', 'article_requests.id as num', 'art.code as codigo', 'art.name as articulo', 'item.quantity as cantidad', 'item.quantity_apro as cantapro')
+                                ->where('article_requests.storage_origin_id',1)
+                                ->get();
+        Excel::create('rptSalidaGeneral', function($excel)  use ($salidas) {
+            $excel->sheet('rptSalidaGeneral', function($sheet)  use ($salidas){
+                $sheet->loadView('reportExcel.rptSalidaGeneral', array('salidas'=>$salidas));
             });
         })->export('xls');
     }

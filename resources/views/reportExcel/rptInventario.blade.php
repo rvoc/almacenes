@@ -13,60 +13,55 @@ $user= DB::table('public._bp_personas')
                 ->first();
 $date=date('Y-m-d')
  @endphp
+ <!DOCTYPE html>
 <html>
 <table>
    <tr>
       <td><img src="img/logo_small.jpg" width="100" /></td>
-      <td colspan="4" style="text-align:center;"><strong><h1>EMPRESA BOLIVIANA DE ALIMENTOS</h1></strong></td>
+      <td colspan="5" style="text-align:center; vertical-align: middle;"><strong>EMPRESA BOLIVIANA DE ALIMENTOS</strong></td>
    </tr>
 </table>
 <table>
     <tr>
-      <td colspan="5"  align="center"><strong><h1>INVENTARIO OFICINA CENTRAL LA PAZ</h1></strong></td>
+      <td colspan="6"  align="center"><strong><h1>INVENTARIO OFICINA CENTRAL LA PAZ</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="5" align="center"><strong><h1>AL: {{$date}}</h1></strong></td>
+      <td colspan="6" align="center"><strong><h1>AL: {{$date}}</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="5"><strong><h1>Generado por: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
+      <td colspan="6"><strong><h1>Generado por: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
    </tr>
 </table>
-<table>
+<table >
   <thead class="table_head">
    <tr>
-      <td align="center"><strong>Codigo</strong></td>
-      <td align="center" width="30"><strong>Detalle Articulo</strong></td>
-      <td align="center"><strong>Unidad</strong></td>
-      <td align="center"><strong>Cantidad</strong></td>
-      <td align="center" width="20"><strong>Categoria</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;" width="10"><strong>N°</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;"><strong>CODIGO</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;" width="30"><strong>DETALLE ARTICULO</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;"><strong>UNIDAD</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;" width="15"><strong>CATEGORIA</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;" width="15"><strong>CANTIDAD</strong></td>
    </tr>
   </thead>
   <tbody>
-    {{-- @foreach($provinces->chunk(500) as $chunk) --}}
-        @foreach($articulos as $art)
-            <tr>
-                <td>{{$art->codigo}}</td>
-                <td>{{$art->detalle}}</td>
-                <td>{{$art->unidad}}</td>
-                <td>{{$art->quantity}}</td>
-                <td>{{$art->categoria}}</td>
-            </tr>
-        @endforeach 
+    {{ $tot=0 }}
+    {{ $num=0 }}
+    @foreach($articulos as $art)
+    {{$num=$num+1}}
+      <tr>
+        <td align="center" style="border: 1px solid #000000;">{{$num}}</td>
+        <td align="center" style="border: 1px solid #000000;">{{$art->codigo}}</td>
+        <td align="center" style="border: 1px solid #000000;">{{$art->detalle}}</td>
+        <td align="center" style="border: 1px solid #000000;">{{$art->unidad}}</td>
+        <td align="center" style="border: 1px solid #000000;">{{$art->categoria}}</td>
+        <td align="center" style="border: 1px solid #000000;">{{$art->quantity}}</td>
+      </tr>
+      {{ $tot=$tot+$art->quantity }}
+    @endforeach 
   </tbody>
-    {{-- @endforeach --}}
+  <tr align="center" BGCOLOR="#f3f0ff">
+          <td colspan="5" align="center" style="background-color: #808080; border: 1px solid #000000;"><strong>TOTALES</strong></td>
+          <td align="center" style="background-color: #808080; border: 2px solid #000000;">{{ $tot }}</td>                                        
+      </tr>;
 </table>
-
-   {{-- <td colspan="3">Números de Teléfono</td> --}}
-  {{--   <td><h1>EMPRESA BOLIVIANA DE ALIMENTOS</h1></td> --}}
-
-   
-  {{--   <td><b>Bold cell</b></td>
-    <td><strong>Bold cell</strong></td>
-
-    
-    <td><i>Italic cell</i></td>
- --}}
-    <!-- Images -->
-   {{--  <td><img src="img.jpg" /></td> --}}
-
 </html>
