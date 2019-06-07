@@ -53,24 +53,32 @@ class ReportExcelController extends Controller
 
 		    $articulos = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
 
+            // $sheet->row(1, function ($row) {
+            // $row->setFontFamily('Arial');
+            // $row->setFontSize(15);
+            // $row->setAlignment('center');
+            // $row->setFontWeight('bold');
+            // });
+
+
 		    // $sheet->row(7, function($row) {
       //               $row->setBackground('#186BBA');    
       //               $row->setBackground('#186BBA'); 
       //           });
 
-			$total = count($articulos) + 8 ;
-			$totalsum = Stock::select(DB::raw("SUM(quantity) as totcant"))->first();
-			$sheet->mergeCells('A'.$total.':C'.$total.'');
-			$sheet->row($total, function ($row) {
-			$row->setFontFamily('Arial');
-			$row->setFontSize(10);
-			$row->setAlignment('center');
-			$row->setFontWeight('bold');
-			});
+			// $total = count($articulos) + 8 ;
+			// $totalsum = Stock::select(DB::raw("SUM(quantity) as totcant"))->first();
+			// $sheet->mergeCells('A'.$total.':C'.$total.'');
+			// $sheet->row($total, function ($row) {
+			// $row->setFontFamily('Arial');
+			// $row->setFontSize(10);
+			// $row->setAlignment('center');
+			// $row->setFontWeight('bold');
+			// });
 
-			$sheet->appendRow($total, array(
-			    'TOTAL','','',''.$totalsum['totcant'].''
-			));
+			// $sheet->appendRow($total, array(
+			//     'TOTAL','','',''.$totalsum['totcant'].''
+			// ));
 
 
 		    });

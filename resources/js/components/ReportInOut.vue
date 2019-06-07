@@ -22,7 +22,7 @@
                             >
                             </multiselect>
                     <!-- </div> -->
-                    <a :href="'/rptIngresoAlm/'+form.data.id" v-if="form.data" class="btn btn-secondary">Excel</a>
+                  <!--   <a :href="'/rptIngresoAlm/'+form.data.id" v-if="form.data" class="btn btn-secondary">Excel</a> -->
                 </div>
 
                 <div class="card-body">
