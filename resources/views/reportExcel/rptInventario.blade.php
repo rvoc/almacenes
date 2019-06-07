@@ -15,15 +15,10 @@ $date=date('Y-m-d')
  @endphp
  <!DOCTYPE html>
 <html>
-<head>
-   
-    <link rel="stylesheet" href="{{ public_path('css/table.css') }}" media="all" />
-      {{-- {{ HTML::style('css/table.css') }} --}}
-</head>
 <table>
    <tr>
       <td><img src="img/logo_small.jpg" width="100" /></td>
-      <td colspan="5" style="text-align:center; font-size:20px; vertical-align: middle;"><strong>EMPRESA BOLIVIANA DE ALIMENTOS</strong></td>
+      <td colspan="5" style="text-align:center; vertical-align: middle;"><strong>EMPRESA BOLIVIANA DE ALIMENTOS</strong></td>
    </tr>
 </table>
 <table>
@@ -59,7 +54,7 @@ $date=date('Y-m-d')
         <td align="center" style="border: 1px solid #000000;">{{$art->detalle}}</td>
         <td align="center" style="border: 1px solid #000000;">{{$art->unidad}}</td>
         <td align="center" style="border: 1px solid #000000;">{{$art->categoria}}</td>
-        <td align="center"style="border: 1px solid #000000;">{{$art->quantity}}</td>
+        <td align="center" style="border: 1px solid #000000;">{{$art->quantity}}</td>
       </tr>
       {{ $tot=$tot+$art->quantity }}
     @endforeach 

@@ -20,31 +20,32 @@ $tam=count($almacen) + 4
 @endphp
 <html>
 <table>
-   <tr>
       <td><img src="img/logo_small.jpg" width="100" /></td>
-      <td colspan="{{$tam-1}}" style="text-align:center;"><strong><h1>EMPRESA BOLIVIANA DE ALIMENTOS</h1></strong></td>
-   </tr>
+      <td colspan="{{$tam-1}}" style="text-align:center; vertical-align: middle;"><strong><h1>EMPRESA BOLIVIANA DE ALIMENTOS</h1></strong></td>
 </table>
 <table>
     <tr>
       <td colspan="{{$tam}}"  align="center"><strong><h1>REPORTE GENERAL DE SALDOS</h1></strong></td>
     </tr>
+     <tr>
+      <td colspan="5" style="text-align:center;"><strong><h7>ALMACEN: Oficina Central La Paz</h7></strong></td>
+    </tr>
     <tr>
       <td colspan="{{$tam}}" align="center"><strong><h1>FECHA DE EMISION: {{$date}}</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="{{$tam}}"><strong><h1>Generado por: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
+      <td colspan="{{$tam}}"><strong><h1>GENERADO POR: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
    </tr>
 </table>
 <table>
   <thead class="table_head">
    <tr>
-      <td align="center" width="10"><strong>N°</strong></td>
-      <td align="center" bgcolor="red"><strong>CODIGO</strong></td>
-      <td align="center" width="30"><strong>DESCRIPCION</strong></td>
-      <td align="center"><strong>UNIDAD</strong></td>
+      <td align="center" width="10" style="background-color: #808080; border: 1px solid #000000;"><strong>N°</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;"><strong>CODIGO</strong></td>
+      <td align="center" width="30" style="background-color: #808080; border: 1px solid #000000;"><strong>DESCRIPCION</strong></td>
+      <td align="center" style="background-color: #808080; border: 1px solid #000000;"><strong>UNIDAD</strong></td>
       @foreach($almacen as $alm)
-      <td align="center" width="20"><strong>{{$alm->name}}</strong></td>
+      <td align="center" width="20" style="background-color: #808080; border: 1px solid #000000;"><strong>{{$alm->name}}</strong></td>
       @endforeach 
    </tr>
   </thead>
@@ -55,11 +56,11 @@ $tam=count($almacen) + 4
         foreach($articulos as $art){
          $nro_mod = $nro_mod +1;
              echo '<tr>';
-             echo   '<td>',$nro_mod,'</td>';
-             echo   '<td>',$art->codigo,'</td>';
-             echo   '<td>',$art->detalle,'</td>';
-             echo   '<td>',$art->unidad,'</td>';
-             echo   '<td>',$art->quantity,'</td>';
+             echo   '<td align="center" style="border: 1px solid #000000;">',$nro_mod,'</td>';
+             echo   '<td align="center" style="border: 1px solid #000000;">',$art->codigo,'</td>';
+             echo   '<td align="center" style="border: 1px solid #000000;">',$art->detalle,'</td>';
+             echo   '<td align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
+             echo   '<td align="center" style="border: 1px solid #000000;">',$art->quantity,'</td>';
              echo'</tr>';
         } 
     ?>
