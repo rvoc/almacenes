@@ -30,12 +30,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('request', 'RequestController');
 
         Route::resource('print', 'ReportController');
+
+
+        Route::get('approve/{id}', 'RequestController@approve');
         //route person
         Route::get('request_person','RequestController@index_person');
         Route::get('request_storage','RequestController@index_storage');
         Route::get('request_storage_done','RequestController@index_storage_done');
         Route::post('request/confirm_request','RequestController@confirmRequest');
         Route::post('request/delivery_request','RequestController@delivery');
+        Route::post('request/confirm_request_Approve','RequestController@confirmApprove');
 
         //manejo de transferencia entre almacenes
         Route::get('transfer_request','RequestController@transfer');

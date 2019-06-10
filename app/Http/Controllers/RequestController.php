@@ -23,20 +23,21 @@ class RequestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {                
         // para articulos de almacen
         $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->where('type','Funcionario')
                                             ->orderBy('id','DESC')
                                             ->get();
         $count = 1;
+
         return view('request.index',compact('request_articles','count'));
     }
 
     public function index_storage()
     {
         // para articulos de almacen
-        $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
+        $request_articles = request_articles::where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->where('type','Almacen')
                                             ->where('state','!=','Entregado')
                                             ->get();
@@ -365,7 +366,37 @@ class RequestController extends Controller
         // return $article_request_items;
         $providers = Provider::all();
         // $articles;
-        return view('request.check_request',compact('article_request','article_request_items','providers'));
+       return view('request.check_request',compact('article_request','article_request_items','providers'));
+
+    }
+
+    public function approve($id)
+    {
+
+        $article_request = ArticleRequest::with('person')->find($id);
+        $article_request_items = $article_request->article_request_items;
+
+
+        $histories=ArticleRequest::join('sisme.article_request_items as art_item', 'sisme.article_requests.id', '=', 'art_item.article_request_id')
+                                 ->join('sisme.article_histories as hist', 'art_item.id', '=', 'hist.article_request_item_id')
+                                 ->where('prs_id', $article_request->person->prs_id)
+                                 ->get();
+
+        foreach($article_request_items as $items)
+        {
+            $items->stock = Stock::where('article_id',$items->article->id)
+                            ->where('storage_id',Auth::user()->getStorage()->id)
+                            ->select(DB::raw('sum(quantity) as stock'))
+                            ->groupBy('article_id')
+                            ->first();
+
+            // array_push($articles,array('article'))
+        }
+        // return $article_request_items;
+        $providers = Provider::all();
+        // $articles;
+        //return $histories;
+        return view('request.approve_request',compact('article_request','article_request_items','providers', 'histories'));
 
     }
 
@@ -445,6 +476,24 @@ class RequestController extends Controller
 
         session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
         session()->flash('url',url('out_note/'.$article_request->id));
+
+        return redirect('request');
+        // return $articles;
+    }
+
+    public function confirmApprove(Request $request)
+    {
+        $articles = json_decode($request->articles);
+        $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Pendiente";
+        $article_request->save();
+     
+        // $article_request = ArticleRequest::find($request->article_request_id);
+        // $article_request->state = "Aprobado";
+        // $article_request->save();
+
+        session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
+        // session()->flash('url',url('out_note/'.$article_request->id));
 
         return redirect('request');
         // return $articles;
