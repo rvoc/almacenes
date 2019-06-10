@@ -72,7 +72,7 @@
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
                                     {{-- {{$item}} --}}
-                                    @if($item->state == 'Pendiente' )
+                                    @if($item->state == 'Pendiente Aprobacion' )
                                         @if($item->type == 'Funcionario' )
                                             <a href="{{url('request/'.$item->id.'/edit')}}" ><i class="material-icons text-info">assignment</i></a>
                                         @else
