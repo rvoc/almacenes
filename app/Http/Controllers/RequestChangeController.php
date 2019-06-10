@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\ArticleIncome;
+use App\RequestChangeIncome;
 
 class RequestChangeController extends Controller
 {
@@ -14,8 +16,21 @@ class RequestChangeController extends Controller
     public function index()
     {
         //
+        return "estamos en el index de la hueva esta";
+
     }
 
+    public function create_change_income($article_income_id)
+    {
+        $article_income = ArticleIncome::with('article_income_items')->find($article_income_id);
+
+        return view('request_change.create_income',compact('article_income'));
+    }
+
+    public function create_change_out()
+    {
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -35,6 +50,9 @@ class RequestChangeController extends Controller
     public function store(Request $request)
     {
         //
+        $request_change = new RequestChangeIncome;
+        // $request_change->
+        return $request->all();
     }
 
     /**

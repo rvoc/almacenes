@@ -16,7 +16,6 @@ class CreateRequestChangeIncomesTable extends Migration
         Schema::create('sisme.request_change_incomes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('type', ['Eliminacion', 'Modificacion' ])->default('Modificacion');
-            $table->enum('state', ['Eliminacion', 'Modificacion' ])->default('Modificacion');
             $table->boolean('is_aprobed_boss')->default(false);
             $table->boolean('is_aprobed_boss2')->default(false);
             $table->string('description');

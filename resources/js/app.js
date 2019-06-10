@@ -84,6 +84,8 @@ Vue.component('user-edit', require('./components/UserEdit.vue').default);
 Vue.component('report-inout', require('./components/ReportInOut.vue').default);
 Vue.component('report-out', require('./components/ReportOut.vue').default);
 
+Vue.component('change-income', require('./components/ChangeIncome.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
