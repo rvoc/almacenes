@@ -20,7 +20,7 @@ class ArticleIncome extends Model
 
     public function article_income_items ()
     {
-        return $this->hasMany('App\ArticleIncomeItem');
+        return $this->hasMany('App\ArticleIncomeItem')->with('article');
     }
 
     public function getTotalQuantity()

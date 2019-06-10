@@ -99,6 +99,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('listalmacenesSal','ReportExcelController@listalmacenesSal');
         Route::get('listalmacenes1/{id}','ReportExcelController@listalmacenes1');
         Route::get('listalmacenesSal1/{id}','ReportExcelController@listalmacenesSal1');
+
+        //solicitudes de devolucion
+        Route::get('create_change_income/{article_income_id}','RequestChangeController@create_change_income');
+        Route::resource('request_change', 'RequestChangeController');
+
     });
 
 
