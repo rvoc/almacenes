@@ -13,7 +13,7 @@ class CreateRequestChangeIncomeItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('request_change_income_items', function (Blueprint $table) {
+        Schema::create('sisme.request_change_income_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('request_change_income_id');

@@ -13,7 +13,7 @@ class CreateRequestChangeOutItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('request_change_out_items', function (Blueprint $table) {
+        Schema::create('sisme.request_change_out_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             // article_income_items
             $table->integer('request_change_out_id');
