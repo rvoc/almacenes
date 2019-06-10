@@ -34,6 +34,7 @@
                                 <th>Proveedor</th>
                                 <th>Costo</th>
                                 <th>Cantidad Articulos</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,6 +52,7 @@
                                 <td>{{$item->provider->name}}</td>
                                 <td>{{$item->total_cost}}</td>
                                 <td>{{$item->getTotalQuantity()}}</td>
+                            <td> <a href="{{url('create_change_income/'.$item->id)}}"> <i class="fa fa-file-signature text-secondary" ></i> </a> </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -12,6 +12,7 @@
         url='{{url('request_change')}}'
         csrf='{!! csrf_field('POST') !!}'
         :income="{{$article_income}}"
+        :articles= "{{$articles}}"
     >
     </change-income>
 
