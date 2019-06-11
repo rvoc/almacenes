@@ -21,7 +21,7 @@
                                 <thead>
                                     <tr class="bg-gray">
                                         <th scope="col">#</th>
-                                        <th scope="col">Articulo</th>
+                                        <th scope="col">Articulosssssssssssss</th>
                                         <th scope="col">Unidad</th>
                                         <th scope="col" v-if="isRequestStorage">Costo Unitario</th>
                                         <th scope="col">Stock</th>

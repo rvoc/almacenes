@@ -23,20 +23,21 @@ class RequestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {                
         // para articulos de almacen
         $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->where('type','Funcionario')
                                             ->orderBy('id','DESC')
                                             ->get();
         $count = 1;
+
         return view('request.index',compact('request_articles','count'));
     }
 
     public function index_storage()
     {
         // para articulos de almacen
-        $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
+        $request_articles = request_articles::where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->where('type','Almacen')
                                             ->where('state','!=','Entregado')
                                             ->get();
@@ -365,7 +366,41 @@ class RequestController extends Controller
         // return $article_request_items;
         $providers = Provider::all();
         // $articles;
-        return view('request.check_request',compact('article_request','article_request_items','providers'));
+       return view('request.check_request',compact('article_request','article_request_items','providers'));
+
+    }
+
+    public function approve($id)
+    {
+
+        $article_request = ArticleRequest::with('person','article_request_items')->find($id);
+                           // ->get();
+        $histories = ArticleHistory::join('sisme.article_request_items as item','sisme.article_histories.article_request_item_id','=','item.id')
+                                    ->join('sisme.article_requests as art','item.article_request_id','=','art.id' )
+                                    ->join('sisme.articles as articulo', 'sisme.article_histories.article_id', '=', 'articulo.id')
+                                    ->join('sisme.units as uni', 'articulo.unit_id', '=', 'uni.id') 
+                                    ->select('articulo.name as arti','uni.name as unidad',DB::raw('sum(quantity_desc) as cant'))
+                                    ->groupBy('arti', 'unidad')
+                                    ->where('prs_id', $article_request->person->prs_id)
+                                    ->get();
+
+         // return $histories;
+
+        foreach($article_request->article_request_items as $items)
+        {
+            $items->stock = Stock::where('article_id',$items->article->id)
+                            ->where('storage_id',Auth::user()->getStorage()->id)
+                            ->select(DB::raw('sum(quantity) as stock'))
+                            ->groupBy('article_id')
+                            ->first();
+
+            // array_push($articles,array('article'))
+        }
+        // return $article_request_items;
+        $providers = Provider::all();
+        // $articles;
+      //  return $histories;
+        return view('request.approve_request',compact('article_request','providers', 'histories'));
 
     }
 
@@ -445,6 +480,24 @@ class RequestController extends Controller
 
         session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
         session()->flash('url',url('out_note/'.$article_request->id));
+
+        return redirect('request');
+        // return $articles;
+    }
+
+    public function confirmApprove(Request $request)
+    {
+        $articles = json_decode($request->articles);
+        $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Pendiente";
+        $article_request->save();
+     
+        // $article_request = ArticleRequest::find($request->article_request_id);
+        // $article_request->state = "Aprobado";
+        // $article_request->save();
+
+        session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
+        // session()->flash('url',url('out_note/'.$article_request->id));
 
         return redirect('request');
         // return $articles;
