@@ -36,6 +36,6 @@ class CreateRequestChangeOutsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_change_outs');
+        Schema::dropIfExists('sisme.request_change_outs');
     }
 }

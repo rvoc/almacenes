@@ -220,6 +220,14 @@
                             </li>
                         @endhasanyrole
                         @hasanyrole('Administrador|Encargado de Almacen|Encargado de Oficina Central')
+                        <li class="nav-item">
+                            <a href="{{ url('request_change') }}" class="nav-link {{ Navigation::isActiveRoute('request_change.index') }}">
+                                    <i class="nav-icon fa fa-file-signature"></i>
+                                    <p>Solicitudes de Modificacion</p>
+                                </a>
+                            </li>
+                        @endhasanyrole
+                        @hasanyrole('Administrador|Encargado de Almacen|Encargado de Oficina Central')
                         <li class="nav-item has-treeview menu-close">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-people-carry"></i>

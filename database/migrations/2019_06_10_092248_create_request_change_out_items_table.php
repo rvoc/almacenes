@@ -33,6 +33,6 @@ class CreateRequestChangeOutItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_change_out_items');
+        Schema::dropIfExists('sisme.request_change_out_items');
     }
 }

@@ -28,6 +28,7 @@ class CreateArticleRequestsTable extends Migration
             $table->foreign('user_id')->references('usr_id')->on('_bp_usuarios');
 
             $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente','Pendiente Aprobacion'])->default('Pendiente Aprobacion');
+            $table->string('observation')->nullable(); //campo a solicitud de roxy
             $table->unsignedInteger('correlative')->index();
             $table->enum('type', ['Funcionario', 'Almacen'])->default('Funcionario');
             $table->unique( array('storage_destiny_id','correlative'));
