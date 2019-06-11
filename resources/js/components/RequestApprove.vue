@@ -30,7 +30,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             <tr v-for="(item,index) in rows" :key="index">
+                                             <tr v-for="(item,index) in request.article_request_items" :key="index">
                                                 <th scope="row">{{index+1}}</th>
                                                 <td>{{item.article.name}}</td>
                                                 <td>{{item.article.unit.name}}</td>
@@ -74,9 +74,10 @@
                         </div>
                     </div>
 
-                 <div class="col-md-6">
+                 <div class="col-md-6" v-for="(resquest_history,index) in histories" :key="index">
                       <div class="card">
                       <div class="card-body">
+                        <h5> Numero de Solicitud{{ resquest_history.correlative }}</h5>
                       <table class="table  table-bordered">
                                 <thead>
                                     <tr class="bg-gray">
@@ -89,7 +90,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     <tr v-for="(item,index) in data" :key="index">
+                                     <tr v-for="(item,index) in rows" :key="index">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{item.article.name}}</td>
                                         <td>{{item.article.unit.name}}</td>
@@ -200,7 +201,7 @@
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
-    props:['articles','url','csrf','storage','request','gerencia','providers', 'history'],
+    props:['url','csrf','storage','request','gerencia','providers', 'histories'],
     data: ()=>({
         form:{},
         title:'',
@@ -264,11 +265,12 @@ export default {
 
     }),
     mounted() {
-        this.rows = this.articles;
+        //his.rows = this.articles;
+        console.log(this.histories);
         this.data = this.history;
         this.provider = this.providers[0];
         // console.log(this.articles);
-        console.log(this.history);
+       // console.log(this.articles);
     },
     methods: {
         addIncome(item, item2){

@@ -10,10 +10,10 @@
     <approve-request
     url='{{url('request')}}'
     csrf='{!! csrf_field('POST') !!}'
-    :articles="{{$article_request_items}}"
+ 
     :storage="{{Auth::user()->getStorage()}}"
     :request="{{$article_request}}"
-    :history="{{$histories}}"
+    :histories="{{$histories}}"
     gerencia="{{Auth::user()->getGerencia()}}"
     :providers = "{{$providers}}"
     {{-- :person={{Auth::user()->person()}} --}}
