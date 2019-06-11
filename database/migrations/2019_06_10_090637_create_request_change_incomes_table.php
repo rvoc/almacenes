@@ -23,6 +23,8 @@ class CreateRequestChangeIncomesTable extends Migration
             $table->foreign('article_income_id')->references('id')->on('sisme.article_incomes');
             $table->integer('user_id');//usuario quien aprueba o rechaza el articulo
             $table->foreign('user_id')->references('usr_id')->on('_bp_usuarios');
+            $table->integer('storage_id');//para  diferenciar los historiales
+            $table->foreign('storage_id')->references('id')->on('sisme.storages');
             $table->timestamps();
         });
     }
