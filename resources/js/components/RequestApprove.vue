@@ -238,8 +238,8 @@ export default {
 
     }),
     mounted() {
-        //his.rows = this.articles;
-        console.log('esteee',this.histories);
+        // this.rows = this.request;
+        console.log('esteee',this.request.article_request_items.quantity);
         this.data = this.history;
         this.provider = this.providers[0];
         // console.log(this.articles);
@@ -294,13 +294,14 @@ export default {
             });
             return cost;
         },
-        getTotalQuantity(){
+        getTotalQuantity(item){
             let quantity= 0;
-            this.rows.forEach(item => {
-                quantity += this.Number(item.quantity)
+            let sum = Number(item.quantity)
+            this.request.article_request_items.forEach(item => {
+                quantity += Number(item.quantity)
                 // console.log('qqqq',quantity);
             });
-            console.log('qqqq',quantity);
+            // console.log('qqqq',item.request.article_request_items);
             return quantity;
         },
         isRequestStorage() {
