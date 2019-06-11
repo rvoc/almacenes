@@ -23,6 +23,8 @@ class CreateRequestChangeOutsTable extends Migration
             $table->foreign('article_request_id')->references('id')->on('sisme.article_requests');
             $table->integer('user_id');//usuario quien aprueba o rechaza el articulo
             $table->foreign('user_id')->references('usr_id')->on('_bp_usuarios');
+            $table->integer('storage_id');//para  diferenciarlos por sucursal
+            $table->foreign('storage_id')->references('id')->on('sisme.storages');
             $table->timestamps();
         });
     }

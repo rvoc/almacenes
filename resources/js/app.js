@@ -86,6 +86,8 @@ Vue.component('report-out', require('./components/ReportOut.vue').default);
 
 Vue.component('change-income', require('./components/ChangeIncome.vue').default);
 
+Vue.component('change-income-edit', require('./components/RequestIncomeEdit.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

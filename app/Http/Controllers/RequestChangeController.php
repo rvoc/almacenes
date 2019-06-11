@@ -18,7 +18,9 @@ class RequestChangeController extends Controller
     public function index()
     {
         //
-        return "estamos en el index de la hueva esta";
+        $request_incomes = RequestChangeIncome::all();
+
+        return view('request_change.index',compact('request_incomes'));
 
     }
 
@@ -58,6 +60,7 @@ class RequestChangeController extends Controller
         $request_change->type = $request->type;
         $request_change->description = $request->observation;
         $request_change->user_id = Auth::user()->usr_id;
+        $request_change->storage_id = Auth::user()->getStorage()->id;
         $request_change->save();
 
         $request_change_income_items = json_decode($request->request_income_items);
@@ -66,23 +69,16 @@ class RequestChangeController extends Controller
         {
             // if($request_income_item->id>0) //para los que son distintos de nuevos donde id nuevo = 0
             // {
-                // $object = (object) json_encode ( $request_income_item);
-                // return $request_income_item->article_income_id;
-                // return $object;
-                // return json_encode($request_income_item) ;
+
                 $request_change_income_item = new RequestChangeIncomeItem;
                 $request_change_income_item->request_change_income_id = $request_change->id;
                 $request_change_income_item->article_income_item_id = $request_income_item->article_income_id;
                 $request_change_income_item->cost = $request_income_item->new_cost;
                 $request_change_income_item->quantity = $request_income_item->new_quantity;
                 $request_change_income_item->save();
-                // return json_encode($request_income_item) ;
             // }
         }
-        // return $request_change;
         return redirect('request_change');
-        // $request_change->
-        return $request->all();
     }
 
     /**
@@ -94,6 +90,8 @@ class RequestChangeController extends Controller
     public function show($id)
     {
         //
+        $request_change_income = RequestChangeIncome::find($id);
+        return response()->json($request_change_income);
     }
 
     /**
