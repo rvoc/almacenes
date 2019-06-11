@@ -374,19 +374,17 @@ class RequestController extends Controller
     {
 
         $article_request = ArticleRequest::with('person','article_request_items')->find($id);
-       // $article_request_items = $article_request->article_request_items;
-
-
-        // $histories=ArticleRequest::with('person','article_request_items')->join('sisme.article_request_items as art_item', 'sisme.article_requests.id', '=', 'art_item.article_request_id')
-        //                          ->join('sisme.article_histories as hist', 'art_item.id', '=', 'hist.article_request_item_id')
-        //                          ->where('prs_id', $article_request->person->prs_id)
-        //                          ->get();
-        $histories = ArticleHistory::join('sisme.article_request_items','sisme.article_request_items.id','=','sisme.article_histories.article_request_item_id')
-                                    // ->join('sisme.article_requests','sisme.article_requests.id','=','sisme.article_request_items.article_request_item_id' )
-                                    ->where('sisme.article_requests.prs_id', $article_request->person->prs_id)
+                           // ->get();
+        $histories = ArticleHistory::join('sisme.article_request_items as item','sisme.article_histories.article_request_item_id','=','item.id')
+                                    ->join('sisme.article_requests as art','item.article_request_id','=','art.id' )
+                                    ->join('sisme.articles as articulo', 'sisme.article_histories.article_id', '=', 'articulo.id')
+                                    ->join('sisme.units as uni', 'articulo.unit_id', '=', 'uni.id') 
+                                    ->select('articulo.name as arti','uni.name as unidad',DB::raw('sum(quantity_desc) as cant'))
+                                    ->groupBy('arti', 'unidad')
+                                    ->where('prs_id', $article_request->person->prs_id)
                                     ->get();
 
-        return $histories;
+         // return $histories;
 
         foreach($article_request->article_request_items as $items)
         {

@@ -18,6 +18,7 @@
                     <div class="col-md-6">
                         <div class="card">
                         <div class="card-body">
+                            <h5>MATERIAL SOLICITADO</h5>
                               <table class="table  table-bordered">
                                         <thead>
                                             <tr class="bg-gray">
@@ -44,8 +45,8 @@
                                                 <!-- </td> -->
                                             </tr>
                                             <tr v-if="isRequestStorage" >
-                                               <!--  <td colspan="6" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
-                                                <td>{{getTotalQuantity}}</td> -->
+                                                <td colspan="6" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                                <td>{{getTotalQuantity}}</td>
                                             </tr>
                                             <tr v-else>
                                                 <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
@@ -74,10 +75,10 @@
                         </div>
                     </div>
 
-                 <div class="col-md-6" v-for="(resquest_history,index) in histories" :key="index">
+                 <div class="col-md-6">
                       <div class="card">
                       <div class="card-body">
-                        <h5> Numero de Solicitud{{ resquest_history.correlative }}</h5>
+                        <h5>HISTORIAL DE MATERIAL SOLICITADO</h5>
                       <table class="table  table-bordered">
                                 <thead>
                                     <tr class="bg-gray">
@@ -85,19 +86,20 @@
                                         <th scope="col">Articulo</th>
                                         <th scope="col">Unidad</th>
                                         <th scope="col" v-if="isRequestStorage">Costo Unitario</th>
-                                        <th scope="col">Cantidad Sol.</th>
+                                        <th scope="col">Cantidad Aprob.</th>
                                         <!-- <th scope="col">Cantidad Aprob.</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     <tr v-for="(item,index) in rows" :key="index">
+                                     <tr v-for="(item,index) in histories" :key="index">
                                         <th scope="row">{{index+1}}</th>
-                                        <td>{{item.article.name}}</td>
-                                        <td>{{item.article.unit.name}}</td>
-                                        <td v-if="isRequestStorage">
+                                        <td>{{item.arti}}</td>
+                                        <td>{{item.unidad}}</td>
+                                        <td>{{item.cant}}</td>
+                                      <!--   <td v-if="isRequestStorage">
                                             <input type="text" class="form-control" v-model="item.cost">
-                                        </td>
-                                        <td>{{item.quantity}}</td>
+                                        </td> -->
+                                        <!-- <td>{{item.quantity_apro}}</td> -->
                                        <!--  <td>
                                             <input type="text" class="form-control" v-model="item.quantity_apro"> -->
                                             <!-- {{item.quantity_apro}} -->
@@ -128,20 +130,24 @@
                     <div v-html='csrf'></div>
                     <div class="modal-header">
                         <h5 class="modal-title" id="registerModalLabel" v-if="isRequestStorage">Aprobar Solicitud de Traspaso Nro {{request.correlative}}</h5>
-                        <h5 class="modal-title" id="registerModalLabel" v-else>Aprobar Solicitud  Nro {{request.correlative}}</h5>
+                        <h5 class="modal-title" id="registerModalLabel" v-else><strong>Aprobar Solicitud  Nro {{request.correlative}}</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <div class="container-fluid" style="background-color:#adb5bd;">
                     <div class="modal-body">
-                        <h5>Datos del Solicitante</h5>
+                        <h5><strong>Datos del Solicitante</strong></h5>
                         <div class="row">
-                            <div class="form-group  col-md-8">
-                                <label for="tipo">Funcionario: {{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}} </label>
-                                <br><label for="tipo"> Gerencia: {{gerencia}} </label>
+                            <div class="form-group  col-md-7">
+                                <strong><label for="tipo">Funcionario:</label></strong>
+                                <label for="tipo">{{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}} </label>
+                                <br><strong><label for="tipo"> Gerencia:</label></strong>
+                                <label for="tipo">{{gerencia}} </label>
                             </div>
-                            <div class="form-group  col-md-4">
-                                <label for="tipo"> Fecha de solicitud: {{request.created_at}} </label>
+                            <div class="form-group  col-md-5">
+                                <strong><label for="tipo"> Fecha de solicitud:</label></strong>
+                                <label for="tipo">{{request.created_at}} </label>
                             </div>
 
                         </div>
@@ -150,42 +156,10 @@
                         <input type="text" name="type" value="Traspaso" v-if="isRequestStorage" hidden>
                         <input type="text" name="total_cost" :value="getTotalCost" v-if="isRequestStorage" hidden>
 
-                        <center><h5>ESTA SEGURO APROBAR LA SOLICITUD</h5></center>
-
-               <!--          <h5>Detalle de Solicitud</h5>
-
-                        <div class="row">
-                            <table class="table  table-bordered">
-                                <thead>
-                                    <tr class="bg-gray">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Articulo</th>
-                                        <th scope="col">Unidad</th>
-                                        <th scope="col" v-if="isRequestStorage">costo</th>
-                                        <th scope="col">Cantidad</th>
-                                        <th scope="col" v-if="isRequestStorage">Subtotal</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     <tr v-for="(item,index) in rows" :key="index">
-                                        <th scope="row">{{index+1}}</th>
-                                        <td>{{item.article.name}}</td>
-                                        <td>{{item.article.unit.name}}</td>
-                                        <td v-if="isRequestStorage">{{item.cost}}</td>
-                                        <td>{{item.quantity_apro}}</td>
-                                        <td v-if="isRequestStorage">{{subTotal(item)}}</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
-                                        <td>{{getTotalQuantity}}</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div> -->
+                        <center><p><h3><strong>ESTA SEGURO APROBAR LA SOLICITUD</strong></h3></p></center>
                     </div>
+                    </div>
+
                     <div class="modal-footer">
                        <!--  <button type="button" class="btn btn-secondary" >Vista Previa</button> -->
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -201,12 +175,11 @@
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
-    props:['url','csrf','storage','request','gerencia','providers', 'histories'],
+    props:['url','csrf','storage','request','gerencia','providers', 'histories','data'],
     data: ()=>({
         form:{},
         title:'',
         rows: [],
-        data:[],
         incomes: [],
         types:[{name: 'Ingreso'},{name:'Traspaso'},{name:'Reingreso'}],
         provider:{},
@@ -266,7 +239,7 @@ export default {
     }),
     mounted() {
         //his.rows = this.articles;
-        console.log(this.histories);
+        console.log('esteee',this.histories);
         this.data = this.history;
         this.provider = this.providers[0];
         // console.log(this.articles);
@@ -324,8 +297,10 @@ export default {
         getTotalQuantity(){
             let quantity= 0;
             this.rows.forEach(item => {
-                quantity += Number(item.quantity_apro)
+                quantity += this.Number(item.quantity)
+                // console.log('qqqq',quantity);
             });
+            console.log('qqqq',quantity);
             return quantity;
         },
         isRequestStorage() {
