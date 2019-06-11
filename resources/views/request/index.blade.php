@@ -67,12 +67,15 @@
                                         @case('Rechazado')
                                             <span class="badge badge-danger">{{$item->state}}</span>
                                             @break
+                                        @case('Pendiente Aprobacion')
+                                            <span class="badge badge-warning">{{$item->state}}</span>
+                                            @break    
                                     @endswitch
                                 </td>
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
                                     {{-- {{$item}} --}}
-                                    @if($item->state == 'Pendiente Aprobacion' )
+                                    @if($item->state == 'Pendiente' )
                                         @if($item->type == 'Funcionario' )
                                             <a href="{{url('request/'.$item->id.'/edit')}}" ><i class="material-icons text-info">assignment</i></a>
                                         @else
@@ -86,6 +89,13 @@
                                     @if($item->state == 'Entregado')
                                         {{-- <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">local_shipping</i></a> --}}
                                         <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="material-icons text-success " data-json='{{$item}}'>remove_red_eye</i></a>
+                                    @endif
+                                    @if($item->state == 'Pendiente Aprobacion' )
+                                        {{-- @if($item->type == 'Funcionario' ) --}}
+                                            <a href="{{url('approve/'.$item->id)}}" ><i class="fas fa-eye"></i></a>
+                                        {{-- @else --}}
+                                           {{--  <a href="{{url('transfer_request_check/'.$item->id)}}" ><i class="material-icons text-info">assignment</i></a> --}}
+                                        {{-- @endif --}}
                                     @endif
                                 </td>
 

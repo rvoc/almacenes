@@ -83,6 +83,7 @@ Vue.component('role-edit', require('./components/RoleEdit.vue').default);
 Vue.component('user-edit', require('./components/UserEdit.vue').default);
 Vue.component('report-inout', require('./components/ReportInOut.vue').default);
 Vue.component('report-out', require('./components/ReportOut.vue').default);
+Vue.component('approve-request', require('./components/RequestApprove.vue').default);
 
 Vue.component('change-income', require('./components/ChangeIncome.vue').default);
 
