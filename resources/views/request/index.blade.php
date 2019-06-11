@@ -68,7 +68,7 @@
                                             <span class="badge badge-danger">{{$item->state}}</span>
                                             @break
                                         @case('Pendiente Aprobacion')
-                                            <span class="badge badge-warning">{{$item->state}}</span>
+                                            <span class="badge badge-warning">Pendiente Solicitud</span>
                                             @break    
                                     @endswitch
                                 </td>
@@ -92,7 +92,7 @@
                                     @endif
                                     @if($item->state == 'Pendiente Aprobacion' )
                                         {{-- @if($item->type == 'Funcionario' ) --}}
-                                            <a href="{{url('approve/'.$item->id)}}" ><i class="fas fa-eye"></i></a>
+                                            <a href="{{url('approve/'.$item->id)}}" ><i class="fas fa-thumbs-up"></i></a>
                                         {{-- @else --}}
                                            {{--  <a href="{{url('transfer_request_check/'.$item->id)}}" ><i class="material-icons text-info">assignment</i></a> --}}
                                         {{-- @endif --}}

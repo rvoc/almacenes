@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('request/confirm_request','RequestController@confirmRequest');
         Route::post('request/delivery_request','RequestController@delivery');
         Route::post('request/confirm_request_Approve','RequestController@confirmApprove');
+        Route::post('request/confirm_request_Disapproved','RequestController@confirmDisApprove');
 
         //manejo de transferencia entre almacenes
         Route::get('transfer_request','RequestController@transfer');

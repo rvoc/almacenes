@@ -13,7 +13,7 @@
           <h4>INVENTARIO</h4>
         </div>
         <div class="icon efectoicon">
-            <i class="fa fa-file-excel"></i>
+            <i class="fas fa-thumbs-up"></i>
         </div>
       </div>
       </a>

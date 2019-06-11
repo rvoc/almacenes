@@ -491,14 +491,8 @@ class RequestController extends Controller
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Pendiente";
         $article_request->save();
-     
-        // $article_request = ArticleRequest::find($request->article_request_id);
-        // $article_request->state = "Aprobado";
-        // $article_request->save();
 
-        session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
-        // session()->flash('url',url('out_note/'.$article_request->id));
-
+        session()->flash('message','Solicitud Pendiente'.$article_request->correlative);
         return redirect('request');
         // return $articles;
     }
@@ -511,6 +505,19 @@ class RequestController extends Controller
         return $article_request;
         // return ;
     }
+
+    public function confirmDisApprove(Request $request)
+    {
+        $articles = json_decode($request->articles);
+        $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Rechazado";
+        $article_request->save();
+
+        session()->flash('message','Rechazado'.$article_request->correlative);
+        return redirect('request');
+        // return $articles;
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -531,6 +538,5 @@ class RequestController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }

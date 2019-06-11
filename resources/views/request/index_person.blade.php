@@ -62,6 +62,9 @@
                                         @case('Rechazado')
                                             <span class="badge badge-danger">{{$item->state}}</span>
                                             @break
+                                        @case('Pendiente Aprobacion')
+                                            <span class="badge badge-info">Pendiente</span>
+                                            @break
                                     @endswitch
                                 </td>
                                 {{-- <td>
