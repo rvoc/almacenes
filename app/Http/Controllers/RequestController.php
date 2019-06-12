@@ -15,6 +15,7 @@ use App\ArticleIncomeItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\ArticleHistory;
+use App\UserHistory;
 class RequestController extends Controller
 {
     /**
@@ -66,15 +67,6 @@ class RequestController extends Controller
         $count = 1;
         return view('request.index_person',compact('request_articles','count'));
     }
-
-    // public function request_storage(){
-    //     $request_articles = ArticleRequest::where('prs_id',Auth::user()->person()->prs_id)
-    //                                         ->where('storage_id',Auth::user()->getStorage()->id)
-    //                                         ->where('type','=','Funcionario')
-    //                                         // ->orderBy('storage_id','Asc')
-    //                                         ->get();
-    //     return view('request.request_storage');
-    // }
 
     public function transfer()
     {
@@ -142,7 +134,7 @@ class RequestController extends Controller
         $article_income->total_cost = $request->total_cost;
         // return $article_income;
         $article_income->save();
-            //hasta aqui el registro del nuevo ingreso
+        //hasta aqui el registro del nuevo ingreso
 
         // return $article_request;
         foreach($articles as $article){
@@ -230,19 +222,12 @@ class RequestController extends Controller
      */
     public function create()
     {
-        // $articles = Stock::join('articles','articles.id','=','stocks.article_id')
-        //                 ->where('storage_id',Auth::user()->getStorage()->id)
-        //                 ->select('article_id','articles.name',DB::raw('sum(stocks.quantity) as quantity'))
-        //                 ->groupBy('stocks.article_id','articles.name')->get();
-
         $articles = Article::with('category','unit')
                             ->join('sisme.stocks','stocks.article_id','=','articles.id')
                             ->where('storage_id',Auth::user()->getStorage()->id)
                             ->select('article_id','articles.name','articles.category_id','articles.unit_id',DB::raw('sum(stocks.quantity) as quantity_stock'))
                             ->groupBy('stocks.article_id','articles.name','articles.category_id','articles.unit_id')
                             ->get();
-        // $articles = Article::with('budget_item')->get();
-        // return $articles;
         return view('request.create',compact('articles'));
     }
 
@@ -311,16 +296,6 @@ class RequestController extends Controller
             $article_request_item->quantity = $article->quantity;
             $article_request_item->quantity_apro = $article->quantity;
             $article_request_item->save();
-
-            // $stock = new Stock;
-            // $stock->article_id = $article_request_item->article_id;
-            // $stock->storage_id = $article_income->storage_id;
-            // $stock->article_request_item_id = $article_request_item->id;
-            // $stock->quantity = $article_request_item->quantity;
-            // $stock->cost = $article_request_item->cost;
-            // $stock->save();
-
-            // $article_income_item->article_id = $article->;
         }
 
         session()->flash('message','Se realizo la solicitud '.$article_request->correlative);
@@ -461,6 +436,14 @@ class RequestController extends Controller
                         $article_history->quantity_desc =$descuento;
                         $article_history->storage_id = Auth::user()->getStorage()->id;
                         $article_history->save();
+
+                        $article_user = new UserHistory;
+                        $article_user->article_request_item_id =$article_request_item->id;//para salida
+                        $article_user->storage_id = Auth::user()->getStorage()->id;
+                        $article_user->user_usr_id = Auth::user()->usr_id;
+                        $article_user->type ='Salida';
+                        $article_user->state ='Aprobado';
+                        $article_user->save();
                     }
             }
             //el descuento al stock se puede dar con mas de 2 request_income_items
@@ -488,6 +471,14 @@ class RequestController extends Controller
         $article_request->state = "Pendiente";
         $article_request->save();
 
+        $article_user = new UserHistory;
+        $article_user->article_request_item_id =$article_request->id;//para salida
+        $article_user->storage_id = Auth::user()->getStorage()->id;
+        $article_user->user_usr_id = Auth::user()->usr_id;
+        $article_user->type ='Salida';
+        $article_user->state ='Pendiente';              
+        $article_user->save();
+
         session()->flash('message','Solicitud Pendiente'.$article_request->correlative);
         return redirect('request');
         // return $articles;
@@ -498,8 +489,15 @@ class RequestController extends Controller
         $article_request = ArticleRequest::find($request->data['id']);
         $article_request->state ="Entregado";
         $article_request->save();
-        return $article_request;
-        // return ;
+        // return $article_request;
+
+        $article_user = new UserHistory;
+        $article_user->article_request_item_id =$article_request->id;//para salida
+        $article_user->storage_id = Auth::user()->getStorage()->id;
+        $article_user->user_usr_id = Auth::user()->usr_id;
+        $article_user->type ='Salida';
+        $article_user->state ='Entregado';              
+        $article_user->save();
     }
 
     public function confirmDisApprove(Request $request)
@@ -508,6 +506,15 @@ class RequestController extends Controller
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Rechazado";
         $article_request->save();
+
+        $article_user = new UserHistory;
+        $article_user->article_request_item_id =$article_request->id;//para salida
+        $article_user->storage_id = Auth::user()->getStorage()->id;
+        $article_user->user_usr_id = Auth::user()->usr_id;
+        $article_user->type ='Salida';
+        $article_user->state ='Rechazado';              
+        $article_user->save();
+        
 
         session()->flash('message','Rechazado'.$article_request->correlative);
         return redirect('request');
@@ -520,6 +527,14 @@ class RequestController extends Controller
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Rechazado";
         $article_request->save();
+
+        $article_user = new UserHistory;
+        $article_user->article_request_item_id =$article_request->id;//para salida
+        $article_user->storage_id = Auth::user()->getStorage()->id;
+        $article_user->user_usr_id = Auth::user()->usr_id;
+        $article_user->type ='Salida';
+        $article_user->state ='Rechazado';              
+        $article_user->save();
 
         session()->flash('message','Rechazado'.$article_request->correlative);
         return redirect('request');

@@ -20,7 +20,7 @@ class CreateUserHistoriesTable extends Migration
             $table->integer('storage_id');//para  diferenciar los historiales
             $table->foreign('storage_id')->references('id')->on('sisme.storages');
             $table->enum('type', ['Entrada', 'Salida']);
-            $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente','Pendiente Aprobacion'])->default('Pendiente Aprobacion');
+            $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente','Pendiente Aprobacion']);
             $table->integer('article_income_item_id')->nullable(); //entradas
             $table->foreign('article_income_item_id')->references('id')->on('sisme.article_income_items');
             $table->integer('article_request_item_id')->nullable();//salidas

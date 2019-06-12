@@ -4,16 +4,16 @@
 <div class="row">
 
  
-    <div class="col-sm-3 col-1">
+    <div class="col-sm-3 col-6">
       <a href="{{ url('rptInventario') }}" class=""> 
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h4>REPORTE</h4>
+          <h4>REPORTE</h4></strong>
           <h4>INVENTARIO</h4>
         </div>
         <div class="icon efectoicon">
-            <i class="fa fa-file-excel"></i>
+          <i class="fa fa-file-excel"></i>
         </div>
       </div>
       </a>
