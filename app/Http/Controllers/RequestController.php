@@ -23,7 +23,7 @@ class RequestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {                
+    {
         // para articulos de almacen
         $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->where('type','Funcionario')
@@ -37,7 +37,7 @@ class RequestController extends Controller
     public function index_storage()
     {
         // para articulos de almacen
-        $request_articles = request_articles::where('storage_destiny_id',Auth::user()->getStorage()->id)
+        $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->where('type','Almacen')
                                             ->where('state','!=','Entregado')
                                             ->get();
@@ -378,7 +378,7 @@ class RequestController extends Controller
         $histories = ArticleHistory::join('sisme.article_request_items as item','sisme.article_histories.article_request_item_id','=','item.id')
                                     ->join('sisme.article_requests as art','item.article_request_id','=','art.id' )
                                     ->join('sisme.articles as articulo', 'sisme.article_histories.article_id', '=', 'articulo.id')
-                                    ->join('sisme.units as uni', 'articulo.unit_id', '=', 'uni.id') 
+                                    ->join('sisme.units as uni', 'articulo.unit_id', '=', 'uni.id')
                                     ->select('articulo.name as arti','uni.name as unidad',DB::raw('sum(quantity_desc) as cant'))
                                     ->groupBy('arti', 'unidad')
                                     ->where('prs_id', $article_request->person->prs_id)
@@ -450,11 +450,7 @@ class RequestController extends Controller
                         }
                         Log::info('new cant :'.$quantity);
                         Log::info('new stock:'.$stock->quantity);
-                        // $stock->quantity = $quantity_desc;
-                        // Log::info('new stock:'.$stock->quantity);
-                        // $quantity = $quantity-$quantity_desc;
-                        // Log::info('new cant:'.$quantity);
-                        //verificar el monto que se esta descontando
+
                         $stock->save();
                         //registro de history manual XD
                         $article_history = new ArticleHistory;
@@ -491,6 +487,16 @@ class RequestController extends Controller
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Pendiente";
         $article_request->save();
+<<<<<<< HEAD
+=======
+
+        // $article_request = ArticleRequest::find($request->article_request_id);
+        // $article_request->state = "Aprobado";
+        // $article_request->save();
+
+        session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
+        // session()->flash('url',url('out_note/'.$article_request->id));
+>>>>>>> upstream/master
 
         session()->flash('message','Solicitud Pendiente'.$article_request->correlative);
         return redirect('request');

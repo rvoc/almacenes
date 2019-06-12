@@ -23,6 +23,7 @@ class CreateRequestChangeIncomeItemsTable extends Migration
             $table->decimal('quantity');
             $table->decimal('cost');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

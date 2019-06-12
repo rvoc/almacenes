@@ -79,7 +79,7 @@
                         </div>
                         <div class="modal-footer" >
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
-                            <button type="submit" class="btn btn-success" v-if="form.state=='Pendiente Aprobacion'">Aprobar</button>
+                            <button type="submit" class="btn btn-success" >Aprobar</button>
                         </div>
                     </div>
                 </form>

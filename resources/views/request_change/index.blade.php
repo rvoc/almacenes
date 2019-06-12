@@ -17,7 +17,7 @@
                         {{$title??'Solicitudes de Modificiaciones'}}
                         <small class="float-sm-right">
                             {{-- <a href="{{url('amp_report_excel')}}" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o"></i> </a>  --}}
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#StorageModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button>
+                            {{-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#StorageModal" data-json="null" > Nuevo  <i class="fa fa-plus-circle"></i> </button> --}}
                         </small>
                     </h4>
                 </div>
@@ -28,8 +28,12 @@
                                 role="tab" aria-controls="pills-in" aria-selected="true">Entradas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-out"
+                            <a class="nav-link" id="pills-out-tab" data-toggle="pill" href="#pills-out"
                                 role="tab" aria-controls="pills-out" aria-selected="false">Salidas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all"
+                                role="tab" aria-controls="pills-all" aria-selected="false">Todos</a>
                         </li>
 
                     </ul>
@@ -54,8 +58,6 @@
                                             <td>{{$item->type}}</td>
                                             <td>{{$item->description}}</td>
                                             <td>
-
-
                                                     @switch($item->state)
                                                         @case('Aprobado')
                                                             <span class="badge badge-primary">{{$item->state}}</span>
@@ -73,7 +75,11 @@
                                             </td>
 
                                             <td>
-                                                <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                                {{-- @hasrole('Encargado de Almacen|Encargado de Oficina Central') --}}
+                                                    <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                                    {{-- {{Auth::user()->hasRole('Encargado de Almacen')}} --}}
+                                                  {{-- 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  CODIGO DE ISABEL NO TOCAR--}}
+                                                {{-- @endhasrole --}}
                                                 {{-- <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a> --}}
                                             </td>
 
@@ -86,6 +92,9 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="pills-out" role="tabpanel" aria-labelledby="pills-out-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
 
                         </div>
 

@@ -92,7 +92,7 @@
                                     @endif
                                     @if($item->state == 'Pendiente Aprobacion' )
                                         {{-- @if($item->type == 'Funcionario' ) --}}
-                                            <a href="{{url('approve/'.$item->id)}}" ><i class="fas fa-thumbs-up"></i></a>
+                                            <a href="{{url('approve/'.$item->id)}}" ><i class="fas fa-clipboard-check"></i></a>
                                         {{-- @else --}}
                                            {{--  <a href="{{url('transfer_request_check/'.$item->id)}}" ><i class="material-icons text-info">assignment</i></a> --}}
                                         {{-- @endif --}}

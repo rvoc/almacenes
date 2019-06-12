@@ -67,7 +67,6 @@ class AppServiceProvider extends ServiceProvider
 
             $article_user = new UserHistory;
             $article_user->article_income_item_id =$model->id;
-            // $article_user->article_id =$model->article_id;
             $article_user->storage_id = Auth::user()->getStorage()->id;
             $article_user->user_usr_id = Auth::user()->usr_id;
             $article_user->type ='Entrada';
