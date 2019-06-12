@@ -16,16 +16,16 @@ class CreateRequestChangeIncomesTable extends Migration
         Schema::create('sisme.request_change_incomes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('type', ['Eliminacion', 'Modificacion' ])->default('Modificacion');
-            $table->boolean('is_aprobed_boss')->default(false);
-            $table->boolean('is_aprobed_boss2')->default(false);
+            $table->enum('state', ['Aprobado', 'Rechazado','Pendiente','Pendiente Aprobacion'])->default('Pendiente Aprobacion');
             $table->string('description');
             $table->integer('article_income_id');
             $table->foreign('article_income_id')->references('id')->on('sisme.article_incomes');
-            $table->integer('user_id');//usuario quien aprueba o rechaza el articulo
+            $table->integer('user_id');//usuario quien aprueba o rechaza el articulo  esto vincular con el historial para saber de quien que
             $table->foreign('user_id')->references('usr_id')->on('_bp_usuarios');
-            $table->integer('storage_id');//para  diferenciar los historiales
+            $table->integer('storage_id');//para  diferenciarlos por sucursal
             $table->foreign('storage_id')->references('id')->on('sisme.storages');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -36,6 +36,6 @@ class CreateRequestChangeIncomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_change_incomes');
+        Schema::dropIfExists('sisme.request_change_incomes');
     }
 }

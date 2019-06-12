@@ -81,6 +81,16 @@ class RequestChangeController extends Controller
         return redirect('request_change');
     }
 
+    public function firstConfirmation(Request $request)
+    {
+
+        $request_change_income = RequestChangeIncome::find($request->request_change_income_id);
+        $request_change_income->state = 'Pendiente';
+        $request_change_income->save();
+
+        return back()->withInput();
+        // return $request->all();
+    }
     /**
      * Display the specified resource.
      *
@@ -89,8 +99,7 @@ class RequestChangeController extends Controller
      */
     public function show($id)
     {
-        //
-        $request_change_income = RequestChangeIncome::find($id);
+        $request_change_income = RequestChangeIncome::with('request_change_income_items','article_income')->find($id);
         return response()->json($request_change_income);
     }
 

@@ -14,9 +14,56 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-							<div class="row">
-                                <div class="form-group col-md-8">
+                            <div class="row" v-if="form.article_income">
+                                <span > Numero de nota: {{form.article_income.correlative}}  </span> <br>
+                                <span > Proveedor: {{form.article_income.provider.name}}  </span> <br>
+                                <label > Funcionario:</label> {{form.article_income.person.prs_nombres + ' '+form.article_income.person.prs_paterno + ' '+form.article_income.person.prs_materno}} <br>
+                            </div>
+							<div class="row"  v-if="form.article_income">
+                                <input type="text" name="request_change_income_id" :value="form.id" hidden>
+                                <div class="col-md-6">
+                                    <label>Ingreso Actual</label>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Articulo</th>
+                                                <th scope="col">Costo</th>
+                                                <th scope="col">Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(item,index) in form.article_income.article_income_items" :key="index">
+                                                <th scope="row">{{index+1}}</th>
+                                                <td>{{item.article.name}}</td>
+                                                <td>{{item.cost}}</td>
+                                                <td>{{item.quantity}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <label> Ingreso Solicitado</label>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Articulo</th>
+                                                <th scope="col">Costo</th>
+                                                <th scope="col">Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(item,index) in form.request_change_income_items" :key="index">
+                                                <th scope="row">{{index+1}}</th>
+                                                <td>{{item.article_income_item.article.name}}</td>
+                                                <td>{{item.cost}}</td>
+                                                <td>{{item.quantity}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- <div class="form-group col-md-8">
                                     <label for="lbname">Nombre</label>
                                     <input type="text" class="form-control" id="name" name="name" v-model="form.name" placeholder="Nombre" v-validate="'required'">
                                     <div class="invalid-feedback">{{ errors.first("name") }}</div>
@@ -25,66 +72,14 @@
                                     <label for="lbcode">Codigo</label>
                                     <input type="text" class="form-control" id="code" name="code" v-model="form.code" placeholder="Codigo" v-validate="'required'">
                                     <div class="invalid-feedback">{{ errors.first("code") }}</div>
-                                </div>
-                                <div class="form-group  col-md-6">
-                                    <input type="text" name="budget_item_id" v-if="form.budget_item" :value="form.budget_item.id" hidden>
-									<label for="partida">Partida</label>
-									<multiselect
-										v-model="form.budget_item"
-										:options="budget_items"
-										id="partida"
-										placeholder="Seleccionar Partida"
-										select-label="Seleccionar"
-										deselect-label="Remover"
-										selected-label="Seleccionado"
-										label="name"
-										track-by="name" >
+                                </div> -->
 
-									</multiselect>
-									<div class="invalid-feedback">{{ errors.first("partida") }}</div>
-								</div>
-                                <div class="form-group  col-md-6">
-                                    <input type="text" name="category_id" v-if="form.category" :value="form.category.id" hidden>
-									<label for="categoria">Categoria</label>
-									<multiselect
-										v-model="form.category"
-										:options="categories"
-										id="categoria"
-										placeholder="Seleccionar Partida"
-										select-label="Seleccionar"
-										deselect-label="Remover"
-										selected-label="Seleccionado"
-										label="name"
-										track-by="name" >
-
-									</multiselect>
-									<div class="invalid-feedback">{{ errors.first("categoria") }}</div>
-								</div>
-
-
-                                <div class="form-group  col-md-4">
-                                    <input type="text" name="unit_id" v-if="form.unit" :value="form.unit.id" hidden>
-									<label for="unidad">Unidad</label>
-									<multiselect
-										v-model="form.unit"
-										:options="units"
-										id="unidad"
-										placeholder="Seleccionar unidad"
-										select-label="Seleccionar"
-										deselect-label="Remover"
-										selected-label="Seleccionado"
-										label="name"
-										track-by="name" >
-
-									</multiselect>
-									<div class="invalid-feedback">{{ errors.first("unidad") }}</div>
-								</div>
 							</div>
 
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancelar</button>
-                            <button type="submit" class="btn btn-success">Guardar</button>
+                        <div class="modal-footer" >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
+                            <button type="submit" class="btn btn-success" v-if="form.state=='Pendiente Aprobacion'">Aprobar</button>
                         </div>
                     </div>
                 </form>
@@ -98,58 +93,27 @@ export default {
     props:['url','csrf'],
     data:()=>({
         form:{},
-        budget_items:[],
-        units: [],
-        categories: [],
-        providers: [],
         title:'',
+
     }),
     mounted() {
-        console.log('Componente Article iniciado')
-
-        axios.get('../list_units')
-             .then(response => {
-                 this.units = response.data;
-                 console.log(response.data)
-             });
-
-        axios.get('../list_categories')
-             .then(response => {
-                 this.categories = response.data;
-                 console.log(response.data)
-             });
-        axios.get('../list_budget_items')
-             .then(response => {
-                 this.budget_items = response.data;
-                 console.log(response.data)
-             });
-        axios.get('../list_providers')
-             .then(response => {
-                 this.providers = response.data;
-                 console.log(response.data)
-             });
-
+        console.log('Componente request_change_income iniciado')
 
         $('#RequestChangeIncomeModal').on('show.bs.modal',(event)=> {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var article = button.data('json') // Extract info from data-* attributes
-            this.title ='Nueva Articulo ';
-            if(article)
-            {
-                this.title='Editar '+article.name;
+            var request_change_income = button.data('json') // Extract info from data-* attributes
+            // console.log(request_change_income);
+            // console.log(request_change_income);
 
-                axios.get(`article/${article.id}`).then(response=>{
-                        this.form = response.data.article;
-                        console.log(this.form);
+                this.title='Solicitud de Modificacion en Ingreso ';
+
+                axios.get(`request_change/${request_change_income.id}`).then(response=>{
+                        this.form = response.data;
+                        console.log(this.form) ;
                 });
 
-                // this.form = article;
-            }else
-            {
-                this.form={};
+                // this.form = request_change_income;
 
-            }
-            console.log(article);
 
         })
 	},

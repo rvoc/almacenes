@@ -11,11 +11,11 @@ class RequestChangeIncome extends Model
 
     public function article_income()
     {
-        return $this->belongsTo('App\ArticleIncome');
+        return $this->belongsTo('App\ArticleIncome')->with('provider','person','article_income_items');
     }
 
-    // public function article_request_items()
-    // {
-    //     return $this->hasMany('App\ArticleRequestItem')->with('article');
-    // }
+    public function request_change_income_items()
+    {
+        return $this->hasMany('App\RequestChangeIncomeItem')->with('article_income_item');
+    }
 }

@@ -42,30 +42,42 @@
                                         <th>Nro Nota</th>
                                         <th>Tipo</th>
                                         <th>Descripcion</th>
-                                        <th>Aprobacion Encargado</th>
-                                        <th>Aprobacion Jefe</th>
+                                        <th>Estado</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($request_incomes as $index=> $item)
-                                    <tr>
-                                        <td>{{($index+1)}}</td>
-                                        <td>{{$item->article_income->correlative}}</td>
-                                        <td>{{$item->type}}</td>
-                                        <td>{{$item->description}}</td>
-                                        <td>
-                                            <span class="badge badge-{{$item->is_aprobed_boss?'success':'secondary'}}">{{$item->is_aprobed_boss?'Aprobado':'Pendiente'}}</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-{{$item->is_aprobed_boss2?'success':'secondary'}}">{{$item->is_aprobed_boss2?'Aprobado':'Pendiente'}}</span>
-                                        </td>
-                                        <td>
-                                            <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}"><i class="material-icons text-primary">edit</i></a>
-                                            {{-- <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a> --}}
-                                        </td>
+                                        <tr>
+                                            <td>{{($index+1)}}</td>
+                                            <td>{{$item->article_income->correlative}}</td>
+                                            <td>{{$item->type}}</td>
+                                            <td>{{$item->description}}</td>
+                                            <td>
 
-                                    </tr>
+
+                                                    @switch($item->state)
+                                                        @case('Aprobado')
+                                                            <span class="badge badge-primary">{{$item->state}}</span>
+                                                            @break
+                                                        @case('Pendiente')
+                                                            <span class="badge badge-info">{{$item->state}}</span>
+                                                            @break
+                                                        @case('Rechazado')
+                                                            <span class="badge badge-danger">{{$item->state}}</span>
+                                                            @break
+                                                        @case('Pendiente Aprobacion')
+                                                            <span class="badge badge-warning">{{$item->state}}</span>
+                                                            @break
+                                                    @endswitch
+                                            </td>
+
+                                            <td>
+                                                <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                                {{-- <a href="#"> <i class="material-icons text-danger deleted" data-json='{{$item}}'>delete</i></a> --}}
+                                            </td>
+
+                                        </tr>
 
                                     @endforeach
 
@@ -85,7 +97,7 @@
         </div>
 
         {{-- aqui los modals --}}
-        <change-income-edit url='{{url('storage')}}' csrf='{!! csrf_field('POST') !!}'></change-income-edit>
+        <change-income-edit url='{{url('income_first_confirmation')}}' csrf='{!! csrf_field('POST') !!}'></change-income-edit>
 
 
     </div>

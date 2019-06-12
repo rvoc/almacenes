@@ -104,6 +104,7 @@ Route::group(['middleware' => ['auth']], function () {
         //solicitudes de devolucion
         Route::get('create_change_income/{article_income_id}','RequestChangeController@create_change_income');
         Route::resource('request_change', 'RequestChangeController');
+        Route::post('income_first_confirmation','RequestChangeController@firstConfirmation');
 
     });
 
