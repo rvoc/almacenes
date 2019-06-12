@@ -18,7 +18,23 @@ class RequestChangeController extends Controller
     public function index()
     {
         //
-        $request_incomes = RequestChangeIncome::all();
+        $request_income = [];
+        //primero ver  request de solo la sucursal
+
+        if(Auth::user()->hasRole('Encargado de Almacen'))
+        {
+            $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
+                                                    ->where('state','Pendiente Aprobacion')
+                                                    ->get();
+        }
+
+        if(Auth::user()->hasRole('Encargado de Oficina Central'))
+        {
+            $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
+                                                    ->where('state','Pendiente')
+                                                    ->get();
+        }
+
 
         return view('request_change.index',compact('request_incomes'));
 
@@ -85,8 +101,17 @@ class RequestChangeController extends Controller
     {
 
         $request_change_income = RequestChangeIncome::find($request->request_change_income_id);
-        $request_change_income->state = 'Pendiente';
-        $request_change_income->save();
+        if($request_change_income->state =='Pendiente Aprobacion')
+        {
+            $request_change_income->state = 'Pendiente';
+            $request_change_income->save();
+        }
+        if($request_change_income->state =='Pendiente')
+        {
+            $request_change_income->state = 'Aprobado';
+            $request_change_income->save();
+            //colocar logica de modificacion de nota
+        }
 
         return back()->withInput();
         // return $request->all();
