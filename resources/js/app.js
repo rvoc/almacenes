@@ -88,6 +88,7 @@ Vue.component('approve-request', require('./components/RequestApprove.vue').defa
 Vue.component('change-income', require('./components/ChangeIncome.vue').default);
 
 Vue.component('change-income-edit', require('./components/RequestIncomeEdit.vue').default);
+Vue.component('change-out-edit', require('./components/RequestOutEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

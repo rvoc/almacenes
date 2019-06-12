@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\ArticleIncome;
 use App\RequestChangeIncome;
 use App\RequestChangeIncomeItem;
+use App\RequestChangeOut;
+use App\RequestChangeOutItem;
 use App\Article;
 use Auth;
 class RequestChangeController extends Controller
@@ -18,14 +20,20 @@ class RequestChangeController extends Controller
     public function index()
     {
         //
-        $request_income = [];
+        $request_incomes = [];
         //primero ver  request de solo la sucursal
+        $request_all = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)->get();
+        $request_outs = [];
+
 
         if(Auth::user()->hasRole('Encargado de Almacen'))
         {
             $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
                                                     ->where('state','Pendiente Aprobacion')
                                                     ->get();
+            $request_outs = RequestChangeOut::where('storage_id',Auth::user()->getStorage()->id)
+                                            ->where('state','Pendiente Aprobacion')
+                                            ->get();
         }
 
         if(Auth::user()->hasRole('Encargado de Oficina Central'))
@@ -36,7 +44,7 @@ class RequestChangeController extends Controller
         }
 
 
-        return view('request_change.index',compact('request_incomes'));
+        return view('request_change.index',compact('request_incomes','request_all'));
 
     }
 
@@ -48,10 +56,13 @@ class RequestChangeController extends Controller
         return view('request_change.create_income',compact('article_income','articles'));
     }
 
-    public function create_change_out()
+    public function create_change_out($article_request_id)
     {
-
+        $article_request = ArticleRequest::with('article_request_item')->find($article_request_id);
+        $articles = Article::with('unit')->get();
+        return view('request_change.create_out',compact('article_request','articles'));
     }
+
     /**
      * Show the form for creating a new resource.
      *

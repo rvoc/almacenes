@@ -79,7 +79,7 @@
                         </div>
                         <div class="modal-footer" >
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
-                            <button type="submit" class="btn btn-success" >Aprobar</button>
+                            <button type="submit" class="btn btn-success" v-if="edited" >Aprobar</button>
                         </div>
                     </div>
                 </form>
@@ -94,17 +94,19 @@ export default {
     data:()=>({
         form:{},
         title:'',
+        edited:false,
 
     }),
     mounted() {
         console.log('Componente request_change_income iniciado')
-
         $('#RequestChangeIncomeModal').on('show.bs.modal',(event)=> {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var request_change_income = button.data('json') // Extract info from data-* attributes
+            this.edited = button.data('edited')
             // console.log(request_change_income);
             // console.log(request_change_income);
 
+                console.log(this.edited);
                 this.title='Solicitud de Modificacion en Ingreso ';
 
                 axios.get(`request_change/${request_change_income.id}`).then(response=>{

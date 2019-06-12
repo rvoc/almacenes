@@ -101,10 +101,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('listalmacenesSal1/{id}','ReportExcelController@listalmacenesSal1');
 
         //solicitudes de devolucion
-        Route::get('create_change_income/{article_income_id}','RequestChangeController@create_change_income');
+        Route::get('create_change_income/{article_income_id}','RequestChangeController@create_change_income');//edit income
         Route::resource('request_change', 'RequestChangeController');
         Route::post('income_first_confirmation','RequestChangeController@firstConfirmation');
 
+        Route::get('create_change_income/{article_income_id}','RequestChangeController@create_change_income');//edit income
+        Route::get('create_change_out/{article_request_id}','RequestChangeController@create_change_out');//edit income
     });
 
 
