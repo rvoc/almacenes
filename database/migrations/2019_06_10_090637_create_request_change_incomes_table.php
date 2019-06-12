@@ -25,6 +25,7 @@ class CreateRequestChangeIncomesTable extends Migration
             $table->integer('storage_id');//para  diferenciarlos por sucursal
             $table->foreign('storage_id')->references('id')->on('sisme.storages');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

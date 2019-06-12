@@ -23,6 +23,7 @@ class CreateRequestChangeOutItemsTable extends Migration
             $table->foreign('article_request_item_id')->references('id')->on('sisme.article_request_items');
             $table->decimal('quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
