@@ -102,8 +102,6 @@ class IncomeController extends Controller
             $stock->cost = $article_income_item->cost;
             $stock->save();
 
-            
-
             // $article_income_item->article_id = $article->;
         }
 
@@ -111,7 +109,6 @@ class IncomeController extends Controller
         session()->flash('url',url('income_note/'.$article_income->id));
 
         return redirect('income');
-
     }
 
     /**
