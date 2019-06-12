@@ -102,6 +102,8 @@ class IncomeController extends Controller
             $stock->cost = $article_income_item->cost;
             $stock->save();
 
+            
+
             // $article_income_item->article_id = $article->;
         }
 
