@@ -18,9 +18,8 @@ class CreateRequestChangeOutItemsTable extends Migration
             // article_income_items
             $table->integer('request_change_out_id');
             $table->foreign('request_change_out_id')->references('id')->on('sisme.request_change_outs');
-
-            $table->integer('article_request_item_id');
-            $table->foreign('article_request_item_id')->references('id')->on('sisme.article_request_items');
+            $table->integer('article_id');
+            $table->foreign('article_id')->references('id')->on('sisme.articles');
             $table->decimal('quantity');
             $table->timestamps();
             $table->softDeletes();

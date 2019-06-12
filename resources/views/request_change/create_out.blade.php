@@ -8,12 +8,13 @@
 @section('content')
 
     {{-- aqui los modals --}}
-    <change-income
-        url='{{url('request_change')}}'
+
+    <change-out
+        url='{{url('store_out')}}'
         csrf='{!! csrf_field('POST') !!}'
-        :income="{{$article_income}}"
-        :articles= "{{$articles}}"
+        :requestout="{{$article_request}}"
+        :stocks= "{{$stocks}}"
     >
-    </change-income>
+    </change-out>
 
 @endsection

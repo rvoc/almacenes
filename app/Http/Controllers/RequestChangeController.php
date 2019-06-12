@@ -9,6 +9,9 @@ use App\RequestChangeIncomeItem;
 use App\RequestChangeOut;
 use App\RequestChangeOutItem;
 use App\Article;
+use App\ArticleRequest;
+use App\Stock;
+use DB;
 use Auth;
 class RequestChangeController extends Controller
 {
@@ -44,23 +47,30 @@ class RequestChangeController extends Controller
         }
 
 
-        return view('request_change.index',compact('request_incomes','request_all'));
+        return view('request_change.index',compact('request_incomes','request_all','request_outs'));
 
     }
 
     public function create_change_income($article_income_id)
     {
         $article_income = ArticleIncome::with('article_income_items')->find($article_income_id);
-        $articles = Article::with('unit')->get();
+        $articles = Article::with('unit')->get();//cambiar articulos por los articulos de inventario
+
         // return $articles;
         return view('request_change.create_income',compact('article_income','articles'));
     }
 
     public function create_change_out($article_request_id)
     {
-        $article_request = ArticleRequest::with('article_request_item')->find($article_request_id);
-        $articles = Article::with('unit')->get();
-        return view('request_change.create_out',compact('article_request','articles'));
+        $article_request = ArticleRequest::with('article_request_items')->find($article_request_id);
+        //$articles = Article::with('unit')->get();
+        $articles = array();
+        $stocks = Stock::with('article')->where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
+
+        // $articles = json_encode($articles);
+        // $articles = json_decode($articles);
+        // return $articles;
+        return view('request_change.create_out',compact('article_request','stocks'));
     }
 
     /**
@@ -79,7 +89,7 @@ class RequestChangeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //neto para el income
     {
         //
         $request_change = new RequestChangeIncome;
@@ -96,16 +106,44 @@ class RequestChangeController extends Controller
         {
             // if($request_income_item->id>0) //para los que son distintos de nuevos donde id nuevo = 0
             // {
-
                 $request_change_income_item = new RequestChangeIncomeItem;
                 $request_change_income_item->request_change_income_id = $request_change->id;
-                $request_change_income_item->article_income_item_id = $request_income_item->article_income_id;
+                $request_change_income_item->article_id = $request_income_item->article_id;//revisar
                 $request_change_income_item->cost = $request_income_item->new_cost;
                 $request_change_income_item->quantity = $request_income_item->new_quantity;
                 $request_change_income_item->save();
             // }
         }
         return redirect('request_change');
+    }
+
+    public function store_out(Request $request)
+    {
+        // return $request->all();
+        $request_change_out = new RequestChangeOut;
+        $request_change_out->type = $request->type;
+        $request_change_out->article_request_id = $request->article_request_id;
+        $request_change_out->description = $request->observation;
+        $request_change_out->user_id = Auth::user()->usr_id;
+        $request_change_out->storage_id = Auth::user()->getStorage()->id;
+        $request_change_out->save();
+        // return $request_change_out;
+        $request_change_out_items = json_decode($request->request_out_items);
+        // return $request_change_out_items;
+        foreach($request_change_out_items as $request_out_item)
+        {
+            // if($request_out_item->id>0) //para los que son distintos de nuevos donde id nuevo = 0
+            // {
+                $request_change_out_item = new RequestChangeOutItem;
+                $request_change_out_item->request_change_out_id = $request_change_out->id;
+                $request_change_out_item->article_id = $request_out_item->article_id;
+                $request_change_out_item->quantity = $request_out_item->new_quantity;
+                $request_change_out_item->save();
+            // }
+        }
+
+        return redirect('request_change');
+        // return back()->withInput();
     }
 
     public function firstConfirmation(Request $request)

@@ -16,6 +16,6 @@ class RequestChangeIncome extends Model
 
     public function request_change_income_items()
     {
-        return $this->hasMany('App\RequestChangeIncomeItem')->with('article_income_item');
+        return $this->hasMany('App\RequestChangeIncomeItem')->with('article');
     }
 }

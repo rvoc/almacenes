@@ -88,7 +88,53 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="pills-out" role="tabpanel" aria-labelledby="pills-out-tab">
+                                <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Nro</th>
+                                            <th>Nro Nota</th>
+                                            <th>Tipo</th>
+                                            <th>Descripcion</th>
+                                            <th>Estado</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($request_outs as $index=> $item)
+                                            <tr>
+                                                <td>{{($index+1)}}</td>
+                                                <td>{{$item->article_request->correlative}}</td>
+                                                <td>{{$item->type}}</td>
+                                                <td>{{$item->description}}</td>
+                                                <td>
+                                                        @switch($item->state)
+                                                            @case('Aprobado')
+                                                                <span class="badge badge-primary">{{$item->state}}</span>
+                                                                @break
+                                                            @case('Pendiente')
+                                                                <span class="badge badge-info">{{$item->state}}</span>
+                                                                @break
+                                                            @case('Rechazado')
+                                                                <span class="badge badge-danger">{{$item->state}}</span>
+                                                                @break
+                                                            @case('Pendiente Aprobacion')
+                                                                <span class="badge badge-warning">{{$item->state}}</span>
+                                                                @break
+                                                        @endswitch
+                                                </td>
 
+                                                <td>
+                                                        <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                                        {{-- 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  CODIGO DE ISABEL NO TOCAR--}}
+                                                </td>
+
+                                            </tr>
+
+                                        @endforeach
+
+                                    </tbody>
+
+                                </table>
                         </div>
                         <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                                 <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">

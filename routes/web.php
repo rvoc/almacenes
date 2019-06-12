@@ -109,6 +109,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('create_change_income/{article_income_id}','RequestChangeController@create_change_income');//edit income
         Route::get('create_change_out/{article_request_id}','RequestChangeController@create_change_out');//edit income
+        Route::post('store_out','RequestChangeController@store_out');
     });
 
 

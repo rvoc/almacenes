@@ -16,8 +16,7 @@ class CreateRequestChangeOutsTable extends Migration
         Schema::create('sisme.request_change_outs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('type', ['Eliminacion', 'Modificacion' ])->default('Modificacion');
-            $table->boolean('is_aprobed_boss')->default(false);
-            $table->boolean('is_aprobed_boss2')->default(false);
+            $table->enum('state', ['Aprobado', 'Rechazado','Pendiente','Pendiente Aprobacion'])->default('Pendiente Aprobacion');
             $table->string('description');
             $table->integer('article_request_id');
             $table->foreign('article_request_id')->references('id')->on('sisme.article_requests');

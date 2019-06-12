@@ -86,6 +86,7 @@ Vue.component('report-out', require('./components/ReportOut.vue').default);
 Vue.component('approve-request', require('./components/RequestApprove.vue').default);
 
 Vue.component('change-income', require('./components/ChangeIncome.vue').default);
+Vue.component('change-out', require('./components/ChangeOut.vue').default);
 
 Vue.component('change-income-edit', require('./components/RequestIncomeEdit.vue').default);
 Vue.component('change-out-edit', require('./components/RequestOutEdit.vue').default);
