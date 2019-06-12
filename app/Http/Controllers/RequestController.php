@@ -487,16 +487,6 @@ class RequestController extends Controller
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Pendiente";
         $article_request->save();
-<<<<<<< HEAD
-=======
-
-        // $article_request = ArticleRequest::find($request->article_request_id);
-        // $article_request->state = "Aprobado";
-        // $article_request->save();
-
-        session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
-        // session()->flash('url',url('out_note/'.$article_request->id));
->>>>>>> upstream/master
 
         session()->flash('message','Solicitud Pendiente'.$article_request->correlative);
         return redirect('request');
