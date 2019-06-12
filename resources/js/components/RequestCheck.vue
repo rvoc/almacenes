@@ -9,7 +9,7 @@
                     <!-- {{rows}} -->
                      <small class="float-sm-right">
                            <button class="btn btn-success" data-toggle="modal" data-target="#registerModal" ><i class="fa fa-user-check"></i> Aprobar  </button>
-                           <button class="btn btn-danger" ><i class="fa fa-user-times"></i> Rechazar  </button>
+                           <button class="btn btn-danger" data-toggle="modal" data-target="#ModalDisApproved"><i class="fa fa-user-times"></i> Rechazar  </button>
                            <a :href="url" class="btn btn-default"><i class="fa fa-ban"></i> Cancelar </a>
                            <!-- <button class="btn btn-default" ><i class="fa fa-ban"></i> Cancelar  </button> -->
                         </small>
@@ -53,22 +53,6 @@
 
                                 </tbody>
                             </table>
-                    <!-- <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
-                        <template slot="sort-asc-icon">
-                            <i class="fa fa-sort-asc"></i>
-                        </template>
-                        <template slot="sort-desc-icon">
-                            <i class="fa fa-sort-desc"></i>
-                        </template>
-                        <template slot="no-sort-icon">
-                            <i class="fa fa-sort"></i>
-                        </template>
-
-                        <template slot="quantity_apro" slot-scope="props">
-                            <input class='form-control' v-model="props.row.quantity_apro" >
-                        </template>
-
-                    </vue-bootstrap4-table> -->
                 </div>
             </div>
 
@@ -140,6 +124,36 @@
                         <button type="button" class="btn btn-secondary" >Vista Previa</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-success">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+
+        <div class="modal fade" id="ModalDisApproved" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form enctype="multipart/form-data" id='formCategory' method="post" :action="url+'/disapproved_request'">
+                    <div v-html='csrf'></div>
+                    <div class="modal-body">   
+                        <input type="text" name="article_request_id" :value="request.id " hidden>
+                        <input type="text" name="articles" :value="JSON.stringify(rows)" hidden>
+                        <input type="text" name="type" value="Traspaso" v-if="isRequestStorage" hidden>
+                        <input type="text" name="total_cost" :value="getTotalCost" v-if="isRequestStorage" hidden>
+                    <center><p><h3 style="color:#922d31;"><strong>ESTA SEGURO DE RECHAZAR<br>LA SOLICITUD Nro {{request.correlative}}?</strong></h3></p></center>
+                    </div>
+                              <!--   <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <strong><label>Observaciones:</label></strong><br>
+                                            <textarea class="md-textarea form-control" rows='3' placeholder="Observaciones"></textarea>
+                                        </div>
+                                    </div>
+                                </div><br> -->
+                    <div class="modal-footer" style="display:block;">
+                       <!--  <button type="button" class="btn btn-secondary" >Vista Previa</button> -->
+                        <center><button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-success">SI</button></center>
                     </div>
                 </form>
             </div>

@@ -518,6 +518,18 @@ class RequestController extends Controller
         // return $articles;
     }
 
+    public function disApprove(Request $request)
+    {
+        $articles = json_decode($request->articles);
+        $article_request = ArticleRequest::find($request->article_request_id);
+        $article_request->state = "Rechazado";
+        $article_request->save();
+
+        session()->flash('message','Rechazado'.$article_request->correlative);
+        return redirect('request');
+        // return $articles;
+    }
+
     /**
      * Update the specified resource in storage.
      *
