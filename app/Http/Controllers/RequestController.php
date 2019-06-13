@@ -234,10 +234,10 @@ class RequestController extends Controller
     public function storageArticles($storage_id){
 
         $articles = Article::with('category','unit')
-                            ->join('stocks','stocks.article_id','=','articles.id')
+                            ->join('sisme.stocks','sisme.stocks.article_id','=','articles.id')
                             ->where('storage_id',$storage_id)
-                            ->select('article_id','articles.name','articles.category_id','articles.unit_id',DB::raw('sum(stocks.quantity) as quantity_stock'))
-                            ->groupBy('stocks.article_id','articles.name','articles.category_id','articles.unit_id')
+                            ->select('article_id','articles.name','articles.category_id','articles.unit_id',DB::raw('sum(sisme.stocks.quantity) as quantity_stock'))
+                            ->groupBy('sisme.stocks.article_id','articles.name','articles.category_id','articles.unit_id')
                             ->get();
 
         return response()->json($articles);
@@ -476,7 +476,7 @@ class RequestController extends Controller
         $article_user->storage_id = Auth::user()->getStorage()->id;
         $article_user->user_usr_id = Auth::user()->usr_id;
         $article_user->type ='Salida';
-        $article_user->state ='Pendiente';              
+        $article_user->state ='Pendiente';
         $article_user->save();
 
         session()->flash('message','Solicitud Pendiente'.$article_request->correlative);
@@ -496,7 +496,7 @@ class RequestController extends Controller
         $article_user->storage_id = Auth::user()->getStorage()->id;
         $article_user->user_usr_id = Auth::user()->usr_id;
         $article_user->type ='Salida';
-        $article_user->state ='Entregado';              
+        $article_user->state ='Entregado';
         $article_user->save();
     }
 
@@ -512,9 +512,9 @@ class RequestController extends Controller
         $article_user->storage_id = Auth::user()->getStorage()->id;
         $article_user->user_usr_id = Auth::user()->usr_id;
         $article_user->type ='Salida';
-        $article_user->state ='Rechazado';              
+        $article_user->state ='Rechazado';
         $article_user->save();
-        
+
 
         session()->flash('message','Rechazado'.$article_request->correlative);
         return redirect('request');
@@ -533,7 +533,7 @@ class RequestController extends Controller
         $article_user->storage_id = Auth::user()->getStorage()->id;
         $article_user->user_usr_id = Auth::user()->usr_id;
         $article_user->type ='Salida';
-        $article_user->state ='Rechazado';              
+        $article_user->state ='Rechazado';
         $article_user->save();
 
         session()->flash('message','Rechazado'.$article_request->correlative);
