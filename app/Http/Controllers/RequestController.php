@@ -79,7 +79,7 @@ class RequestController extends Controller
 
     public function create_transfer(){
 
-        $storages = Storage::all();
+        $storages = Storage::where('id','!=',Auth::user()->getStorage()->id)->get();
         return view('request.storage.create',compact('storages'));
     }
 
