@@ -3,7 +3,6 @@
         <div class="col-md-7">
             <div class="card">
                 <div class="card-header">
-                    {{url}}
                     <button class="btn btn-secondary">
                         <i class="fa fa-store-alt"></i>  {{storage.name}}
                     </button>
