@@ -32,8 +32,12 @@
                                 role="tab" aria-controls="pills-out" aria-selected="false">Salidas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all"
-                                role="tab" aria-controls="pills-all" aria-selected="false">Todos</a>
+                            <a class="nav-link" id="pills-all-in-tab" data-toggle="pill" href="#pills-all-in"
+                                role="tab" aria-controls="pills-all-in" aria-selected="false">Todas las Entradas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-all-out-tab" data-toggle="pill" href="#pills-all-out"
+                                role="tab" aria-controls="pills-all-out" aria-selected="false">Todas las Salidas</a>
                         </li>
 
                     </ul>
@@ -88,7 +92,7 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="pills-out" role="tabpanel" aria-labelledby="pills-out-tab">
-                                <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
+                                <table id="lista_out" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Nro</th>
@@ -124,7 +128,7 @@
                                                 </td>
 
                                                 <td>
-                                                        <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#RequestChangeOutModal" data-json="{{$item}}" data-edited="true"><i class="material-icons text-primary">remove_red_eye</i></a>
                                                         {{-- 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  CODIGO DE ISABEL NO TOCAR--}}
                                                 </td>
 
@@ -136,8 +140,8 @@
 
                                 </table>
                         </div>
-                        <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
-                                <table id="lista" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
+                        <div class="tab-pane fade" id="pills-all-in" role="tabpanel" aria-labelledby="pills-all-in-tab">
+                                <table id="lista_all_in" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Nro</th>
@@ -149,7 +153,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($request_all as $index=> $item)
+                                            @foreach ($request_all_in as $index=> $item)
                                                 <tr>
                                                     <td>{{($index+1)}}</td>
                                                     <td>{{$item->article_income->correlative}}</td>
@@ -185,6 +189,55 @@
 
                                  </table>
                         </div>
+                        <div class="tab-pane fade" id="pills-all-out" role="tabpanel" aria-labelledby="pills-all-out-tab">
+                                <table id="lista_all_out" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Nro</th>
+                                                <th>Nro Nota</th>
+                                                <th>Tipo</th>
+                                                <th>Descripcion</th>
+                                                <th>Estado</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($request_all_out as $index=> $item)
+                                                <tr>
+                                                    <td>{{($index+1)}}</td>
+                                                    <td>{{$item->article_request->correlative}}</td>
+                                                    <td>{{$item->type}}</td>
+                                                    <td>{{$item->description}}</td>
+                                                    <td>
+                                                            @switch($item->state)
+                                                                @case('Aprobado')
+                                                                    <span class="badge badge-primary">{{$item->state}}</span>
+                                                                    @break
+                                                                @case('Pendiente')
+                                                                    <span class="badge badge-info">{{$item->state}}</span>
+                                                                    @break
+                                                                @case('Rechazado')
+                                                                    <span class="badge badge-danger">{{$item->state}}</span>
+                                                                    @break
+                                                                @case('Pendiente Aprobacion')
+                                                                    <span class="badge badge-warning">{{$item->state}}</span>
+                                                                    @break
+                                                            @endswitch
+                                                    </td>
+
+                                                    <td>
+                                                            <a href="#" data-toggle="modal" data-target="#RequestChangeOutModal" data-json="{{$item}}" data-edited='false'><i class="material-icons text-primary">remove_red_eye</i></a>
+                                                          {{-- 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  CODIGO DE ISABEL NO TOCAR--}}
+                                                    </td>
+
+                                                </tr>
+
+                                            @endforeach
+
+                                        </tbody>
+
+                                 </table>
+                        </div>
 
                     </div>
 
@@ -196,6 +249,7 @@
         {{-- aqui los modals --}}
         <change-income-edit url='{{url('income_first_confirmation')}}' csrf='{!! csrf_field('POST') !!}'></change-income-edit>
 
+        <change-out-edit url='{{url('confirm_out')}}' csrf='{!! csrf_field('POST') !!}'> </change-out-edit>
 
     </div>
 
@@ -204,6 +258,35 @@
 
     @section('script')
 
+        $('#lista_out').DataTable({
+            responsive: true,
+            columnDefs: [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 10002, targets: 2 },
+                { responsivePriority: 2, targets: -1 }
+            ],
+            language: spanish_lang
+        });
+
+        $('#lista_all_in').DataTable({
+            responsive: true,
+            columnDefs: [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 10002, targets: 2 },
+                { responsivePriority: 2, targets: -1 }
+            ],
+            language: spanish_lang
+        });
+
+        $('#lista_all_out').DataTable({
+            responsive: true,
+            columnDefs: [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 10002, targets: 2 },
+                { responsivePriority: 2, targets: -1 }
+            ],
+            language: spanish_lang
+        });
 
 
         var classname = document.getElementsByClassName("deleted");

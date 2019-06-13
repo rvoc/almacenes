@@ -15,11 +15,11 @@ class RequestChangeOut extends Model
     // }
     public function article_request()
     {
-        return $this->belongsTo('App\ArticleRequest');
+        return $this->belongsTo('App\ArticleRequest')->with('person','article_request_items');
     }
 
     public function request_change_out_items()
     {
-        return $this->hasMany('App\RequestChangeOutItem');
+        return $this->hasMany('App\RequestChangeOutItem')->with('article');
     }
 }

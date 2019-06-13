@@ -23,10 +23,12 @@ class RequestChangeController extends Controller
     public function index()
     {
         //
-        $request_incomes = [];
         //primero ver  request de solo la sucursal
-        $request_all = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)->get();
+        $request_incomes = [];
         $request_outs = [];
+
+        $request_all_in = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)->get();
+        $request_all_out = RequestChangeOut::where('storage_id',Auth::user()->getStorage()->id)->get();
 
 
         if(Auth::user()->hasRole('Encargado de Almacen'))
@@ -34,6 +36,7 @@ class RequestChangeController extends Controller
             $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
                                                     ->where('state','Pendiente Aprobacion')
                                                     ->get();
+
             $request_outs = RequestChangeOut::where('storage_id',Auth::user()->getStorage()->id)
                                             ->where('state','Pendiente Aprobacion')
                                             ->get();
@@ -44,10 +47,14 @@ class RequestChangeController extends Controller
             $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
                                                     ->where('state','Pendiente')
                                                     ->get();
+
+            $request_outs = RequestChangeOut::where('storage_id',Auth::user()->getStorage()->id)
+                                                    ->where('state','Pendiente')
+                                                    ->get();
         }
 
 
-        return view('request_change.index',compact('request_incomes','request_all','request_outs'));
+        return view('request_change.index',compact('request_incomes','request_all_in','request_all_out','request_outs'));
 
     }
 
@@ -150,20 +157,41 @@ class RequestChangeController extends Controller
     {
 
         $request_change_income = RequestChangeIncome::find($request->request_change_income_id);
-        if($request_change_income->state =='Pendiente Aprobacion')
-        {
-            $request_change_income->state = 'Pendiente';
-            $request_change_income->save();
+        switch ($request_change_income->state) {
+            case 'Pendiente Aprobacion':
+                # code...
+                    $request_change_income->state = 'Pendiente';
+                break;
+            case 'Pendiente':
+                # code...
+                    $request_change_income->state = 'Aprobado';
+                    # colocar logica de codigo
+                break;
         }
-        if($request_change_income->state =='Pendiente')
-        {
-            $request_change_income->state = 'Aprobado';
-            $request_change_income->save();
-            //colocar logica de modificacion de nota
-        }
+        $request_change_income->save();
 
         return back()->withInput();
         // return $request->all();
+    }
+
+    public function  confirmOut(Request $request)
+    {
+        $request_change_out = RequestChangeOut::find($request->request_change_out_id);
+        // return $request_change_out;
+        switch ($request_change_out->state) {
+            case 'Pendiente Aprobacion':
+                # code...
+                    $request_change_out->state = 'Pendiente';
+                break;
+            case 'Pendiente':
+                # code...
+                    $request_change_out->state = 'Aprobado';
+                    # colocar logica de codigo
+                break;
+        }
+        $request_change_out->save();
+
+        return back()->withInput();
     }
     /**
      * Display the specified resource.
@@ -171,12 +199,17 @@ class RequestChangeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) //para entradas
     {
         $request_change_income = RequestChangeIncome::with('request_change_income_items','article_income')->find($id);
         return response()->json($request_change_income);
     }
 
+    public function show_out($id) //para salidas
+    {
+        $request_change_out = RequestChangeOut::with('request_change_out_items','article_request')->find($id);
+        return response()->json($request_change_out);
+    }
     /**
      * Show the form for editing the specified resource.
      *

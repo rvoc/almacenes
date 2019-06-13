@@ -15,14 +15,16 @@
                         </div>
                         <div class="modal-body">
                             <div class="row" v-if="form.article_income">
-                                <span > Numero de nota: {{form.article_income.correlative}}  </span> <br>
-                                <span > Proveedor: {{form.article_income.provider.name}}  </span> <br>
-                                <label > Funcionario:</label> {{form.article_income.person.prs_nombres + ' '+form.article_income.person.prs_paterno + ' '+form.article_income.person.prs_materno}} <br>
+                                <div class="col-md-4"> Numero de nota: {{form.article_income.correlative}} </div>
+                                <div class="col-md-4"> Proveedor: {{form.article_income.provider.name}}</div>
+                            </div>
+                            <div class="row" v-if="form.article_income">
+                                <div class="col-md-9">  Funcionario: {{form.article_income.person.prs_nombres + ' '+form.article_income.person.prs_paterno + ' '+form.article_income.person.prs_materno}}</div>
                             </div>
 							<div class="row"  v-if="form.article_income">
                                 <input type="text" name="request_change_income_id" :value="form.id" hidden>
                                 <div class="col-md-6">
-                                    <label>Ingreso Actual</label>
+                                    <strong>Ingreso Actual</strong>
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -43,7 +45,7 @@
                                     </table>
                                 </div>
                                 <div class="col-md-6">
-                                    <label> Ingreso Solicitado</label>
+                                    <strong> Ingreso Solicitado</strong>
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -56,13 +58,15 @@
                                         <tbody>
                                             <tr v-for="(item,index) in form.request_change_income_items" :key="index">
                                                 <th scope="row">{{index+1}}</th>
-                                                <td>{{item.article_income_item.article.name}}</td>
+                                                <td>{{item.article.name}}</td>
                                                 <td>{{item.cost}}</td>
                                                 <td>{{item.quantity}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+
+
                                 <!-- <div class="form-group col-md-8">
                                     <label for="lbname">Nombre</label>
                                     <input type="text" class="form-control" id="name" name="name" v-model="form.name" placeholder="Nombre" v-validate="'required'">

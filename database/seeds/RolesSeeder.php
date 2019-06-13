@@ -20,7 +20,7 @@ class RolesSeeder extends Seeder
         $permission = Permission::create(['name' => 'SISCOR']);
         $permission = Permission::create(['name' => 'SISE']);
         $permission = Permission::create(['name' => 'SIGA']);
-
+        // $permission = Permission::find(1);
         $role = Role::create(['name' => 'Administrador']);
         $role->givePermissionTo($permission);
         $role = Role::create(['name' => 'Encargado de Almacen']);

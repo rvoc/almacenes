@@ -109,7 +109,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('create_change_income/{article_income_id}','RequestChangeController@create_change_income');//edit income
         Route::get('create_change_out/{article_request_id}','RequestChangeController@create_change_out');//edit income
-        Route::post('store_out','RequestChangeController@store_out');
+        Route::post('store_out','RequestChangeController@store_out'); //guardado de la  solicitud de salida
+        Route::get('request_change_out/{request_change_out_id}','RequestChangeController@show_out'); //
+        Route::post('confirm_out','RequestChangeController@confirmOut');
+
     });
 
 
