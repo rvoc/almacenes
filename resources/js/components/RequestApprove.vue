@@ -8,7 +8,7 @@
                    Solicitante: {{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}}
                         <small class="float-sm-right">
                            <button class="btn btn-success" data-toggle="modal" data-target="#registerModalApprob" ><i class="fa fa-user-check"></i> Aprobar  </button>
-                           <button class="btn btn-danger" data-toggle="modal" data-target="#ModalDisApprob"><i class="fa fa-user-times"></i> Rechazar  </button>
+                           <button class="btn btn-danger" data-toggle="modal" onclick="Mostrar();" data-target="#ModalDisApprob"><i class="fa fa-user-times"></i> Rechazar  </button>
                            <a :href="url" class="btn btn-default"><i class="fa fa-ban"></i> Cancelar </a>
                         </small>
                 </div>
@@ -17,7 +17,7 @@
                         <div class="card">
                         <div class="card-body">
                             <h5>MATERIAL SOLICITADO</h5>
-                              <table class="table  table-bordered">
+                              <table class="table  table-bordered" id="table-origin">
                                         <thead>
                                             <tr class="bg-gray">
                                                 <th scope="col">#</th>
@@ -29,7 +29,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             <tr v-for="(item,index) in request.article_request_items" :key="index">
+                                             <tr v-for="(item,index) in request.article_request_items" :key="index" onclick="this.style.backgroundColor = 'red', Mostrar();" >
                                                 <th scope="row">{{index+1}}</th>
                                                 <td>{{item.article.name}}</td>
                                                 <td>{{item.article.unit.name}}</td>
@@ -177,6 +177,22 @@
     </div> <!-- end row -->
 </template>
 <script>
+@section('script')
+    
+function Mostrar()
+{
+    alert($("#table-origin tr.selected td:first").html());
+};
+ @endsection
+</script>
+<script>
+$("#table-origin tr").click(function(){
+   $(this).addClass('selected').siblings().removeClass('selected');    
+   var value=$(this).find('td:first').html();
+   alert(value);    
+});
+
+
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
     props:['url','csrf','storage','request','gerencia','providers', 'histories','data'],
@@ -283,9 +299,7 @@ export default {
         subTotal(item){
             let sum = Number(item.quantity) * Number(item.cost);
             return sum;
-        }
-
-
+        },
     },
     computed:{
 

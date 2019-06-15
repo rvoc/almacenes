@@ -18,7 +18,7 @@ $date=date('Y-m-d')
 <table>
    <tr>
       <td><img src="img/logo_small.jpg" width="100" /></td>
-      <td colspan="5" style="text-align:center; vertical-align: middle;"><strong>EMPRESA BOLIVIANA DE ALIMENTOS</strong></td>
+      <td colspan="5" style="text-align:center; vertical-align: middle;"><h2>EMPRESA BOLIVIANA DE ALIMENTOS</h2></td>
    </tr>
 </table>
 <table>

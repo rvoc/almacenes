@@ -18,6 +18,7 @@ use App\Stock;
 use App\User;
 use App\ArticleHistory;
 use Illuminate\Support\Facades\DB;
+use resource\js\components\IncomeCreate;
 class ReportController extends Controller
 {
     /**
@@ -166,6 +167,45 @@ class ReportController extends Controller
         $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 
         $view = \View::make('report.out_note', compact('username','date','title','storage','article_request','persona','gerencia','code'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+    }
+
+    public function articulo_view(Request $request)
+    {
+        $art = Article::fin($request);
+        $formart = json_encode(push('$art'));
+        return $formart;
+    }
+
+     public function vista_previa()
+    {
+
+        // $this.IncomeCreate::vista_previa();
+        // $article_request = Article::find($article_id);
+        // return $article_request;
+        // echo $article_request;
+        $username = Auth::user()->usr_usuario;
+        $title = "NOTA DE SALIDA ";
+        $date =Carbon::now();
+       // $user = User::where('usr_prs_id',$article_request->prs_id)->first();
+        // $persona = $user->getFullName(); //esto esta mal tambien
+        // $gerencia = $user->getGerencia();
+        // $storage = $article_request->storage_destiny->name;
+        $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
+
+        $view = \View::make('report.income_note', compact('username','date','title', 'code'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);

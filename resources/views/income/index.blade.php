@@ -110,7 +110,6 @@
             var modal = $(this)
             modal.find('.modal-title').text('' )
             modal.find('.modal-body iframe').attr('src', url)
-
         })
 
         var classname = document.getElementsByClassName("deleted");
@@ -145,8 +144,6 @@
                         )
                         // console.log(error);
                     });
-
-
             }
             })
 
