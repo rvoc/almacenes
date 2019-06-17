@@ -55,7 +55,8 @@
         </tr>
     </thead>
     <tbody>
-        <?php $total_quantity=0;
+        <?php
+            $total_quantity=0;
             $total_cost=0;
         ?>
         @foreach ($incomes as  $count => $item)

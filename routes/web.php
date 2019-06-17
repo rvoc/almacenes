@@ -18,7 +18,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         //segundo filtro de proteccion para ingreso al sistema con permiso a SAE
 
-        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/', 'HomeController@index')->name('/');
         Route::resource('provider', 'ProviderController');
         Route::resource('unit', 'UnitController');
         Route::resource('category', 'CategoryController');

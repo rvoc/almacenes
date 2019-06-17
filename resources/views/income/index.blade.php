@@ -48,8 +48,7 @@
 
                                 <td>
                                     @if($item->path_invoice)
-                                    <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url(substr($item->path_invoice,7))}}" > <i class="fa fa-file-invoice text-secondary"></i> </a>
-
+                                    <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url(substr($item->path_invoice,7))}}" > <i class="fa fa-file-invoice-dollar text-secondary"></i> </a>
                                     @endif
                                  </td>
                                 <td>{{$item->created_at}}</td>

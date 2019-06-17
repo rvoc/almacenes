@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrums')
+    {{ Breadcrumbs::render('home') }}
+@endsection
 @section('content')
 @php
    $usr = \DB::table('sisme.user_storage')
@@ -12,7 +14,7 @@
          ->where('storage_origin_id','=',$usr['storage_id'])
          ->where('state', '=', 'Aprobado')
          ->count();
- 
+
    $entregado = \DB::table('sisme.article_requests')
          ->where('storage_origin_id','=',$usr['storage_id'])
          ->where('state', '=', 'Entregado')
@@ -21,12 +23,12 @@
    $pendiente = \DB::table('sisme.article_requests')
          ->where('storage_origin_id','=',$usr['storage_id'])
          ->where('state', '=', 'Pendiente')
-         ->count(); 
+         ->count();
 
    $rechazado = \DB::table('sisme.article_requests')
          ->where('storage_origin_id','=',$usr['storage_id'])
          ->where('state', '=', 'Rechazado')
-         ->count(); 
+         ->count();
 @endphp
 <div class="row">
     <div class="col-lg-3 col-6">

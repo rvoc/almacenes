@@ -4,7 +4,7 @@ use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
 // Home
 Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Inicio', route('home'));
+    $trail->push('Inicio', route('/'));
 });
 // Breadcrumbs::for('users', function ($trail) {
 //     $trail->parent('home');

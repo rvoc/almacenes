@@ -396,11 +396,11 @@
             <section class="content-header "style=" padding-top: 60px;">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <h1> @yield('title')</h1>
-                        </div>
+                        </div> --}}
                         <nav class="col-sm-6" aria-label="breadcrumb">
-                            <ol class="breadcrumb float-sm-right">
+                            <ol class="breadcrumb float-sm-left">
                                 @yield('breadcrums')
                                 {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Blank Page</li> --}}
