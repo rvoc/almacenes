@@ -21,7 +21,7 @@ $tam=count($almacen) + 4
 <html>
 <table>
       <td><img src="img/logo_small.jpg" width="100" /></td>
-      <td colspan="{{$tam-1}}" style="text-align:center; vertical-align: middle;"><strong><h1>EMPRESA BOLIVIANA DE ALIMENTOS</h1></strong></td>
+      <td colspan="{{$tam-1}}" style="text-align:center; vertical-align: middle;"><h2>EMPRESA BOLIVIANA DE ALIMENTOS</h2></td>
 </table>
 <table>
     <tr>
