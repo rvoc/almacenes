@@ -89,6 +89,7 @@
                                     @if($item->state == 'Entregado')
                                         {{-- <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">local_shipping</i></a> --}}
                                         <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="material-icons text-success " data-json='{{$item}}'>remove_red_eye</i></a>
+                                        <a href="{{url('create_change_out/'.$item->id)}}"> <i class="fa fa-file-signature text-secondary" ></i> </a>
                                     @endif
                                     @if($item->state == 'Pendiente Aprobacion' )
                                         {{-- @if($item->type == 'Funcionario' ) --}}

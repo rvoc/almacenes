@@ -13,7 +13,7 @@ class RequestChangeIncomeItem extends Model
     {
         return $this->belongsTo('App\Article');
     }
-    // public function article_income_item(){
-    //     return $this->belongsTo('App\ArticleIncomeItem')->with('article');
-    // }
+    public function article_income_item(){
+        return $this->belongsTo('App\ArticleIncomeItem')->with('article');
+    }
 }

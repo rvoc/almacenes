@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ArticleIncome;
+use App\ArticleIncomeItem;
 use App\RequestChangeIncome;
 use App\RequestChangeIncomeItem;
 use App\RequestChangeOut;
@@ -11,6 +12,7 @@ use App\RequestChangeOutItem;
 use App\Article;
 use App\ArticleRequest;
 use App\Stock;
+use App\UserHistory;
 use DB;
 use Auth;
 class RequestChangeController extends Controller
@@ -166,6 +168,43 @@ class RequestChangeController extends Controller
                 # code...
                     $request_change_income->state = 'Aprobado';
                     # colocar logica de codigo
+                    foreach($request_change_income->request_change_income_items as $income_change_item)
+                    {
+                        $request_change_income_item = RequestChangeIncomeItem::find($income_change_item->id);
+                        if($request_change_income_item->article_income_item) //si existe su entrada si no es nuevo en la modificacion
+                        {
+                            $article_income_item = ArticleIncomeItem::find($request_change_income_item->article_income_item->id);
+                            $article_income_item->quantity = $request_change_income_item->quantity;
+                            $article_income_item->cost = $request_change_income_item->cost;
+                            $article_income_item->save();
+                            
+                            $stock = Stock::where('article_income_item_id',$article_income_item->id)->first();
+                            $stock->quantity -= $article_income_item->quantity;
+                            $stock->cost -= $article_income_item->cost;
+                            $stock->save();
+
+                        }else //en caso de que sea nuevo item en la modificacion
+                        {
+                            $article_income_item = new ArticleIncomeItem;
+                            $article_income_item->article_income_id = $request_change_income->article_income_id;
+                            $article_income_item->article_id = $income_change_item->article_id;
+                            $article_income_item->quantity = $income_change_item->quantity;
+                            $article_income_item->cost = $income_change_item->cost;
+                            $article_income_item->save();
+
+                            $stock = new Stock;
+                            $stock->article_income_item_id = $article_income_item->id;
+                            $stock->storage_id = $request_change_income->storage_id;
+                            $stock->article_id = $article_income_item->article_id;
+                            $stock->quantity = $article_income_item->quantity;
+                            $stock->cost = $article_income_item->cost;
+                            $stock->save();
+                            
+                        }
+
+                    }
+
+
                 break;
         }
         $request_change_income->save();
@@ -187,6 +226,85 @@ class RequestChangeController extends Controller
                 # code...
                     $request_change_out->state = 'Aprobado';
                     # colocar logica de codigo
+                    foreach($request_change_out->request_change_out_items as $out_change_item)
+                    {
+                        $request_change_out_item = RequestChangeOutItem::find($out_change_item->id);
+                        if($request_change_out_item->article_request_item) //si existe su entrada si no es nuevo en la modificacion
+                        {
+                            $article_request_item = ArticleRequestItem::find($request_change_out_item->article_request_item->id);
+                            $article_request_item->quantity = $request_change_out_item->quantity;
+                            $article_request_item->cost = $request_change_out_item->cost;
+                            $article_request_item->save();
+                            
+                            //para el stock verificar el flujo a seguir
+                            // $stock = Stock::where('article_income_item_id',$article_request_item->article_request_item_id)->first();
+                            // $stock->quantity += $article_request_item->quantity;
+                            // $stock->cost += $article_request_item->cost;
+                            // $stock->save();
+
+                        }else //en caso de que sea nuevo item en la modificacion
+                        {
+                            $article_request_item = new ArticleRequestItem;
+                            $article_request_item->article_income_id = $request_change_out->article_request_id;
+                            $article_request_item->article_id = $request_change_out_item->article_id;
+                            $article_request_item->quantity = 0;
+                            $article_request_item->quantity_apro = $request_change_out_item->quantity;
+                            $article_request_item->cost = $request_change_out_item->cost;
+                            $article_request_item->save();
+
+
+
+                            $stocks = Stock::where('article_id','=',$article_request_item->article_id)
+                            ->where('storage_id',$request_change_out->storage_destiny_id)
+                            ->where('quantity','>',0)
+                            ->orderBy('created_at','Asc')
+                            ->get();
+
+                            $quantity=$article_request_item->quantity_apro;
+                            Log::warning('cantidad aprobada :'.$quantity);
+
+                            //Modulo delicado tener cuidado con este algoritmo  XD
+
+                            foreach($stocks as $stock)
+                            {
+                                Log::warning('stock: '.$stock->article->name.'  cant:'.$stock->quantity);
+
+                                    if($quantity>0)
+                                    {
+                                        if($quantity >= $stock->quantity)
+                                        {
+                                            Log::info($quantity.'>='.$stock->quantity);
+                                            $quantity = $quantity - $stock->quantity;
+                                            $descuento = $stock->quantity;//descuento que se realizo
+                                            $stock->quantity = 0;
+                                        }else
+                                        {
+                                            Log::info($quantity.'<'.$stock->quantity);
+                                            $stock->quantity = $stock->quantity - $quantity;
+                                            $descuento = $quantity;
+                                            $quantity = 0;
+
+                                        }
+                                        Log::info('new cant :'.$quantity);
+                                        Log::info('new stock:'.$stock->quantity);
+
+                                        $article_history = new ArticleHistory;
+                                        $article_history->article_request_item_id =$article_request_item->id;//para salida
+                                        $article_history->article_income_item_id =$stock->article_income_item_id;//para costo de ingreso
+                                        $article_history->article_id =$article_request_item->article_id;
+                                        $article_history->type ='Salida';
+                                        $article_history->quantity_desc =$descuento;
+                                        $article_history->storage_id = Auth::user()->getStorage()->id;
+                                        $article_history->save();
+                                    }
+                            }
+
+                            
+                        }
+
+                    }
+
+
                 break;
         }
         $request_change_out->save();
