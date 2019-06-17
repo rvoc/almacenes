@@ -341,31 +341,56 @@ export default {
         //     // }
         // },
 
-        vistaprevia(item){
-            console.log('datossss',this.incomes);
+        vistaprevia(){
+            console.log('ingreso de datos',this.incomes);
 
-            this.incomes.forEach(item => {
-               let article = item.article.id
-                console.log('for',article); 
-                axios.post('reporte_vista', this.incomes)
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-                 // axios.post(`reporte_vista`); //.then(response=>{
-                    // this.item =  response.article.id;
-                    // console.log('mmmmm', arti);
-                    // this.form = response.data.article;
-                    //     console.log(response.data);
-                    //     this.rows = response.data;
-                    //     console.log(this.rows);
-                         
-                // });
-                        
-            });
-            $('#modalPdf .modal-body iframe').attr('src', '/reporte_vista_previa/');
+            let parameters = this.income;
+            // parameters.excel =true;
+            // console.log(parameters);
+            // axios({
+            //     url: 'reporte_vista_previa',
+            //     method: 'GET',
+            //     // params: parameters,
+            //     responseType: 'blob', // important
+            // }).then((response) => {
+
+            //    console.log(response.data);
+            //    const url = window.URL.createObjectURL(new Blob([response.data]));
+            //     const link = document.createElement('a');
+            //     link.href = url;
+            //     console.log(link.href );
+            //     link.setAttribute('download', 'Vista_previa'+moment().format()+'.pdf');
+            //     document.body.appendChild(link);
+            //     link.click();
+            //     // self.dialog = false;
+            // });
+
+
+            // this.incomes.forEach(item => {
+            //    let article = item.article.id
+            //     console.log('for',article);
+            //     axios.post('reporte_vista', this.incomes)
+            //       .then(function (response) {
+            //         console.log(response);
+            //       })
+            //       .catch(function (error) {
+            //         console.log(error);
+            //       });
+            //      // axios.post(`reporte_vista`); //.then(response=>{
+            //         // this.item =  response.article.id;
+            //         // console.log('mmmmm', arti);
+            //         // this.form = response.data.article;
+            //         //     console.log(response.data);
+            //         //     this.rows = response.data;
+            //         //     console.log(this.rows);
+
+            //     // });
+
+            // });
+            let url='/reporte_vista_previa?provider='+encodeURIComponent(this.form.provider.name)+'&type='+encodeURIComponent(this.form.type.name)+'&incomes='+encodeURIComponent(JSON.stringify(this.incomes));
+
+            console.log(url);
+            $('#modalPdf .modal-body iframe').attr('src', url);
              $('#modalPdf').modal('show');
             // if(this.form.data)
             // {
@@ -374,7 +399,7 @@ export default {
                         // console.log(response.data);
                         // this.rows = response.data;
                         // console.log(this.rows);
-                         
+
             //     });
             // }
         },
