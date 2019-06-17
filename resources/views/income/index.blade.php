@@ -46,7 +46,12 @@
                                 <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('minute_note/'.$item->id)}}">{{$item->correlative}}</a>
                                 </td>
 
-                                <td><a href="#">{{$item->path_invoice}}</a> </td>
+                                <td>
+                                    @if($item->path_invoice)
+                                    <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url(substr($item->path_invoice,7))}}" > <i class="fa fa-file-invoice text-secondary"></i> </a>
+
+                                    @endif
+                                 </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->provider->name}}</td>
