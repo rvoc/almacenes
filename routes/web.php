@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
         Route::get('reporte_vista_previa','ReportController@vista_previa');
-        Route::post('reporte_vista','ReportController@articulo_view')
+        Route::post('reporte_vista','ReportController@articulo_view');
 
         Route::get('approve/{id}', 'RequestController@approve');
         //route person
