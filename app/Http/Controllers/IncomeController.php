@@ -78,6 +78,16 @@ class IncomeController extends Controller
         $article_income->storage_id = Auth::user()->getStorage()->id;
         $article_income->type = $request->type;
         $article_income->total_cost = $request->total_cost;
+
+        if ($request->hasFile('path_invoice')) {
+            //
+            $article_income->path_invoice = $request->file('path_invoice')->store('public/invoices');
+            // $article_income->dependence =
+            $article_income->remision_number = $request->remision_number;
+            $article_income->date = $request->date;
+        }
+
+
         $article_income->save();
 
 
@@ -129,10 +139,10 @@ class IncomeController extends Controller
         // return $counter;
         // return $last_income;
         // return $request->all();
-       
 
 
-   
+
+
         session()->flash('message','Se realizo el ingreso ');
         session()->flash('url',url('vista_previa'));
 

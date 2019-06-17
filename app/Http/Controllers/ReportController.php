@@ -207,14 +207,13 @@ class ReportController extends Controller
         $title = "NOTA DE SALIDA ";
         $date =Carbon::now();
 
-
        // $user = User::where('usr_prs_id',$article_request->prs_id)->first();
         // $persona = $user->getFullName(); //esto esta mal tambien
         // $gerencia = $user->getGerencia();
         // $storage = $article_request->storage_destiny->name;
         $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 
-        $view = \View::make('report.income_note', compact('username','date','title', 'code','provider','type','incomes'));
+        $view = \View::make('report.income_note_preview', compact('username','date','title', 'code','provider','type','incomes'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
