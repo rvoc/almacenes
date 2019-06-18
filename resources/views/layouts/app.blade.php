@@ -263,7 +263,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('storage') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
+                                    <a href="{{ url('storages') }}" class="nav-link  {{ Navigation::isActiveRoute('storage.index') }}">
                                         <i class="nav-icon fa fa-store-alt"></i>
                                         <p>Alamcenes</p>
                                     </a>

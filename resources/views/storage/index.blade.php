@@ -58,7 +58,7 @@
         </div>
 
         {{-- aqui los modals --}}
-        <storage-component url='{{url('storage')}}' csrf='{!! csrf_field('POST') !!}'></storage-component>
+        <storage-component url='{{url('storages')}}' csrf='{!! csrf_field('POST') !!}'></storage-component>
 
 
     </div>

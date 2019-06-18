@@ -12,12 +12,10 @@
         <div class="page-break">
         <table class="w-100 ">
             <tr>
-                <th class="w-20 text-left no-padding no-margins align-middle">
-                    <div class="text-center">
-                        <img src="{{ public_path('img/logo_small.jpg') }}" style=" width: 190px;">
-                    </div>
+                <th class="w-15 text-left no-padding no-margins align-middle" >
+                    <img src="{{ public_path('img/logo_small.jpg') }}" style=" width: 148px;">
                 </th>
-                <th class="w-50 align-center text-center  ">
+                <th class="w-50 align-center text-center">
                     <span class="font-semibold uppercase leading-tight " >
                         {{ $institution ?? 'EMPRESA BOLIVIANA DE ALIMENTOS Y DERIVADOS' }} <br>
 
