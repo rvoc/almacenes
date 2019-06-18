@@ -222,13 +222,15 @@ class RequestController extends Controller
      */
     public function create()
     {
+        $article_request_id = Auth::user()->getStorage()->id;
+        $article_request = ArticleRequest::with('person')->find($article_request_id);
         $articles = Article::with('category','unit')
                             ->join('sisme.stocks','stocks.article_id','=','articles.id')
                             ->where('storage_id',Auth::user()->getStorage()->id)
                             ->select('article_id','articles.name','articles.category_id','articles.unit_id',DB::raw('sum(stocks.quantity) as quantity_stock'))
                             ->groupBy('stocks.article_id','articles.name','articles.category_id','articles.unit_id')
                             ->get();
-        return view('request.create',compact('articles'));
+        return view('request.create',compact('articles','article_request'));
     }
 
     public function storageArticles($storage_id){

@@ -229,6 +229,88 @@ class ReportController extends Controller
         $dompdf->stream('my.pdf',array('Attachment'=>0));
         // $dompdf->stream();
     }
+
+    public function vista_previa_RequestCheck()
+    {
+        $funcionario = request('funcionario');
+        Log::info('hola roxy');
+        Log::info($funcionario);
+        //return $fu0ncionario;
+        $gerencia = request('gerencia');
+        Log::info($gerencia);
+        $request = json_decode(request('salidas'));
+        Log::info($request);
+        $username = Auth::user()->usr_usuario;
+
+        // $persona = $username->getFullName(); //esto esta mal tambien
+        // $gerencia = $username->getGerencia();
+        $title = "NOTA DE SALIDA ";
+        $date =Carbon::now();
+
+       // $user = User::where('usr_prs_id',$article_request->prs_id)->first();
+        // $persona = $user->getFullName(); //esto esta mal tambien
+        // $gerencia = $user->getGerencia();
+        // $storage = $article_request->storage_destiny->name;
+        $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
+
+        $view = \View::make('report.out_note_preview', compact('username','date','title', 'code','funcionario','gerencia','incomes','persona', 'request'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+        // $dompdf->stream();
+    }
+
+     public function vista_previa_RequestNote()
+    {
+        $funcionario = request('funcionario');
+        Log::info('hola roxy');
+        Log::info($funcionario);
+        //return $fu0ncionario;
+        $gerencia = request('gerencia');
+        Log::info($gerencia);
+        $article_request = json_decode(request('solicitud'));
+        Log::info($article_request);
+        $username = Auth::user()->usr_usuario;
+        $count = 1;
+        $total_quantity=0;
+
+        // $persona = $username->getFullName(); //esto esta mal tambien
+        // $gerencia = $username->getGerencia();
+        $title = "NOTA DE SOLICITUD";
+        $date =Carbon::now();
+
+       // $user = User::where('usr_prs_id',$article_request->prs_id)->first();
+        // $persona = $user->getFullName(); //esto esta mal tambien
+        // $gerencia = $user->getGerencia();
+        // $storage = $article_request->storage_destiny->name;
+        $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
+
+        $view = \View::make('report.request_note_preview', compact('username','date','title', 'code','funcionario','gerencia','incomes','persona', 'article_request','count','total_quantity'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+        // $dompdf->stream();
+    }
     /**
      * Show the form for creating a new resource.
      *
