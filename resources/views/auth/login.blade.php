@@ -5,7 +5,7 @@
         @csrf
         <span class="login100-form-title">
             <i class="fa fa-store-alt"></i>
-            SAE
+            SAES
         </span>
         <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
             {{-- <input class="input100" type="text" name="email" placeholder="Usuario"> --}}
