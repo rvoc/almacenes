@@ -106,7 +106,7 @@
                                 <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
                             </div>
                         </div> -->
-
+                         <!-- <input type="text" name="article_request_id" :value="request.id " hidden> -->
                         <input type="text" name="articles" :value="JSON.stringify(incomes)" hidden>
                         <h5>Detalle de Solicitud</h5>
 
@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info" >Vista Previa</button>
+                        <button type="button" class="btn btn-info"  @click="vistaprevia()" >Vista Previa</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
@@ -146,12 +146,28 @@
         </div>
         </div>
 
+        <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPdfTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+                </div>
+            </div>
+        </div>
+
     </div> <!-- end row -->
 </template>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
-    props:['articles','url','csrf','storage'],
+    props:['articles','url','csrf','storage', 'request', 'gerencia'],
     data: ()=>({
         form:{},
         title:'',
@@ -217,14 +233,14 @@ export default {
     mounted() {
         this.rows = this.articles;
         console.log(this.articles);
-        console.log(this.person);
+        console.log('persona',this.gerencia);
     },
     methods: {
         addIncome(item){
             this.incomes.push({article:item,quantity:item.quantity});
             item.quantity = '';
             item.cost ='';
-            console.log(item);
+            // console.log(item);
         },
         deleteIncome(index){
 
@@ -233,7 +249,7 @@ export default {
         onFileChange(e) {
             var files = e.target.files || e.dataTransfer.files;
             !files.length?this.hasFile=false:this.hasFile = true;
-            console.log(this.hasFile);
+            // console.log(this.hasFile);
         },
         validateBeforeSubmit() {
             this.$validator.validateAll().then((result) => {
@@ -246,6 +262,17 @@ export default {
                 toastr.error('Debe completar la informacion correctamente')
             });
         },
+         vistaprevia(){
+             console.log('ingreso de datos salida',this.incomes);
+
+             let parameters = this.incomes;
+           
+            let url='/reporte_vista_RequestNote?funcionario='+encodeURIComponent(this.request.person.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&solicitud='+encodeURIComponent(JSON.stringify(this.incomes));
+
+              console.log('del url',url);
+            $('#modalPdf .modal-body iframe').attr('src', url);
+            $('#modalPdf').modal('show');     
+        },
     },
     computed:{
 
@@ -257,7 +284,7 @@ export default {
                 // console.log(item.quantity);
             });
             return quantity;
-        }
+        },
     },
     components: {
         VueBootstrap4Table

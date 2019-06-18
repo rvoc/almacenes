@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('reporte_vista_previa','ReportController@vista_previa');
         Route::post('reporte_vista','ReportController@vista_previa');//create income
+        Route::get('reporte_vista_RequestCheck','ReportController@vista_previa_RequestCheck');
+        Route::get('reporte_vista_RequestNote','ReportController@vista_previa_RequestNote');
 
         Route::get('approve/{id}', 'RequestController@approve');
         //route person

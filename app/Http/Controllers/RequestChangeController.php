@@ -71,6 +71,7 @@ class RequestChangeController extends Controller
 
     public function create_change_out($article_request_id)
     {
+        $article_request = ArticleRequest::with('person')->find($id);
         $article_request = ArticleRequest::with('article_request_items')->find($article_request_id);
         //$articles = Article::with('unit')->get();
         $articles = array();
@@ -79,7 +80,7 @@ class RequestChangeController extends Controller
         // $articles = json_encode($articles);
         // $articles = json_decode($articles);
         // return $articles;
-        return view('request_change.create_out',compact('article_request','stocks'));
+        return view('request_change.create_out',compact('article_request','stocks', 'article_request'));
     }
 
     /**

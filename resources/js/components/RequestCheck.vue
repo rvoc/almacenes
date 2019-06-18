@@ -121,13 +121,29 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" >Vista Previa</button>
+                        <button type="button" class="btn btn-secondary"  @click="vistaprevia()">Vista Previa</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-success">Aceptar</button>
                     </div>
                 </form>
             </div>
         </div>
+        </div>
+
+          <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPdfTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+                </div>
+            </div>
         </div>
 
         <div class="modal fade" id="ModalDisApproved" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
@@ -263,8 +279,19 @@ export default {
         subTotal(item){
             let sum = Number(item.quantity) * Number(item.cost);
             return sum;
-        }
+        },
 
+        vistaprevia(){
+             console.log('ingreso de datos salida',this.rows);
+
+             let parameters = this.rows;
+           
+            let url='/reporte_vista_RequestCheck?funcionario='+encodeURIComponent(this.request.person.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&salidas='+encodeURIComponent(JSON.stringify(this.rows));
+
+             console.log('del url',url);
+            $('#modalPdf .modal-body iframe').attr('src', url);
+            $('#modalPdf').modal('show');     
+        }
 
     },
     computed:{
