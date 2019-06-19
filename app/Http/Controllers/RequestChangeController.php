@@ -71,7 +71,6 @@ class RequestChangeController extends Controller
 
     public function create_change_out($article_request_id)
     {
-        $article_request = ArticleRequest::with('person')->find($id);
         $article_request = ArticleRequest::with('article_request_items')->find($article_request_id);
         //$articles = Article::with('unit')->get();
         $articles = array();

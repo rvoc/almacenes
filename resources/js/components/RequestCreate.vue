@@ -156,7 +156,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+                    <iframe src="" width="100%" height="600px" frameborder="0" allowtransparency="true"></iframe>
                 </div>
                 </div>
             </div>
