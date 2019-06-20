@@ -31,7 +31,6 @@
                               <input type="checkbox" id="cantidad" v-model="cantidad">
                               <label >Cantidad</label>
                               <br>
-                              <span>Checked names: {{ checkedNames }}</span>
                             </div>
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
@@ -90,8 +89,6 @@
                         <button type="button" class="btn btn-danger">Cancelar</button>
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
-
-
                 </div>
                 </form>
             </div>
