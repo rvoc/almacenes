@@ -30,7 +30,7 @@
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Articulo</th>
-                                                <th scope="col">Costo</th>
+                                               
                                                 <th scope="col">Cantidad</th>
                                             </tr>
                                         </thead>
@@ -51,7 +51,7 @@
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Articulo</th>
-                                                <th scope="col">Costo</th>
+                                              
                                                 <th scope="col">Cantidad</th>
                                             </tr>
                                         </thead>
@@ -113,7 +113,7 @@ export default {
             this.edited = button.data('edited')
                 console.log('request_change_out');
                 console.log(button.data('json'));
-                this.title='Solicitud de Modificacion en Ingreso ';
+                this.title='Solicitud de Modificacion de Salida ';
 
                 axios.get(`request_change_out/${button.data('json').id}`).then(response=>{
                         this.form = response.data;

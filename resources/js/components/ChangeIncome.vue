@@ -21,9 +21,16 @@
                                 deselect-label="Remover"
                                 selected-label="Seleccionado"
                                 label="name"
-                                track-by="name" >
-
+                                track-by="name" 
+                                @input="mostrar()"
+                                >
                             </multiselect>
+                             <div v-if="sw">
+                              <label><input type="checkbox" id="articulo" v-model="articulo" @input="mostrart()"> ARTICULO</label>
+                              <label><input type="checkbox" id="cantidad" v-model="cantidad" @input="mostrarcant()"> CANTIDAD</label>
+                              <label><input type="checkbox" id="costo" v-model="costo"  @input="mostrarcost()"> COSTO</label>
+                              <br>
+                            </div>
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
                         <div class="form-group col-md-12">
@@ -35,6 +42,11 @@
                         <div class="col-md-6">
                             Numero de Ingreso: {{income.correlative}} <br>
                             Fecha de Ingreso: {{income.created_at}} <br>
+                            Proveedor: {{income.provider.name}} <br>
+                          <!--   <input type="text" class="form-control" hidden="" v-model="item.new_cost=0" :disabled="isDeleted()" >
+                            <input type="text" class="form-control" hidden="" v-model="item.new_quantity=0" :disabled="isDeleted()" > -->
+                           <label v-if="income.path_invoice">Factura:</label> <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="" > <i class="fa fa-file-invoice-dollar text-secondary"></i> </a> <br>
+                           <label v-if="income.path_invoice">Nota Remision: {{income.remision_number}}</label><br>
                             <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
                         </div>
                         <br>
@@ -47,8 +59,9 @@
                                         <th scope="col">Unidad</th>
                                         <th scope="col">Costo</th>
                                         <th scope="col">Cantidad</th>
-                                        <th scope="col">Nuevo Costo</th>
-                                        <th scope="col">Nueva Cantidad</th>
+                                        <th scope="col" v-if="articulo">Nuevo Articulo</th>
+                                        <th scope="col" v-if="costo">Nuevo Costo</th>
+                                        <th scope="col" v-if="cantidad">Nueva Cantidad</th>
 
                                      </thead>
                                     <tbody>
@@ -58,12 +71,31 @@
                                             <td>{{item.article.unit.name}}</td>
                                             <td>{{item.cost}}</td>
                                             <td>{{item.quantity}}</td>
-                                            <td>
-                                                <input type="text" class="form-control" v-model="item.new_cost" :disabled="isDeleted()" >
+                                            <!-- <input type="text" name="provider_id" v-if="item.article.id" :value="item.article.id"> -->
+                                            <td v-if="articulo">
+                                                <input type="text" name="provider_id" v-if="item.arti" :value="item.arti.id" >
+                                                <multiselect
+                                                    v-model="item.arti"
+                                                    :options="articles"
+                                                    id="articulo"
+                                                    placeholder="Seleccionar Articulo"
+                                                    select-label="Seleccionar"
+                                                    deselect-label="Remover"
+                                                    selected-label="Seleccionado"
+                                                    label="name"
+                                                    track-by="name"
+                                                   
+                                                    >
+                                                </multiselect>
+                                               <!--  {{ item.article}} -->
                                             </td>
-                                            <td>
-                                                <input type="text" class="form-control" v-model="item.new_quantity" :disabled="isDeleted()" >
+                                            <td v-if="costo">
+                                                <input type="text" class="form-control" value="0" v-model="item.new_cost" :disabled="isDeleted()" >
                                             </td>
+                                            <td v-if="cantidad">
+                                                <input type="text" class="form-control" value="0" v-model="item.new_quantity" :disabled="isDeleted()" >
+                                            </td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
@@ -127,6 +159,22 @@
                 </div>
             </div>
         </div>
+
+            <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPdfTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -137,19 +185,19 @@ export default {
         form:{},
         types:[{id:1,name:'Eliminacion'},{id:2,name:'Modificacion'}],
         items:[],
-        item:{}
+        item:{},
+        sw:false,
+        articulo:false,
+        cantidad:false,
+        costo:false,
+        // new_cost:0,
+        // new_quantity:0,
     }),
     mounted() {
         // console.log(this.income);
         this.items = this.income.article_income_items;
-        console.log(this.items);
+        console.log('ESTE ES ITEM',this.income);
         console.log(this.articles);
-
-        // axios.get('../list_units')
-        //      .then(response => {
-        //          this.units = response.data;
-        //          console.log(response.data)
-        //      });
 
     },
     computed:{
@@ -181,6 +229,74 @@ export default {
             console.log(this.item);
             this.items.push(this.item);
         },
+        mostrar() {
+               // var tipo = document.getElementById('types').value;
+               console.log('tipooo',this.form.type.id);
+               let tipo = this.form.type.id;
+                 if(tipo==2){
+                  this.sw=true;
+                  }else
+                  {
+                    this.sw=false;
+                    // item.new_cost = 0;
+                    // item.new_quantity = 0;
+                  }
+            },
+         mostrarcost() {
+               // var tipo = document.getElementById('types').value;
+               console.log('cost',this.costo);
+                // console.log('artid',this.item.article.id);
+               let mostcost = this.costo;
+               if(mostcost==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        // item.arti =this.item.article
+                        return item;
+                    });
+               }
+            },
+         mostrarcant() {
+               // var tipo = document.getElementById('types').value;
+               console.log('cant',this.cantidad);
+               let mostcant = this.cantidad;
+               if(mostcant==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        // item.arti =this.item.article
+                        // item.arti.id =0
+                        // item.arti =0
+                        return item;
+                    });
+               }
+            },
+
+         mostrart() {
+               // var tipo = document.getElementById('types').value;
+               console.log('art',this.articulo);
+               let mostart = this.articulo;
+               if(mostart==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        return item;
+                    });
+               }
+            },
+         mostraridart() {
+               // var tipo = document.getElementById('types').value;
+               // this.form.type.id
+               console.log('artisuloid',this.item.article);
+               let mostart = this.articulo;
+               if(mostart==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        return item;
+                    });
+               }
+            },
         isDeleted()
         {
             let deleted = false;
