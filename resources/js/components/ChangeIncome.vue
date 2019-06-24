@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Solicitud de Cambio en Ingreso</h5>
                     <div class="row">
-                        <div class="form-group  col-md-6">
+                        <div class="form-group  col-md-3">
                             <input type="text" name="article_income_id" :value="income.id" hidden>
                             <input type="text" name="type" v-if="form.type" :value="form.type.name" hidden>
                             <label for="tipo">Tipo</label>
@@ -25,14 +25,39 @@
                                 @input="mostrar()"
                                 >
                             </multiselect>
-                             <div v-if="sw">
-                              <label><input type="checkbox" id="articulo" v-model="articulo" @input="mostrart()"> ARTICULO</label>
-                              <label><input type="checkbox" id="cantidad" v-model="cantidad" @input="mostrarcant()"> CANTIDAD</label>
-                              <label><input type="checkbox" id="costo" v-model="costo"  @input="mostrarcost()"> COSTO</label>
+
+                             <!-- <div v-if="sw">
+                              <label><input type="radio" id="articulo" v-model="articulo" @input="mostrart()"> ARTICULO</label>
+                              <label><input type="radio" id="cantidad" v-model="cantidad" @input="mostrarcant()"> CANTIDAD</label>
+                              <label><input type="radio" id="costo" v-model="costo"  @input="mostrarcost()"> COSTO</label>
                               <br>
-                            </div>
+                            </div> -->
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
+
+                         <div class="form-group  col-md-3" v-if="sw">
+                            <input type="text" name="type" v-if="form.changes" :value="form.changes.id">
+                            <br>
+                            <multiselect
+                                v-model="form.changes"
+                                :options="changes"
+                                id="tipo"
+                                placeholder="Seleccionar una opcion"
+                                select-label="Seleccionar"
+                                deselect-label="Remover"
+                                selected-label="Seleccionado"
+                                label="name"
+                                track-by="name" 
+                                @input="change()"
+                                >
+                            </multiselect>
+                            <div class="invalid-feedback">{{ errors.first("type") }}</div>
+                        </div>
+                        <br>
+                        <div class="form-group  col-md-3" v-if="button">
+                             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
+                        </div>
+
                         <div class="form-group col-md-12">
                             <label for="lbobservation">Descripcion</label>
                             <input type="text" class="form-control" id="observation" name="observation" v-model="form.observation" placeholder="Detalle el motivo de la Solicitud" v-validate="'required'">
@@ -45,9 +70,9 @@
                             Proveedor: {{income.provider.name}} <br>
                           <!--   <input type="text" class="form-control" hidden="" v-model="item.new_cost=0" :disabled="isDeleted()" >
                             <input type="text" class="form-control" hidden="" v-model="item.new_quantity=0" :disabled="isDeleted()" > -->
-                           <label v-if="income.path_invoice">Factura:</label> <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="" > <i class="fa fa-file-invoice-dollar text-secondary"></i> </a> <br>
                            <label v-if="income.path_invoice">Nota Remision: {{income.remision_number}}</label><br>
-                            <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
+                           <label v-if="income.path_invoice">Nueva Nota Remision:</label>
+                           <input type="text" name="request_income_items" >
                         </div>
                         <br>
                         <div class="col-md-12">
@@ -184,13 +209,15 @@ export default {
     data:()=>({
         form:{},
         types:[{id:1,name:'Eliminacion'},{id:2,name:'Modificacion'}],
+        changes:[{id:1,name:'Articulo'},{id:2,name:'Cantidad'},{id:3,name:'Costo'},{id:4,name:'Numero Remision'},{id:5,name:'Adicionar Item'}],
         items:[],
         item:{},
         sw:false,
         articulo:false,
         cantidad:false,
         costo:false,
-        // new_cost:0,
+        button:false,
+        nota:false,
         // new_quantity:0,
     }),
     mounted() {
@@ -240,6 +267,36 @@ export default {
                     this.sw=false;
                     // item.new_cost = 0;
                     // item.new_quantity = 0;
+                  }
+            },
+
+         change() {
+               // var tipo = document.getElementById('types').value;
+               console.log('modddd',this.form.changes.id);
+               let combo = this.form.changes.id;
+                 if(combo==1){
+                  this.articulo=true;
+                  this.cantidad=false;
+                  this.costo=false;
+                  this.button=false;
+                  }if(combo==2)
+                  {
+                    this.articulo=false;
+                    this.costo=false;
+                    this.button=false;
+                    this.cantidad=true;
+                  }if(combo==3)
+                  {
+                    this.cantidad=false;
+                    this.articulo=false;
+                    this.button=false;
+                    this.costo=true;
+                  }if(combo==5)
+                  {
+                    this.cantidad=false;
+                    this.articulo=false;
+                    this.costo=false;
+                    this.button=true;
                   }
             },
          mostrarcost() {
