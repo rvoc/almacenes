@@ -31,7 +31,7 @@
                                                 <th scope="col">#</th>
                                                 <th scope="col">Articulo</th>
                                                 <th scope="col">Costo</th>
-                                                <th scope="col">Cantidad</th>
+                                                <th width="90" scope="col">Cantidad</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -50,16 +50,16 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Articulo</th>
-                                                <th scope="col">Costo</th>
-                                                <th scope="col">Cantidad</th>
+                                                <th scope="col"> Articulo</th>
+                                                <th scope="col"> Costo</th>
+                                                <th scope="col"> Cantidad</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="(item,index) in form.request_change_income_items" :key="index">
                                                 <th scope="row">{{index+1}}</th>
-                                                <td>{{item.article.name}}</td>
-                                                <td>{{item.cost}}</td>
+                                                <td>{{item.article.name }}</td>
+                                                <td>{{item.cost}} </td>
                                                 <td>{{item.quantity}}</td>
                                             </tr>
                                         </tbody>
@@ -106,6 +106,7 @@ export default {
         $('#RequestChangeIncomeModal').on('show.bs.modal',(event)=> {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var request_change_income = button.data('json') // Extract info from data-* attributes
+            console.log('rquest',request_change_income);
             this.edited = button.data('edited')
             // console.log(request_change_income);
             // console.log(request_change_income);

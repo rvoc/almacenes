@@ -46,7 +46,7 @@
                             @foreach ($request_articles as $item)
                             <tr>
                                 <td>{{$count++}}</td>
-                                <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{$item->correlative}}</a> </td>
+                                <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a> </td>
                                 <td> {{$item->created_at}} </td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->type}}</td>

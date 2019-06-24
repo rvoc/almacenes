@@ -26,10 +26,8 @@
                                 >
                             </multiselect>
                             <div v-if="sw">
-                              <input type="checkbox" id="articulo" v-model="articulo">
-                              <label >Articulo</label>
-                              <input type="checkbox" id="cantidad" v-model="cantidad">
-                              <label >Cantidad</label>
+                              <label><input type="checkbox" id="articulo" v-model="articulo"> Articulo</label>
+                              <label><input type="checkbox" id="cantidad" v-model="cantidad" @input="mostrarcant()"> Cantidad</label>
                               <br>
                             </div>
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
@@ -63,7 +61,7 @@
                                             <td>{{item.article.name}}</td>
                                             <td v-if="articulo">
                                                 <multiselect
-                                                    v-model="form.articles"
+                                                    v-model="item.articles"
                                                     :options="articles"
                                                     id="tipo"
                                                     placeholder="Seleccionar Articulo"
@@ -211,6 +209,30 @@ export default {
                   {
                     this.sw=false;
                   }
+            },
+             mostrarcost() {
+               // var tipo = document.getElementById('types').value;
+               console.log('cost',this.costo);
+               let mostcost = this.costo;
+               if(mostcost==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        return item;
+                    });
+               }
+            },
+         mostrarcant() {
+               // var tipo = document.getElementById('types').value;
+               console.log('cant',this.cantidad);
+               let mostcant = this.cantidad;
+               if(mostcant==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        return item;
+                    });
+               }
             },
         isDeleted()
         {

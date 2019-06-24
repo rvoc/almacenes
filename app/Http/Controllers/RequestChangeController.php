@@ -44,6 +44,17 @@ class RequestChangeController extends Controller
                                             ->get();
         }
 
+        if(Auth::user()->hasRole('Administrador'))
+        {
+            $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
+                                                    ->where('state','Pendiente Aprobacion')
+                                                    ->get();
+
+            $request_outs = RequestChangeOut::where('storage_id',Auth::user()->getStorage()->id)
+                                            ->where('state','Pendiente Aprobacion')
+                                            ->get();
+        }
+
         if(Auth::user()->hasRole('Encargado de Oficina Central'))
         {
             $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
@@ -62,7 +73,9 @@ class RequestChangeController extends Controller
 
     public function create_change_income($article_income_id)
     {
-        $article_income = ArticleIncome::with('article_income_items')->find($article_income_id);
+        $article_income = ArticleIncome::with('provider')//join('sisme.providers as prov','sisme.article_incomes.provider_id', '=', 'prov.id')
+                                        ->with('article_income_items')->find($article_income_id);
+       // return $article_income;
         $articles = Article::with('unit')->get();//cambiar articulos por los articulos de inventario
 
         // return $articles;
@@ -101,6 +114,7 @@ class RequestChangeController extends Controller
     public function store(Request $request) //neto para el income
     {
         //
+        // return $request->all();
         $request_change = new RequestChangeIncome;
         $request_change->article_income_id = $request->article_income_id;
         $request_change->type = $request->type;
@@ -117,9 +131,11 @@ class RequestChangeController extends Controller
             // {
                 $request_change_income_item = new RequestChangeIncomeItem;
                 $request_change_income_item->request_change_income_id = $request_change->id;
-                $request_change_income_item->article_id = $request_income_item->article_id;//revisar
+                $request_change_income_item->article_id = $request_income_item->arti->id;//revisar
+
                 $request_change_income_item->cost = $request_income_item->new_cost;
                 $request_change_income_item->quantity = $request_income_item->new_quantity;
+                // $request_change_income_item->article_id_new = $request_income_item->arti->id;
                 $request_change_income_item->save();
             // }
         }
