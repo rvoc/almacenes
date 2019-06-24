@@ -73,7 +73,7 @@
                                             <td>{{item.quantity}}</td>
                                             <!-- <input type="text" name="provider_id" v-if="item.article.id" :value="item.article.id"> -->
                                             <td v-if="articulo">
-                                                <input type="text" name="provider_id" v-if="item.arti" :value="item.arti.id" >
+                                                <input type="text" name="provider_id" v-if="item.arti" :value="item.arti.id" hidden>
                                                 <multiselect
                                                     v-model="item.arti"
                                                     :options="articles"
