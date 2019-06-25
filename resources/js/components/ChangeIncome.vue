@@ -1,7 +1,6 @@
 <template>
     <div class="row">
         <div class="col-md-10">
-
             <div class="card">
                 <form id='formChange' method="post" :action="url" @submit.prevent="validateBeforeSubmit">
                     <div v-html='csrf'></div>
@@ -36,12 +35,12 @@
                         </div>
 
                          <div class="form-group  col-md-3" v-if="sw">
-                            <input type="text" name="type" v-if="form.changes" :value="form.changes.id">
+                            <input type="text" name="change" v-if="form.changes" :value="form.changes.id" hidden>
                             <br>
                             <multiselect
                                 v-model="form.changes"
                                 :options="changes"
-                                id="tipo"
+                                id="change"
                                 placeholder="Seleccionar una opcion"
                                 select-label="Seleccionar"
                                 deselect-label="Remover"
@@ -53,8 +52,8 @@
                             </multiselect>
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
-                        <br>
-                        <div class="form-group  col-md-3" v-if="button">
+
+                        <div class="form-group  col-md-3" v-if="button"><br>
                              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
                         </div>
 
@@ -64,15 +63,17 @@
                             <div class="invalid-feedback">{{ errors.first("observation") }}</div>
                         </div>
                         <input type="text" name="request_income_items" :value="JSON.stringify(items)" hidden>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             Numero de Ingreso: {{income.correlative}} <br>
                             Fecha de Ingreso: {{income.created_at}} <br>
                             Proveedor: {{income.provider.name}} <br>
                           <!--   <input type="text" class="form-control" hidden="" v-model="item.new_cost=0" :disabled="isDeleted()" >
                             <input type="text" class="form-control" hidden="" v-model="item.new_quantity=0" :disabled="isDeleted()" > -->
-                           <label v-if="income.path_invoice">Nota Remision: {{income.remision_number}}</label><br>
-                           <label v-if="income.path_invoice">Nueva Nota Remision:</label>
-                           <input type="text" name="request_income_items" >
+                           <label v-if="income.path_invoice">N° Remision: {{income.remision_number}}</label><br>
+                        </div>
+                        <div class="col-md-6" v-if="nota"><br><br><br>
+                           <label>Nuevo N° Remision:</label>
+                           <input type="text" name="request_income_items">
                         </div>
                         <br>
                         <div class="col-md-12">
@@ -109,7 +110,6 @@
                                                     selected-label="Seleccionado"
                                                     label="name"
                                                     track-by="name"
-                                                   
                                                     >
                                                 </multiselect>
                                                <!--  {{ item.article}} -->
@@ -209,7 +209,7 @@ export default {
     data:()=>({
         form:{},
         types:[{id:1,name:'Eliminacion'},{id:2,name:'Modificacion'}],
-        changes:[{id:1,name:'Articulo'},{id:2,name:'Cantidad'},{id:3,name:'Costo'},{id:4,name:'Numero Remision'},{id:5,name:'Adicionar Item'}],
+        changes:[{id:1,name:'Articulo'},{id:2,name:'Cantidad'},{id:3,name:'Costo'},{id:4,name:'N° Remision'},{id:5,name:'Adicionar Item'}],
         items:[],
         item:{},
         sw:false,
@@ -278,24 +278,63 @@ export default {
                   this.articulo=true;
                   this.cantidad=false;
                   this.costo=false;
+                  this.nota=false;
                   this.button=false;
+
+                  console.log('art',this.articulo);
+                  let mostcant = this.cantidad;
+                       if(mostcant==false){
+                         this.items.forEach(item => {
+                                item.new_quantity =0
+                                item.new_cost =0
+                                return item;
+                            });
+                       }
                   }if(combo==2)
                   {
                     this.articulo=false;
                     this.costo=false;
                     this.button=false;
+                    this.nota=false;
                     this.cantidad=true;
+                    console.log('cant',this.cantidad);
+                       let mostcant = this.cantidad;
+                       if(mostcant==false){
+                         this.items.forEach(item => {
+                                item.new_quantity =0
+                                item.new_cost =0
+                                return item;
+                            });
+                       }
                   }if(combo==3)
                   {
                     this.cantidad=false;
                     this.articulo=false;
                     this.button=false;
+                    this.nota=false;
                     this.costo=true;
+                    console.log('cost',this.costo);
+                    let mostcost = this.costo;
+                    if(mostcost==false){
+                     this.items.forEach(item => {
+                            item.new_quantity =0
+                            item.new_cost =0
+                            return item;
+                        });
+                    }
+                  }if(combo==4)
+                  {
+                    this.cantidad=false;
+                    this.articulo=false;
+                    this.costo=false;
+                    this.button=false;
+                    this.nota=true;
                   }if(combo==5)
                   {
                     this.cantidad=false;
                     this.articulo=false;
                     this.costo=false;
+                    this.nota=false;
                     this.button=true;
                   }
             },

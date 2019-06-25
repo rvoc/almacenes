@@ -95,8 +95,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         //reportes Excel
         Route::resource('report_excel','ReportExcelController');
-        Route::get('rptInventario','ReportExcelController@rptInventarioExcel');
-        Route::get('rptResumido','ReportExcelController@rptResumidoExcel');
+        Route::get('rptInventario/{id}','ReportExcelController@rptInventarioExcel');
+        Route::get('rptResumido/{id}','ReportExcelController@rptResumidoExcel');
         Route::get('rptMensual','ReportExcelController@rptMensualExcel');
         Route::get('reporte_Ingreso_General','ReportExcelController@rptIngresoGeneralExcel');
         Route::get('reporte_Salida_General','ReportExcelController@rptIngresoSalidasExcel');
