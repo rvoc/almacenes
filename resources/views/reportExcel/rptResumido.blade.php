@@ -1,18 +1,9 @@
  @php
 
-$articulos = \DB::table('sisme.stocks')
-                ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
-                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
-                ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
-                ->select('art.code as codigo','art.name as detalle', 'uni.name as unidad', 'cat.name as categoria', 'stocks.article_id',DB::raw('sum(stocks.quantity) as quantity'))
-                ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
-                ->get();
 
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
-
-$date=date('Y-m-d');
 
 $almacen = DB::table('sisme.storages')->select('name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)

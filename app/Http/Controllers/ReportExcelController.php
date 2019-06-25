@@ -35,70 +35,65 @@ class ReportExcelController extends Controller
        return view('reportExcel.index');
     }
 
-      public function rptInventarioExcel()
+      public function rptInventarioExcel($dia)
     {
+         //return $dia;
     	$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
-        $usr =collect($user);
-    	$articulos = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
-    	//return $articulos;
-		Excel::create('rptInventario', function($excel)  use ($articulos) {
-		    $excel->sheet('rptInventario', function($sheet)  use ($articulos){
-
-		    	Log::info($articulos);
-		    $sheet->loadView('reportExcel.rptInventario');
-		    // $sheet->loadView('reportExcel.rptInventario', array('articulos' => $articulos ));
-
-
-		    $articulos = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
-
-            // $sheet->row(1, function ($row) {
-            // $row->setFontFamily('Arial');
-            // $row->setFontSize(15);
-            // $row->setAlignment('center');
-            // $row->setFontWeight('bold');
-            // });
-
-
-		    // $sheet->row(7, function($row) {
-      //               $row->setBackground('#186BBA');    
-      //               $row->setBackground('#186BBA'); 
-      //           });
-
-			// $total = count($articulos) + 8 ;
-			// $totalsum = Stock::select(DB::raw("SUM(quantity) as totcant"))->first();
-			// $sheet->mergeCells('A'.$total.':C'.$total.'');
-			// $sheet->row($total, function ($row) {
-			// $row->setFontFamily('Arial');
-			// $row->setFontSize(10);
-			// $row->setAlignment('center');
-			// $row->setFontWeight('bold');
-			// });
-
-			// $sheet->appendRow($total, array(
-			//     'TOTAL','','',''.$totalsum['totcant'].''
-			// ));
-
-
+                // $user1= DB::table('public._bp_personas')
+                // ->where('prs_id','=',Auth::user()->usr_prs_id)
+                // ->first();
+        $date=$dia;
+         // return $date;
+        $articulos = \DB::table('sisme.stocks')
+                ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
+                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
+                ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
+                ->select('art.code as codigo','art.name as detalle', 'uni.name as unidad', 'cat.name as categoria', 'stocks.article_id',DB::raw('sum(stocks.quantity) as quantity'))
+                ->where(DB::raw('cast(stocks.created_at as date)'),'=',$dia)
+                ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
+                ->get();
+         // return $articulos;
+        // $user= DB::table('public._bp_personas')
+        //         ->where('prs_id','=',Auth::user()->usr_prs_id)
+        //         ->first();
+// $date=date('Y-m-d')
+    	// $articulos = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
+    	// return $articulos;
+		Excel::create('rptInventario', function($excel)  use ($articulos, $date, $user) {
+		    $excel->sheet('rptInventario', function($sheet)  use ($articulos, $date, $user){
+		    $sheet->loadView('reportExcel.rptInventario',  array('articulos'=>$articulos), array('date'=>$date), array('user'=>$user));
 		    });
 
 		})->export('xls');
     }
 
-     public function rptResumidoExcel()
+     public function rptResumidoExcel($resdia)
     {
     	$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
         $usr =collect($user);
-    	$articulos = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
-		Excel::create('rptResumen', function($excel)  use ($articulos) {
-		    $excel->sheet('New sheet', function($sheet)  use (&$articulos){
-		        $sheet->loadView('reportExcel.rptResumido');
+        $date=$resdia;
+        $articulos = \DB::table('sisme.stocks')
+                ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
+                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
+                ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
+                ->select('art.code as codigo','art.name as detalle', 'uni.name as unidad', 'cat.name as categoria', 'stocks.article_id',DB::raw('sum(stocks.quantity) as quantity'))
+                ->where(DB::raw('cast(stocks.created_at as date)'),'=',$resdia)
+                ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
+                ->get();
+        // return $articulos;
+
+		Excel::create('rptResumen', function($excel)  use ($articulos, $date) {
+		    $excel->sheet('New sheet', function($sheet)  use (&$articulos, $date){
+		        $sheet->loadView('reportExcel.rptResumido', array('articulos'=>$articulos), array('date'=>$date));
 		    });
+
 		})->export('xls');
     }
+
        public function rptIngresoAlmExcel()
     {
         $user= DB::table('public._bp_personas')
