@@ -29,26 +29,26 @@
                                 <th>Nro Nota Ingreso</th>
                                 <th>Acta de Recpcion</th>
                                 <th>Factura</th>
-                                <th>Fecha Registro</th>
+                                <th>Fecha Ingreso</th>
                                 <th>Persona</th>
                                 <th>Proveedor</th>
-                                <th>Costo</th>
+                                <th>Costo Total</th>
                                 <th>Cantidad Articulos</th>
-                                <th>Accion</th>
+                                <th>Modificaciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($incomes as $item)
                             <tr>
                                 <td>{{$count++}}</td>
-                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}">{{$item->correlative}}</a>
+                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a>
                                 </td>
-                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('minute_note/'.$item->id)}}">{{$item->correlative}}</a>
+                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('minute_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a>
                                 </td>
 
                                 <td>
                                     @if($item->path_invoice)
-                                    <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url(substr($item->path_invoice,7))}}" > <i class="fa fa-file-invoice-dollar text-secondary"></i> </a>
+                                    <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('storage/'.substr($item->path_invoice,7))}}" > <i class="fa fa-file-invoice-dollar text-secondary"></i> </a>
                                     @endif
                                  </td>
                                 <td>{{$item->created_at}}</td>

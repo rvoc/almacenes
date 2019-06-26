@@ -21,9 +21,15 @@
                                 deselect-label="Remover"
                                 selected-label="Seleccionado"
                                 label="name"
-                                track-by="name" >
-
+                                track-by="name"
+                                @input="mostrar()"
+                                >
                             </multiselect>
+                            <div v-if="sw">
+                              <label><input type="checkbox" id="articulo" v-model="articulo"> Articulo</label>
+                              <label><input type="checkbox" id="cantidad" v-model="cantidad" @input="mostrarcant()"> Cantidad</label>
+                              <br>
+                            </div>
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
                         <div class="form-group col-md-12">
@@ -39,25 +45,38 @@
                         </div>
                         <br>
                         <div class="col-md-12">
-
                                 <table class="table">
                                      <thead>
                                         <th scope="col">Nro</th>
                                         <th scope="col">Articulo</th>
+                                        <th scope="col"  v-if="articulo">Nuevo Articulo </th>
                                         <th scope="col">Unidad</th>
                                         <th scope="col">Cantidad</th>
-                                        <th scope="col">Nueva Cantidad</th>
+                                        <th scope="col" v-if="cantidad">Nueva Cantidad</th>
 
                                      </thead>
                                     <tbody>
                                         <tr v-for="(item,index) in items" :key="index" >
                                             <td>{{index+1}}</td>
                                             <td>{{item.article.name}}</td>
+                                            <td v-if="articulo">
+                                                <multiselect
+                                                    v-model="item.articles"
+                                                    :options="articles"
+                                                    id="tipo"
+                                                    placeholder="Seleccionar Articulo"
+                                                    select-label="Seleccionar"
+                                                    deselect-label="Remover"
+                                                    selected-label="Seleccionado"
+                                                    label="name"
+                                                    track-by="name"
+                                                    >
+                                                </multiselect>
+                                            </td>
                                             <td>{{item.article.unit.name}}</td>
                                             <td>{{item.quantity}}</td>
-
-                                            <td>
-                                                <input type="text" class="form-control" v-model="item.new_quantity" :disabled="isDeleted()" >
+                                            <td v-if="cantidad">
+                                                <input type="text" class="form-control" v-model="item.new_quantity" :disabled="isDeleted()">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -68,8 +87,6 @@
                         <button type="button" class="btn btn-danger">Cancelar</button>
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
-
-
                 </div>
                 </form>
             </div>
@@ -128,7 +145,11 @@ export default {
         types:[{id:1,name:'Eliminacion'},{id:2,name:'Modificacion'}],
         items:[],
         item:{},
-        articles:[]
+        articles:[],
+        checkedNames:[],
+        sw:false,
+        articulo:false,
+        cantidad:false,
     }),
     mounted() {
         // console.log(this.income);
@@ -148,6 +169,7 @@ export default {
         //      });
 
     },
+  
     computed:{
 
     },
@@ -177,6 +199,41 @@ export default {
             this.items.push(this.item);
             console.log('aqui deberia adicionar el item');
         },
+          mostrar() {
+               // var tipo = document.getElementById('types').value;
+               console.log('tipooo',this.form.type.id);
+               let tipo = this.form.type.id;
+                 if(tipo==2){
+                  this.sw=true;
+                  }else
+                  {
+                    this.sw=false;
+                  }
+            },
+             mostrarcost() {
+               // var tipo = document.getElementById('types').value;
+               console.log('cost',this.costo);
+               let mostcost = this.costo;
+               if(mostcost==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        return item;
+                    });
+               }
+            },
+         mostrarcant() {
+               // var tipo = document.getElementById('types').value;
+               console.log('cant',this.cantidad);
+               let mostcant = this.cantidad;
+               if(mostcant==false){
+                 this.items.forEach(item => {
+                        item.new_quantity =0
+                        item.new_cost =0
+                        return item;
+                    });
+               }
+            },
         isDeleted()
         {
             let deleted = false;

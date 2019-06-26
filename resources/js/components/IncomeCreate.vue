@@ -204,7 +204,6 @@
         </div>
         </div>
 
-
         <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -214,12 +213,12 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <iframe src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+            <div class="modal-body" width="100%" height="600%">
+                <iframe src="" width="100%" height="600px" frameborder="0" allowtransparency="true"></iframe>
             </div>
             </div>
         </div>
-    </div>
+        </div>
 
 
     </div> <!-- end row -->
@@ -390,7 +389,7 @@ export default {
             let url='/reporte_vista_previa?provider='+encodeURIComponent(this.form.provider.name)+'&type='+encodeURIComponent(this.form.type.name)+'&incomes='+encodeURIComponent(JSON.stringify(this.incomes));
 
             console.log(url);
-            $('#modalPdf .modal-body iframe').attr('src', url);
+             $('#modalPdf .modal-body iframe').attr('src', url);
              $('#modalPdf').modal('show');
             // if(this.form.data)
             // {

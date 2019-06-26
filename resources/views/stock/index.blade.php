@@ -41,10 +41,10 @@
                                 <td>{{$count++}}</td>
                                 <td>{{$item->article->name}}</td>
                                 <td>
-                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('kardex_fisico/'.$item->article->id)}}">{{$item->article_id}}</a>
+                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('kardex_fisico/'.$item->article->id)}}"><i class="far fa-file-pdf"></i></a>
                                 </td>
                                 <td>
-                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('kardex_valorado/'.$item->article->id)}}">{{$item->article_id}}</a>
+                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('kardex_valorado/'.$item->article->id)}}"><i class="far fa-file-pdf"></i></a>
                                 </td>
                                 <td>{{$item->article->unit->name}}</td>
                                 <td>{{$item->article->category->name}}</td>
