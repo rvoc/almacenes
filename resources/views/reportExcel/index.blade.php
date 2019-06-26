@@ -1,161 +1,13 @@
+@php
+$year=date('Y');
+@endphp
 @extends('layouts.app')
-
 @section('content')
   <head>
-    <center><h3>REPORTE</h3></center>
+    {{-- <center><h3>REPORTE</h3></center> --}}
   </head>
 
-  <div id="inventario" style="display: none;">
-  <center><h3>INVENTARIO</h3></center><br>
   <div class="row">
-    <div class="col-md-2">   
-    </div>
-     <div class="col-md-3">
-        <div class="input-group">
-            <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="yyy/mm/dd"> 
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="fechadiainv">Generar por dia</button>
-                </span>
-            </div>                            
-        </div>
-     </div>
-     <div class="col-md-6">
-        <div class="input-group">
-          <div class="input-group">
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_inv_ini" name="dia_inv_ini" placeholder="yyy/mm/dd">
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_inv_fin" name="dia_inv_fin" placeholder="yyy/mm/dd">  
-            </div>
-            <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="rangofechinv">generar rango fechas</button>
-            </span>
-          </div>                            
-        </div>
-     </div> 
-    </div>
-  </div>
-
-  <div id="resumido" style="display: none;">
-  <center><h3>RESUMIDO</h3></center><br>
-  <div class="row">
-    <div class="col-md-2">   
-    </div>
-     <div class="col-md-3">
-        <div class="input-group">
-            <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="resdia" name="resdia" placeholder="yyy/mm/dd" > 
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="fechadiares">Generar por dia</button>
-                </span>
-            </div>                            
-        </div>
-     </div>
-     <div class="col-md-6">
-        <div class="input-group">
-          <div class="input-group">
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_res_ini" name="id_res_ini" placeholder="yyy/mm/dd">
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_res_fin" name="id_res_fin" placeholder="yyy/mm/dd">  
-            </div>
-            <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="rangofechres">generar rango fechas</button>
-            </span>
-          </div>                            
-        </div>
-     </div> 
-    </div>
-  </div>
-
-  <div id="ingreso" style="display: none;">
-  <center><h3>GENERAL DE INGRESOS</h3></center><br>
-  <div class="row">
-    <div class="col-md-2">   
-    </div>
-     <div class="col-md-3">
-        <div class="input-group">
-            <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="ing" name="ing" placeholder="Introduzca dia" > 
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="fechadingr">Generar por dia</button>
-                </span>
-            </div>                            
-        </div>
-     </div>
-     <div class="col-md-6">
-        <div class="input-group">
-          <div class="input-group">
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_ing_ini" name="dia_ing_ini" placeholder="yyy/mm/dd">
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_ing_fin" name="dia_ing_fin" placeholder="yyy/mm/dd">  
-            </div>
-            <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="rangofeching">generar rango fechas</button>
-            </span>
-          </div>                            
-        </div>
-     </div> 
-    </div>
-  </div>
-
-  <div id="salida" style="display: none;">
-  <center><h3>GENERAL DE SALIDAS</h3></center><br>
-  <div class="row">
-    <div class="col-md-2">   
-    </div>
-     <div class="col-md-3">
-        <div class="input-group">
-            <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="idsal" name="idsal" placeholder="yyy/mm/dd" > 
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="fechasal">Generar por dia</button>
-                </span>
-            </div>                            
-        </div>
-     </div>
-     <div class="col-md-6">
-        <div class="input-group">
-          <div class="input-group">
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_sal_ini" name="dia_sal_ini" placeholder="yyy/mm/dd">
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_sal_fin" name="dia_sal_fin" placeholder="yyy/mm/dd">  
-            </div>
-            <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="rangofechsal">generar rango fechas</button>
-            </span>
-          </div>                            
-        </div>
-     </div> 
-    </div>
-  </div>
-
-  <div id="mensual" style="display: none;">
-  <center><h3>MENSUAL</h3></center><br>
-  <div class="row">
-    <div class="col-md-4">   
-    </div>
-     <div class="col-md-3">
-        <div class="input-group">
-            <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="mesrpt" name="mesrpt" placeholder="mm/yyyy" > 
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="mes">Generar mes</button>
-                </span>
-            </div>                            
-        </div>
-     </div>
-    </div>
-  </div>
-  <br>
-<div class="row">
    <div class="col-sm-1 col-6">
     </div>
 
@@ -244,13 +96,180 @@
     {{-- <a href="#" id="mb" class="boton" onclick = "changeColor(this);">enlace</a> --}}
 
   
-  {{-- </div --}}
-@endsection
+  </div>
 
-{{-- @push('scripts') --}}
+  <div id="inventario" style="display: none;">
+    <center><h3>REPORTE</h3></center>
+  <center><h3>INVENTARIO</h3></center><br>
+  <div class="row">
+    <div class="col-md-2">   
+    </div>
+     <div class="col-md-3">
+        <div class="input-group">
+            <div class="input-group">
+              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="yyy/mm/dd"> 
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" id="fechadiainv">Generar por dia</button>
+                </span>
+            </div>                            
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="input-group">
+          <div class="input-group">
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="dia_inv_ini" name="dia_inv_ini" placeholder="yyy/mm/dd">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="dia_inv_fin" name="dia_inv_fin" placeholder="yyy/mm/dd">  
+            </div>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" id="rangofechinv">generar rango fechas</button>
+            </span>
+          </div>                            
+        </div>
+     </div> 
+    </div>
+  </div>
+
+  <div id="resumido" style="display: none;">
+     <center><h3>REPORTE</h3></center>
+  <center><h3>RESUMIDO</h3></center><br>
+  <div class="row">
+    <div class="col-md-2">   
+    </div>
+     <div class="col-md-3">
+        <div class="input-group">
+            <div class="input-group">
+              <input type="text" class="form-control datepickerDays" id="resdia" name="resdia" placeholder="yyy/mm/dd" > 
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" id="fechadiares">Generar por dia</button>
+                </span>
+            </div>                            
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="input-group">
+          <div class="input-group">
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="id_res_ini" name="id_res_ini" placeholder="yyy/mm/dd">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="id_res_fin" name="id_res_fin" placeholder="yyy/mm/dd">  
+            </div>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" id="rangofechres">generar rango fechas</button>
+            </span>
+          </div>                            
+        </div>
+     </div> 
+    </div>
+  </div>
+
+  <div id="ingreso" style="display: none;">
+     <center><h3>REPORTE</h3></center>
+  <center><h3>GENERAL DE INGRESOS</h3></center><br>
+  <div class="row">
+    <div class="col-md-2">   
+    </div>
+     <div class="col-md-3">
+        <div class="input-group">
+            <div class="input-group">
+              <input type="text" class="form-control datepickerDays" id="ing" name="ing" placeholder="Introduzca dia" > 
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" id="fechadingr">Generar por dia</button>
+                </span>
+            </div>                            
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="input-group">
+          <div class="input-group">
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="dia_ing_ini" name="dia_ing_ini" placeholder="yyy/mm/dd">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="dia_ing_fin" name="dia_ing_fin" placeholder="yyy/mm/dd">  
+            </div>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" id="rangofeching">generar rango fechas</button>
+            </span>
+          </div>                            
+        </div>
+     </div> 
+    </div>
+  </div>
+
+  <div id="salida" style="display: none;">
+     <center><h3>REPORTE</h3></center>
+  <center><h3>GENERAL DE SALIDAS</h3></center><br>
+  <div class="row">
+    <div class="col-md-2">   
+    </div>
+     <div class="col-md-3">
+        <div class="input-group">
+            <div class="input-group">
+              <input type="text" class="form-control datepickerDays" id="idsal" name="idsal" placeholder="yyy/mm/dd" > 
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" id="fechasal">Generar por dia</button>
+                </span>
+            </div>                            
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="input-group">
+          <div class="input-group">
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="dia_sal_ini" name="dia_sal_ini" placeholder="yyy/mm/dd">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control datepickerDays" id="dia_sal_fin" name="dia_sal_fin" placeholder="yyy/mm/dd">  
+            </div>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" id="rangofechsal">generar rango fechas</button>
+            </span>
+          </div>                            
+        </div>
+     </div> 
+    </div>
+  </div>
+
+  <div id="mensual" style="display: none;">
+     <center><h3>REPORTE</h3></center>
+  <center><h3>MENSUAL</h3></center><br>
+  <div class="row">
+    <div class="col-md-5">   
+    </div>
+     <div class="col-md-2">
+        <div class="input-group">
+            <div class="input-group">
+                <select class="form-control" id="mesrpt" name="mesrpt">
+                  <option value="01/{{$year}}">ENERO</option>
+                  <option value="02/{{$year}}">FEBRERO</option> 
+                  <option value="03/{{$year}}">MARZO</option>
+                  <option value="04/{{$year}}">ABRIL</option> 
+                  <option value="05/{{$year}}">MAYO</option>
+                  <option value="06/{{$year}}">JUNIO</option> 
+                  <option value="07/{{$year}}">JULIO</option>
+                  <option value="08/{{$year}}">AGOSTO</option> 
+                  <option value="09/{{$year}}">SEPTIEMBRE</option>
+                  <option value="10/{{$year}}">OCTUBRE</option>
+                  <option value="11/{{$year}}">NOVIEMBRE</option>
+                  <option value="12/{{$year}}">DICIEMBRE</option> 
+                </select>   
+              {{-- <input type="text" class="form-control datepickerDays" id="mesrpt" name="mesrpt" placeholder="mm/yyyy" >  --}}
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" id="mes">Generar mes</button>
+                </span>
+            </div>                            
+        </div>
+     </div>
+    </div>
+  </div>
+
+@endsection
 <script>
   @section('script')
-
   // $('#datepicker').datepicker();
   $( "#fechadiainv" ).click(function() {
     var dia = document.getElementById('id_dia').value;
@@ -268,7 +287,6 @@
                     alert("Error");
                 }
             });
-        
       })
 
       $( "#fechadiares" ).click(function() {
@@ -398,9 +416,7 @@
                 }
             }); 
       })
-    
-
-     
+      
       $( "#mostrar" ).click(function() {
         $('#inventario').show();
         $('#resumido').hide();
@@ -458,6 +474,4 @@
   //       language: "es",
   //   }).datepicker("setDate", new Date());  
   @endsection 
-  {{-- @endsection --}}
 </script>
-{{-- @endpush --}}
