@@ -35,9 +35,10 @@ class ReportExcelController extends Controller
        return view('reportExcel.index');
     }
 
-      public function rptInventarioExcel($dia)
+      public function rptInventarioExcel($dia_inicio,$mes_inicio,$anio_inicio)
     {
          //return $dia;
+        $dia = $anio_inicio . "-" . $mes_inicio . "-". $dia_inicio;
     	$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
@@ -101,8 +102,9 @@ class ReportExcelController extends Controller
     }
 
 
-     public function rptResumidoExcel($resdia)
+     public function rptResumidoExcel($dia_inicio,$mes_inicio,$anio_inicio)
     {
+        $resdia = $anio_inicio . "-" . $mes_inicio . "-". $dia_inicio;
     	$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
@@ -218,8 +220,9 @@ class ReportExcelController extends Controller
         })->export('xls');
     }
 
-    public function rptIngresoGeneralExcel($ing)
+    public function rptIngresoGeneralExcel($dia_inicio,$mes_inicio,$anio_inicio)
     {
+        $ing = $anio_inicio . "-" . $mes_inicio . "-". $dia_inicio;
         $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
@@ -240,8 +243,36 @@ class ReportExcelController extends Controller
         })->export('xls');
     }
 
-    public function rptIngresoSalidasExcel($idsal)
+     public function rptIngresoGeneralExcelRango($dia_inicio,$mes_inicio,$anio_inicio,$dia_fin,$mes_fin,$anio_fin)
     {
+        $fechainicial = $anio_inicio . "-" . $mes_inicio . "-". $dia_inicio;
+        $fechafinal = $anio_fin . "-" . $mes_fin . "-" . $dia_fin;
+        // return $fechainicial;
+        // return $fechafinal;
+        $date = $fechainicial." "."AL"." ".$fechafinal;
+        $user= DB::table('public._bp_personas')
+                ->where('prs_id','=',Auth::user()->usr_prs_id)
+                ->first();
+        $usr =collect($user);
+        $ingresos = ArticleIncome::join('sisme.storages as sto', 'sisme.article_incomes.storage_id','=','sto.id')
+                                ->join('sisme.article_income_items as item', 'sisme.article_incomes.id', '=', 'item.article_income_id')
+                                ->join('sisme.articles as art', 'item.article_id', '=', 'art.id')
+                                ->select('sto.name as almacen', 'article_incomes.id as num', 'art.code as codigo', 'art.name as articulo', 'item.quantity as cantidad', 'item.cost as costo')
+                                ->where('article_incomes.storage_id','=', Auth::user()->getStorage()->id)
+                                ->where(DB::raw('cast(article_incomes.created_at as date)'),'>=',$fechainicial)
+                                ->where(DB::raw('cast(article_incomes.created_at as date)'),'<=',$fechafinal)
+                                ->get();
+        // return $ingresos;
+        Excel::create('rptIngresoGeneralRango', function($excel)  use ($ingresos, $date) {
+            $excel->sheet('rptIngresoGeneralRango', function($sheet)  use ($ingresos, $date){
+                $sheet->loadView('reportExcel.rptIngresoGeneralRango', array('ingresos'=>$ingresos), array('date'=>$date));
+            });
+        })->export('xls');
+    }
+
+    public function rptIngresoSalidasExcel($dia_inicio,$mes_inicio,$anio_inicio)
+    {
+        $idsal = $anio_inicio . "-" . $mes_inicio . "-". $dia_inicio;
         $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
@@ -259,6 +290,33 @@ class ReportExcelController extends Controller
         Excel::create('rptSalidaGeneral', function($excel)  use ($salidas, $date) {
             $excel->sheet('rptSalidaGeneral', function($sheet)  use ($salidas, $date){
                 $sheet->loadView('reportExcel.rptSalidaGeneral', array('salidas'=>$salidas), array('date'=>$date));
+            });
+        })->export('xls');
+    }
+
+    public function rptIngresoSalidasExcelRango($dia_inicio,$mes_inicio,$anio_inicio,$dia_fin,$mes_fin,$anio_fin)
+    {
+         $fechainicial = $anio_inicio . "-" . $mes_inicio . "-". $dia_inicio;
+        $fechafinal = $anio_fin . "-" . $mes_fin . "-" . $dia_fin;
+        // return $fechainicial;
+        // return $fechafinal;
+        $date = $fechainicial." "."AL"." ".$fechafinal;
+        $user= DB::table('public._bp_personas')
+                ->where('prs_id','=',Auth::user()->usr_prs_id)
+                ->first();
+        $usr =collect($user);
+        $salidas = ArticleRequest::join('sisme.storages as sto', 'sisme.article_requests.storage_origin_id','=','sto.id')
+                                ->join('sisme.article_request_items as item', 'sisme.article_requests.id', '=', 'item.article_request_id')
+                                ->join('sisme.articles as art', 'item.article_id', '=', 'art.id')
+                                ->select('sto.name as almacen', 'article_requests.id as num', 'art.code as codigo', 'art.name as articulo', 'item.quantity as cantidad', 'item.quantity_apro as cantapro')
+                                ->where('article_requests.storage_origin_id','=', Auth::user()->getStorage()->id)
+                                ->where(DB::raw('cast(article_requests.created_at as date)'),'>=',$fechainicial)
+                                ->where(DB::raw('cast(article_requests.created_at as date)'),'<=',$fechafinal)
+                                ->get();
+        // return $salidas;
+        Excel::create('rptSalidaGeneralRango', function($excel)  use ($salidas, $date) {
+            $excel->sheet('rptSalidaGeneralRango', function($sheet)  use ($salidas, $date){
+                $sheet->loadView('reportExcel.rptSalidaGeneralRango', array('salidas'=>$salidas), array('date'=>$date));
             });
         })->export('xls');
     }
