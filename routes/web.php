@@ -95,15 +95,19 @@ Route::group(['middleware' => ['auth']], function () {
 
         //reportes Excel
         Route::resource('report_excel','ReportExcelController');
-        Route::get('rptInventario/{id}','ReportExcelController@rptInventarioExcel');
+        Route::get('rptInventario/{dia_inicio}/{mes_inicio}/{anio_inicio}','ReportExcelController@rptInventarioExcel');
         Route::get('rptInventarioRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptInventarioExcelRangos');
 
-        Route::get('rptResumido/{id}','ReportExcelController@rptResumidoExcel');
+        Route::get('rptResumido/{dia_inicio}/{mes_inicio}/{anio_inicio}','ReportExcelController@rptResumidoExcel');
         Route::get('rptResumidoRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptResumidoExcelRangos');
 
         Route::get('rptMensual/{mes}/{anio}','ReportExcelController@rptMensualExcel');
-        Route::get('reporte_Ingreso_General/{id}','ReportExcelController@rptIngresoGeneralExcel');
-        Route::get('reporte_Salida_General/{id}','ReportExcelController@rptIngresoSalidasExcel');
+        
+        Route::get('reporte_Ingreso_General/{dia_inicio}/{mes_inicio}/{anio_inicio}','ReportExcelController@rptIngresoGeneralExcel');
+        Route::get('reporte_Ingreso_GeneralRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptIngresoGeneralExcelRango');
+
+        Route::get('reporte_Salida_General/{dia_inicio}/{mes_inicio}/{anio_inicio}','ReportExcelController@rptIngresoSalidasExcel');
+        Route::get('reporte_Salida_GeneralRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptIngresoSalidasExcelRango');
 
         Route::get('rptIngresoAlm/{id}','ReportExcelController@rptIngresoAlmExcel');
         Route::get('listalmacenes','ReportExcelController@listalmacenes');

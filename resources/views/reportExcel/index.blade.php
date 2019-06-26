@@ -2,17 +2,18 @@
 
 @section('content')
   <head>
-    <center><h3>REPORTES</h3></center><br>
+    <center><h3>REPORTE</h3></center>
   </head>
 
   <div id="inventario" style="display: none;">
+  <center><h3>INVENTARIO</h3></center><br>
   <div class="row">
     <div class="col-md-2">   
     </div>
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="Introduzca dia" > 
+              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="yyy/mm/dd"> 
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="button" id="fechadiainv">Generar por dia</button>
                 </span>
@@ -23,10 +24,10 @@
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_inv_ini" name="dia_inv_ini" placeholder="Introduzca dia">
+              <input type="text" class="form-control datepickerDays" id="dia_inv_ini" name="dia_inv_ini" placeholder="yyy/mm/dd">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_inv_fin" name="dia_inv_fin" placeholder="Introduzca dia">  
+              <input type="text" class="form-control datepickerDays" id="dia_inv_fin" name="dia_inv_fin" placeholder="yyy/mm/dd">  
             </div>
             <span class="input-group-btn">
               <button class="btn btn-primary" type="button" id="rangofechinv">generar rango fechas</button>
@@ -38,15 +39,16 @@
   </div>
 
   <div id="resumido" style="display: none;">
+  <center><h3>RESUMIDO</h3></center><br>
   <div class="row">
     <div class="col-md-2">   
     </div>
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="resdia" name="resdia" placeholder="Introduzca dia" > 
+              <input type="text" class="form-control datepickerDays" id="resdia" name="resdia" placeholder="yyy/mm/dd" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="fechadiares">Generar por diaaaa</button>
+                  <button class="btn btn-primary" type="button" id="fechadiares">Generar por dia</button>
                 </span>
             </div>                            
         </div>
@@ -55,10 +57,10 @@
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_res_ini" name="id_res_ini" placeholder="Introduzca dia">
+              <input type="text" class="form-control datepickerDays" id="id_res_ini" name="id_res_ini" placeholder="yyy/mm/dd">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_res_fin" name="id_res_fin" placeholder="Introduzca dia">  
+              <input type="text" class="form-control datepickerDays" id="id_res_fin" name="id_res_fin" placeholder="yyy/mm/dd">  
             </div>
             <span class="input-group-btn">
               <button class="btn btn-primary" type="button" id="rangofechres">generar rango fechas</button>
@@ -70,6 +72,7 @@
   </div>
 
   <div id="ingreso" style="display: none;">
+  <center><h3>GENERAL DE INGRESOS</h3></center><br>
   <div class="row">
     <div class="col-md-2">   
     </div>
@@ -78,7 +81,7 @@
             <div class="input-group">
               <input type="text" class="form-control datepickerDays" id="ing" name="ing" placeholder="Introduzca dia" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="fechadingr">Generar por diaaaa ing</button>
+                  <button class="btn btn-primary" type="button" id="fechadingr">Generar por dia</button>
                 </span>
             </div>                            
         </div>
@@ -87,13 +90,13 @@
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_ing_ini" name="dia_ing_ini" placeholder="Introduzca dia">
+              <input type="text" class="form-control datepickerDays" id="dia_ing_ini" name="dia_ing_ini" placeholder="yyy/mm/dd">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_ing_fin" name="dia_ing_fin" placeholder="Introduzca dia">  
+              <input type="text" class="form-control datepickerDays" id="dia_ing_fin" name="dia_ing_fin" placeholder="yyy/mm/dd">  
             </div>
             <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="">generar rango fechas</button>
+              <button class="btn btn-primary" type="button" id="rangofeching">generar rango fechas</button>
             </span>
           </div>                            
         </div>
@@ -102,15 +105,16 @@
   </div>
 
   <div id="salida" style="display: none;">
+  <center><h3>GENERAL DE SALIDAS</h3></center><br>
   <div class="row">
     <div class="col-md-2">   
     </div>
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="idsal" name="idsal" placeholder="Introduzca dia" > 
+              <input type="text" class="form-control datepickerDays" id="idsal" name="idsal" placeholder="yyy/mm/dd" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="fechasal">Generar por diaaaa sal</button>
+                  <button class="btn btn-primary" type="button" id="fechasal">Generar por dia</button>
                 </span>
             </div>                            
         </div>
@@ -119,13 +123,13 @@
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_inicio" name="id_dia_inicio" placeholder="Introduzca dia">
+              <input type="text" class="form-control datepickerDays" id="dia_sal_ini" name="dia_sal_ini" placeholder="yyy/mm/dd">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_fin" name="id_dia_fin" placeholder="Introduzca dia">  
+              <input type="text" class="form-control datepickerDays" id="dia_sal_fin" name="dia_sal_fin" placeholder="yyy/mm/dd">  
             </div>
             <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="busca_mes" onclick="BuscarfechaRango();">generar rango fechas</button>
+              <button class="btn btn-primary" type="button" id="rangofechsal">generar rango fechas</button>
             </span>
           </div>                            
         </div>
@@ -134,13 +138,14 @@
   </div>
 
   <div id="mensual" style="display: none;">
+  <center><h3>MENSUAL</h3></center><br>
   <div class="row">
     <div class="col-md-4">   
     </div>
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="mesrpt" name="mesrpt" placeholder="Introduzca dia" > 
+              <input type="text" class="form-control datepickerDays" id="mesrpt" name="mesrpt" placeholder="mm/yyyy" > 
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="button" id="mes">Generar mes</button>
                 </span>
@@ -151,7 +156,10 @@
   </div>
   <br>
 <div class="row">
-    <div class="col-sm-3 col-6">
+   <div class="col-sm-1 col-6">
+    </div>
+
+    <div class="col-sm-2 col-6">
       <a href="#" class="boton" id="mostrar">  
       <!-- small box -->
       <div class="small-box bg-info">
@@ -168,7 +176,7 @@
     </div>
   
     <!-- ./col -->
-     <div class="col-sm-3 col-6">
+     <div class="col-sm-2 col-6">
       {{-- <a href="{{ url('rptMensual') }}" class=""> --}}
       <a href="#" class="" id="mostrar4">
       <!-- small box -->
@@ -184,7 +192,7 @@
       </a>
     </div>
     <!-- ./col -->
-   <div class="col-sm-3 col-6">
+   <div class="col-sm-2 col-6">
       {{-- <a href="{{ url('rptResumido') }}" class="" onclick="mostrarinventario();"> --}}
       <a href="#" class="" id="mostrar1">
       <!-- small box -->
@@ -199,14 +207,14 @@
       </div>
       </a>
     </div>
-    <div class="col-sm-3 col-6">
+    <div class="col-sm-2 col-6">
       {{-- <a href="{{ url('reporte_Ingreso_General') }}" class=""> --}}
       <a href="#" class="" id="mostrar2">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
           <h4>REPORTE</h4>
-          <h4>GENERAL DE INGRESO</h4>
+          <h4>INGRESO</h4>
         </div>
         <div class="icon efectoicon">
             <i class="fa fa-file-excel"></i>
@@ -214,14 +222,14 @@
       </div>
       </a>
     </div>
-    <div class="col-sm-3 col-6">
+    <div class="col-sm-2 col-6">
       {{-- <a href="{{ url('reporte_Salida_General') }}" class=""> --}}
       <a href="#" class="" id="mostrar3">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
           <h4>REPORTE</h4>
-          <h4>GENERAL DE SALIDA</h4>
+          <h4>SALIDA</h4>
         </div>
         <div class="icon efectoicon">
             <i class="fa fa-file-excel"></i>
@@ -352,6 +360,38 @@
                 success: function () {
                     // alert(data.toString());
                      document.location.href = '/rptResumidoRango/'+rangores+'';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            }); 
+      })
+
+      $( "#rangofeching" ).click(function() {
+      var rangoing=$("#dia_ing_ini").val()+'/'+$("#dia_ing_fin").val();
+          console.log ('rango',rangoing);
+            $.ajax({
+                type: "GET",
+                url: "/reporte_Ingreso_GeneralRango/"+rangoing+"",
+                success: function () {
+                    // alert(data.toString());
+                     document.location.href = '/reporte_Ingreso_GeneralRango/'+rangoing+'';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            }); 
+      })
+
+      $( "#rangofechsal" ).click(function() {
+      var rangosal=$("#dia_sal_ini").val()+'/'+$("#dia_sal_fin").val();
+          console.log ('rango',rangosal);
+            $.ajax({
+                type: "GET",
+                url: "/reporte_Salida_GeneralRango/"+rangosal+"",
+                success: function () {
+                    // alert(data.toString());
+                     document.location.href = '/reporte_Salida_GeneralRango/'+rangosal+'';
                 },
                 error: function () {
                     alert("Error");
