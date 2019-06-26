@@ -1,15 +1,5 @@
  @php
-$articulos = \DB::table('sisme.article_histories')
-                ->join('sisme.articles as art', 'sisme.article_histories.article_id', '=', 'art.id')
-                ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
-                ->join('sisme.article_income_items as ing', 'sisme.article_histories.article_income_item_id', '=', 'ing.id')
-                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
-                //->join('')
-                ->leftjoin('sisme.article_request_items as sali', 'sisme.article_histories.article_request_item_id', '=', 'sali.id')
-                ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', 'ing.quantity as ingcant', 'article_histories.article_income_item_id',DB::raw('sum(article_histories.quantity_desc) as quantity'))
-                ->groupBy('article_histories.article_income_item_id', 'codigo', 'detalle', 'categoria', 'ingcost', 'unidad', 'ingcant')
-                //->where('article_histories.type', 'Entrada')
-                ->get();
+
 
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)

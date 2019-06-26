@@ -59,11 +59,17 @@ class RequestController extends Controller
 
     public function index_person()
     {
-        $request_articles = ArticleRequest::where('prs_id',Auth::user()->person->prs_id)
+        $request_articles = ArticleRequest::join('sisme.article_request_items as req', 'sisme.article_requests.id','=','req.article_request_id')
+                                            ->join('sisme.storages as stores', 'sisme.article_requests.storage_origin_id','=','stores.id')
+                                            ->select('article_requests.id', 'article_requests.created_at', 'stores.name', 'article_requests.state', DB::raw('sum(req.quantity) as quantity'))
+                                            ->where('prs_id',Auth::user()->person->prs_id)
                                             ->where('storage_destiny_id',Auth::user()->getStorage()->id)
+                                            ->groupBy('article_requests.id', 'article_requests.created_at', 'stores.name', 'article_requests.state')
                                             // ->where('type','=','Funcionario')
-                                            ->orderBy('id','DESC')
+                                            // ->orderBy('id','DESC')
                                             ->get();
+
+         // return $request_articles;
         $count = 1;
         return view('request.index_person',compact('request_articles','count'));
     }
