@@ -2616,6 +2616,13 @@ get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
 
+gijgo@^1.9.13:
+  version "1.9.13"
+  resolved "https://registry.yarnpkg.com/gijgo/-/gijgo-1.9.13.tgz#22c6186252369de3a618e1e6369a923849128b6e"
+  integrity sha512-VxUzueysKaSRpjNM6jiMdoTJuUEWiPJNir5PCVKat6uA1R6vH7crKyFnR/Ey1k2r0i1yvYeJ3QKsPFkTB7aZxg==
+  dependencies:
+    jquery "^3.2.1"
+
 glob-parent@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
@@ -3283,7 +3290,7 @@ jquery-ui@^1.12.1:
   resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.12.1.tgz#bcb4045c8dd0539c134bc1488cdd3e768a7a9e51"
   integrity sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE=
 
-jquery@>=1.12.0, jquery@>=1.7, jquery@^3.1.1, jquery@^3.2, jquery@^3.3.1:
+jquery@>=1.12.0, jquery@>=1.7, jquery@^3.1.1, jquery@^3.2, jquery@^3.2.1, jquery@^3.3.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
 

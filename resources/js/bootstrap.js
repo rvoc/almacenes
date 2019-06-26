@@ -22,6 +22,8 @@ try {
     require('datatables.net-buttons/js/buttons.colVis')( window.$);
     require('datatables.net-buttons/js/buttons.html5')( window.$);
     require('datatables.net-buttons/js/buttons.print')( window.$);
+    // require('gijgo/js/gijgo');
+
 
     // require( 'datatables.net-buttons/js/buttons.colVis.js' )(); // Column visibility
     // require( 'datatables.net-buttons/js/buttons.html5.js' )();  // HTML 5 file export

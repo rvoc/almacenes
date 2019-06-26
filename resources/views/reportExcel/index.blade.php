@@ -3,9 +3,9 @@
 @section('content')
 <div class="row">
 
- 
+
     <div class="col-sm-3 col-6">
-      <a href="{{ url('rptInventario') }}" class=""> 
+      <a href="{{ url('rptInventario') }}" class="">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
@@ -18,7 +18,7 @@
       </div>
       </a>
     </div>
-  
+
     <!-- ./col -->
      <div class="col-sm-3 col-6">
       <a href="{{ url('rptMensual') }}" class="">
@@ -77,7 +77,14 @@
       </div>
       </a>
     </div>
+    <input id="datepicker" width="276" />
 
-  
   {{-- </div --}}
 @endsection
+<script>
+    @section('script')
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    @endsection
+</script>

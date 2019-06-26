@@ -9,6 +9,7 @@ require('./bootstrap');
 import VeeValidate from "vee-validate";
 import Multiselect from 'vue-multiselect';
 
+// import "gijgo";
 // import VueMaterial from 'vue-material'
 // import 'vue-material/dist/vue-material.min.css'
 // import { MdSwicth } from 'vue-material/dist/components';
