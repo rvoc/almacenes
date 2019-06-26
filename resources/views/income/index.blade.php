@@ -29,12 +29,12 @@
                                 <th>Nro Nota Ingreso</th>
                                 <th>Acta de Recpcion</th>
                                 <th>Factura</th>
-                                <th>Fecha Registro</th>
+                                <th>Fecha Ingreso</th>
                                 <th>Persona</th>
                                 <th>Proveedor</th>
-                                <th>Costo</th>
+                                <th>Costo Total</th>
                                 <th>Cantidad Articulos</th>
-                                <th>Accion</th>
+                                <th>Modificaciones</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -28,7 +28,7 @@
                             <tr>
                                 <th>Id.</th>
                                 <th>Nombre</th>
-                                <th>abreviatura</th>
+                                <th>Sigla</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>

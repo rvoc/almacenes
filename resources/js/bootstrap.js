@@ -22,7 +22,10 @@ try {
     require('datatables.net-buttons/js/buttons.colVis')( window.$);
     require('datatables.net-buttons/js/buttons.html5')( window.$);
     require('datatables.net-buttons/js/buttons.print')( window.$);
+    require('datepicker-bootstrap/js/core.min.js');
+    require('datepicker-bootstrap/js/datepicker.min.js');
 
+    
     // require( 'datatables.net-buttons/js/buttons.colVis.js' )(); // Column visibility
     // require( 'datatables.net-buttons/js/buttons.html5.js' )();  // HTML 5 file export
     // require( 'datatables.net-buttons/js/buttons.flash.js' )();  // Flash file export

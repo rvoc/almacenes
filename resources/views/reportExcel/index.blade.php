@@ -2,7 +2,7 @@
 
 @section('content')
   <head>
-    <center><h3>REPORTES GENERALES</h3></center><br>
+    <center><h3>REPORTES</h3></center><br>
   </head>
 
   <div id="inventario" style="display: none;">
@@ -14,7 +14,7 @@
             <div class="input-group">
               <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="Introduzca dia" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="busca_mes" onclick="fechadiainv();">Generar por dia</button>
+                  <button class="btn btn-primary" type="button" id="fechadiainv">Generar por dia</button>
                 </span>
             </div>                            
         </div>
@@ -23,13 +23,13 @@
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_inicio" name="id_dia_inicio" placeholder="Introduzca dia">
+              <input type="text" class="form-control datepickerDays" id="dia_inv_ini" name="dia_inv_ini" placeholder="Introduzca dia">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_fin" name="id_dia_fin" placeholder="Introduzca dia">  
+              <input type="text" class="form-control datepickerDays" id="dia_inv_fin" name="dia_inv_fin" placeholder="Introduzca dia">  
             </div>
             <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="busca_mes" onclick="BuscarfechaRango();">generar rango fechas</button>
+              <button class="btn btn-primary" type="button" id="rangofechinv">generar rango fechas</button>
             </span>
           </div>                            
         </div>
@@ -46,7 +46,7 @@
             <div class="input-group">
               <input type="text" class="form-control datepickerDays" id="resdia" name="resdia" placeholder="Introduzca dia" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="busca_res" onclick="fechadiares();">Generar por diaaaa</button>
+                  <button class="btn btn-primary" type="button" id="fechadiares">Generar por diaaaa</button>
                 </span>
             </div>                            
         </div>
@@ -55,13 +55,13 @@
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_inicio" name="id_dia_inicio" placeholder="Introduzca dia">
+              <input type="text" class="form-control datepickerDays" id="id_res_ini" name="id_res_ini" placeholder="Introduzca dia">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_fin" name="id_dia_fin" placeholder="Introduzca dia">  
+              <input type="text" class="form-control datepickerDays" id="id_res_fin" name="id_res_fin" placeholder="Introduzca dia">  
             </div>
             <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="busca_mes" onclick="BuscarfechaRango();">generar rango fechas</button>
+              <button class="btn btn-primary" type="button" id="rangofechres">generar rango fechas</button>
             </span>
           </div>                            
         </div>
@@ -76,9 +76,9 @@
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="Introduzca dia" > 
+              <input type="text" class="form-control datepickerDays" id="ing" name="ing" placeholder="Introduzca dia" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="busca_mes" onclick="fechadia();">Generar por diaaaa ing</button>
+                  <button class="btn btn-primary" type="button" id="fechadingr">Generar por diaaaa ing</button>
                 </span>
             </div>                            
         </div>
@@ -87,13 +87,13 @@
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_inicio" name="id_dia_inicio" placeholder="Introduzca dia">
+              <input type="text" class="form-control datepickerDays" id="dia_ing_ini" name="dia_ing_ini" placeholder="Introduzca dia">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="id_dia_fin" name="id_dia_fin" placeholder="Introduzca dia">  
+              <input type="text" class="form-control datepickerDays" id="dia_ing_fin" name="dia_ing_fin" placeholder="Introduzca dia">  
             </div>
             <span class="input-group-btn">
-              <button class="btn btn-primary" type="button" id="busca_mes" onclick="BuscarfechaRango();">generar rango fechas</button>
+              <button class="btn btn-primary" type="button" id="">generar rango fechas</button>
             </span>
           </div>                            
         </div>
@@ -108,9 +108,9 @@
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="Introduzca dia" > 
+              <input type="text" class="form-control datepickerDays" id="idsal" name="idsal" placeholder="Introduzca dia" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="busca_mes" onclick="fechadia();">Generar por diaaaa sal</button>
+                  <button class="btn btn-primary" type="button" id="fechasal">Generar por diaaaa sal</button>
                 </span>
             </div>                            
         </div>
@@ -140,9 +140,9 @@
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="Introduzca dia" > 
+              <input type="text" class="form-control datepickerDays" id="mesrpt" name="mesrpt" placeholder="Introduzca dia" > 
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="busca_mes" onclick="fechadia();">Generar mes</button>
+                  <button class="btn btn-primary" type="button" id="mes">Generar mes</button>
                 </span>
             </div>                            
         </div>
@@ -152,9 +152,10 @@
   <br>
 <div class="row">
     <div class="col-sm-3 col-6">
-      <a href="#" class=""  onclick="mostrar();"> 
+      <a href="#" class="boton" id="mostrar">  
       <!-- small box -->
       <div class="small-box bg-info">
+        {{-- style="background: rgb(249, 249, 249);"rgb(247, 211, 88) --}}
         <div class="inner">
           <h4>REPORTE</h4></strong>
           <h4>INVENTARIO</h4>
@@ -169,7 +170,7 @@
     <!-- ./col -->
      <div class="col-sm-3 col-6">
       {{-- <a href="{{ url('rptMensual') }}" class=""> --}}
-      <a href="#" class="" onclick="mostrar4();">
+      <a href="#" class="" id="mostrar4">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
@@ -185,7 +186,7 @@
     <!-- ./col -->
    <div class="col-sm-3 col-6">
       {{-- <a href="{{ url('rptResumido') }}" class="" onclick="mostrarinventario();"> --}}
-      <a href="#" class="" onclick="mostrar1();">
+      <a href="#" class="" id="mostrar1">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
@@ -200,7 +201,7 @@
     </div>
     <div class="col-sm-3 col-6">
       {{-- <a href="{{ url('reporte_Ingreso_General') }}" class=""> --}}
-      <a href="#" class="" onclick="mostrar2();">
+      <a href="#" class="" id="mostrar2">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
@@ -215,7 +216,7 @@
     </div>
     <div class="col-sm-3 col-6">
       {{-- <a href="{{ url('reporte_Salida_General') }}" class=""> --}}
-      <a href="#" class="" onclick="mostrar3();">
+      <a href="#" class="" id="mostrar3">
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
@@ -228,6 +229,11 @@
       </div>
       </a>
     </div>
+    {{-- <input id="datepicker" /> --}}
+    {{-- <script>
+        $('#datepicker').datepicker();
+    </script>  --}}
+    {{-- <a href="#" id="mb" class="boton" onclick = "changeColor(this);">enlace</a> --}}
 
   
   {{-- </div --}}
@@ -235,12 +241,11 @@
 
 {{-- @push('scripts') --}}
 <script>
-  {{-- @section('script') --}}
+  @section('script')
 
-  // $(document).ready(function () {
-     function fechadiainv(){
-        // $('#id_dia').click(function () {
-          var dia = document.getElementById('id_dia').value;
+  // $('#datepicker').datepicker();
+  $( "#fechadiainv" ).click(function() {
+    var dia = document.getElementById('id_dia').value;
             $.ajax({
                 type: "GET",
                 url: "/rptInventario/"+dia+"",
@@ -255,11 +260,11 @@
                     alert("Error");
                 }
             });
-        // });
-      }
+        
+      })
 
-      function fechadiares(){
-          var resdia = document.getElementById('resdia').value;
+      $( "#fechadiares" ).click(function() {
+      var resdia = document.getElementById('resdia').value;
           console.log('ress',resdia);
             $.ajax({
                 type: "GET",
@@ -272,53 +277,147 @@
                     alert("Error");
                 }
             });
-      }
+      })
 
-     function mostrar(){
+      $( "#fechadingr" ).click(function() {
+        var ing = document.getElementById('ing').value;
+          console.log('ress',ing);
+            $.ajax({
+                type: "GET",
+                url: "/reporte_Ingreso_General/"+ing+"",
+                success: function () {
+                    // alert(data.toString());
+                     document.location.href = '/reporte_Ingreso_General/'+ing+'';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+      })
+
+      $( "#fechasal" ).click(function() {
+      var idsal = document.getElementById('idsal').value;
+          console.log('sal',idsal);
+            $.ajax({
+                type: "GET",
+                url: "/reporte_Salida_General/"+idsal+"",
+                success: function () {
+                    // alert(data.toString());
+                     document.location.href = '/reporte_Salida_General/'+idsal+'';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+      })
+
+      $( "#mes" ).click(function() {
+      var mesrpt = document.getElementById('mesrpt').value;
+          console.log('mes',mesrpt);
+            $.ajax({
+                type: "GET",
+                url: "/rptMensual/"+mesrpt+"",
+                success: function () {
+                    // alert(data.toString());
+                     document.location.href = '/rptMensual/'+mesrpt+'';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+      })
+    
+      $( "#rangofechinv" ).click(function() {
+      var rangoinv=$("#dia_inv_ini").val()+'/'+$("#dia_inv_fin").val();
+          console.log ('rango',rangoinv);
+            $.ajax({
+                type: "GET",
+                url: "/rptInventarioRango/"+rangoinv+"",
+                success: function () {
+                    // alert(data.toString());
+                     document.location.href = '/rptInventarioRango/'+rangoinv+'';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            }); 
+      })
+
+      $( "#rangofechres" ).click(function() {
+      var rangores=$("#id_res_ini").val()+'/'+$("#id_res_fin").val();
+          console.log ('rango',rangores);
+            $.ajax({
+                type: "GET",
+                url: "/rptResumidoRango/"+rangores+"",
+                success: function () {
+                    // alert(data.toString());
+                     document.location.href = '/rptResumidoRango/'+rangores+'';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            }); 
+      })
+    
+
+     
+      $( "#mostrar" ).click(function() {
         $('#inventario').show();
         $('#resumido').hide();
         $('#ingreso').hide();
         $('#salida').hide();
         $('#mensual').hide();
-     }
+      })
 
-     function mostrar1(){    
+      $( "#mostrar1" ).click(function() {
         $('#inventario').hide();
         $('#resumido').show(); 
         $('#ingreso').hide();
         $('#salida').hide();
         $('#mensual').hide();
-      }
+      })
 
-     function mostrar2(){    
+      $( "#mostrar2" ).click(function() {
         $('#inventario').hide();
         $('#resumido').hide(); 
         $('#salida').hide();
         $('#mensual').hide();
         $('#ingreso').show();
-      }
+      })
 
-     function mostrar3(){    
+      $( "#mostrar3" ).click(function() {
         $('#inventario').hide();
         $('#resumido').hide(); 
         $('#ingreso').hide();
         $('#mensual').hide();
         $('#salida').show();
-      }
+      })
 
-     function mostrar4(){    
+      $( "#mostrar4" ).click(function() {
         $('#inventario').hide();
         $('#resumido').hide(); 
         $('#ingreso').hide();
         $('#salida').hide();
         $('#mensual').show();
-      }
+      })
+
+//       function changeColor(x)
+// {
+//     if(x.style.background=="rgb(247, 211, 88)")
+//     {
+//         x.style.background="#fff";
+//     }else{
+//         x.style.background="#F7D358";
+//     }
+//     return false;
+// }
 
     // });
   // $('.datepickerDays').datepicker({
   //       format: "dd/mm/yyyy",        
   //       language: "es",
   //   }).datepicker("setDate", new Date());  
+  @endsection 
   {{-- @endsection --}}
 </script>
 {{-- @endpush --}}
