@@ -187,7 +187,7 @@ class ReportExcelController extends Controller
     // }
     public function rptMensualExcel($mes, $anio)
     {
-        // return $anio;
+        // return $mes;
         $anio1 = $anio;        
         $diafinal = date("d", mktime(0, 0, 0, $mes + 1, 0, $anio1));
         $fechainicial = $anio1 . "-" . $mes . "-01";
@@ -198,7 +198,44 @@ class ReportExcelController extends Controller
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
         $usr =collect($user);
-        // ->where(DB::raw('cast(stocks.created_at as date)'),'=',$resdia)
+        if($mes==1)
+        {
+            $mes='ENERO';
+        }if($mes==2)
+        {
+            $mes='FEBRERO';
+        }if($mes==3)
+        {
+            $mes='MARZO';
+        }if($mes==4)
+        {
+            $mes='ABRIL';
+        }if($mes==5)
+        {
+            $mes='MAYO';
+        }if($mes==6)
+        {
+            $mes='JUNIO';
+        }if($mes==7)
+        {
+            $mes='JULIO';
+        }if($mes==8)
+        {
+            $mes='AGOSTO';
+        }if($mes==9)
+        {
+            $mes='SEPTIEMBRE';
+        }if($mes==10)
+        {
+            $mes='OCTUBRE';
+        }if($mes==11)
+        {
+            $mes='NOVIEMBRE';
+        }if($mes==12)
+        {
+            $mes='DICIEMBRE';
+        }
+        // return $mes;
         $articulos = \DB::table('sisme.article_histories')
                 ->join('sisme.articles as art', 'sisme.article_histories.article_id', '=', 'art.id')
                 ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
@@ -212,10 +249,9 @@ class ReportExcelController extends Controller
                 //->where('article_histories.type', 'Entrada')
                 ->get();
         // return $articulos;
-
-        Excel::create('rptMensual', function($excel)  use ($articulos) {
-            $excel->sheet('New sheet', function($sheet)  use (&$articulos){
-                $sheet->loadView('reportExcel.rptMensual', array('articulos'=>$articulos));
+        Excel::create('rptMensual', function($excel)  use ($articulos,$mes) {
+            $excel->sheet('New sheet', function($sheet)  use (&$articulos,$mes){
+                $sheet->loadView('reportExcel.rptMensual', array('articulos'=>$articulos), array('mes'=>$mes));
             });
         })->export('xls');
     }
