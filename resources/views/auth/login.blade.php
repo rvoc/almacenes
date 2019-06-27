@@ -48,10 +48,15 @@
                 </div>
             </div>
         </div> --}}
+        @php
+            $date=date('Y-m-d');
+        @endphp
+        <input type="text" class="form-control" id="date" name="date" value="{{ $date }}"> 
         <div class="container-login100-form-btn">
-                <button type="submit" class="login100-form-btn">
+                <button type="submit" class="login100-form-btn" onclick="dateufv();">
                     Iniciar Sesion
                 </button>
+                 
         </div>
         {{-- <div class="form-group row mb-0">
             <div class="col-md-8 offset-md-4">
@@ -62,3 +67,45 @@
         </div> --}}
     </form>
 @endsection
+<script>
+    {{-- @section('script') --}}
+    function dateufv(){
+          var date = document.getElementById('date').value;
+         console.log('esta es la fecha', date);
+         // $.ajax({
+         //        type: "GET",
+         //        url: "/dateufv/"+date+"",
+         //        // data: { idProveedor: 1 },
+         //        // data: {"id_dia": $("#id_dia").val()},
+         //        // dataType: "json",
+         //        success: function () {
+         //            // alert('ingresa');
+         //            //alert(data.toString());
+         //             document.location.href = '/dateufv/'+date+'';
+         //        },
+         //        error: function () {
+         //            alert("Error");
+         //        }
+         //    });
+    }
+        // $( "#dateufv" ).click(function() {
+        //     alert('este es la fecha');
+        //  var date = document.getElementById('date').value;
+        //  console.log('esta es la fecha', date);
+            // $.ajax({
+            //     type: "GET",
+            //     url: "/rptInventario/"+dia+"",
+            //     // data: { idProveedor: 1 },
+            //     // data: {"id_dia": $("#id_dia").val()},
+            //     // dataType: "json",
+            //     success: function () {
+            //         // alert(data.toString());
+            //          document.location.href = '/rptInventario/'+dia+'';
+            //     },
+            //     error: function () {
+            //         alert("Error");
+            //     }
+            // });
+      // })
+    {{-- @endsection --}}
+</script>

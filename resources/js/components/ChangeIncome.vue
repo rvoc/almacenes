@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-md-6" v-if="nota"><br><br><br>
                            <label>Nuevo N° Remision:</label>
-                           <input type="text" name="request_income_items">
+                           <input type="text" name="new_nota" id="new_nota" v-model="form.new_nota">
                         </div>
                         <br>
                         <div class="col-md-12">
@@ -274,6 +274,7 @@ export default {
                // var tipo = document.getElementById('types').value;
                console.log('modddd',this.form.changes.id);
                let combo = this.form.changes.id;
+               // console.log('ESTE ES ITEM',this.articles);
                  if(combo==1){
                   this.articulo=true;
                   this.cantidad=false;
@@ -282,11 +283,15 @@ export default {
                   this.button=false;
 
                   console.log('art',this.articulo);
-                  let mostcant = this.cantidad;
-                       if(mostcant==false){
+                  let mostart = this.cantidad;
+                  console.log('artttq??',mostart)
+                       if(mostart==false){
                          this.items.forEach(item => {
+                            // this.id=null;
                                 item.new_quantity =0
                                 item.new_cost =0
+                                // item.arti=null
+                                // console.log()
                                 return item;
                             });
                        }
@@ -298,7 +303,7 @@ export default {
                     this.nota=false;
                     this.cantidad=true;
                     console.log('cant',this.cantidad);
-                       let mostcant = this.cantidad;
+                    let mostcant = this.costo;
                        if(mostcant==false){
                          this.items.forEach(item => {
                                 item.new_quantity =0
@@ -314,7 +319,7 @@ export default {
                     this.nota=false;
                     this.costo=true;
                     console.log('cost',this.costo);
-                    let mostcost = this.costo;
+                    let mostcost = this.cantidad;
                     if(mostcost==false){
                      this.items.forEach(item => {
                             item.new_quantity =0
@@ -329,6 +334,15 @@ export default {
                     this.costo=false;
                     this.button=false;
                     this.nota=true;
+                    console.log('cant',this.cantidad);
+                    let mostcant = this.costo;
+                       if(mostcant==false){
+                         this.items.forEach(item => {
+                                item.new_quantity =0
+                                item.new_cost =0
+                                return item;
+                            });
+                       }
                   }if(combo==5)
                   {
                     this.cantidad=false;
@@ -336,50 +350,59 @@ export default {
                     this.costo=false;
                     this.nota=false;
                     this.button=true;
+                    console.log('cant',this.cantidad);
+                    let mostcant = this.costo;
+                       if(mostcant==false){
+                         this.items.forEach(item => {
+                                item.new_quantity =0
+                                item.new_cost =0
+                                return item;
+                            });
+                       }
                   }
             },
-         mostrarcost() {
-               // var tipo = document.getElementById('types').value;
-               console.log('cost',this.costo);
-                // console.log('artid',this.item.article.id);
-               let mostcost = this.costo;
-               if(mostcost==false){
-                 this.items.forEach(item => {
-                        item.new_quantity =0
-                        item.new_cost =0
-                        // item.arti =this.item.article
-                        return item;
-                    });
-               }
-            },
-         mostrarcant() {
-               // var tipo = document.getElementById('types').value;
-               console.log('cant',this.cantidad);
-               let mostcant = this.cantidad;
-               if(mostcant==false){
-                 this.items.forEach(item => {
-                        item.new_quantity =0
-                        item.new_cost =0
-                        // item.arti =this.item.article
-                        // item.arti.id =0
-                        // item.arti =0
-                        return item;
-                    });
-               }
-            },
+         // mostrarcost() {
+         //       // var tipo = document.getElementById('types').value;
+         //       console.log('cost',this.costo);
+         //        // console.log('artid',this.item.article.id);
+         //       let mostcost = this.costo;
+         //       if(mostcost==false){
+         //         this.items.forEach(item => {
+         //                item.new_quantity =0
+         //                item.new_cost =0
+         //                // item.arti =this.item.article
+         //                return item;
+         //            });
+         //       }
+         //    },
+         // mostrarcant() {
+         //       // var tipo = document.getElementById('types').value;
+         //       console.log('cant',this.cantidad);
+         //       let mostcant = this.cantidad;
+         //       if(mostcant==false){
+         //         this.items.forEach(item => {
+         //                item.new_quantity =0
+         //                item.new_cost =0
+         //                // item.arti =this.item.article
+         //                // item.arti.id =0
+         //                // item.arti =0
+         //                return item;
+         //            });
+         //       }
+         //    },
 
-         mostrart() {
-               // var tipo = document.getElementById('types').value;
-               console.log('art',this.articulo);
-               let mostart = this.articulo;
-               if(mostart==false){
-                 this.items.forEach(item => {
-                        item.new_quantity =0
-                        item.new_cost =0
-                        return item;
-                    });
-               }
-            },
+         // mostrart() {
+         //       // var tipo = document.getElementById('types').value;
+         //       console.log('art',this.articulo);
+         //       let mostart = this.articulo;
+         //       if(mostart==false){
+         //         this.items.forEach(item => {
+         //                item.new_quantity =0
+         //                item.new_cost =0
+         //                return item;
+         //            });
+         //       }
+         //    },
          mostraridart() {
                // var tipo = document.getElementById('types').value;
                // this.form.type.id

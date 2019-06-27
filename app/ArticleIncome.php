@@ -22,6 +22,10 @@ class ArticleIncome extends Model
     {
         return $this->hasMany('App\ArticleIncomeItem')->with('article');
     }
+    // public function request_change_incomes()
+    // {
+    //     return $this->hasMany('App\RequestChangeIncome')->with('article');
+    // }
 
     public function getTotalQuantity()
     {
