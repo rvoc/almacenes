@@ -17,9 +17,12 @@ class StockController extends Controller
     public function index()
     {
         //
-        $stocks = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->get();
+        $stocks = Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->orderbydesc('article_id')->get();
+       //return $stocks;
         $count=1;
         return view('stock.index',compact('stocks','count'));
+
+        //->orderBy('')
     }
 
     /**

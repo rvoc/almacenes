@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('income', 'IncomeController');
         Route::resource('stock', 'StockController');
         Route::resource('request', 'RequestController');
+        Route::resource('ufv', 'UfvController');
 
         Route::resource('print', 'ReportController');
 
@@ -125,6 +126,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('store_out','RequestChangeController@store_out'); //guardado de la  solicitud de salida
         Route::get('request_change_out/{request_change_out_id}','RequestChangeController@show_out'); //
         Route::post('confirm_out','RequestChangeController@confirmOut');
+
+        Route::get('dateufv/{date}','LoginController@get_ufv');
 
     });
 

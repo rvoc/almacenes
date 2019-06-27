@@ -298,6 +298,12 @@
                                         <p>Articulos</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('ufv') }}" class="nav-link {{ Navigation::isActiveRoute('budge_item.index') }}">
+                                        <i class="fas fa-box nav-icon"></i>
+                                        <p>UFV</p>
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>

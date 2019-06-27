@@ -61,8 +61,8 @@
                             <tr>
                             <th scope="col">#</th>
                             <th scope="col">Articulo</th>
-                            <th scope="col">Costo Unitario</th>
                             <th scope="col">Cantidad</th>
+                            <th scope="col">Costo Unitario</th>
                             <th scope="col">Subtotal</th>
                             <th scope="col"></th>
                             </tr>
@@ -71,14 +71,15 @@
                             <tr v-for="(item,index) in incomes" :key="index">
                                 <th scope="row">{{index+1}}</th>
                                 <td>{{item.article.name}}</td>
+                                 <td>{{item.quantity}}</td>
                                 <td>{{item.cost}}</td>
-                                <td>{{item.quantity}}</td>
                                 <td>{{subTotal(item)}}</td>
                                 <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td>
                             </tr>
                             <tr >
-                                <td colspan="3" class="text-right " > <strong>TOTAL:</strong> </td>
+                                <td colspan="2" class="text-right " > <strong>TOTAL:</strong> </td>
                                 <td>{{getTotalQuantity}}</td>
+                                <td>{{getTotCost}}</td>
                                 <td>{{getTotalCost}}</td>
                                 <td></td>
                             </tr>
@@ -169,8 +170,8 @@
                                     <tr class="bg-gray">
                                     <th scope="col">#</th>
                                     <th scope="col">Articulo</th>
+                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Costo</th>
-                                    <th scope="col">Cantidad</th>
                                     <th scope="col">Subtotal</th>
                                     </tr>
                                 </thead>
@@ -178,15 +179,16 @@
                                     <tr v-for="(item,index) in incomes" :key="index">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{item.article.name}}</td>
-                                        <td>{{item.cost}}</td>
                                         <td>{{item.quantity}}</td>
+                                        <td>{{item.cost}}</td>
                                         <td>{{ subTotal(item) }}</td>
 
                                         <!-- <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td> -->
                                     </tr>
                                     <tr >
-                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                        <td colspan="2" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
                                         <td>{{getTotalQuantity}}</td>
+                                        <td>{{getTotCost}}</td>
                                         <td>{{getTotalCost}}</td>
                                     </tr>
 
@@ -252,13 +254,13 @@ export default {
                 },
                 sort: true,
             },
+             {
+                label: "Cantidad",
+                name: "quantity",
+            },
             {
                 label: "Costo Unitario",
                 name: "cost",
-            },
-            {
-                label: "Cantidad",
-                name: "quantity",
             },
 
             {
@@ -289,9 +291,12 @@ export default {
     },
     methods: {
         addIncome(item){
+             console.log('articulossss',item.quantity);
             this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+           // let cant = this.articles;
+           
             item.quantity = '';
-            item.cost ='';
+           // item.cost ='';
             console.log(item);
         },
         deleteIncome(index){
@@ -422,6 +427,15 @@ export default {
                 console.log(item.quantity);
             });
             return quantity;
+        },
+        getTotCost(){
+            let cost= 0;
+            this.incomes.forEach(item => {
+                // this.quantity += parseInt(item.quantity)
+                cost += Number(item.cost)
+                console.log(item.cost);
+            });
+            return cost;
         }
     },
     components: {
