@@ -32,7 +32,8 @@
                         <thead>
                             <tr>
                                 <th>Nro </th>
-                                <th>Nro Nota Solicitud</th>
+                                <th>Codigo Solicitud</th>
+                                <th>Acta Recepcion</th>
                                 <th>Fecha Solicitud</th>
                                 <th>Cantidad</th>
                                 <th>Almacen</th>
@@ -44,6 +45,7 @@
                             @foreach ($request_articles as $item)
                             <tr>
                                 <td>{{$count++}}</td>
+                                <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{$item->correlative}}</a> </td>
                                 <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a> </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->quantity}}</td>

@@ -237,10 +237,16 @@ export default {
     },
     methods: {
         addIncome(item){
-            this.incomes.push({article:item,quantity:item.quantity});
-            item.quantity = '';
-            item.cost ='';
-            // console.log(item);
+            console.log('articulossss',item.quantity);
+             if(item.quantity>0) 
+             {
+                // alert('es mayor a cero');
+                this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+                item.quantity = '';
+                // item.cost ='';
+             }else{
+                alert('La cantidad, no debe ser vacio y debe ser mayor a 0!!!');
+             }
         },
         deleteIncome(index){
 

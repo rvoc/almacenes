@@ -124,26 +124,7 @@ class IncomeController extends Controller
 
     public function vistaprevia()
     {
-        //
-        // return $request->all();
-        // $articles = json_decode($request->articles);
-        // // return $articles;
-        // $last_income = ArticleIncome::where('storage_id',Auth::user()->getStorage()->id)->max('correlative');
-        // $counter=0;
-        // // return $counter;
-        // if(!$last_income){
-        //     $counter=1;
-        // }
-        // else{
-        //     $counter=$last_income+1;
-        // }
-        // return $counter;
-        // return $last_income;
-        // return $request->all();
-
-
-
-
+       
         session()->flash('message','Se realizo el ingreso ');
         session()->flash('url',url('vista_previa'));
 

@@ -201,6 +201,10 @@ class ReportController extends Controller
         Log::info($provider);
         $type = request('type');
         Log::info($type);
+        $numremision = request('numremision');
+        Log::info($numremision);
+        $fecha = request('fecha');
+        Log::info($fecha);
         $incomes = json_decode(request('incomes'));
         Log::info($incomes);
         $username = Auth::user()->usr_usuario;
@@ -213,7 +217,7 @@ class ReportController extends Controller
         // $storage = $article_request->storage_destiny->name;
         $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 
-        $view = \View::make('report.income_note_preview', compact('username','date','title', 'code','provider','type','incomes'));
+        $view = \View::make('report.income_note_preview', compact('username','date','title', 'code','provider','type','incomes', 'numremision','fecha'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
@@ -283,6 +287,7 @@ class ReportController extends Controller
         $username = Auth::user()->usr_usuario;
         $count = 1;
         $total_quantity=0;
+        $year=date('Y');
 
         // $persona = $username->getFullName(); //esto esta mal tambien
         // $gerencia = $username->getGerencia();
@@ -295,7 +300,7 @@ class ReportController extends Controller
         // $storage = $article_request->storage_destiny->name;
         $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 
-        $view = \View::make('report.request_note_preview', compact('username','date','title', 'code','funcionario','gerencia','incomes','persona', 'article_request','count','total_quantity'));
+        $view = \View::make('report.request_note_preview', compact('username','date','title', 'code','funcionario','gerencia','incomes','persona', 'article_request','count','total_quantity','year'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
