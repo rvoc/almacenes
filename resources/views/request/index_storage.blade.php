@@ -34,7 +34,7 @@
                         <thead>
                             <tr>
                                 <th>Nro</th>
-                                <th>Nro Nota solicitud</th>
+                                <th>Nro Nota solicitudsss</th>
                                 <th>Funcionario</th>
                                 <th>Fecha Solicitud</th>
                                 <th>Origen de Solicitud</th>

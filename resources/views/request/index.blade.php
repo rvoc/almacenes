@@ -32,12 +32,15 @@
                         <thead>
                             <tr>
                                 <th>Nro</th>
-                                <th>Nro Nota solicitud</th>
+                                <th>Cod. Solicitud</th>
+                                <th>Acta Solicitud</th>
                                 <th>Fecha</th>
                                 <th>Funcionario</th>
                                 <th>Tipo de Solicitud</th>
                                 <th>Origen de Solicitud</th>
                                 <th>Estado</th>
+                                <th>Cod. Salida</th>
+                                <th>Acta Salida</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -46,6 +49,7 @@
                             @foreach ($request_articles as $item)
                             <tr>
                                 <td>{{$count++}}</td>
+                                <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{ $item->correlative }}</a> </td>
                                 <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a> </td>
                                 <td> {{$item->created_at}} </td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
@@ -73,6 +77,22 @@
                                     @endswitch
                                 </td>
                                 <td>
+                               @if($item->state == 'Aprobado')
+                                   <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
+                                @endif 
+                                @if($item->state == 'Entregado')
+                                   <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
+                                @endif 
+                                </td>
+                                <td>
+                                @if($item->state == 'Aprobado')
+                                    <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="far fa-file-pdf"></i></a>
+                                @endif
+                                @if($item->state == 'Entregado')
+                                    <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="far fa-file-pdf"></i></a>
+                                @endif  
+                               </td>
+                                <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
                                     {{-- {{$item}} --}}
                                     @if($item->state == 'Pendiente' )
@@ -88,7 +108,7 @@
                                     @endif
                                     @if($item->state == 'Entregado')
                                         {{-- <a href="#" data-toggle="modal" data-target="#ProviderModal" data-json="{{$item}}"><i class="material-icons text-primary">local_shipping</i></a> --}}
-                                        <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="material-icons text-success " data-json='{{$item}}'>remove_red_eye</i></a>
+                                        {{-- <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="material-icons text-success " data-json='{{$item}}'>remove_red_eye</i></a> --}}
                                         <a href="{{url('create_change_out/'.$item->id)}}"> <i class="fa fa-file-signature text-secondary" ></i> </a>
                                     @endif
                                     @if($item->state == 'Pendiente Aprobacion' )
@@ -99,6 +119,7 @@
                                         {{-- @endif --}}
                                     @endif
                                 </td>
+                               
 
                             </tr>
 

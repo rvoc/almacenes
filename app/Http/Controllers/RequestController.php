@@ -12,6 +12,7 @@ use App\Storage;
 use App\Provider;
 use App\ArticleIncome;
 use App\ArticleIncomeItem;
+use App\Person;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\ArticleHistory;
@@ -30,7 +31,7 @@ class RequestController extends Controller
                                             ->where('type','Funcionario')
                                             ->orderBy('id','DESC')
                                             ->get();
-         // return $request_articles;
+        // return $request_articles;
         $count = 1;
 
         return view('request.index',compact('request_articles','count'));
@@ -48,14 +49,13 @@ class RequestController extends Controller
     }
     public function index_storage_done()
     {
-        // para articulos de almacen
-        $request_articles = ArticleRequest::where('storage_destiny_id',Auth::user()->getStorage()->id)
+        $request_articles = ArticleRequest::where('storage_origin_id',Auth::user()->getStorage()->id)
                                             ->where('type','Almacen')
-                                            ->where('state','Entregado')
+                                            //->where('state','Entregado')
                                             ->get();
         $title = "Solicitudes de Traspaso Realizadas ".Auth::user()->getStorage()->name;
         $count = 1;
-        return view('request.index_storage',compact('request_articles','count','title'));
+        return view('request.index_storage_done',compact('request_articles','count','title'));
     }
 
     public function index_person()
@@ -86,9 +86,12 @@ class RequestController extends Controller
     }
 
     public function create_transfer(){
-
+      //  return Auth::user()->usr_prs_id;
+        $user = Person::where('prs_id','=',Auth::user()->usr_prs_id)->get();
+        // return $user;
         $storages = Storage::where('id','!=',Auth::user()->getStorage()->id)->get();
-        return view('request.storage.create',compact('storages'));
+       // return $storages;
+        return view('request.storage.create',compact('storages','user'));
     }
 
     public function check_transfer($article_request_id){
@@ -231,7 +234,9 @@ class RequestController extends Controller
     public function create()
     {
         $article_request_id = Auth::user()->getStorage()->id;
-        $article_request = ArticleRequest::with('person')->find($article_request_id);
+        $article_request = Auth::user()->person;
+        // $article_request = ArticleRequest::with('person')->find($article_request_id);
+         // return ($article_request);
         $articles = Article::with('category','unit')
                             ->join('sisme.stocks','stocks.article_id','=','articles.id')
                             ->where('storage_id',Auth::user()->getStorage()->id)
@@ -477,12 +482,15 @@ class RequestController extends Controller
     public function confirmApprove(Request $request)
     {
         $articles = json_decode($request->articles);
+        $article_request1 = ArticleRequest::join('sisme.article_request_items as items','sisme.article_requests.id','=', 'items.article_request_id')->find($request->article_request_id);
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Pendiente";
         $article_request->save();
-
+      //  $article_request->state;
+      //  return $article_request;
+      
         $article_user = new UserHistory;
-        $article_user->article_request_item_id =$article_request->id;//para salida
+        $article_user->article_request_item_id =$article_request1->id;//para salida
         $article_user->storage_id = Auth::user()->getStorage()->id;
         $article_user->user_usr_id = Auth::user()->usr_id;
         $article_user->type ='Salida';
@@ -513,12 +521,13 @@ class RequestController extends Controller
     public function confirmDisApprove(Request $request)
     {
         $articles = json_decode($request->articles);
+        $article_request1 = ArticleRequest::join('sisme.article_request_items as items','sisme.article_requests.id','=', 'items.article_request_id')->find($request->article_request_id);
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Rechazado";
         $article_request->save();
 
         $article_user = new UserHistory;
-        $article_user->article_request_item_id =$article_request->id;//para salida
+        $article_user->article_request_item_id =$article_request1->id;//para salida
         $article_user->storage_id = Auth::user()->getStorage()->id;
         $article_user->user_usr_id = Auth::user()->usr_id;
         $article_user->type ='Salida';

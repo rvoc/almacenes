@@ -273,7 +273,7 @@ export default {
 
              let parameters = this.incomes;
            
-            let url='/reporte_vista_RequestNote?funcionario='+encodeURIComponent(this.request.person.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&solicitud='+encodeURIComponent(JSON.stringify(this.incomes));
+            let url='/reporte_vista_RequestNote?funcionario='+encodeURIComponent(this.request.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&solicitud='+encodeURIComponent(JSON.stringify(this.incomes));
 
               console.log('del url',url);
             $('#modalPdf .modal-body iframe').attr('src', url);
