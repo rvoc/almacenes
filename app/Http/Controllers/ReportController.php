@@ -16,6 +16,7 @@ use App\ArticleRequest;
 use App\ArticleRequestItem;
 use App\Stock;
 use App\User;
+use App\Person;
 use App\ArticleHistory;
 use Illuminate\Support\Facades\DB;
 use resource\js\components\IncomeCreate;
@@ -103,7 +104,7 @@ class ReportController extends Controller
     {
         $article_request = ArticleRequest::find($article_request_id);
         $username = Auth::user()->usr_usuario;
-        $title = "NOTA DE SOLICITUD ";
+        $title = "NOTA DE SOLICITUD";
         $date =Carbon::now();
         $user = User::where('usr_prs_id',$article_request->prs_id)->first();
         $persona = $user->getFullName(); //esto esta mal tambien
@@ -127,6 +128,83 @@ class ReportController extends Controller
         // Output the generated PDF to Browser
         $dompdf->stream('my.pdf',array('Attachment'=>0));
     }
+
+    public function request_note_done($article_request_id)
+    {
+        $article_request = ArticleRequest::find($article_request_id);
+        $username = Auth::user()->usr_usuario;
+        $title = "NOTA DE SOLICITUD";
+        $date =Carbon::now();
+        $user = User::where('usr_prs_id',$article_request->prs_id)->first();
+        $persona = $user->getFullName(); //esto esta mal tambien
+        $gerencia = $user->getGerencia();
+        $storage = $article_request->storage_origin->name;
+        $storagedest = $article_request->storage_destiny->name;
+        $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
+        $count = 1;
+        $total_quantity=0;
+        $view = \View::make('report.request_storage_done', compact('username','date','title','storage','article_request','persona','gerencia','code','total_quantity','count','storagedest'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+    }
+
+    public function request_note_doneview()
+    {
+        $funcionario = request('funcionario');
+        Log::info($funcionario);
+          $provider = request('provider');
+        Log::info($provider);
+        $type = request('type');
+        Log::info($type);
+        $numremision = request('numremision');
+        Log::info($numremision);
+        $fecha = request('fecha');
+        Log::info($fecha);
+        $incomes = json_decode(request('solicitud'));
+        Log::info($incomes);
+        $username = Auth::user()->usr_usuario;
+        $user = Person::where('prs_id','=',Auth::user()->usr_prs_id)->get();
+        $var= collect(($user));
+        //return json_decode($user->prs_nombres);
+        $title = "NOTA DE SALIDA ";
+        $total_quantity=0;
+        $date =Carbon::now();
+        $count = 1;
+
+       // $user = User::where('usr_prs_id',$article_request->prs_id)->first();
+        // $persona = $user->getFullName(); //esto esta mal tambien
+        // $gerencia = $user->getGerencia();
+        // $storage = $article_request->storage_destiny->name;
+        $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
+
+        $view = \View::make('report.request_storage_doneview', compact('username','date','title', 'code','provider','type','incomes', 'numremision','fecha','funcionario','total_quantity','count','user'));
+        $html_content = $view->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html_content);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('letter');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('my.pdf',array('Attachment'=>0));
+        // $dompdf->stream();
+    }
+
     public function minute_note($article_income_id)
     {
         $article_income = ArticleIncome::find($article_income_id);

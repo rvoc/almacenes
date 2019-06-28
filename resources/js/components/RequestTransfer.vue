@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info" >Vista Previa</button>
+                        <button type="button" class="btn btn-info" @click="vistaprevia()">Vista Previa</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
@@ -146,12 +146,28 @@
             </div>
         </div>
         </div>
+
+         <div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-labelledby="modalPdfTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPdfTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="" width="100%" height="600px" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+                </div>
+            </div>
+        </div>
     </div><!-- end row -->
 </template>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
-    props:['articles','url','csrf','storage','storages'],
+    props:['articles','url','csrf','storage','storages','usr'],
     data: ()=>({
         form:{},
         title:'',
@@ -226,13 +242,24 @@ export default {
         console.log(this.storages);
         console.log(this.articles);
         console.log(this.person);
+        console.log('user1111',this.usr);
     },
     methods: {
         addIncome(item){
-            this.incomes.push({article:item,quantity:item.quantity});
-            item.quantity = '';
-            item.cost ='';
-            console.log(item);
+            if(item.quantity>0) 
+             {
+                // alert('es mayor a cero');
+                this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+                item.quantity = '';
+                // item.cost ='';
+             }else{
+                alert('La cantidad, no debe ser vacio y debe ser mayor a 0!!!');
+             }
+            // if()
+            // this.incomes.push({article:item,quantity:item.quantity});
+            // item.quantity = '';
+            // item.cost ='';
+            // console.log(item);
         },
         setStorage(item){
             this.storage_select = item;
@@ -264,7 +291,20 @@ export default {
                      console.log(response.data);
                      this.rows = response.data;
                  });
-        }
+        },
+         vistaprevia(){
+             console.log('ingreso de datos traspaso',this.incomes);
+             console.log('userr',this.usr);
+
+             let parameters = this.incomes;
+               // let url='/request_storage_doneview';
+           
+            let url='/request_storage_doneview?solicitud='+encodeURIComponent(JSON.stringify(this.incomes));
+
+              console.log('del url',url);
+            $('#modalPdf .modal-body iframe').attr('src', url);
+            $('#modalPdf').modal('show');     
+        },
     },
     computed:{
 
