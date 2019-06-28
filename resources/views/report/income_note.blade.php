@@ -19,9 +19,9 @@
     </tr>
     <tr>
         <td  class="text-center bg-grey-darker text-xs text-white">Nota Remision</td>
-        <td class="text-xs uppercase">{{$article_income->correlative}}</td>
-        <td  class="text-center bg-grey-darker text-xs text-white">Fecha </td>
-        <td class="text-xs uppercase">{{$article_income->created_at}}</td>
+        <td class="text-xs uppercase">{{$article_income->remision_number}}</td>
+        <td  class="text-center bg-grey-darker text-xs text-white">Fecha Remision</td>
+        <td class="text-xs uppercase">{{$article_income->date}}</td>
     </tr>
     <tr>
         <td  class="text-center bg-grey-darker text-xs text-white">Tipo</td>
