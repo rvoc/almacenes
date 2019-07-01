@@ -1,19 +1,9 @@
  @php
-
-$articulos = \DB::table('sisme.stocks')
-                ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
-                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
-                ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
-                ->select('art.code as codigo','art.name as detalle', 'uni.name as unidad', 'cat.name as categoria', 'stocks.article_id',DB::raw('sum(stocks.quantity) as quantity'))
-                ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
-                ->get();
-
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
-$date=date('Y-m-d')
- @endphp
- <!DOCTYPE html>
+@endphp
+<!DOCTYPE html>
 <html>
 <table>
    <tr>
@@ -26,7 +16,7 @@ $date=date('Y-m-d')
       <td colspan="6"  align="center"><strong><h1>INVENTARIO OFICINA CENTRAL LA PAZ</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="6" align="center"><strong><h1>AL: {{$date}}</h1></strong></td>
+      <td colspan="6" align="center"><strong><h1>DE FECHA: {{$date}}</h1></strong></td>
     </tr>
     <tr>
       <td colspan="6"><strong><h1>Generado por: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>

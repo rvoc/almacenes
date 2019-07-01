@@ -1,10 +1,10 @@
- @php
+@php
 
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
 
-$date=date('Y-m-d');
+
 
 $almacen = DB::table('sisme.storages')->select('name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)
@@ -31,9 +31,9 @@ $tam=count($almacen) + 4
    <tr>
      <td align="center" width="10" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>N°</strong></td>
       <td align="center" width="30" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>ALMACEN</strong></td>
-      <td align="center" bgcolor="red" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>N° iINGRESO</strong></td>
+      <td align="center" width="18" bgcolor="red" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>N° iINGRESO</strong></td>
       <td align="center" width="15" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>CODIGO</strong></td>
-      <td align="center" width="20" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>ARTICULO</strong></td>
+      <td align="center" width="40" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>ARTICULO</strong></td>
       <td align="center" width="20" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>CANTIDAD</strong></td>
       <td align="center" width="20" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>COSTO</strong></td>
    </tr>

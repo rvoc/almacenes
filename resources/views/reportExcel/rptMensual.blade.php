@@ -1,16 +1,4 @@
  @php
-$articulos = \DB::table('sisme.article_histories')
-                ->join('sisme.articles as art', 'sisme.article_histories.article_id', '=', 'art.id')
-                ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
-                ->join('sisme.article_income_items as ing', 'sisme.article_histories.article_income_item_id', '=', 'ing.id')
-                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
-                //->join('')
-                ->leftjoin('sisme.article_request_items as sali', 'sisme.article_histories.article_request_item_id', '=', 'sali.id')
-                ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', 'ing.quantity as ingcant', 'article_histories.article_income_item_id',DB::raw('sum(article_histories.quantity_desc) as quantity'))
-                ->groupBy('article_histories.article_income_item_id', 'codigo', 'detalle', 'categoria', 'ingcost', 'unidad', 'ingcant')
-                //->where('article_histories.type', 'Entrada')
-                ->get();
-
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
@@ -34,7 +22,7 @@ $tam=count($almacen) + 4;
       <td colspan="13" style="text-align:center;"><strong><h7>ALMACEN: Oficina Central La Paz</h7></strong></td>
     </tr>
     <tr>
-      <td colspan="13" align="center"><strong><h1>DE: {{$date}}</h1></strong></td>
+      <td colspan="13" align="center"><strong><h1>MES: {{$mes}}</h1></strong></td>
     </tr>
       <tr>
       <td colspan="13"  align="center"><strong><h1>EXPRESADO EN BOLIVIANOS</h1></strong></td>
@@ -81,9 +69,9 @@ $tam=count($almacen) + 4;
      $totaSaldo = 0;
         foreach($articulos as $art){
          $nro_mod = $nro_mod +1;
-         $total= $art->ingcost*$art->ingcant;
-         $saldo1=$art->ingcant-$art->quantity;
-         $entrada1=$art->ingcost*$art->ingcant;
+         $total= $art->ingcost*$art->quantitytot;
+         $saldo1=$art->quantitytot-$art->quantity;
+         $entrada1=$art->ingcost*$art->quantitytot;
          $salida1=$art->ingcost*$art->quantity;
          $total1=$entrada1-$salida1;
              echo '<tr>';
@@ -94,7 +82,7 @@ $tam=count($almacen) + 4;
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->ingcost,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$total,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$art->ingcant,'</td>';
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$art->quantitytot,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->quantity,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$saldo1,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$entrada1,'</td>';

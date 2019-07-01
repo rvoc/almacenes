@@ -47,4 +47,24 @@ class LoginController extends Controller
     {
         return redirect('/home');
     }
+
+    private function get_ufv($date)
+    {
+        return $date;
+        $day = Carbon::parse($date)->day;
+        $month = Carbon::parse($date)->month;
+        $year = Carbon::parse($date)->year;
+        $extracto = null;
+
+        $content = file_get_contents('https://www.bcb.gob.bo/librerias/indicadores/ufv/gestion.php?sdd=' . $day . '&smm=' . $month . '&saa=' . $year . '&Button=++Ver++&reporte_pdf=' . $month . '*' . $day . '*' . $year . '**' . $month . '*' . $day . '*' . $year . '*&edd=' . $day . '&emm=' . $month . '&eaa=' . $year . '&qlist=1');
+        $patron = '|<div align="center">(.*?)</div>|is';
+            if (preg_match_all($patron, $content, $extracto) > 0) {
+            return trim($extracto[1][1]);
+            } else {
+            return false;
+            }
+    }
 }
+
+
+

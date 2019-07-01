@@ -26,15 +26,15 @@
                         <thead>
                             <tr>
                                 <th>Nro</th>
-                                <th>Nro Nota Ingreso</th>
-                                <th>Acta de Recpcion</th>
+                                <th>Codigo Ingreso</th>
+                                <th>Acta Recepcion</th>
                                 <th>Factura</th>
-                                <th>Fecha Registro</th>
+                                <th>Fecha Ingreso</th>
                                 <th>Persona</th>
                                 <th>Proveedor</th>
-                                <th>Costo</th>
-                                <th>Cantidad Articulos</th>
-                                <th>Accion</th>
+                                <th>Canti. Articulos</th>
+                                <th>Costo Total</th>
+                                <th>Modificaciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,7 +43,7 @@
                                 <td>{{$count++}}</td>
                                 <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}">{{$item->correlative}}</a>
                                 </td>
-                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('minute_note/'.$item->id)}}">{{$item->correlative}}</a>
+                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('minute_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a>
                                 </td>
 
                                 <td>
@@ -54,8 +54,9 @@
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
                                 <td>{{$item->provider->name}}</td>
-                                <td>{{$item->total_cost}}</td>
                                 <td>{{$item->getTotalQuantity()}}</td>
+                                <td>{{$item->total_cost}}</td>
+                                
                             <td> <a href="{{url('create_change_income/'.$item->id)}}"> <i class="fa fa-file-signature text-secondary" ></i> </a> </td>
                             </tr>
                             @endforeach

@@ -215,7 +215,7 @@
                         <li class="nav-item">
                             <a href="{{ url('request') }}" class="nav-link {{ Navigation::isActiveRoute('request.index') }}">
                                     <i class="nav-icon fa fa-truck-loading"></i>
-                                    <p>Solicitudes Realizadas</p>
+                                    <p>Solicitudes Recibidas</p>
                                 </a>
                             </li>
                         @endhasanyrole
@@ -296,6 +296,12 @@
                                     <a href="{{ url('article') }}" class="nav-link {{ Navigation::isActiveRoute('budge_item.index') }}">
                                         <i class="fas fa-box nav-icon"></i>
                                         <p>Articulos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('ufv') }}" class="nav-link {{ Navigation::isActiveRoute('budge_item.index') }}">
+                                        <i class="fas fa-box nav-icon"></i>
+                                        <p>UFV</p>
                                     </a>
                                 </li>
 
@@ -422,7 +428,7 @@
                             url='{{url('change_storage')}}'
                             csrf='{!! csrf_field('POST') !!}'
                             :storages="{{Auth::user()->storages}}"
-                            :storage= "{{ Auth::user()->getStorage()}}"
+                            :storage= "{{ Auth::user()->getStorages()}}"
                         ></change-storage>
                     @endhasrole
                 </div>

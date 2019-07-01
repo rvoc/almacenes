@@ -16,13 +16,14 @@
         <td  class="text-center bg-grey-darker text-xs text-white">Proveedor</td>
         <td class="text-xs uppercase">{{$provider}}</td>
         <td  class="text-center bg-grey-darker text-xs text-white">Telefono </td>
+        <td class="text-xs uppercase">0</td>
         {{-- <td class="text-xs uppercase">{{$article_income->provider->phone}}</td> --}}
     </tr>
     <tr>
         <td  class="text-center bg-grey-darker text-xs text-white">Nota Remision</td>
-        <td class="text-xs uppercase">Sin nota</td>
+        <td class="text-xs uppercase">{{$numremision}}</td>
         <td  class="text-center bg-grey-darker text-xs text-white">Fecha </td>
-        <td class="text-xs uppercase">--</td>
+        <td class="text-xs uppercase">{{$fecha}}</td>
     </tr>
     <tr>
         <td  class="text-center bg-grey-darker text-xs text-white">Tipo</td>

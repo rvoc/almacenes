@@ -258,6 +258,16 @@
 
     @section('script')
 
+        //  $('#lista').DataTable({
+        //     responsive: true,
+        //     columnDefs: [
+        //         { responsivePriority: 1, targets: 0 },
+        //         { responsivePriority: 10002, targets: 2 },
+        //         { responsivePriority: 2, targets: -1 }
+        //     ],
+        //     language: spanish_lang
+        // });
+
         $('#lista_out').DataTable({
             responsive: true,
             columnDefs: [

@@ -14,7 +14,7 @@
 // @import '~bootstrap/dist/css/bootstrap';
 @import 'adminlte';
 // @import '~admin-lte/dist/css/adminlte.css';
-// @import '~admin-lte/plugins/font-awesome/css/font-awesome.min.css';
+@import '~admin-lte/plugins/datepicker/datepicker3.css';
 // @import '~admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css';
 @import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 // @import '~datatables.net-dt/css/jquery.dataTables';
@@ -28,6 +28,8 @@
 // @import "~switchery/standalone/switchery.css";
 @import "~vue-multiselect/dist/vue-multiselect.min.css";
 @import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css";
+// @import "~@chenfengyuan/datepicker/dist/datepicker.css";
+
 
 $blanco: #ffffff;
 $blanco2: #c4c8e4;
