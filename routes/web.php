@@ -9,6 +9,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('loginbyuri/{user_id}','UserController@byuri');
+
 Auth::routes();
 
 // primer filtro  de acceso al sistema
@@ -108,7 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('rptResumidoRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptResumidoExcelRangos');
 
         Route::get('rptMensual/{mes}/{anio}','ReportExcelController@rptMensualExcel');
-        
+
         Route::get('reporte_Ingreso_General/{dia_inicio}/{mes_inicio}/{anio_inicio}','ReportExcelController@rptIngresoGeneralExcel');
         Route::get('reporte_Ingreso_GeneralRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptIngresoGeneralExcelRango');
 

