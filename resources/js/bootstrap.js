@@ -10,6 +10,9 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
     window.JSZip = require('jszip');
+
+    require('admin-lte/plugins/datepicker/bootstrap-datepicker');
+
     require('./adminlte');
     require('bootstrap/dist/js/bootstrap.bundle');
     require('admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js');
@@ -22,8 +25,10 @@ try {
     require('datatables.net-buttons/js/buttons.colVis')( window.$);
     require('datatables.net-buttons/js/buttons.html5')( window.$);
     require('datatables.net-buttons/js/buttons.print')( window.$);
-    require('datepicker-bootstrap/js/core.min.js');
-    require('datepicker-bootstrap/js/datepicker.min.js');
+
+    // require('@chenfengyuan/datepicker')(window.$);
+    // window.datepicker= require('datepicker-bootstrap/js/core.min.js');
+    // window.datepicker = require('datepicker-bootstrap/js/datepicker.js')(window.$);
 
 
     // require( 'datatables.net-buttons/js/buttons.colVis.js' )(); // Column visibility

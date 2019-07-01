@@ -564,6 +564,11 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@chenfengyuan/datepicker@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@chenfengyuan/datepicker/-/datepicker-1.0.8.tgz#cb7fade3b91b142e9a94e8c657dac50180e26ad0"
+  integrity sha512-l+v9hrAibCND5Ps+k2dKK1VJbl6jO6YIfV2ElPswOUNPTs8pJa44Q8e5gwYgQNpgzBAS00wjyeoQVA6xmPWG8w==
+
 "@ckeditor/ckeditor5-build-classic@^1.0.0-beta.4":
   version "1.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-classic/-/ckeditor5-build-classic-1.0.0-beta.4.tgz#c9b9b07d18cb9d99558ae89fd57b51ee6e6940b8"
@@ -1922,13 +1927,6 @@ datatables.net@1.10.19, datatables.net@^1.10.15, datatables.net@^1.10.16:
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
-
-datepicker-bootstrap@^1.9.13:
-  version "1.9.13"
-  resolved "https://registry.yarnpkg.com/datepicker-bootstrap/-/datepicker-bootstrap-1.9.13.tgz#85f6b629183288977ebd4bada8dc5e10049e1e7a"
-  integrity sha512-bzokJhozVRxqQ0VYLOVcOpudkaDfE0FML45DN7aKChzIkF+/ilMRYy6MH5OeTVNt/sb+DQyZQGAD5A/5XyGajQ==
-  dependencies:
-    jquery ">=1.9.1"
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -3290,7 +3288,7 @@ jquery-ui@^1.12.1:
   resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.12.1.tgz#bcb4045c8dd0539c134bc1488cdd3e768a7a9e51"
   integrity sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE=
 
-jquery@>=1.12.0, jquery@>=1.7, jquery@>=1.9.1, jquery@^3.1.1, jquery@^3.2, jquery@^3.3.1:
+jquery@>=1.12.0, jquery@>=1.7, jquery@^3.1.1, jquery@^3.2, jquery@^3.3.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
 
