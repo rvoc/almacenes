@@ -21,7 +21,7 @@
                             <input class='form-control' v-model="props.row.quantity" >
                         </template>
                         <template slot="cost" slot-scope="props">
-                            <input class='form-control' v-model="props.row.cost" >
+                            <input class='form-control' v-model="props.row.cost">
                         </template>
 
 
@@ -61,8 +61,8 @@
                             <tr>
                             <th scope="col">#</th>
                             <th scope="col">Articulo</th>
-                            <th scope="col">Costo Unitario</th>
                             <th scope="col">Cantidad</th>
+                            <th scope="col">Costo Unitario</th>
                             <th scope="col">Subtotal</th>
                             <th scope="col"></th>
                             </tr>
@@ -71,14 +71,15 @@
                             <tr v-for="(item,index) in incomes" :key="index">
                                 <th scope="row">{{index+1}}</th>
                                 <td>{{item.article.name}}</td>
+                                 <td>{{item.quantity}}</td>
                                 <td>{{item.cost}}</td>
-                                <td>{{item.quantity}}</td>
                                 <td>{{subTotal(item)}}</td>
                                 <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td>
                             </tr>
                             <tr >
-                                <td colspan="3" class="text-right " > <strong>TOTAL:</strong> </td>
+                                <td colspan="2" class="text-right " > <strong>TOTAL:</strong> </td>
                                 <td>{{getTotalQuantity}}</td>
+                                <td>{{getTotCost}}</td>
                                 <td>{{getTotalCost}}</td>
                                 <td></td>
                             </tr>
@@ -169,8 +170,8 @@
                                     <tr class="bg-gray">
                                     <th scope="col">#</th>
                                     <th scope="col">Articulo</th>
+                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Costo</th>
-                                    <th scope="col">Cantidad</th>
                                     <th scope="col">Subtotal</th>
                                     </tr>
                                 </thead>
@@ -178,15 +179,16 @@
                                     <tr v-for="(item,index) in incomes" :key="index">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{item.article.name}}</td>
-                                        <td>{{item.cost}}</td>
                                         <td>{{item.quantity}}</td>
+                                        <td>{{item.cost}}</td>
                                         <td>{{ subTotal(item) }}</td>
 
                                         <!-- <td><i class="fa fa-trash text-danger" @click="deleteIncome(index)"></i> </td> -->
                                     </tr>
                                     <tr >
-                                        <td colspan="3" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
+                                        <td colspan="2" class="text-right bg-gray" > <strong>TOTAL:</strong> </td>
                                         <td>{{getTotalQuantity}}</td>
+                                        <td>{{getTotCost}}</td>
                                         <td>{{getTotalCost}}</td>
                                     </tr>
 
@@ -223,6 +225,7 @@
 
     </div> <!-- end row -->
 </template>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
@@ -252,13 +255,13 @@ export default {
                 },
                 sort: true,
             },
+             {
+                label: "Cantidad",
+                name: "quantity",
+            },
             {
                 label: "Costo Unitario",
                 name: "cost",
-            },
-            {
-                label: "Cantidad",
-                name: "quantity",
             },
 
             {
@@ -289,9 +292,18 @@ export default {
     },
     methods: {
         addIncome(item){
-            this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
-            item.quantity = '';
-            item.cost ='';
+             console.log('articulossss',item.quantity);
+             if(item.quantity>0 && item.cost>0) 
+             {
+                // alert('es mayor a cero');
+                this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+                item.quantity = '';
+                item.cost ='';
+             }else{
+                alert('La cantidad y costo unitario no debe ser vacio y debe ser mayor a 0!!!');
+             }
+            
+           // let cant = this.articles; 
             console.log(item);
         },
         deleteIncome(index){
@@ -318,75 +330,14 @@ export default {
             let sum = Number(item.quantity) * Number(item.cost);
             return sum;
         },
-        // vistaprevia(){
-        //     // alert('esteee');
-        //      //console.log('inomess',this.incomes.article);
-        //     // if(this.form.data)
-        //     // {
-        //         $('#modalPdf .modal-body iframe').attr('src', '/reporte_vista_previa');
-        //          $('#modalPdf').modal('show');
-
-        //          // window.open('/reporte_vista_previa','_blank');
-        //          // $('#iframeboleta').attr('src', 'ReportPreliminar/'+data.tmpp_id);
-
-
-        //         // axios.get(`reporte_vista_previa`);
-        //         // .then(response=>{
-        //         //         // this.form = response.data.article;
-        //         //         // console.log(response.data);
-        //         //         this.rows = response.data;
-        //         //         console.log(this.rows);
-        //         // });
-        //     // }
-        // },
+     
 
         vistaprevia(){
             console.log('ingreso de datos',this.incomes);
 
             let parameters = this.income;
-            // parameters.excel =true;
-            // console.log(parameters);
-            // axios({
-            //     url: 'reporte_vista_previa',
-            //     method: 'GET',
-            //     // params: parameters,
-            //     responseType: 'blob', // important
-            // }).then((response) => {
-
-            //    console.log(response.data);
-            //    const url = window.URL.createObjectURL(new Blob([response.data]));
-            //     const link = document.createElement('a');
-            //     link.href = url;
-            //     console.log(link.href );
-            //     link.setAttribute('download', 'Vista_previa'+moment().format()+'.pdf');
-            //     document.body.appendChild(link);
-            //     link.click();
-            //     // self.dialog = false;
-            // });
-
-
-            // this.incomes.forEach(item => {
-            //    let article = item.article.id
-            //     console.log('for',article);
-            //     axios.post('reporte_vista', this.incomes)
-            //       .then(function (response) {
-            //         console.log(response);
-            //       })
-            //       .catch(function (error) {
-            //         console.log(error);
-            //       });
-            //      // axios.post(`reporte_vista`); //.then(response=>{
-            //         // this.item =  response.article.id;
-            //         // console.log('mmmmm', arti);
-            //         // this.form = response.data.article;
-            //         //     console.log(response.data);
-            //         //     this.rows = response.data;
-            //         //     console.log(this.rows);
-
-            //     // });
-
-            // });
-            let url='/reporte_vista_previa?provider='+encodeURIComponent(this.form.provider.name)+'&type='+encodeURIComponent(this.form.type.name)+'&incomes='+encodeURIComponent(JSON.stringify(this.incomes));
+            
+            let url='/reporte_vista_previa?provider='+encodeURIComponent(this.form.provider.name)+'&type='+encodeURIComponent(this.form.type.name)+'&numremision='+encodeURIComponent(this.form.remision_number)+'&fecha='+encodeURIComponent(this.form.date)+'&incomes='+encodeURIComponent(JSON.stringify(this.incomes));
 
             console.log(url);
              $('#modalPdf .modal-body iframe').attr('src', url);
@@ -422,6 +373,15 @@ export default {
                 console.log(item.quantity);
             });
             return quantity;
+        },
+        getTotCost(){
+            let cost= 0;
+            this.incomes.forEach(item => {
+                // this.quantity += parseInt(item.quantity)
+                cost += Number(item.cost)
+                console.log(item.cost);
+            });
+            return cost;
         }
     },
     components: {

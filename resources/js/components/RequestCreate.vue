@@ -237,10 +237,16 @@ export default {
     },
     methods: {
         addIncome(item){
-            this.incomes.push({article:item,quantity:item.quantity});
-            item.quantity = '';
-            item.cost ='';
-            // console.log(item);
+            console.log('articulossss',item.quantity);
+             if(item.quantity>0) 
+             {
+                // alert('es mayor a cero');
+                this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+                item.quantity = '';
+                // item.cost ='';
+             }else{
+                alert('La cantidad, no debe ser vacio y debe ser mayor a 0!!!');
+             }
         },
         deleteIncome(index){
 
@@ -267,7 +273,7 @@ export default {
 
              let parameters = this.incomes;
            
-            let url='/reporte_vista_RequestNote?funcionario='+encodeURIComponent(this.request.person.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&solicitud='+encodeURIComponent(JSON.stringify(this.incomes));
+            let url='/reporte_vista_RequestNote?funcionario='+encodeURIComponent(this.request.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&solicitud='+encodeURIComponent(JSON.stringify(this.incomes));
 
               console.log('del url',url);
             $('#modalPdf .modal-body iframe').attr('src', url);

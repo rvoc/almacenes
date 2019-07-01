@@ -24,7 +24,7 @@ $tam=count($almacen) + 4;
       <td colspan="13" style="text-align:center;"><strong><h7>ALMACEN: Oficina Central La Paz</h7></strong></td>
     </tr>
     <tr>
-      <td colspan="13" align="center"><strong><h1>DE: {{$date}}</h1></strong></td>
+      <td colspan="13" align="center"><strong><h1>MES: {{$mes}}</h1></strong></td>
     </tr>
       <tr>
       <td colspan="13"  align="center"><strong><h1>EXPRESADO EN BOLIVIANOS</h1></strong></td>

@@ -19,7 +19,7 @@
                         <label for="Alamacen">Alamacen</label>
                         <multiselect
                             v-model="storage_select"
-                            :options="storages"
+                            :options="storage"
                             id="storage"
                             placeholder="Seleccionar Almacen"
                             select-label="Seleccionar"
@@ -96,9 +96,9 @@ export default {
         storage_select:{},
     }),
     mounted() {
-        this.storage_select = this.storage;
+        this.storage_select = this.storage.id;
         console.log('Componente change iniciado')
-        console.log(this.storages)
+        console.log(this.storage)
         // axios.get('../list_units')
         //      .then(response => {
         //          this.units = response.data;
