@@ -51,7 +51,7 @@
         @php
             $date=date('Y-m-d');
         @endphp
-        <input type="text" class="form-control" id="date" name="date" value="{{ $date }}"> 
+        {{-- <input type="text" class="form-control" id="date" name="date" value="{{ $date }}">  --}}
         <div class="container-login100-form-btn">
                 <button type="submit" class="login100-form-btn" onclick="dateufv();">
                     Iniciar Sesion

@@ -13,7 +13,7 @@
         <table class="w-100 ">
             <tr>
                 <th class="w-15 text-left no-padding no-margins align-middle" >
-                    <img src="{{ public_path('img/logo_small.jpg') }}" style=" width: 148px;">
+                    <img src="{{ public_path('img/logo_small.png') }}" style=" width: 148px;">
                 </th>
                 <th class="w-50 align-center text-center">
                     <span class="font-semibold uppercase leading-tight " >
