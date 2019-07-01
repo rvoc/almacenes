@@ -427,7 +427,7 @@
                         <change-storage
                             url='{{url('change_storage')}}'
                             csrf='{!! csrf_field('POST') !!}'
-                            :storages="{{Auth::user()->storages}}"
+                            :storages="{{$storages}}"
                             :storage= "{{ Auth::user()->getStorage()}}"
                         ></change-storage>
                     @endhasrole
