@@ -1,6 +1,4 @@
  @php
-
-
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();

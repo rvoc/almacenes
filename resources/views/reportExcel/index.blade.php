@@ -107,7 +107,7 @@ $year=date('Y');
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="id_dia" name="id_dia" placeholder="yyy/mm/dd"> 
+              <input type="text" class="form-control datepicker" id="id_dia" name="id_dia" placeholder="yyy/mm/dd"> 
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="button" id="fechadiainv">Generar por dia</button>
                 </span>
@@ -118,11 +118,11 @@ $year=date('Y');
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              <input id="datepicker" width="270" />
-              <input type="text" class="form-control datepickerDays" id="dia_inv_ini" name="dia_inv_ini" placeholder="yyy/mm/dd">
+              {{-- <input id="datepicker" width="270" /> --}}
+              <input type="text" class="form-control datepicker" id="dia_inv_ini" name="dia_ing_ini" placeholder="yyy/mm/dd">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_inv_fin" name="dia_inv_fin" placeholder="yyy/mm/dd">  
+              <input type="text" class="form-control datepicker" id="dia_inv_fin" name="dia_inv_fin" placeholder="yyy/mm/dd">  
             </div>
             <span class="input-group-btn">
               <button class="btn btn-primary" type="button" id="rangofechinv">generar rango fechas</button>
@@ -142,7 +142,7 @@ $year=date('Y');
      <div class="col-md-3">
         <div class="input-group">
             <div class="input-group">
-              <input type="text" class="form-control datepickerDays" id="resdia" name="resdia" placeholder="yyy/mm/dd" > 
+              <input type="text" class="form-control datepicker" id="resdia" name="resdia" placeholder="yyy/mm/dd" > 
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="button" id="fechadiares">Generar por dia</button>
                 </span>
@@ -190,7 +190,7 @@ $year=date('Y');
               <input type="text" class="form-control datepickerDays" id="dia_ing_ini" name="dia_ing_ini" placeholder="yyy/mm/dd">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control datepickerDays" id="dia_ing_fin" name="dia_ing_fin" placeholder="yyy/mm/dd">  
+              <input type="text" class="form-control datepickerDays" id="dia_ing_fin" name="dia_ing_ini" placeholder="yyy/mm/dd">  
             </div>
             <span class="input-group-btn">
               <button class="btn btn-primary" type="button" id="rangofeching">generar rango fechas</button>
@@ -270,21 +270,7 @@ $year=date('Y');
 
 @endsection
 <script>
-   $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap4'
-        })
-
-    $('.datepickerDays').datepicker({
-        format: "dd/mm/yyyy",        
-        language: "es",
-    }).datepicker("setDate", new Date()); 
-</script>
-<script>
   @section('script')
-   // $('#datepicker').datepicker({
-   //          uiLibrary: 'bootstrap4'
-   //      })
-  // $('#datepicker').datepicker();
    
   $( "#fechadiainv" ).click(function() {
     var dia = document.getElementById('id_dia').value;
@@ -472,18 +458,74 @@ $year=date('Y');
         $('#mensual').show();
       })
 
-//       function changeColor(x)
-// {
-//     if(x.style.background=="rgb(247, 211, 88)")
-//     {
-//         x.style.background="#fff";
-//     }else{
-//         x.style.background="#F7D358";
-//     }
-//     return false;
-// }
+    $('#id_dia',).datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
 
-    // });
- 
+   $('#dia_inv_ini').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+   $('#dia_inv_fin').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+   $('#resdia').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+   $('#id_res_ini').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+   $('#id_res_fin').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+    $('#ing').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+     $('#dia_ing_ini').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+     $('#dia_ing_fin').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+    $('#idsal').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+    $('#dia_sal_ini').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
+
+    $('#dia_sal_fin').datepicker({
+        format: "yyyy/mm/dd",        
+        language: "es",
+        autoclose: true,
+    }).datepicker("setDate", new Date()); 
   @endsection 
 </script>
