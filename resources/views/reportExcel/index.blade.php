@@ -118,7 +118,7 @@ $year=date('Y');
         <div class="input-group">
           <div class="input-group">
             <div class="col-md-3">
-              {{-- <input id="datepicker" width="270" /> --}}
+              <input id="datepicker" width="270" />
               <input type="text" class="form-control datepickerDays" id="dia_inv_ini" name="dia_inv_ini" placeholder="yyy/mm/dd">
             </div>
             <div class="col-md-3">
@@ -274,7 +274,10 @@ $year=date('Y');
             uiLibrary: 'bootstrap4'
         })
 
-   
+    $('.datepickerDays').datepicker({
+        format: "dd/mm/yyyy",        
+        language: "es",
+    }).datepicker("setDate", new Date()); 
 </script>
 <script>
   @section('script')
@@ -282,7 +285,7 @@ $year=date('Y');
    //          uiLibrary: 'bootstrap4'
    //      })
   // $('#datepicker').datepicker();
-
+   
   $( "#fechadiainv" ).click(function() {
     var dia = document.getElementById('id_dia').value;
             $.ajax({
@@ -300,7 +303,6 @@ $year=date('Y');
                 }
             });
       })
-  
 
       $( "#fechadiares" ).click(function() {
       var resdia = document.getElementById('resdia').value;

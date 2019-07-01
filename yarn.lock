@@ -564,6 +564,11 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@chenfengyuan/datepicker@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@chenfengyuan/datepicker/-/datepicker-1.0.8.tgz#cb7fade3b91b142e9a94e8c657dac50180e26ad0"
+  integrity sha512-l+v9hrAibCND5Ps+k2dKK1VJbl6jO6YIfV2ElPswOUNPTs8pJa44Q8e5gwYgQNpgzBAS00wjyeoQVA6xmPWG8w==
+
 "@ckeditor/ckeditor5-build-classic@^1.0.0-beta.4":
   version "1.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-classic/-/ckeditor5-build-classic-1.0.0-beta.4.tgz#c9b9b07d18cb9d99558ae89fd57b51ee6e6940b8"
