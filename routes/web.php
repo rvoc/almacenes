@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -117,6 +119,21 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('store_out','RequestChangeController@store_out'); //guardado de la  solicitud de salida
         Route::get('request_change_out/{request_change_out_id}','RequestChangeController@show_out'); //
         Route::post('confirm_out','RequestChangeController@confirmOut');
+
+        // ROUTES EVALUADOR
+    // ROUTE REGISTRO EVALUACION
+    Route::post('RegistroEvalSistema',function(Request $request){
+        DB::table('public.evaluacion_sistema')->insert([
+            'evalsis_res_uno' => $request['primera_respuesta'],
+            'evalsis_res_dos' => $request['segunda_respuesta'],
+            'evalsis_res_tres' => $request['tercera_respuesta'],
+            'evalsis_puntuacion' => $request['valoracion'],
+            'evalsis_id_usuario' => \Auth::user()->usr_id,
+            'evalsis_id_sistema' => 2,
+            'evalsis_estado' => 'A' 
+        ]);
+        return response()->json(['Mensaje' => 'Se registro correctamente']);
+    });
 
     });
 
