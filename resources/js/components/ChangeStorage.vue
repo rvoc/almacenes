@@ -19,7 +19,7 @@
                         <label for="Alamacen">Alamacen</label>
                         <multiselect
                             v-model="storage_select"
-                            :options="storages"
+                            :options="storage"
                             id="storage"
                             placeholder="Seleccionar Almacen"
                             select-label="Seleccionar"
