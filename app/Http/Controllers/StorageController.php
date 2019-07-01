@@ -15,6 +15,7 @@ class StorageController extends Controller
     {
         //
         $storages = Storage::all();
+        // return  $storages;
 
         return view("storage.index",compact("storages"));
     }
@@ -66,6 +67,7 @@ class StorageController extends Controller
     {
         //
         $storage = Storage::find($id);
+        return $storage;    
         return response()->json(compact('storage'));
     }
 
