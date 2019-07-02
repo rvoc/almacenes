@@ -17,7 +17,7 @@ class RolesSeeder extends Seeder
         //
         $permission = Permission::create(['name' => 'POA']);
         $permission = Permission::create(['name' => 'SAE']);
-        // $permission = Permission::find(1);
+        $permission = Permission::where('name','SAE')->first();
         $role = Role::create(['name' => 'Administrador']);
         $role->givePermissionTo($permission);
         $role = Role::create(['name' => 'Encargado de Almacen']);

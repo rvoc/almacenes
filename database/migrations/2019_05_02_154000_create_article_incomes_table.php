@@ -20,8 +20,8 @@ class CreateArticleIncomesTable extends Migration
             $table->foreign('storage_id')->references('id')->on('sisme.storages');
             $table->integer('provider_id');
             $table->foreign('provider_id')->references('id')->on('sisme.providers');
-            $table->integer('prs_id');
-            $table->foreign('prs_id')->references('prs_id')->on('_bp_personas');
+            $table->integer('employee_id'); //persona que solicita el articulo
+            $table->foreign('employee_id')->references('id')->on('rrhh.employees');
             $table->string('path_invoice')->nullable();
             $table->string('dependence')->nullable();
             $table->string('remision_number')->nullable();

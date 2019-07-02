@@ -130,7 +130,8 @@
                         <img src="{{Auth::user()->path_avatar?url('../'.substr(Auth::user()->path_avatar,7)):url('/img/user.jpg')}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                            <a href="#" class="d-block"> <h5 class="subtitle"></h5> {{Auth::user()->getFullName()}}</a>
+
+                            <a href="#" class="d-block"> <h5 class="subtitle"></h5> {{Auth::user()->employee->getFullName()}}</a>
 
                         {{-- <nav class="mt-2">
                                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

@@ -75,7 +75,7 @@ class IncomeController extends Controller
 
         $article_income->provider_id = $request->provider_id;
         $article_income->correlative = $counter;
-        $article_income->prs_id = Auth::user()->person->prs_id;
+        $article_income->employee_id = Auth::user()->employee->id;
         $article_income->storage_id = Auth::user()->getStorage()->id;
         $article_income->type = $request->type;
         $article_income->total_cost = $request->total_cost;
@@ -124,7 +124,7 @@ class IncomeController extends Controller
 
     public function vistaprevia()
     {
-       
+
         session()->flash('message','Se realizo el ingreso ');
         session()->flash('url',url('vista_previa'));
 

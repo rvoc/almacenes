@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -9,6 +11,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('loginbyuri/{user_id}','UserController@byuri');
+
 Auth::routes();
 
 // primer filtro  de acceso al sistema
@@ -108,7 +112,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('rptResumidoRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptResumidoExcelRangos');
 
         Route::get('rptMensual/{mes}/{anio}','ReportExcelController@rptMensualExcel');
-        
+
         Route::get('reporte_Ingreso_General/{dia_inicio}/{mes_inicio}/{anio_inicio}','ReportExcelController@rptIngresoGeneralExcel');
         Route::get('reporte_Ingreso_GeneralRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptIngresoGeneralExcelRango');
 
@@ -132,7 +136,24 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('request_change_out/{request_change_out_id}','RequestChangeController@show_out'); //
         Route::post('confirm_out','RequestChangeController@confirmOut');
 
+
+        // ROUTES EVALUADOR
+    // ROUTE REGISTRO EVALUACION
+    Route::post('RegistroEvalSistema',function(Request $request){
+        DB::table('public.evaluacion_sistema')->insert([
+            'evalsis_res_uno' => $request['primera_respuesta'],
+            'evalsis_res_dos' => $request['segunda_respuesta'],
+            'evalsis_res_tres' => $request['tercera_respuesta'],
+            'evalsis_puntuacion' => $request['valoracion'],
+            'evalsis_id_usuario' => \Auth::user()->usr_id,
+            'evalsis_id_sistema' => 2,
+            'evalsis_estado' => 'A' 
+        ]);
+        return response()->json(['Mensaje' => 'Se registro correctamente']);
+    });
+
         Route::get('dateufv/{date}','LoginController@get_ufv');
+
 
     });
 

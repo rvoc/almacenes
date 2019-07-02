@@ -12,7 +12,7 @@
     csrf='{!! csrf_field('POST') !!}'
     :storage="{{Auth::user()->getStorage()}}"
     :storages="{{$storages}}"
-    {{-- :person={{Auth::user()->person()}} --}}
+
     >
     </transfer-component>
 

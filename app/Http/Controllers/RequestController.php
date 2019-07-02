@@ -63,7 +63,7 @@ class RequestController extends Controller
         $request_articles = ArticleRequest::join('sisme.article_request_items as req', 'sisme.article_requests.id','=','req.article_request_id')
                                             ->join('sisme.storages as stores', 'sisme.article_requests.storage_origin_id','=','stores.id')
                                             ->select('article_requests.id', 'article_requests.created_at', 'stores.name', 'article_requests.state','article_requests.correlative', DB::raw('sum(req.quantity) as quantity'))
-                                            ->where('prs_id',Auth::user()->person->prs_id)
+                                            ->where('prs_id',Auth::user()->employee->id)
                                             ->where('storage_destiny_id',Auth::user()->getStorage()->id)
                                             ->groupBy('article_requests.id', 'article_requests.created_at', 'stores.name', 'article_requests.state','article_requests.correlative')
                                             ->orderBydesc('id')
@@ -234,7 +234,7 @@ class RequestController extends Controller
     public function create()
     {
         $article_request_id = Auth::user()->getStorage()->id;
-        $article_request = Auth::user()->person;
+        $article_request = Auth::user()->employee;
         // $article_request = ArticleRequest::with('person')->find($article_request_id);
          // return ($article_request);
         $articles = Article::with('category','unit')
@@ -293,7 +293,7 @@ class RequestController extends Controller
         $article_request = new ArticleRequest;
         $article_request->storage_origin_id = $storage_origin_id;
         $article_request->storage_destiny_id = $storage_destiny_id;
-        $article_request->prs_id = Auth::user()->person->prs_id;
+        $article_request->employee_id = Auth::user()->employee->id;
         $article_request->correlative = $counter;
 
         if($request->has('type')){
@@ -488,7 +488,7 @@ class RequestController extends Controller
         $article_request->save();
       //  $article_request->state;
       //  return $article_request;
-      
+
         $article_user = new UserHistory;
         $article_user->article_request_item_id =$article_request1->id;//para salida
         $article_user->storage_id = Auth::user()->getStorage()->id;
