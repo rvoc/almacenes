@@ -21,8 +21,8 @@ class CreateArticleRequestsTable extends Migration
             $table->integer('storage_destiny_id'); //destitny
             $table->foreign('storage_destiny_id')->references('id')->on('sisme.storages');
             // $table->integer("number_request")->nullable();// correlativo
-            $table->integer('prs_id'); //persona que solicita el articulo
-            $table->foreign('prs_id')->references('prs_id')->on('_bp_personas');
+            $table->integer('employee_id'); //persona que solicita el articulo
+            $table->foreign('employee_id')->references('id')->on('rrhh.employees');
 
             $table->integer('user_id')->nullable();//usuario quien aprueba o rechaza el articulo
             $table->foreign('user_id')->references('usr_id')->on('_bp_usuarios');

@@ -18,7 +18,7 @@ class StorageSeeder extends Seeder
         ]);
 
 
-        $user = User::where('usr_usuario','sys.admin')->first();
+        $user = User::where('usr_usuario','sandra.macuchapi')->first();
         $user->storages()->sync([1]);
 
     }
