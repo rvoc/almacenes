@@ -14,7 +14,7 @@
         :storage="{{Auth::user()->getStorage()}}"
         :storages="{{$storages}}"
         :usr="{{$user}}"
-        {{-- :person={{Auth::user()->person()}} --}}
+
     >
     </transfer-component>
 

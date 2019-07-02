@@ -45,6 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee','usr_prs_id','id');
+    }
+
     public function person()
     {
         return $this->belongsTo('App\Person','usr_prs_id','prs_id');

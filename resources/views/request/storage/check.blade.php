@@ -15,7 +15,6 @@
     :request="{{$article_request}}"
     gerencia="{{Auth::user()->getGerencia()}}"
     :providers = "{{$providers}}"
-    {{-- :person={{Auth::user()->person()}} --}}
     >
     </check-request-store>
 
