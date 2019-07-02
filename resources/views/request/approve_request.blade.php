@@ -14,7 +14,7 @@
     :storage="{{Auth::user()->getStorage()}}"
     :request="{{$article_request}}"
     :histories="{{$histories}}"
-    gerencia="{{Auth::user()->getGerencia()}}"
+    gerencia="{{Auth::user()->employee->management->name}}"
     :providers = "{{$providers}}"
 
     >

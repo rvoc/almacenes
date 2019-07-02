@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function employee()
     {
-        return $this->belongsTo('App\Employee','usr_prs_id','id');
+        return $this->belongsTo('App\Employee','usr_prs_id','id')->with('management');
     }
 
     public function person()
