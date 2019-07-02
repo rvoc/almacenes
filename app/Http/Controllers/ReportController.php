@@ -79,7 +79,7 @@ class ReportController extends Controller
         $title = "NOTA DE INGRESO ";
         $date =Carbon::now();
         $persona = Auth::user()->getFullName();
-        $gerencia = Auth::user()->getGerencia();
+        $gerencia = Auth::user()->employee->management->name;
         $storage = Auth::user()->getStorage()->name;//cambiar esto no me acuerdo por que lo deje estatico XD
         $code =  $article_income->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_income->created_at)->year;
         // // $html = '<h1>Hello world</h1>';
@@ -212,7 +212,7 @@ class ReportController extends Controller
         $title = "ACTA DE RECEPCION ";
         $date =Carbon::now();
         $persona = Auth::user()->getFullName();
-        $gerencia = Auth::user()->getGerencia();
+        $gerencia = Auth::user()->employee->management->name;
         $storage = Auth::user()->getStorage()->name;//cambiar esto no me acuerdo por que lo deje estatico XD
         $code =  $article_income->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_income->created_at)->year;
         // // $html = '<h1>Hello world</h1>';

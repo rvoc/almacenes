@@ -14,7 +14,7 @@
         :articles="{{$articles}}"
         :storage="{{Auth::user()->getStorage()}}"
         :request="{{$article_request}}"
-        gerencia="{{Auth::user()->getGerencia()}}"
+        gerencia="{{Auth::user()->employee->management->name}}"
 
     >
     </request-component>

@@ -13,4 +13,9 @@ class Employee extends Model
     {
         return $this->first_name.' '.$this->last_name.' '.$this->mother_last_name;
     }
+
+    public function management()
+    {
+        return $this->belongsTo('App\Management');
+    }
 }
