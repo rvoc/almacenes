@@ -3,9 +3,7 @@
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
-
-
-
+$storage=Auth::user()->getStorage();
 $almacen = DB::table('sisme.storages')->select('name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)
 $tam=count($almacen) + 4 
@@ -17,7 +15,7 @@ $tam=count($almacen) + 4
 </table>
 <table>
     <tr>
-       <td colspan="7" style="text-align:center;"><strong<h7>INGRESO GENERAL ALMACEN: OFICINA CENTRAL</h7></strong></td>
+       <td colspan="7" style="text-align:center;"><strong<h7>INGRESO GENERAL {{$storage->description}}</h7></strong></td>
     </tr>
     <tr>
       <td colspan="7" align="center"><strong><h1>DE: {{$date}}</h1></strong></td>

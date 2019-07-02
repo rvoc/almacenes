@@ -8,6 +8,25 @@ $date=date('Y-m-d');
 $almacen = DB::table('sisme.storages')->select('name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)
 $tam=count($almacen) + 4;
+$storage=Auth::user()->getStorage();
+$cantidad_insumo = 0;
+function obtenerSalidas($id_insumo)
+{
+       $storage=Auth::user()->getStorage();
+       $cantidad_insumo = 0;
+        $salida = \DB::table('sisme.article_histories')
+            ->select('article_histories.article_id','article_histories.storage_id','article_histories.type','article_histories.article_income_item_id','article_histories.article_request_item_id', 'article_histories.quantity_desc')
+            ->where('type', 'Salida')
+            ->where('article_histories.storage_id','=',$storage->id)
+            ->orderby('article_histories.article_request_item_id')
+            ->get();
+            foreach ($salida as $sal) {
+            if ($sal->article_income_item_id == $id_insumo) {
+              $cantidad_insumo = $cantidad_insumo + $sal->quantity_desc;
+            }
+        }
+        return $cantidad_insumo;
+}
 @endphp
 <html>
 <table>
@@ -19,7 +38,7 @@ $tam=count($almacen) + 4;
       <td colspan="13" style="text-align:center;"><strong><h7>CUADRO DE RESUMEN DEL MOVIMIENTO DE MATERIAL</h7></strong></td>
     </tr>
     <tr>
-      <td colspan="13" style="text-align:center;"><strong><h7>ALMACEN: Oficina Central La Paz</h7></strong></td>
+      <td colspan="13" style="text-align:center;"><strong><h7>{{$storage->description}}</h7></strong></td>
     </tr>
     <tr>
       <td colspan="13" align="center"><strong><h1>MES: {{$mes}}</h1></strong></td>
@@ -63,17 +82,18 @@ $tam=count($almacen) + 4;
   <tbody>
    <?php
     // {{-- @foreach($provinces->chunk(500) as $chunk) --}}
+   
      $nro_mod = 0;
      $totaCost = 0;
      $totaSalida = 0;
      $totaSaldo = 0;
         foreach($articulos as $art){
-         $nro_mod = $nro_mod +1;
-         $total= $art->ingcost*$art->quantitytot;
-         $saldo1=$art->quantitytot-$art->quantity;
-         $entrada1=$art->ingcost*$art->quantitytot;
-         $salida1=$art->ingcost*$art->quantity;
-         $total1=$entrada1-$salida1;
+        $nro_mod = $nro_mod +1;
+        $total = $art->ingcost*$art->quantitytot;
+        $salidas = obtenerSalidas($art->idng);
+        $totcant = $art->quantitytot-$salidas;
+        $salcost = $salidas*$art->ingcost;
+        $totcost = $total-$salcost;
              echo '<tr>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$nro_mod,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->codigo,'</td>';
@@ -82,16 +102,16 @@ $tam=count($almacen) + 4;
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->ingcost,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$total,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$art->quantitytot,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$art->quantity,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$saldo1,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$entrada1,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$salida1,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$total1,'</td>';
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$art->quantitytot,'</td>';//
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$salidas,'</td>';
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$totcant,'</td>';
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$total,'</td>';
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$salcost,'</td>';
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$totcost,'</td>';
              echo'</tr>';
-           $totaCost=$totaCost+$entrada1;
-           $totaSalida=$totaSalida+$salida1;
-           $totaSaldo=$totaSaldo+$total1;
+          $totaCost=$totaCost+$total;
+          $totaSalida=$totaSalida+$salcost;
+          $totaSaldo=$totaSaldo+$totcost;
         } 
     ?>
   </tbody>
@@ -104,18 +124,8 @@ $tam=count($almacen) + 4;
   
     {{-- @endforeach --}}
 </table>
-
-   {{-- <td colspan="3">Números de Teléfono</td> --}}
-  {{--   <td><h1>EMPRESA BOLIVIANA DE ALIMENTOS</h1></td> --}}
-
-   
-  {{--   <td><b>Bold cell</b></td>
-    <td><strong>Bold cell</strong></td>
-
-    
-    <td><i>Italic cell</i></td>
- --}}
-    <!-- Images -->
-   {{--  <td><img src="img.jpg" /></td> --}}
-
 </html>
+ @php
+
+
+@endphp

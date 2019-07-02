@@ -33,7 +33,6 @@
                             </div> -->
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
-
                          <div class="form-group  col-md-3" v-if="sw">
                             <input type="text" name="change" v-if="form.changes" :value="form.changes.id" hidden>
                             <br>

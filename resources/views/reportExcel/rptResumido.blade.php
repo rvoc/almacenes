@@ -1,13 +1,11 @@
- @php
-
-
+@php
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
-
+$storage=Auth::user()->getStorage();
 $almacen = DB::table('sisme.storages')->select('name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)
-$tam=count($almacen) + 4 
+$tam=count($almacen) + 4; 
 @endphp
 <html>
 <table>
@@ -16,11 +14,11 @@ $tam=count($almacen) + 4
 </table>
 <table>
     <tr>
-      <td colspan="{{$tam}}"  align="center"><strong><h1>REPORTE GENERAL DE SALDOS</h1></strong></td>
+      <td colspan="{{$tam}}"  align="center"><strong><h1>REPORTE GENERAL RESUMIDO DE SALDOS</h1></strong></td>
     </tr>
-     <tr>
-      <td colspan="5" style="text-align:center;"><strong><h7>ALMACEN: Oficina Central La Paz</h7></strong></td>
-    </tr>
+    {{--  <tr>
+      <td colspan="5" style="text-align:center;"><strong><h7>{{$storage->description}}</h7></strong></td>
+    </tr> --}}
     <tr>
       <td colspan="{{$tam}}" align="center"><strong><h1>FECHA DE EMISION: {{$date}}</h1></strong></td>
     </tr>
@@ -42,10 +40,9 @@ $tam=count($almacen) + 4
   </thead>
   <tbody>
    <?php
-    // {{-- @foreach($provinces->chunk(500) as $chunk) --}}
      $nro_mod = 0;
         foreach($articulos as $art){
-         $nro_mod = $nro_mod +1;
+        $nro_mod = $nro_mod +1;
              echo '<tr>';
              echo   '<td align="center" style="border: 1px solid #000000;">',$nro_mod,'</td>';
              echo   '<td align="center" style="border: 1px solid #000000;">',$art->codigo,'</td>';
@@ -56,20 +53,5 @@ $tam=count($almacen) + 4
         } 
     ?>
   </tbody>
-    {{-- @endforeach --}}
 </table>
-
-   {{-- <td colspan="3">Números de Teléfono</td> --}}
-  {{--   <td><h1>EMPRESA BOLIVIANA DE ALIMENTOS</h1></td> --}}
-
-   
-  {{--   <td><b>Bold cell</b></td>
-    <td><strong>Bold cell</strong></td>
-
-    
-    <td><i>Italic cell</i></td>
- --}}
-    <!-- Images -->
-   {{--  <td><img src="img.jpg" /></td> --}}
-
 </html>
