@@ -47,7 +47,8 @@ class ReportExcelController extends Controller
                 // ->first();
         $date=$dia;
          // return $date;
-        $articulos = \DB::table('sisme.stocks')
+        $articulos =
+         \DB::table('sisme.stocks')
                 ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
                 ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
                 ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
@@ -55,7 +56,9 @@ class ReportExcelController extends Controller
                 ->where(DB::raw('cast(stocks.created_at as date)'),'=',$dia)
                 ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
                 ->get();
-         // return $articulos;
+
+                // Stock::where('storage_id',Auth::user()->getStorage()->id)->select('article_id',DB::raw('sum(stocks.quantity) as quantity'))->groupBy('stocks.article_id')->orderbydesc('article_id')->get();
+          // return $articulos;
         // $user= DB::table('public._bp_personas')
         //         ->where('prs_id','=',Auth::user()->usr_prs_id)
         //         ->first();
@@ -241,14 +244,13 @@ class ReportExcelController extends Controller
                 ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
                 ->join('sisme.article_income_items as ing', 'sisme.article_histories.article_income_item_id', '=', 'ing.id')
                 ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
-                //->join('')
                 ->leftjoin('sisme.article_request_items as sali', 'sisme.article_histories.article_request_item_id', '=', 'sali.id')
-                ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', 'ing.quantity as ingcant', 'article_histories.article_income_item_id',DB::raw('sum(article_histories.quantity_desc) as quantity'))
-                ->where(DB::raw('cast(article_histories.created_at as date)'),'>=',$fechainicial)->where(DB::raw('cast(article_histories.created_at as date)'),'<=',$fechafinal)
-                ->groupBy('article_histories.article_income_item_id', 'codigo', 'detalle', 'categoria', 'ingcost', 'unidad', 'ingcant')
-                //->where('article_histories.type', 'Entrada')
+                 // ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', 'ing.quantity as ingcant', 'article_histories.article_income_item_id',DB::raw('sum(article_histories.quantity_desc) as quantity'))
+                ->select('art.code as codigo','art.name as detalle', 'cat.name as categoria','ing.cost as ingcost', 'uni.name as unidad', DB::raw('sum(ing.quantity) as quantitytot'),DB::raw('sum(article_histories.quantity_desc) as quantity'))
+                // ->where(DB::raw('cast(article_histories.created_at as date)'),'>=',$fechainicial)->where(DB::raw('cast(article_histories.created_at as date)'),'<=',$fechafinal)
+                 ->groupBy('codigo', 'detalle', 'categoria', 'ingcost','unidad')
                 ->get();
-        // return $articulos;
+         // return $articulos;
         Excel::create('rptMensual', function($excel)  use ($articulos,$mes) {
             $excel->sheet('New sheet', function($sheet)  use (&$articulos,$mes){
                 $sheet->loadView('reportExcel.rptMensual', array('articulos'=>$articulos), array('mes'=>$mes));

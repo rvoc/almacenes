@@ -25,11 +25,29 @@
                                 @input="mostrar()"
                                 >
                             </multiselect>
-                            <div v-if="sw">
-                              <label><input type="checkbox" id="articulo" v-model="articulo"> Articulo</label>
+                            <!-- <div v-if="sw"> -->
+                             <!--  <label><input type="checkbox" id="articulo" v-model="articulo"> Articulo</label>
                               <label><input type="checkbox" id="cantidad" v-model="cantidad" @input="mostrarcant()"> Cantidad</label>
-                              <br>
-                            </div>
+                              <br> -->
+                            <!-- </div> -->
+                            <div class="invalid-feedback">{{ errors.first("type") }}</div>
+                        </div>
+                        <div class="form-group  col-md-3" v-if="sw">
+                            <input type="text" name="change" v-if="form.changes" :value="form.changes.id" hidden>
+                            <br>
+                            <multiselect
+                                v-model="form.changes"
+                                :options="changes"
+                                id="change"
+                                placeholder="Seleccionar una opcion"
+                                select-label="Seleccionar"
+                                deselect-label="Remover"
+                                selected-label="Seleccionado"
+                                label="name"
+                                track-by="name" 
+                                @input="change()"
+                                >
+                            </multiselect>
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
                         <div class="form-group col-md-12">
@@ -142,6 +160,7 @@ export default {
      props:['url','csrf','requestout','stocks'],
     data:()=>({
         form:{},
+        // changes:[{id:1,name:'Articulo'},{id:2,name:'Cantidad'}{id:3,name:'Adicionar Item'}],
         types:[{id:1,name:'Eliminacion'},{id:2,name:'Modificacion'}],
         items:[],
         item:{},
@@ -208,6 +227,8 @@ export default {
                   }else
                   {
                     this.sw=false;
+                    // item.new_cost = 0;
+                    // item.new_quantity = 0;
                   }
             },
              mostrarcost() {

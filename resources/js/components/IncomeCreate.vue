@@ -156,7 +156,7 @@
                             </div>
                             <div class="form-group  col-md-3" v-if="hasFile">
                                 <label for="tipo">Fecha</label>
-                                    <input type="text" name="date" class="form-control" v-model="form.date">
+                                    <input type="text" name="date" id="id_dia" class="form-control" v-model="form.date">
                                 <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
                             </div>
                             <input type="text" name="articles" :value="JSON.stringify(incomes)" hidden>
@@ -227,6 +227,11 @@
 </template>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+  // $('#id_dia',).datepicker({
+  //       format: "yyyy/mm/dd",        
+  //       language: "es",
+  //       autoclose: true,
+  //   }).datepicker("setDate", new Date()); 
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
     props:['articles','providers','url','csrf','storage'],

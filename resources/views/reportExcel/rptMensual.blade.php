@@ -1,6 +1,4 @@
  @php
-
-
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
@@ -71,9 +69,9 @@ $tam=count($almacen) + 4;
      $totaSaldo = 0;
         foreach($articulos as $art){
          $nro_mod = $nro_mod +1;
-         $total= $art->ingcost*$art->ingcant;
-         $saldo1=$art->ingcant-$art->quantity;
-         $entrada1=$art->ingcost*$art->ingcant;
+         $total= $art->ingcost*$art->quantitytot;
+         $saldo1=$art->quantitytot-$art->quantity;
+         $entrada1=$art->ingcost*$art->quantitytot;
          $salida1=$art->ingcost*$art->quantity;
          $total1=$entrada1-$salida1;
              echo '<tr>';
@@ -84,7 +82,7 @@ $tam=count($almacen) + 4;
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->ingcost,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$total,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
-             echo   '<td  align="center" style="border: 1px solid #000000;">',$art->ingcant,'</td>';
+             echo   '<td  align="center" style="border: 1px solid #000000;">',$art->quantitytot,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$art->quantity,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$saldo1,'</td>';
              echo   '<td  align="center" style="border: 1px solid #000000;">',$entrada1,'</td>';
