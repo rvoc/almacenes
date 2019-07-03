@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Person extends Model
 {
     //
-    protected $table = "public._bp_personas";
+    protected $table = "rrhh.employees";
     public $timestamps = false;
-    protected $primaryKey = "prs_id";
+    protected $primaryKey = "id";
 
     public function getUser(){
-        return User::where('usr_prs_id',$this->prs_id)->first();
+        return User::where('usr_prs_id',$this->id)->first();
     }
 
 }

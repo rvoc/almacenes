@@ -1,6 +1,6 @@
  @php
-$user= DB::table('public._bp_personas')
-                ->where('prs_id','=',Auth::user()->usr_prs_id)
+$user= DB::table('rrhh.employees')
+                ->where('id','=',Auth::user()->usr_prs_id)
                 ->first();
 
 $date=date('Y-m-d');
@@ -47,7 +47,7 @@ function obtenerSalidas($id_insumo)
       <td colspan="13"  align="center"><strong><h1>EXPRESADO EN BOLIVIANOS</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="13"><strong><h1>GENERADO POR: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
+      <td colspan="13"><strong><h1>GENERADO POR: {{$user->first_name}} {{$user->second_name}} {{$user->last_name}} {{$user->mother_last_name}}</h1></strong></td>
    </tr>
 </table>
 <table border="1">

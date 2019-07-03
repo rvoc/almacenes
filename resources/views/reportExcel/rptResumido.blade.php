@@ -1,6 +1,6 @@
 @php
-$user= DB::table('public._bp_personas')
-                ->where('prs_id','=',Auth::user()->usr_prs_id)
+$user= DB::table('rrhh.employees')
+                ->where('id','=',Auth::user()->usr_prs_id)
                 ->first();
 $storage=Auth::user()->getStorage();
 $almacen = DB::table('sisme.storages')->select('id','name')->get();
@@ -10,12 +10,13 @@ $tam1=count($almacen);
 //echo $tam1;
 $tam=count($almacen) + 4; 
 
-function obtenerSalidas($storage,$articulo)
+function obtenerCantAlm($storage,$articulo,$date)
 {
    $cantidad_alm = 0;
    $almacen = DB::table('sisme.stocks')
                    // ->join('sisme.stocks as stock','sisme.storages.id','=','stock.storage_id')
                     ->select('stocks.storage_id','stocks.article_id', DB::raw('sum(stocks.quantity) as quantity'))
+                    ->where(DB::raw('cast(stocks.created_at as date)'),'=',$date)
                     ->groupBy('stocks.storage_id', 'stocks.article_id')
                     ->get();
          //  return $almacen;
@@ -43,7 +44,7 @@ function obtenerSalidas($storage,$articulo)
       <td colspan="{{$tam}}" align="center"><strong><h1>FECHA DE EMISION: {{$date}}</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="{{$tam}}"><strong><h1>GENERADO POR: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
+      <td colspan="{{$tam}}"><strong><h1>GENERADO POR: {{$user->first_name}} {{$user->second_name}} {{$user->last_name}} {{$user->mother_last_name}}</h1></strong></td>
    </tr>
 </table>
 <table id="Tabla1">
@@ -60,10 +61,6 @@ function obtenerSalidas($storage,$articulo)
   </thead>
   <tbody>
    <?php
-   foreach($almacen as $alm){
-
-
-   }
      $nro_mod = 0;
         foreach($articulos as $art){
         $nro_mod = $nro_mod +1;
@@ -73,7 +70,7 @@ function obtenerSalidas($storage,$articulo)
               echo   '<td align="center" style="border: 1px solid #000000;">',$art->detalle,'</td>';
               echo   '<td align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
               foreach($almacen as $alm){
-                $cantidad = obtenerSalidas($alm->id, $art->article_id);
+                $cantidad = obtenerCantAlm($alm->id, $art->article_id, $date);
               echo   '<td align="center" style="border: 1px solid #000000;">',$cantidad,'</td>';
               }
              echo'</tr>';   

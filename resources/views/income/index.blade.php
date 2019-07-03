@@ -27,7 +27,6 @@
                             <tr>
                                 <th>Nro</th>
                                 <th>Codigo Ingreso</th>
-                                <th>Acta Recepcion</th>
                                 <th>Factura</th>
                                 <th>Fecha Ingreso</th>
                                 <th>Persona</th>
@@ -43,16 +42,13 @@
                                 <td>{{$count++}}</td>
                                 <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('income_note/'.$item->id)}}">{{$item->correlative}}</a>
                                 </td>
-                                <td><a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('minute_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a>
-                                </td>
-
                                 <td>
                                     @if($item->path_invoice)
                                     <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('storage/'.substr($item->path_invoice,7))}}" > <i class="fa fa-file-invoice-dollar text-secondary"></i> </a>
                                     @endif
                                  </td>
                                 <td>{{$item->created_at}}</td>
-                                <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
+                                <td>{{$item->person->first_name.' '.$item->person->second_name.' '.$item->person->last_name.' '.$item->person->mother_last_name}}</td>
                                 <td>{{$item->provider->name}}</td>
                                 <td>{{$item->getTotalQuantity()}}</td>
                                 <td>{{$item->total_cost}}</td>

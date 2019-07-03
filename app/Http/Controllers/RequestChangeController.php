@@ -31,6 +31,7 @@ class RequestChangeController extends Controller
 
         $request_all_in = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)->get();
         $request_all_out = RequestChangeOut::where('storage_id',Auth::user()->getStorage()->id)->get();
+       // return $request_all_out;
 
 
         if(Auth::user()->hasRole('Encargado de Almacen'))

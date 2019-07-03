@@ -1,11 +1,30 @@
  @php
-$user= DB::table('public._bp_personas')
-                ->where('prs_id','=',Auth::user()->usr_prs_id)
+$user= DB::table('rrhh.employees')
+                ->where('id','=',Auth::user()->usr_prs_id)
                 ->first();
 $storage=Auth::user()->getStorage();
-$almacen = DB::table('sisme.storages')->select('name')->where('id','=',$storage->id)->get();
+$almacen = DB::table('sisme.storages')->select('id','name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)
-$tam=count($almacen) + 4 
+$tam=count($almacen) + 4;
+
+function obtenerCantAlm($storage,$articulo,$fechainicial,$fechafinal)
+{
+   $cantidad_alm = 0;
+   $almacen = DB::table('sisme.stocks')
+                   // ->join('sisme.stocks as stock','sisme.storages.id','=','stock.storage_id')
+                    ->select('stocks.storage_id','stocks.article_id', DB::raw('sum(stocks.quantity) as quantity'))
+                    ->where(DB::raw('cast(stocks.created_at as date)'),'>=',$fechainicial)
+                    ->where(DB::raw('cast(stocks.created_at as date)'),'<=',$fechafinal)
+                    ->groupBy('stocks.storage_id', 'stocks.article_id')
+                    ->get();
+         //  return $almacen;
+            foreach ($almacen as $alm) {
+            if ($alm->storage_id == $storage && $alm->article_id == $articulo) {
+               $cantidad_alm = $alm->quantity;
+            }
+        }
+        return $cantidad_alm;
+} 
 @endphp
 <html>
 <table>
@@ -23,7 +42,7 @@ $tam=count($almacen) + 4
       <td colspan="{{$tam}}" align="center"><strong><h1>FECHA DE EMISION: {{$date}}</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="{{$tam}}"><strong><h1>GENERADO POR: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
+      <td colspan="{{$tam}}"><strong><h1>GENERADO POR: {{$user->first_name}} {{$user->second_name}} {{$user->last_name}} {{$user->mother_last_name}}</h1></strong></td>
    </tr>
 </table>
 <table>
@@ -39,19 +58,21 @@ $tam=count($almacen) + 4
    </tr>
   </thead>
   <tbody>
-   <?php
-    // {{-- @foreach($provinces->chunk(500) as $chunk) --}}
+  <?php
      $nro_mod = 0;
         foreach($articulos as $art){
-         $nro_mod = $nro_mod +1;
-             echo '<tr>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$nro_mod,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->codigo,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->detalle,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->quantity,'</td>';
-             echo'</tr>';
-        } 
+        $nro_mod = $nro_mod +1;
+             echo '<tr>'; 
+              echo   '<td align="center" style="border: 1px solid #000000;">',$nro_mod,'</td>';
+              echo   '<td align="center" style="border: 1px solid #000000;">',$art->codigo,'</td>';
+              echo   '<td align="center" style="border: 1px solid #000000;">',$art->detalle,'</td>';
+              echo   '<td align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
+              foreach($almacen as $alm){
+                $cantidad = obtenerCantAlm($alm->id, $art->article_id, $fechainicial, $fechafinal);
+              echo   '<td align="center" style="border: 1px solid #000000;">',$cantidad,'</td>';
+              }
+             echo'</tr>';   
+        }
     ?>
   </tbody>
     {{-- @endforeach --}}

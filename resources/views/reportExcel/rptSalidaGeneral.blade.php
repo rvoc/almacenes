@@ -1,7 +1,6 @@
  @php
-
-$user= DB::table('public._bp_personas')
-                ->where('prs_id','=',Auth::user()->usr_prs_id)
+$user= DB::table('rrhh.employees')
+                ->where('id','=',Auth::user()->usr_prs_id)
                 ->first();
 $storage=Auth::user()->getStorage();
 $almacen = DB::table('sisme.storages')->select('name')->get();
@@ -21,7 +20,7 @@ $tam=count($almacen) + 4
       <td colspan="7" align="center"><strong><h1>DE: {{$date}}</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="7"><strong><h1>GENERADO POR: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
+      <td colspan="7"><strong><h1>GENERADO POR: {{$user->first_name}} {{$user->second_name}} {{$user->last_name}} {{$user->mother_last_name}}</h1></strong></td>
    </tr>
 </table>
 <table border="1">
