@@ -16,6 +16,11 @@ class ArticleRequest extends Model
         return $this->belongsTo('App\Storage','storage_destiny_id');
     }
 
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee','employee_id','id')->with('management');
+    }
+    
     public function person(){
         return $this->belongsTo('App\Person','id','id');
     }

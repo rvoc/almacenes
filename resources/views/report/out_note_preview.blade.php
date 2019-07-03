@@ -5,7 +5,7 @@
 <table class="table-info align-top no-padding no-margins border">
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">Solicitante</td>
-        <td colspan="3" class="text-xs uppercase">{{$funcionario}}</td>
+        <td colspan="3" class="text-xs uppercase">{{$persona->employee->getFullName()}}</td>
     </tr>
     <tr>
         <td  class="text-center bg-grey-darker text-xs text-white">Dependencia</td>
