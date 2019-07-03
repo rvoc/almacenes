@@ -324,7 +324,7 @@ class ReportController extends Controller
         $request = json_decode(request('salidas'));
         Log::info($request);
         $username = Auth::user()->usr_usuario;
-
+        $persona = User::find(Auth::user()->usr_id);
         // $persona = $username->getFullName(); //esto esta mal tambien
         // $gerencia = $username->getGerencia();
         $title = "NOTA DE SALIDA ";
@@ -336,7 +336,7 @@ class ReportController extends Controller
         // $storage = $article_request->storage_destiny->name;
         $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 
-        $view = \View::make('report.out_note_preview', compact('username','date','title', 'code','funcionario','gerencia','incomes','persona', 'request'));
+        $view = \View::make('report.out_note_preview', compact('username','date','title', 'code','funcionario','gerencia','persona', 'request'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);
@@ -374,12 +374,14 @@ class ReportController extends Controller
         $date =Carbon::now();
 
        // $user = User::where('usr_prs_id',$article_request->prs_id)->first();
-        // $persona = $user->getFullName(); //esto esta mal tambien
+        $employee = User::find(Auth::user()->usr_id); //esto esta mal tambien
+        // $employee->employee->getFullName();
         // $gerencia = $user->getGerencia();
         // $storage = $article_request->storage_destiny->name;
         $code =  '';//$article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 
-        $view = \View::make('report.request_note_preview', compact('username','date','title', 'code','funcionario','gerencia','incomes','persona', 'article_request','count','total_quantity','year'));
+        // $view = \View::make('report.request_note_preview', compact('username','date','title', 'code','funcionario','gerencia','incomes','persona', 'article_request','count','total_quantity','year'));
+        $view = \View::make('report.request_note_preview', compact('username','date','title', 'code','funcionario','gerencia','article_request','count','total_quantity','year','employee'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);

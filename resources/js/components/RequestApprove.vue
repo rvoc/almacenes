@@ -5,7 +5,7 @@
                 <div class="card-header">
                   {{storage.name}}: Solicitud {{request.correlative}}
                   <br>
-                   Solicitante: {{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}}
+                   Solicitante: {{request.full_name}}
                         <small class="float-sm-right">
                            <button class="btn btn-success" data-toggle="modal" data-target="#registerModalApprob" ><i class="fa fa-user-check"></i> Aprobar  </button>
                            <button class="btn btn-danger" data-toggle="modal" onclick="Mostrar();" data-target="#ModalDisApprob"><i class="fa fa-user-times"></i> Rechazar  </button>
@@ -101,7 +101,7 @@
                             <div class="row">
                                 <div class="form-group  col-md-7">
                                     <strong><label for="tipo">Funcionario:</label></strong>
-                                    <label for="tipo">{{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}} </label>
+                                    <label for="tipo">{{request.full_name}} </label>
                                     <br><strong><label for="tipo"> Gerencia:</label></strong>
                                     <label for="tipo">{{gerencia}} </label>
                                 </div>
@@ -148,7 +148,7 @@
                             <div class="row">
                                 <div class="form-group  col-md-7">
                                     <strong><label for="tipo">Funcionario:</label></strong>
-                                    <label for="tipo">{{request.person.prs_nombres+' '+request.person.prs_paterno+' '+request.person.prs_materno}} </label>
+                                    <label for="tipo">{{request.full_name}} </label>
                                     <br><strong><label for="tipo"> Gerencia:</label></strong>
                                     <label for="tipo">{{gerencia}} </label>
                                 </div>
