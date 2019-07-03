@@ -63,11 +63,11 @@ class User extends Authenticatable
     // }
 
     public function getFullName(){
-        $person = DB::table('_bp_personas')
-                ->where('prs_id','=',$this->usr_prs_id)
+        $person = DB::table('rrhh.employees')
+                ->where('id','=',$this->usr_prs_id)
                 ->first();
-        // return $person->prs_nombres.' '.$person->prs_paterno.' '.$person->prs_materno;
-        return $person->prs_nombres;
+        return $person->first_name.' '.$person->second_name.' '.$person->last_name.' '.$person->mother_last_name;
+       // return $person->prs_nombres;
     }
 
     public function getArticles()

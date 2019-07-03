@@ -16,7 +16,7 @@
                         <div class="modal-body">
                             <div class="row" v-if="form.article_income">
                                 <div class="col-md-4"> Numero de nota: {{form.article_income.correlative}} </div>
-                                <div class="col-md-4"> Proveedor: {{form.article_income.provider.name}}</div>
+                                <div class="col-md-4"> Proveedor: {{form.article_income.provider.first_name}}</div>
                             </div>
                             <div class="row" v-if="form.article_income">
                                 <div class="col-md-9">  Funcionario: {{form.article_income.person.prs_nombres + ' '+form.article_income.person.prs_paterno + ' '+form.article_income.person.prs_materno}}</div>
