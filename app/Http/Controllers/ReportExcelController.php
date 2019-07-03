@@ -118,6 +118,7 @@ class ReportExcelController extends Controller
         $fechafinal = $anio_fin . "-" . $mes_fin . "-" . $dia_fin;
         // return $fechainicial;
         // return $fechafinal;
+        return $fechafinal;
         $date = $fechainicial." "."AL"." ".$fechafinal;
         $storage=Auth::user()->getStorage();
         $articulos = \DB::table('sisme.articles')
