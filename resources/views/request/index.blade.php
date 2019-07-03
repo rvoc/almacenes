@@ -33,14 +33,14 @@
                             <tr>
                                 <th>Nro</th>
                                 <th>Cod. Solicitud</th>
-                                <th>Acta Solicitud</th>
+                               {{--  <th>Acta Solicitud</th> --}}
                                 <th>Fecha</th>
                                 <th>Funcionario</th>
                                 <th>Tipo de Solicitud</th>
                                 <th>Origen de Solicitud</th>
                                 <th>Estado</th>
                                 <th>Cod. Salida</th>
-                                <th>Acta Salida</th>
+                               {{--  <th>Acta Salida</th> --}}
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -50,9 +50,9 @@
                             <tr>
                                 <td>{{$count++}}</td>
                                 <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{ $item->correlative }}</a> </td>
-                                <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a> </td>
+                                {{-- <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a> </td> --}}
                                 <td> {{$item->created_at}} </td>
-                                <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
+                                <td>{{$item->person->first_name.' '.$item->person->second_name.' '.$item->person->last_name.' '.$item->person->mother_last_name}}</td>
                                 <td>{{$item->type}}</td>
                                 <td>{{$item->storage_origin->name}}</td>
                                 <td>
@@ -76,14 +76,14 @@
                                             @break    
                                     @endswitch
                                 </td>
-                                <td>
+                            {{--     <td>
                                @if($item->state == 'Aprobado')
                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
                                 @endif 
                                 @if($item->state == 'Entregado')
                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
                                 @endif 
-                                </td>
+                                </td> --}}
                                 <td>
                                 @if($item->state == 'Aprobado')
                                     <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="far fa-file-pdf"></i></a>

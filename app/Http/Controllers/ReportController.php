@@ -79,6 +79,7 @@ class ReportController extends Controller
         $title = "NOTA DE INGRESO ";
         $date =Carbon::now();
         $persona = Auth::user()->getFullName();
+        //return $persona;
         $gerencia = Auth::user()->employee->management->name;
         $storage = Auth::user()->getStorage()->name;//cambiar esto no me acuerdo por que lo deje estatico XD
         $code =  $article_income->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_income->created_at)->year;
@@ -107,8 +108,8 @@ class ReportController extends Controller
         $title = "NOTA DE SOLICITUD";
         $date =Carbon::now();
         $user = User::where('usr_prs_id',$article_request->prs_id)->first();
-        $persona = $user->getFullName(); //esto esta mal tambien
-        $gerencia = $user->getGerencia();
+        $persona = Auth::user()->getFullName(); //esto esta mal tambien
+        $gerencia = Auth::user()->employee->management->name;
         $storage = $article_request->storage_destiny->name;
         $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
         $count = 1;
@@ -240,8 +241,8 @@ class ReportController extends Controller
         $title = "NOTA DE SALIDA ";
         $date =Carbon::now();
         $user = User::where('usr_prs_id',$article_request->prs_id)->first();
-        $persona = $user->getFullName(); //esto esta mal tambien
-        $gerencia = $user->getGerencia();
+        $persona =  Auth::user()->getFullName(); //esto esta mal tambien
+        $gerencia =  Auth::user()->employee->management->name;
         $storage = $article_request->storage_destiny->name;
         $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 

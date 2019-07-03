@@ -365,16 +365,17 @@ class RequestController extends Controller
 
         $article_request = ArticleRequest::with('person','article_request_items')->find($id);
                            // ->get();
+      //  return $article_request->person->id;
         $histories = ArticleHistory::join('sisme.article_request_items as item','sisme.article_histories.article_request_item_id','=','item.id')
                                     ->join('sisme.article_requests as art','item.article_request_id','=','art.id' )
                                     ->join('sisme.articles as articulo', 'sisme.article_histories.article_id', '=', 'articulo.id')
                                     ->join('sisme.units as uni', 'articulo.unit_id', '=', 'uni.id')
                                     ->select('articulo.name as arti','uni.name as unidad',DB::raw('sum(quantity_desc) as cant'))
                                     ->groupBy('arti', 'unidad')
-                                    ->where('prs_id', $article_request->person->prs_id)
+                                    ->where('employee_id', $article_request->person->id)
                                     ->get();
 
-         // return $histories;
+          //return $histories;
 
         foreach($article_request->article_request_items as $items)
         {
