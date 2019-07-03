@@ -111,22 +111,6 @@ class ReportExcelController extends Controller
 
      public function rptResumidoExcel($dia_inicio,$mes_inicio,$anio_inicio)
     {
-
-       $cantidad_alm = 0;
-       $almacen = DB::table('sisme.stocks')
-                   // ->join('sisme.stocks as stock','sisme.storages.id','=','stock.storage_id')
-                    ->select('stocks.storage_id','stocks.article_id', DB::raw('sum(stocks.quantity) as quantity'))
-                    ->groupBy('stocks.storage_id', 'stocks.article_id')
-                    ->get();
-           return $almacen;
-            foreach ($almacen as $alm) {
-            if ($alm->storage_id == 1 || $alm->article_id == 4) {
-               $cantidad_alm = $alm->quantity;
-            }
-        }
-        return $cantidad_alm;
-
-
         $resdia = $anio_inicio . "-" . $mes_inicio . "-". $dia_inicio;
     	$user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
@@ -134,15 +118,22 @@ class ReportExcelController extends Controller
         $usr =collect($user);
         $date=$resdia;
         $storage=Auth::user()->getStorage();
-        $articulos = \DB::table('sisme.stocks')
-                ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
-                ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
-                ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
-                ->select('art.code as codigo','art.name as detalle', 'uni.name as unidad', 'cat.name as categoria', 'stocks.article_id',DB::raw('sum(stocks.quantity) as quantity'))
-                ->where(DB::raw('cast(stocks.created_at as date)'),'=',$resdia)
-              //  ->where('stocks.storage_id','=',$storage->id)
-                ->groupBy('stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
-                ->get();
+        $articulos = \DB::table('sisme.articles')
+                        ->join('sisme.stocks as stock','sisme.articles.id','=','stock.article_id')
+                        ->join('sisme.units as uni','sisme.articles.unit_id','=','uni.id')
+                        ->select('articles.id as article_id','articles.code as codigo','articles.name as detalle', 'uni.name as unidad')
+                        ->groupBy('articles.id','unidad')
+                        ->get();
+        //return $articulos;
+        // $articulos = \DB::table('sisme.stocks')
+        //         ->join('sisme.articles as art', 'sisme.stocks.article_id', '=', 'art.id')
+        //         ->join('sisme.units as uni', 'art.unit_id', '=', 'uni.id')
+        //         ->join('sisme.categories as cat', 'art.category_id', '=', 'cat.id')
+        //         ->select('stocks.storage_id as storage','art.code as codigo','art.name as detalle', 'uni.name as unidad', 'cat.name as categoria', 'stocks.article_id',DB::raw('sum(stocks.quantity) as quantity'))
+        //         ->where(DB::raw('cast(stocks.created_at as date)'),'=',$resdia)
+        //       //  ->where('stocks.storage_id','=',$storage->id)
+        //         ->groupBy('storage','stocks.article_id', 'codigo', 'detalle', 'unidad', 'categoria')
+        //         ->get();
         // return $articulos;
         
 
@@ -152,6 +143,8 @@ class ReportExcelController extends Controller
 		    });
 
 		})->export('xls');
+
+       // return view('reportExcel.rptResumido', compact('articulos','date'));
     }
 
     function obtenerCantAlm($id_insumo)

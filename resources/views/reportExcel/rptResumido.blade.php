@@ -3,9 +3,29 @@ $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
 $storage=Auth::user()->getStorage();
-$almacen = DB::table('sisme.storages')->select('name')->get();
+$almacen = DB::table('sisme.storages')->select('id','name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)
+//echo $almacen;
+$tam1=count($almacen);
+//echo $tam1;
 $tam=count($almacen) + 4; 
+
+function obtenerSalidas($storage,$articulo)
+{
+   $cantidad_alm = 0;
+   $almacen = DB::table('sisme.stocks')
+                   // ->join('sisme.stocks as stock','sisme.storages.id','=','stock.storage_id')
+                    ->select('stocks.storage_id','stocks.article_id', DB::raw('sum(stocks.quantity) as quantity'))
+                    ->groupBy('stocks.storage_id', 'stocks.article_id')
+                    ->get();
+         //  return $almacen;
+            foreach ($almacen as $alm) {
+            if ($alm->storage_id == $storage && $alm->article_id == $articulo) {
+               $cantidad_alm = $alm->quantity;
+            }
+        }
+        return $cantidad_alm;
+}
 @endphp
 <html>
 <table>
@@ -26,7 +46,7 @@ $tam=count($almacen) + 4;
       <td colspan="{{$tam}}"><strong><h1>GENERADO POR: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
    </tr>
 </table>
-<table>
+<table id="Tabla1">
   <thead class="table_head">
    <tr>
       <td align="center" width="10" style="background-color: #808080; border: 1px solid #000000;"><strong>N°</strong></td>
@@ -40,18 +60,31 @@ $tam=count($almacen) + 4;
   </thead>
   <tbody>
    <?php
+   foreach($almacen as $alm){
+
+
+   }
      $nro_mod = 0;
         foreach($articulos as $art){
         $nro_mod = $nro_mod +1;
-             echo '<tr>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$nro_mod,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->codigo,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->detalle,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
-             echo   '<td align="center" style="border: 1px solid #000000;">',$art->quantity,'</td>';
-             echo'</tr>';
-        } 
+             echo '<tr>'; 
+              echo   '<td align="center" style="border: 1px solid #000000;">',$nro_mod,'</td>';
+              echo   '<td align="center" style="border: 1px solid #000000;">',$art->codigo,'</td>';
+              echo   '<td align="center" style="border: 1px solid #000000;">',$art->detalle,'</td>';
+              echo   '<td align="center" style="border: 1px solid #000000;">',$art->unidad,'</td>';
+              foreach($almacen as $alm){
+                $cantidad = obtenerSalidas($alm->id, $art->article_id);
+              echo   '<td align="center" style="border: 1px solid #000000;">',$cantidad,'</td>';
+              }
+             echo'</tr>';   
+        }
     ?>
   </tbody>
 </table>
 </html>
+{{-- @push('scripts') --}}
+<script>
+//va=document.getElementById("Tabla1").rows[4].cells[5].innerHTML = "<p>Algo dfsdfsdfsdfsfsd<b>HTML</b></p>";  
+//console.log(va);
+</script>
+{{-- @endpush   --}}
