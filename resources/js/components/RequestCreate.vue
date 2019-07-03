@@ -237,16 +237,68 @@ export default {
     },
     methods: {
         addIncome(item){
-            console.log('articulossss',item.quantity);
-             if(item.quantity>0) 
-             {
+            // console.log('articulossss',item.quantity);
+            // console.log('stock', this.articles);
+            //console.log('art', item.article_id);
+             let art= item.article_id;
+             let cant= item.quantity;
+             let cantstock = 0;
+      
+            //return cost;
+              if(item.quantity>0) 
+              {
                 // alert('es mayor a cero');
-                this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
-                item.quantity = '';
+                // this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+                // item.quantity = '';
                 // item.cost ='';
-             }else{
-                alert('La cantidad, no debe ser vacio y debe ser mayor a 0!!!');
+
+                this.articles.forEach(stock => {
+                 //console.log('art',stock.article_id);
+                 // console.log('cantst',stock.quantity_stock);
+                     if(art==stock.article_id)
+                     {
+                         cantstock = stock.quantity_stock;
+                        //console.log('cantidad',cantstock);
+                     }
+                     // if(art==stock.article_id)
+                     // {
+                     //    if(item.quantity<parseInt(cantstock))
+                     //    {
+                     //        this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+                     //        item.quantity = '';
+                     //    }
+                     //    else 
+                     //    {
+                     //        alert('Supera el stock el articulo:',stock.name);
+                     //    }
+                     // }
+                });
+
+
+                //this.articles.forEach(stock => {
+                    console.log('cantidad',cantstock);
+                    if(item.quantity<=parseInt(cantstock))
+                    {
+                        this.articles.forEach(stock => {
+                            if(stock.article_id=stock.article_id)
+                            {
+                                console.log('cantiiiii',stock.quantity_stock);
+                               this.incomes.push({article:stock,quantity:item.quantity,cost:item.cost});
+                          //  item.quantity = '';
+                            }
+                           
+                        });
+                    }
+                    else
+                    {
+                        alert('Supera el stock');
+                    }
+              //  });
              }
+             else
+             {
+                alert('La cantidad, no debe ser vacio y debe ser mayor a 0!!!');
+              }
         },
         deleteIncome(index){
 
