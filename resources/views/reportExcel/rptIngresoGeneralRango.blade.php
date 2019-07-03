@@ -3,9 +3,7 @@
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
-
-
-
+$storage=Auth::user()->getStorage();
 $almacen = DB::table('sisme.storages')->select('name')->get();
                 // ->where('prs_id','=',Auth::user()->usr_prs_id)
 $tam=count($almacen) + 4 
@@ -17,7 +15,7 @@ $tam=count($almacen) + 4
 </table>
 <table>
     <tr>
-       <td colspan="7" style="text-align:center;"><strong<h7>INGRESO GENERAL ALMACEN: OFICINA CENTRAL</h7></strong></td>
+       <td colspan="7" style="text-align:center;"><strong<h7>INGRESO GENERAL {{$storage->description}}</h7></strong></td>
     </tr>
     <tr>
       <td colspan="7" align="center"><strong><h1>DE: {{$date}}</h1></strong></td>
@@ -31,7 +29,7 @@ $tam=count($almacen) + 4
    <tr>
      <td align="center" width="10" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>N°</strong></td>
       <td align="center" width="30" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>ALMACEN</strong></td>
-      <td align="center" width="18" bgcolor="red" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>N° iINGRESO</strong></td>
+      <td align="center" width="18" bgcolor="red" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>N° INGRESO</strong></td>
       <td align="center" width="15" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>CODIGO</strong></td>
       <td align="center" width="40" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>ARTICULO</strong></td>
       <td align="center" width="20" style="background-color: #808080; border: 1px solid #000000; vertical-align: middle;"><strong>CANTIDAD</strong></td>

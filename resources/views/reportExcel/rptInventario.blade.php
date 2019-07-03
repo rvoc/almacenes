@@ -2,6 +2,7 @@
 $user= DB::table('public._bp_personas')
                 ->where('prs_id','=',Auth::user()->usr_prs_id)
                 ->first();
+$storage=Auth::user()->getStorage();
 @endphp
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@ $user= DB::table('public._bp_personas')
 </table>
 <table>
     <tr>
-      <td colspan="6"  align="center"><strong><h1>INVENTARIO OFICINA CENTRAL LA PAZ</h1></strong></td>
+      <td colspan="6"  align="center"><strong><h1>INVENTARIO {{$storage->description}}</h1></strong></td>
     </tr>
     <tr>
       <td colspan="6" align="center"><strong><h1>DE FECHA: {{$date}}</h1></strong></td>
