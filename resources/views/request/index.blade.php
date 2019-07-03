@@ -52,7 +52,7 @@
                                 <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}">{{ $item->correlative }}</a> </td>
                                 {{-- <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note/'.$item->id)}}"><i class="far fa-file-pdf"></i></a> </td> --}}
                                 <td> {{$item->created_at}} </td>
-                                <td>{{$item->person->first_name.' '.$item->person->second_name.' '.$item->person->last_name.' '.$item->person->mother_last_name}}</td>
+                                <td>{{$item->employee->getFullName()}}</td>
                                 <td>{{$item->type}}</td>
                                 <td>{{$item->storage_origin->name}}</td>
                                 <td>
@@ -76,22 +76,22 @@
                                             @break    
                                     @endswitch
                                 </td>
-                            {{--     <td>
+                               <td>
                                @if($item->state == 'Aprobado')
                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
                                 @endif 
                                 @if($item->state == 'Entregado')
                                    <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
                                 @endif 
-                                </td> --}}
-                                <td>
+                                </td>
+                                {{--<td>
                                 @if($item->state == 'Aprobado')
                                     <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="far fa-file-pdf"></i></a>
                                 @endif
                                 @if($item->state == 'Entregado')
                                     <a href="#" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}"> <i class="far fa-file-pdf"></i></a>
                                 @endif  
-                               </td>
+                               </td>--}}
                                 <td>
                                     {{-- <a href="{{url('action_short_term_year/'.$item->years[0]->id)}}"><i class="material-icons text-warning">folder</i></a> --}}
                                     {{-- {{$item}} --}}

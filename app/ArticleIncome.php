@@ -18,6 +18,10 @@ class ArticleIncome extends Model
         return $this->belongsTo("App\Person","id","id");
     }
 
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee','employee_id','id')->with('management');
+    }
     public function article_income_items ()
     {
         return $this->hasMany('App\ArticleIncomeItem')->with('article');

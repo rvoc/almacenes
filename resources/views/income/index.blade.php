@@ -48,7 +48,7 @@
                                     @endif
                                  </td>
                                 <td>{{$item->created_at}}</td>
-                                <td>{{$item->person->first_name.' '.$item->person->second_name.' '.$item->person->last_name.' '.$item->person->mother_last_name}}</td>
+                                <td>{{$item->employee->getFullName()}}</td>
                                 <td>{{$item->provider->name}}</td>
                                 <td>{{$item->getTotalQuantity()}}</td>
                                 <td>{{$item->total_cost}}</td>

@@ -13,6 +13,7 @@ use App\Provider;
 use App\ArticleIncome;
 use App\ArticleIncomeItem;
 use App\Person;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\ArticleHistory;
@@ -340,9 +341,11 @@ class RequestController extends Controller
     {
         //
 
-        $article_request = ArticleRequest::with('person')->find($id);
+        $article_request = ArticleRequest::with('employee')->find($id);
         $article_request_items = $article_request->article_request_items;
-
+        $article_request->full_name = $article_request->employee->getFullName();
+        // dd($article_request->full_name);
+        // $article_request->full_name = User::find(Auth::user()->usr_id)->employee->getFullName();
         foreach($article_request_items as $items)
         {
             $items->stock = Stock::where('article_id',$items->article->id)
@@ -363,7 +366,8 @@ class RequestController extends Controller
     public function approve($id)
     {
 
-        $article_request = ArticleRequest::with('person','article_request_items')->find($id);
+        $article_request = ArticleRequest::with('employee','article_request_items')->find($id);
+        $article_request->full_name = $article_request->employee->getFullName();
                            // ->get();
       //  return $article_request->person->id;
         $histories = ArticleHistory::join('sisme.article_request_items as item','sisme.article_histories.article_request_item_id','=','item.id')
