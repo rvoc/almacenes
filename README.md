@@ -32,3 +32,6 @@ para colocar el proyecto en modo desarrollo
 $ npm run dev
 ```
 ###### Opcionalmente puede utilizar yarn
+
+
+lokotos
