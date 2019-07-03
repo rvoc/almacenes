@@ -26,6 +26,7 @@ class CreateRequestChangeIncomesTable extends Migration
             $table->foreign('storage_id')->references('id')->on('sisme.storages');
             $table->timestamps();
             $table->softDeletes();
+            $table->string('remision_number');
         });
     }
 

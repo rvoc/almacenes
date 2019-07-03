@@ -1,6 +1,6 @@
  @php
-$user= DB::table('public._bp_personas')
-                ->where('prs_id','=',Auth::user()->usr_prs_id)
+$user= DB::table('rrhh.employees')
+                ->where('id','=',Auth::user()->usr_prs_id)
                 ->first();
 $storage=Auth::user()->getStorage();
 @endphp
@@ -20,7 +20,7 @@ $storage=Auth::user()->getStorage();
       <td colspan="6" align="center"><strong><h1>DE FECHA: {{$date}}</h1></strong></td>
     </tr>
     <tr>
-      <td colspan="6"><strong><h1>Generado por: {{$user->prs_nombres}} {{$user->prs_paterno}} {{$user->prs_materno}}</h1></strong></td>
+      <td colspan="6"><strong><h1>Generado por: {{$user->first_name}} {{$user->second_name}} {{$user->last_name}} {{$user->mother_last_name}}</h1></strong></td>
    </tr>
 </table>
 <table >

@@ -17,7 +17,7 @@ class ArticleRequest extends Model
     }
 
     public function person(){
-        return $this->belongsTo('App\Person','prs_id','prs_id');
+        return $this->belongsTo('App\Person','id','id');
     }
 
     public function article_request_items()
