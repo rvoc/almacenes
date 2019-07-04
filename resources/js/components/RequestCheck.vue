@@ -86,7 +86,7 @@
                         <input type="text" name="articles" :value="JSON.stringify(rows)" hidden>
                         <input type="text" name="type" value="Traspaso" v-if="isRequestStorage" hidden>
                         <input type="text" name="total_cost" :value="getTotalCost" v-if="isRequestStorage" hidden>
-                        <h5>Detalle de Solicitudssss</h5>
+                        <h5>Detalle de Solicitud</h5>
 
                         <div class="row">
                             <table class="table  table-bordered">
@@ -286,7 +286,7 @@ export default {
 
              let parameters = this.rows;
            
-            let url='/reporte_vista_RequestCheck?funcionario='+encodeURIComponent(this.request.person.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&salidas='+encodeURIComponent(JSON.stringify(this.rows));
+            let url='/reporte_vista_RequestCheck?funcionario='+encodeURIComponent(this.request.full_name)+'&gerencia='+encodeURIComponent(this.gerencia)+'&salidas='+encodeURIComponent(JSON.stringify(this.rows));
 
              console.log('del url',url);
             $('#modalPdf .modal-body iframe').attr('src', url);

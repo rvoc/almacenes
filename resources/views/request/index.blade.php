@@ -78,10 +78,10 @@
                                 </td>
                                <td>
                                @if($item->state == 'Aprobado')
-                                   <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
+                                   <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative_out }}</a> 
                                 @endif 
                                 @if($item->state == 'Entregado')
-                                   <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative }}</a> 
+                                   <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('out_note/'.$item->id)}}">{{ $item->correlative_out }}</a> 
                                 @endif 
                                 </td>
                                 {{--<td>
