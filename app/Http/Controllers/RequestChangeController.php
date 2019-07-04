@@ -132,7 +132,7 @@ class RequestChangeController extends Controller
            
             if(isset($request_income_item->arti))
             {
-                  $request_change_income_item = new RequestChangeIncomeItem;
+                $request_change_income_item = new RequestChangeIncomeItem;
                 $request_change_income_item->request_change_income_id = $request_change->id;
                 $request_change_income_item->article_id = $request_income_item->arti->id;//revisar
 
@@ -157,7 +157,8 @@ class RequestChangeController extends Controller
 
     public function store_out(Request $request)
     {
-        // return $request->all();
+         //return $request->all();
+        $arti=null;
         $request_change_out = new RequestChangeOut;
         $request_change_out->type = $request->type;
         $request_change_out->article_request_id = $request->article_request_id;
@@ -167,17 +168,29 @@ class RequestChangeController extends Controller
         $request_change_out->save();
         // return $request_change_out;
         $request_change_out_items = json_decode($request->request_out_items);
-        // return $request_change_out_items;
+         //return $request_change_out_items;
         foreach($request_change_out_items as $request_out_item)
         {
-            // if($request_out_item->id>0) //para los que son distintos de nuevos donde id nuevo = 0
-            // {
+             if(isset($request_out_item->arti))
+            {
                 $request_change_out_item = new RequestChangeOutItem;
                 $request_change_out_item->request_change_out_id = $request_change_out->id;
-                $request_change_out_item->article_id = $request_out_item->article_id;
+                $request_change_out_item->article_id = $request_out_item->arti->id;//revisar
+
+                // $request_change_out_item->cost = $request_income_item->new_cost;
                 $request_change_out_item->quantity = $request_out_item->new_quantity;
                 $request_change_out_item->save();
-            // }
+            }
+            else
+            {
+               
+                $request_change_out_item = new RequestChangeOutItem;
+                $request_change_out_item->request_change_out_id = $request_change_out->id;
+                $request_change_out_item->article_id = $request_out_item->article_id;//revisar
+
+                $request_change_out_item->quantity = $request_out_item->new_quantity;
+                $request_change_out_item->save();
+            }
         }
 
         return redirect('request_change');

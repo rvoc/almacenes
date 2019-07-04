@@ -28,6 +28,7 @@
 
                         <template slot="option" slot-scope="props">
                         <button class="btn btn-info" @click="addIncome(props.row)"><i class='fa fa-cart-plus'></i></button>
+                        <!-- <button class="btn btn-info" @click="addIncome(props.row)"><i class='fa fa-cart-plus'></i></button> -->
 
 
                             <!-- <v-icon @click="getDetail(props)" data-toggle="modal" data-target="#taskModalDetail"
@@ -279,15 +280,17 @@ export default {
                     console.log('cantidad',cantstock);
                     if(item.quantity<=parseInt(cantstock))
                     {
-                        this.articles.forEach(stock => {
-                            if(stock.article_id=stock.article_id)
-                            {
-                                console.log('cantiiiii',stock.quantity_stock);
-                               this.incomes.push({article:stock,quantity:item.quantity,cost:item.cost});
-                          //  item.quantity = '';
-                            }
+                         this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+                         item.quantity = '';
+                        // this.articles.forEach(stock => {
+                        //     if(stock.article_id=stock.article_id)
+                        //     {
+                        //         console.log('cantiiiii',stock.quantity_stock);
+                        //        this.incomes.push({article:stock,quantity:item.quantity,cost:item.cost});
+                        //   //  item.quantity = '';
+                        //     }
                            
-                        });
+                        // });
                     }
                     else
                     {

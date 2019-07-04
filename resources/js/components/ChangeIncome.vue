@@ -360,48 +360,7 @@ export default {
                        }
                   }
             },
-         // mostrarcost() {
-         //       // var tipo = document.getElementById('types').value;
-         //       console.log('cost',this.costo);
-         //        // console.log('artid',this.item.article.id);
-         //       let mostcost = this.costo;
-         //       if(mostcost==false){
-         //         this.items.forEach(item => {
-         //                item.new_quantity =0
-         //                item.new_cost =0
-         //                // item.arti =this.item.article
-         //                return item;
-         //            });
-         //       }
-         //    },
-         // mostrarcant() {
-         //       // var tipo = document.getElementById('types').value;
-         //       console.log('cant',this.cantidad);
-         //       let mostcant = this.cantidad;
-         //       if(mostcant==false){
-         //         this.items.forEach(item => {
-         //                item.new_quantity =0
-         //                item.new_cost =0
-         //                // item.arti =this.item.article
-         //                // item.arti.id =0
-         //                // item.arti =0
-         //                return item;
-         //            });
-         //       }
-         //    },
-
-         // mostrart() {
-         //       // var tipo = document.getElementById('types').value;
-         //       console.log('art',this.articulo);
-         //       let mostart = this.articulo;
-         //       if(mostart==false){
-         //         this.items.forEach(item => {
-         //                item.new_quantity =0
-         //                item.new_cost =0
-         //                return item;
-         //            });
-         //       }
-         //    },
+  
          mostraridart() {
                // var tipo = document.getElementById('types').value;
                // this.form.type.id
