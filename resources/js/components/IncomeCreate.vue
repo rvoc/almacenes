@@ -2,18 +2,27 @@
     <div class="row">
         <div class="col-md-7">
             <div class="card">
-                <div class="card-header">
-                   Ingreso Articulos {{storage.name}}
+                <div class="row">
+                <div class="col-md-9">
+                    <div class="card-header">
+                       Ingreso Articulos: {{storage.name}}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-info" @click="addIncomemasivo()">INGRESAR TODO <i class='fa fa-cart-plus'></i>
+                    </button>
+                </div>
                 </div>
                 <div class="card-body">
-                    <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
+                    <vue-bootstrap4-table :rows="rows"  :columns="columns" :config="config">
+
                         <template slot="sort-asc-icon">
                             <i class="fa fa-sort-asc"></i>
                         </template>
                         <template slot="sort-desc-icon">
                             <i class="fa fa-sort-desc"></i>
                         </template>
-                        <template slot="no-sort-icon">
+                        <template slot="option" slot-scope="props">
                             <i class="fa fa-sort"></i>
                         </template>
 
@@ -22,6 +31,7 @@
                         </template>
                         <template slot="cost" slot-scope="props">
                             <input class='form-control' v-model="props.row.cost">
+                            <input type="text" name="">
                         </template>
 
 
@@ -39,6 +49,7 @@
                                 edit
                             </v-icon> -->
                         </template>
+
                     </vue-bootstrap4-table>
                 </div>
             </div>
@@ -170,7 +181,7 @@
                                     <tr class="bg-gray">
                                     <th scope="col">#</th>
                                     <th scope="col">Articulo</th>
-                                     <th scope="col">Cantidad</th>
+                                    <th scope="col">Cantidad</th>
                                     <th scope="col">Costo</th>
                                     <th scope="col">Subtotal</th>
                                     </tr>
@@ -292,12 +303,14 @@ export default {
     }),
     mounted() {
         this.rows = this.articles;
+
         console.log(this.articles);
         console.log(this.providers);
     },
     methods: {
         addIncome(item){
              console.log('articulossss',item.quantity);
+             console.log('itemtab',this.row);
              if(item.quantity>0 && item.cost>0) 
              {
                 // alert('es mayor a cero');
@@ -310,6 +323,24 @@ export default {
             
            // let cant = this.articles; 
             console.log(item);
+        },
+
+        addIncomemasivo(){
+             console.log('ingreso de datos');
+             console.log(this.rows);
+            // console.log('articulossss',this.incomes.push({article:item,quantity:item.quantity,cost:item.cost}));
+             // if(item.quantity>0 && item.cost>0) 
+             // {
+             //    // alert('es mayor a cero');
+             //    this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
+             //    item.quantity = '';
+             //    item.cost ='';
+             // }else{
+             //    alert('La cantidad y costo unitario no debe ser vacio y debe ser mayor a 0!!!');
+             // }
+            
+           // let cant = this.articles; 
+           // console.log(item);
         },
         deleteIncome(index){
 
@@ -338,9 +369,9 @@ export default {
      
 
         vistaprevia(){
-            console.log('ingreso de datos',this.incomes);
+            console.log('ingreso de datos',this.form.provider.name);
 
-            let parameters = this.income;
+            let parameters = this.form.provider.name;
             
             let url='/reporte_vista_previa?provider='+encodeURIComponent(this.form.provider.name)+'&type='+encodeURIComponent(this.form.type.name)+'&numremision='+encodeURIComponent(this.form.remision_number)+'&fecha='+encodeURIComponent(this.form.date)+'&incomes='+encodeURIComponent(JSON.stringify(this.incomes));
 
