@@ -244,7 +244,7 @@ class ReportController extends Controller
         $persona =  Auth::user()->getFullName(); //esto esta mal tambien
         $gerencia =  Auth::user()->employee->management->name;
         $storage = $article_request->storage_destiny->name;
-        $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
+        $code =  $article_request->correlative_out .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
 
         $view = \View::make('report.out_note', compact('username','date','title','storage','article_request','persona','gerencia','code'));
         $html_content = $view->render();

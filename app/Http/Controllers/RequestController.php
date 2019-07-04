@@ -475,6 +475,17 @@ class RequestController extends Controller
         }
         $article_request = ArticleRequest::find($request->article_request_id);
         $article_request->state = "Aprobado";
+        // $number_correlative_out = ArticleRequest::select(DB::raw('MAX(correlative_out) as correlative_out_final'))->first();
+        // $article_request->correlative_out = $number_correlative_out->correlative_out_final+1;
+        $last_correlative_out = ArticleRequest::where('storage_origin_id',Auth::user()->getStorage()->id)->max('correlative_out');
+        $counter_out=0;
+        if(!$last_correlative_out){
+            $counter_out=1;
+        }
+        else{
+            $counter_out=$last_correlative_out+1;
+        }
+        $article_request->correlative_out = $counter_out;
         $article_request->save();
 
         session()->flash('message','Se aprobo la solicitud '.$article_request->correlative);
