@@ -55,6 +55,11 @@
                 </li> --}}
                 @hasrole('Administrador')
                     <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-dollar-sign"></i> Ufv de hoy: {{ Session::get('UFV') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url('system') }}" >
                             <i class="fa fa-cogs"></i> Roles y Accesos
                         </a>
