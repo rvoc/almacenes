@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Solicitud de Cambio en Salida</h5>
                     <div class="row">
-                        <div class="form-group  col-md-6">
+                        <div class="form-group  col-md-3">
                             <input type="text" name="article_request_id" :value="requestout.id" hidden>
                             <input type="text" name="type" v-if="form.type" :value="form.type.name" hidden>
                             <label for="tipo">Tipo</label>
@@ -50,6 +50,9 @@
                             </multiselect>
                             <div class="invalid-feedback">{{ errors.first("type") }}</div>
                         </div>
+                        <div class="form-group  col-md-3" v-if="button"><br>
+                             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
+                        </div>
                         <div class="form-group col-md-12">
                             <label for="lbobservation">Descripcion</label>
                             <input type="text" class="form-control" id="observation" name="observation" v-model="form.observation" placeholder="Detalle el motivo de la Solicitud" v-validate="'required'">
@@ -59,27 +62,32 @@
                         <div class="col-md-6">
                             Numero de Salida: {{requestout.correlative}} <br>
                             Fecha de Salida: {{requestout.created_at}} <br>
-                            <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
+                            <!-- <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#newItemModal">Adicionar Item</button> -->
                         </div>
                         <br>
                         <div class="col-md-12">
                                 <table class="table">
                                      <thead>
+                                       <!--  <th></th> -->
                                         <th scope="col">Nro</th>
-                                        <th scope="col">Articulo</th>
-                                        <th scope="col"  v-if="articulo">Nuevo Articulo </th>
+                                        <th scope="col">Articulo</th>  
                                         <th scope="col">Unidad</th>
                                         <th scope="col">Cantidad</th>
+                                        <th scope="col"  v-if="articulo">Nuevo Articulo </th>
                                         <th scope="col" v-if="cantidad">Nueva Cantidad</th>
 
                                      </thead>
                                     <tbody>
                                         <tr v-for="(item,index) in items" :key="index" >
+                                            <!-- <td><input type="checkbox" id="itemart" v-model="item.itemart" @input="mostraritem()"></td> -->
                                             <td>{{index+1}}</td>
                                             <td>{{item.article.name}}</td>
+                                            <td>{{item.article.unit.name}}</td>
+                                            <td>{{item.quantity}}</td>
                                             <td v-if="articulo">
+                                                <input type="text" name="provider_id" v-if="item.arti" :value="item.arti.id">
                                                 <multiselect
-                                                    v-model="item.articles"
+                                                    v-model="item.arti"
                                                     :options="articles"
                                                     id="tipo"
                                                     placeholder="Seleccionar Articulo"
@@ -91,11 +99,13 @@
                                                     >
                                                 </multiselect>
                                             </td>
-                                            <td>{{item.article.unit.name}}</td>
-                                            <td>{{item.quantity}}</td>
                                             <td v-if="cantidad">
-                                                <input type="text" class="form-control" v-model="item.new_quantity" :disabled="isDeleted()">
+                                                <input type="text" class="form-control" value="0" v-model="item.new_quantity" :disabled="isDeleted()" disabled>
                                             </td>
+                                            <!-- <td v-if="itemart">
+                                                <input type="text" class="form-control" value="0" v-model="row.new_quantity" :disabled="isDeleted()">
+                                            </td>
+ -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -160,7 +170,7 @@ export default {
      props:['url','csrf','requestout','stocks'],
     data:()=>({
         form:{},
-        // changes:[{id:1,name:'Articulo'},{id:2,name:'Cantidad'}{id:3,name:'Adicionar Item'}],
+        changes:[{id:1,name:'Articulo'},{id:2,name:'Cantidad'},{id:3,name:'Adicionar Item'}],
         types:[{id:1,name:'Eliminacion'},{id:2,name:'Modificacion'}],
         items:[],
         item:{},
@@ -169,6 +179,8 @@ export default {
         sw:false,
         articulo:false,
         cantidad:false,
+        button:false,
+        itemart:false,
     }),
     mounted() {
         // console.log(this.income);
@@ -218,7 +230,7 @@ export default {
             this.items.push(this.item);
             console.log('aqui deberia adicionar el item');
         },
-          mostrar() {
+            mostrar() {
                // var tipo = document.getElementById('types').value;
                console.log('tipooo',this.form.type.id);
                let tipo = this.form.type.id;
@@ -229,6 +241,17 @@ export default {
                     this.sw=false;
                     // item.new_cost = 0;
                     // item.new_quantity = 0;
+                  }
+            },
+             mostraritem() {
+               console.log('tipooo',this.itemart);
+               let most = this.itemart;
+                 if(most==false){
+                  this.itemart=true;
+                  this.cantidad=false
+                  }else
+                  {
+                    this.itemart=false;
                   }
             },
              mostrarcost() {
@@ -242,6 +265,60 @@ export default {
                         return item;
                     });
                }
+            },
+
+            change() {
+               // var tipo = document.getElementById('types').value;
+               console.log('modddd',this.form.changes.id);
+               let combo = this.form.changes.id;
+               // console.log('ESTE ES ITEM',this.articles);
+                 if(combo==1){
+                  this.articulo=true;
+                  this.cantidad=false;
+                  this.button=false;
+
+                  console.log('art',this.articulo);
+                  let mostart = this.cantidad;
+                  console.log('artttq??',mostart)
+                       if(mostart==false){
+                         this.items.forEach(item => {
+                            // this.id=null;
+                                item.new_quantity =0
+                               // item.new_cost =0
+                                // item.arti=null
+                                // console.log()
+                                return item;
+                            });
+                       }
+                  }if(combo==2)
+                  {
+                    this.articulo=false;
+                    this.button=false;
+                    this.cantidad=true;
+                    console.log('cant',this.cantidad);
+                    let mostcant = this.articulo;
+                       if(mostcant==false){
+                         this.items.forEach(item => {
+                                item.new_quantity =0
+                               // item.new_cost =0
+                                return item;
+                            });
+                       }
+                  }if(combo==3)
+                  {
+                    this.cantidad=false;
+                    this.articulo=false;
+                    this.button=true;
+                    console.log('cant',this.cantidad);
+                    let mostcant = this.costo;
+                       if(mostcant==false){
+                         this.items.forEach(item => {
+                                item.new_quantity =0
+                                //item.new_cost =0
+                                return item;
+                            });
+                       }
+                  }
             },
          mostrarcant() {
                // var tipo = document.getElementById('types').value;
