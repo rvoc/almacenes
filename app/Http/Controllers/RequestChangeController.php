@@ -76,7 +76,7 @@ class RequestChangeController extends Controller
     {
         $article_income = ArticleIncome::with('provider')//join('sisme.providers as prov','sisme.article_incomes.provider_id', '=', 'prov.id')
                                         ->with('article_income_items')->find($article_income_id);
-       // return $article_income;
+        return $article_income;
         $articles = Article::with('unit')->get();//cambiar articulos por los articulos de inventario
 
         // return $articles;

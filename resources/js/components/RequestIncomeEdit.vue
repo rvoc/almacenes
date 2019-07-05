@@ -19,7 +19,7 @@
                                 <div class="col-md-4"> Proveedor: {{form.article_income.provider.first_name}}</div>
                             </div>
                             <div class="row" v-if="form.article_income">
-                                <div class="col-md-9">  Funcionario: {{form.article_income.person.prs_nombres + ' '+form.article_income.person.prs_paterno + ' '+form.article_income.person.prs_materno}}</div>
+                                <div class="col-md-9">  Funcionario: {{form.article_income.employee+ ' '+form.article_income.person.prs_paterno + ' '+form.article_income.person.prs_materno}}</div>
                             </div>
                              <div class="row" v-if="form.article_income">
                                 <div class="col-md-9">  N° Remision: {{form.article_income.remision_number}}</div>
@@ -120,7 +120,7 @@ export default {
 
                 axios.get(`request_change/${request_change_income.id}`).then(response=>{
                         this.form = response.data;
-                        console.log(this.form) ;
+                        console.log('formmmm',this.form) ;
                 });
 
                 // this.form = request_change_income;

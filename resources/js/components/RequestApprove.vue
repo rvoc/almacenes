@@ -262,7 +262,7 @@ export default {
         console.log('esteee',this.request.article_request_items.quantity);
         this.data = this.history;
         this.provider = this.providers[0];
-        // console.log(this.articles);
+      console.log('historia',this.history);
        // console.log(this.articles);
     },
     methods: {
