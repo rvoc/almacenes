@@ -11,6 +11,7 @@ use App\ArticleRequest;
 use App\User;
 use App\Stock;
 use App\Storage;
+use App\Ufv;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
@@ -333,6 +334,19 @@ class ReportExcelController extends Controller
                                 ->where('article_requests.storage_origin_id',$id)
                                 ->get();
         return response()->json($almacenes);
+    }
+
+    // REPORTE DE UFV EN Excel
+    public function report_ufv()
+    {
+        // dd("REPORTE UFV");
+        $ufvs = Ufv::get();
+        // dd($ufvs);
+        Excel::create('rptUfv', function($excel)  use ($ufvs) {
+            $excel->sheet('New sheet', function($sheet)  use (&$ufvs){
+                $sheet->loadView('reportExcel.rptUfv');
+            });
+        })->export('xls');
     }
 
 }

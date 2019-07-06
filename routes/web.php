@@ -118,7 +118,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('reporte_Salida_General/{dia_inicio}/{mes_inicio}/{anio_inicio}','ReportExcelController@rptIngresoSalidasExcel');
         Route::get('reporte_Salida_GeneralRango/{dia_inicio}/{mes_inicio}/{anio_inicio}/{dia_fin}/{mes_fin}/{anio_fin}','ReportExcelController@rptIngresoSalidasExcelRango');
-
+        Route::get('report_excel_ufv', 'ReportExcelController@report_ufv');
         Route::get('rptIngresoAlm/{id}','ReportExcelController@rptIngresoAlmExcel');
         Route::get('listalmacenes','ReportExcelController@listalmacenes');
         Route::get('listalmacenesSal','ReportExcelController@listalmacenesSal');
