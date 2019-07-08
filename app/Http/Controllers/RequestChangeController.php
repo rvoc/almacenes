@@ -48,7 +48,8 @@ class RequestChangeController extends Controller
         if(Auth::user()->hasRole('Administrador'))
         {
             $request_incomes = RequestChangeIncome::where('storage_id',Auth::user()->getStorage()->id)
-                                                    ->where('state','Pendiente Aprobacion')
+                                                   // ->where('state','Pendiente Aprobacion' or 'Pendiente')
+                                                    //->->where('state','Pendiente')
                                                     ->get();
 
             $request_outs = RequestChangeOut::where('storage_id',Auth::user()->getStorage()->id)
@@ -199,14 +200,23 @@ class RequestChangeController extends Controller
 
     public function firstConfirmation(Request $request)
     {
-
+        //return $request;
         $request_change_income = RequestChangeIncome::find($request->request_change_income_id);
+       // return $request_change_income;
         switch ($request_change_income->state) {
             case 'Pendiente Aprobacion':
                 # code...
                     $request_change_income->state = 'Pendiente';
                 break;
             case 'Pendiente':
+                # code...
+                    $request_change_income->state = 'Pendiente1';
+                break;
+            case 'Pendiente1':
+                # code...
+                    $request_change_income->state = 'Pendiente2';
+                break;
+            case 'Pendiente2':
                 # code...
                     $request_change_income->state = 'Aprobado';
                     # colocar logica de codigo
@@ -254,6 +264,36 @@ class RequestChangeController extends Controller
         return back()->withInput();
         // return $request->all();
     }
+
+    public function firstDeneged(Request $request)
+    {
+        return $request;
+        $request_change_income = RequestChangeIncome::find($request->request_change_income_id);
+       // return $request_change_income;
+        switch ($request_change_income->state) {
+            case 'Pendiente Aprobacion':
+                # code...
+                    $request_change_income->state = 'Rechazado';
+                break;
+            case 'Pendiente':
+                # code...
+                    $request_change_income->state = 'Rechazado';
+                break;
+            case 'Pendiente1':
+                # code...
+                    $request_change_income->state = 'Rechazado';
+                break;
+            case 'Pendiente2':
+                # code...
+                    $request_change_income->state = 'Rechazado';
+                break;
+        }
+        $request_change_income->save();
+
+        return back()->withInput();
+        // return $request->all();
+    }
+
 
     public function  confirmOut(Request $request)
     {
@@ -362,6 +402,7 @@ class RequestChangeController extends Controller
     public function show($id) //para entradas
     {
         $request_change_income = RequestChangeIncome::with('request_change_income_items','article_income')->find($id);
+       // return $request_change_income;
         return response()->json($request_change_income);
     }
 

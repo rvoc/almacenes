@@ -67,7 +67,13 @@
                                                             <span class="badge badge-primary">{{$item->state}}</span>
                                                             @break
                                                         @case('Pendiente')
-                                                            <span class="badge badge-info">{{$item->state}}</span>
+                                                            <span class="badge badge-warning">Pendiente Aprobacion</span>
+                                                            @break
+                                                        @case('Pendiente1')
+                                                            <span class="badge badge-warning">Pendiente Aprobacion</span>
+                                                            @break
+                                                        @case('Pendiente2')
+                                                            <span class="badge badge-warning">Pendiente Aprobacion</span>
                                                             @break
                                                         @case('Rechazado')
                                                             <span class="badge badge-danger">{{$item->state}}</span>
@@ -78,8 +84,28 @@
                                                     @endswitch
                                             </td>
 
-                                            <td>
-                                                    <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                            <td> 
+                                                @switch($item->state)
+                                                        @case('Aprobado')
+                                                            {{-- <span class="badge badge-primary">{{$item->state}}</span> --}}
+                                                            @break
+                                                        @case('Pendiente')
+                                                             <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="fas fa-clipboard-check fa-lg">2</i></a>
+                                                            @break
+                                                        @case('Pendiente1')
+                                                             <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="fas fa-clipboard-check fa-lg">3</i></a>
+                                                            @break
+                                                        @case('Pendiente2')
+                                                             <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="fas fa-clipboard-check fa-lg">4</i></a>
+                                                            @break
+                                                        @case('Rechazado')
+                                                            <span class="badge badge-danger">{{$item->state}}</span>
+                                                            @break
+                                                        @case('Pendiente Aprobacion')
+                                                             <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="fas fa-clipboard-check fa-lg">1</i></a>
+                                                            @break
+                                                    @endswitch
+                                                   
                                                   {{-- 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  CODIGO DE ISABEL NO TOCAR--}}
                                             </td>
 

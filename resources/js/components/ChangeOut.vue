@@ -70,7 +70,7 @@
                                      <thead>
                                        <!--  <th></th> -->
                                         <th scope="col">Nro</th>
-                                        <th scope="col">Articulo</th>  
+                                        <th scope="col">Articulosss</th>  
                                         <th scope="col">Unidad</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col"  v-if="articulo">Nuevo Articulo </th>

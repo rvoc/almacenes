@@ -80,7 +80,7 @@
                                 <table class="table">
                                      <thead>
                                         <th scope="col">Nro</th>
-                                        <th scope="col">Articulo</th>
+                                        <th scope="col">ArticuloSSSS</th>
                                         <th scope="col">Unidad</th>
                                         <th scope="col">Costo</th>
                                         <th scope="col">Cantidad</th>
