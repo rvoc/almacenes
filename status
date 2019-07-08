@@ -1,0 +1,64 @@
+[33mcommit 4c18df8ab353fc5c160a818604a3b01f9fa20d1d[m
+Merge: e6a4e9f df0a481
+Author: Roxana <ortiz.rvoc@gmail.com>
+Date:   Fri Jul 5 10:23:23 2019 -0400
+
+    Merge remote-tracking branch 'upstream/master'
+
+[33mcommit e6a4e9f6fcadc6f308b346a359fedbb9006466bb[m
+Author: Roxana <ortiz.rvoc@gmail.com>
+Date:   Fri Jul 5 10:23:07 2019 -0400
+
+    modificacion de historial reporte
+
+[33mcommit df0a4818ae106eec90d145a7776de126c5d36e07[m
+Merge: 05472ce 39f979c
+Author: rvoc <51332336+rvoc@users.noreply.github.com>
+Date:   Thu Jul 4 15:57:05 2019 -0400
+
+    Merge pull request #60 from rvoc/master
+    
+    modificaciones carrito y modificaciones salidas
+
+[33mcommit 39f979c4603a13a85afbff9aea4143b8d704f160[m
+Merge: d2a14b0 05472ce
+Author: Roxana <ortiz.rvoc@gmail.com>
+Date:   Thu Jul 4 15:54:31 2019 -0400
+
+    Merge remote-tracking branch 'upstream/master'
+
+[33mcommit d2a14b0409ba2ba3de6c6a6a657e8c60657c63d1[m
+Author: Roxana <ortiz.rvoc@gmail.com>
+Date:   Thu Jul 4 15:53:45 2019 -0400
+
+    stock y salidas
+
+[33mcommit 05472ce8d0ed18c618769d6f77a7e8463bf593e1[m
+Merge: 2862719 c1713db
+Author: rvoc <51332336+rvoc@users.noreply.github.com>
+Date:   Thu Jul 4 15:40:34 2019 -0400
+
+    Merge pull request #59 from Glenrodd/master
+    
+    UFV Consumido
+
+[33mcommit c1713db4570dd56d3b56684bd4787cdd9a52ffd2[m
+Author: roddwy <roddwy@gmail.com>
+Date:   Thu Jul 4 15:34:11 2019 -0400
+
+    UFV Consumido
+
+[33mcommit 286271907bc05933684e2387de25cf9175a4fcb0[m
+Merge: 87ec776 01b3f1a
+Author: rvoc <51332336+rvoc@users.noreply.github.com>
+Date:   Thu Jul 4 10:59:59 2019 -0400
+
+    Merge pull request #58 from Glenrodd/master
+    
+    Numero de Correlativos Salidas
+
+[33mcommit 01b3f1a480b062a654e1b7e9bc99ac92bc34297b[m
+Author: roddwy <roddwy@gmail.com>
+Date:   Thu Jul 4 10:57:00 2019 -0400
+
+    Numero de Correlativos Salidas

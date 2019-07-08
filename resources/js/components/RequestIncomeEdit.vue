@@ -3,7 +3,6 @@
 		<div class="modal fade" id="RequestChangeIncomeModal" tabindex="-1" role="dialog" aria-labelledby="RequestChangeIncomeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <form id='formRequestChange' method="post" :action="url" @submit.prevent="validateBeforeSubmit">
-
                     <div class="modal-content">
                         <div v-html='csrf'></div>
 						<input type="text" name="id" :value="form.id" v-if="form.id" hidden>
@@ -19,7 +18,7 @@
                                 <div class="col-md-4"> Proveedor: {{form.article_income.provider.first_name}}</div>
                             </div>
                             <div class="row" v-if="form.article_income">
-                                <div class="col-md-9">  Funcionario: {{form.article_income.employee+ ' '+form.article_income.person.prs_paterno + ' '+form.article_income.person.prs_materno}}</div>
+                                <div class="col-md-9">  Funcionario: {{form.article_income.employee.first_name+ ' '+form.article_income.employee.second_name + ' '+form.article_income.employee.last_name+' '+form.article_income.employee.mother_last_name}}</div>
                             </div>
                              <div class="row" v-if="form.article_income">
                                 <div class="col-md-9">  N° Remision: {{form.article_income.remision_number}}</div>
@@ -87,6 +86,7 @@
                         </div>
                         <div class="modal-footer" >
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
+                            <button type="submit" class="btn btn-danger" v-if="" >Rechazar</button>
                             <button type="submit" class="btn btn-success" v-if="edited" >Aprobar</button>
                         </div>
                     </div>
@@ -133,6 +133,7 @@ export default {
             this.$validator.validateAll().then((result) => {
                 if (result) {
                 let form = document.getElementById("formRequestChange");
+                console.log('ssss',form);
 
                     form.submit();
                     return;
