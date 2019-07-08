@@ -56,7 +56,7 @@
                 @hasrole('Administrador')
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-dollar-sign"></i> Ufv de hoy: {{ Session::get('UFV') }}
+                            <strong>Ufv:</strong> {{ Session::get('UFV') }}
                         </a>
                     </li>
                     <li class="nav-item">
