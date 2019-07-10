@@ -31,7 +31,7 @@
                         </template>
                         <template slot="cost" slot-scope="props">
                             <input class='form-control' v-model="props.row.cost">
-                            <input type="text" name="">
+                            <!--<input type="text" name="">-->
                         </template>
 
 
@@ -64,6 +64,11 @@
                       <small class="float-sm-right">
                            <button class="btn btn-success" data-toggle="modal" data-target="#registerModal" ><i class="fa fa-shopping-cart"></i> Registrar  </button>
                            <button class="btn btn-default" ><i class="fa fa-ban"></i> Cancelar  </button>
+                           <datepicker :bootstrap-styling="true">
+  <div slot="beforeCalendarHeader" class="calender-header">
+    Choose a Date
+  </div>
+</datepicker>
                         </small>
                 </div>
                 <div class="card-body">
@@ -147,7 +152,6 @@
                                 </multiselect>
                                 <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="form-group  col-md-6">
@@ -236,8 +240,9 @@
 
     </div> <!-- end row -->
 </template>
+<
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
+<script>   
   // $('#id_dia',).datepicker({
   //       format: "yyyy/mm/dd",        
   //       language: "es",
