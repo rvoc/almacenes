@@ -82,8 +82,8 @@
                                         <th scope="col">Nro</th>
                                         <th scope="col">Articulos</th>
                                         <th scope="col">Unidad</th>
-                                        <th scope="col">Costo</th>
                                         <th scope="col">Cantidad</th>
+                                        <th scope="col">Costo</th>
                                         <th scope="col" v-if="articulo">Nuevo Articulo</th>
                                         <th scope="col" v-if="costo">Nuevo Costo</th>
                                         <th scope="col" v-if="cantidad">Nueva Cantidad</th>
