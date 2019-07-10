@@ -80,7 +80,7 @@
                                 <table class="table">
                                      <thead>
                                         <th scope="col">Nro</th>
-                                        <th scope="col">ArticuloSSSS</th>
+                                        <th scope="col">Articulos</th>
                                         <th scope="col">Unidad</th>
                                         <th scope="col">Costo</th>
                                         <th scope="col">Cantidad</th>
@@ -91,11 +91,12 @@
                                      </thead>
                                     <tbody>
                                         <tr v-for="(item,index) in items" :key="index" >
+                                            <!--<td><input type="checkbox" id="itemart" v-model="item.itemart" @input="mostraritem(item)"></td>-->
                                             <td>{{index+1}}</td>
                                             <td>{{item.article.name}}</td>
                                             <td>{{item.article.unit.name}}</td>
-                                            <td>{{item.cost}}</td>
                                             <td>{{item.quantity}}</td>
+                                            <td>{{item.cost}}</td>
                                             <!-- <input type="text" name="provider_id" v-if="item.article.id" :value="item.article.id"> -->
                                             <td v-if="articulo">
                                                 <input type="text" name="provider_id" v-if="item.arti" :value="item.arti.id" hidden>
@@ -119,6 +120,9 @@
                                             <td v-if="cantidad">
                                                 <input type="text" class="form-control" value="0" v-model="item.new_quantity" :disabled="isDeleted()" >
                                             </td>
+                                           <!-- <td v-if="cantidad">
+                                                <input type="text" class="form-control" value="0" v-model="item.new_quantity" :disabled="itemart" >
+                                            </td>-->
                                             
                                         </tr>
                                     </tbody>
@@ -164,15 +168,15 @@
                                 </multiselect>
                                 <div class="invalid-feedback">{{ errors.first("Articulo") }}</div>
                             </div>
+                              <div class="form-group  col-md-12" >
+                                <label for="quantity">Cantidad</label>
+                                    <input type="text" class="form-control" v-model="item.new_quantity">
+                                <div class="invalid-feedback">{{ errors.first("quantity") }}</div>
+                            </div>
                             <div class="form-group  col-md-12">
                                 <label for="cost">Costo</label>
                                     <input type="text"  class="form-control" v-model="item.new_cost">
                                 <div class="invalid-feedback">{{ errors.first("cost") }}</div>
-                            </div>
-                            <div class="form-group  col-md-12" >
-                                <label for="quantity">Cantidad</label>
-                                    <input type="text" class="form-control" v-model="item.new_quantity">
-                                <div class="invalid-feedback">{{ errors.first("quantity") }}</div>
                             </div>
                         </div>
                     </div>
@@ -217,6 +221,7 @@ export default {
         costo:false,
         button:false,
         nota:false,
+        itemart:true,
         // new_quantity:0,
     }),
     mounted() {
@@ -242,17 +247,17 @@ export default {
             });
         },
         addItem(){
-            console.log(this.income);
-
+            console.log('adddd',this.item.id);
+            
             this.item.article_income_id = this.income.id;
             this.item.article_id = this.item.article.id;
             this.item.created_at = this.income.created_at;
             this.item.deleted_at = this.income.deleted_at;
             this.item.updated_at = this.income.updated_at;
-            this.item.quantity= 0;
-            this.item.cost = 0;
+            this.item.quantity= this.item.new_quantity;
+            this.item.cost = this.item.new_cost;
             this.item.id = 0;
-            console.log(this.item);
+           // console.log(this.item);
             this.items.push(this.item);
         },
         mostrar() {
@@ -268,7 +273,19 @@ export default {
                     // item.new_quantity = 0;
                   }
             },
-
+       /* mostraritem(itemart) {
+            console.log ('itemmm',this.item);
+             console.log ('validet',this.itemart);
+               console.log('tipooo',this.itemart);
+               let most = this.itemart;
+                 if(most==false){
+                  this.itemart=true;
+                  //this.cantidad=false
+                  }else
+                  {
+                    this.itemart=false;
+                  }
+                },*/
          change() {
                // var tipo = document.getElementById('types').value;
                console.log('modddd',this.form.changes.id);

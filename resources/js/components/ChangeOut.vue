@@ -70,7 +70,7 @@
                                      <thead>
                                        <!--  <th></th> -->
                                         <th scope="col">Nro</th>
-                                        <th scope="col">Articulosss</th>  
+                                        <th scope="col">Articulos</th>  
                                         <th scope="col">Unidad</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col"  v-if="articulo">Nuevo Articulo </th>
@@ -100,7 +100,7 @@
                                                 </multiselect>
                                             </td>
                                             <td v-if="cantidad">
-                                                <input type="text" class="form-control" value="0" v-model="item.new_quantity" :disabled="isDeleted()" disabled>
+                                                <input type="text" class="form-control" value="0" v-model="item.new_quantity" :disabled="isDeleted()">
                                             </td>
                                             <!-- <td v-if="itemart">
                                                 <input type="text" class="form-control" value="0" v-model="row.new_quantity" :disabled="isDeleted()">
