@@ -91,7 +91,7 @@
                             <tr >
                                 <td colspan="2" class="text-right " > <strong>TOTAL:</strong> </td>
                                 <td>{{getTotalQuantity}}</td>
-                                <td>{{getTotCost}}</td>
+                                <td>{{getTotalCost}}</td>
                                 <td>{{getTotalCost}}</td>
                                 <td></td>
                             </tr>
@@ -236,8 +236,7 @@
 
     </div> <!-- end row -->
 </template>
-<
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
   // $('#id_dia',).datepicker({
   //       format: "yyyy/mm/dd",
@@ -319,7 +318,12 @@ export default {
                 item.quantity = '';
                 item.cost ='';
              }else{
-                alert('La cantidad y costo unitario no debe ser vacio y debe ser mayor a 0!!!');
+                 Swal.fire(
+                    'La cantidad y costo unitario debe ser mayor a 0 !',
+                    '',
+                    'warning'
+                )
+
              }
 
            // let cant = this.articles;
@@ -400,7 +404,7 @@ export default {
                 cost += Number(this.subTotal(item))
                 // console.log(item.cost);
             });
-            return cost;
+            return numeral(cost).format('0.00');
         },
         getTotalQuantity(){
             let quantity= 0;
@@ -409,7 +413,7 @@ export default {
                 quantity += Number(item.quantity)
                 console.log(item.quantity);
             });
-            return quantity;
+            return numeral(quantity).format('0.00');
         },
         getTotCost(){
             let cost= 0;
