@@ -18,7 +18,7 @@
                         </template>
 
                         <template slot="quantity" slot-scope="props">
-                            <input class='form-control' v-model="props.row.quantity" >
+                            <input class='form-control' v-model="props.row.quantity"  @keyup.enter="addIncome(props.row)" >
                         </template>
                         <!-- <template slot="cost" slot-scope="props">
                             <input class='form-control' v-model="props.row.cost" >
@@ -244,9 +244,9 @@ export default {
              let art= item.article_id;
              let cant= item.quantity;
              let cantstock = 0;
-      
+
             //return cost;
-              if(item.quantity>0) 
+              if(item.quantity>0)
               {
                 // alert('es mayor a cero');
                 // this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
@@ -268,7 +268,7 @@ export default {
                      //        this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
                      //        item.quantity = '';
                      //    }
-                     //    else 
+                     //    else
                      //    {
                      //        alert('Supera el stock el articulo:',stock.name);
                      //    }
@@ -289,18 +289,27 @@ export default {
                         //        this.incomes.push({article:stock,quantity:item.quantity,cost:item.cost});
                         //   //  item.quantity = '';
                         //     }
-                           
+
                         // });
                     }
                     else
                     {
-                        alert('Supera el stock');
+                        Swal.fire(
+                            'Supero el Stock !',
+                            '',
+                            'warning'
+                        )
                     }
               //  });
              }
              else
              {
-                alert('La cantidad, no debe ser vacio y debe ser mayor a 0!!!');
+                 Swal.fire(
+                    'La cantidad y costo unitario debe ser mayor a 0 !',
+                    '',
+                    'warning'
+                )
+                // alert('La cantidad, no debe ser vacio y debe ser mayor a 0!!!');
               }
         },
         deleteIncome(index){
@@ -327,12 +336,12 @@ export default {
              console.log('ingreso de datos salida',this.incomes);
 
              let parameters = this.incomes;
-           
+
             let url='/reporte_vista_RequestNote?funcionario='+encodeURIComponent(this.request.prs_nombres)+'&gerencia='+encodeURIComponent(this.gerencia)+'&solicitud='+encodeURIComponent(JSON.stringify(this.incomes));
 
               console.log('del url',url);
             $('#modalPdf .modal-body iframe').attr('src', url);
-            $('#modalPdf').modal('show');     
+            $('#modalPdf').modal('show');
         },
     },
     computed:{

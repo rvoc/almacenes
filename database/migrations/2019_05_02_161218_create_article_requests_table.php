@@ -30,7 +30,7 @@ class CreateArticleRequestsTable extends Migration
             $table->enum('state', ['Aprobado', 'Rechazado' ,'Entregado','Pendiente','Pendiente Aprobacion'])->default('Pendiente Aprobacion');
             $table->string('observation')->nullable(); //campo a solicitud de roxy
             $table->unsignedInteger('correlative')->index();
-            $table->integer('correlative_out');
+            $table->integer('correlative_out')->nullable();//
             $table->enum('type', ['Funcionario', 'Almacen'])->default('Funcionario');
             $table->unique( array('storage_destiny_id','correlative'));
             // falta adicionar lo de la gerencia

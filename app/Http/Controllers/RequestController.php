@@ -282,7 +282,8 @@ class RequestController extends Controller
         $last_income = ArticleRequest::where('storage_destiny_id',$storage_destiny_id)->max('correlative');
         $counter=0;
 
-        if(!$last_income){
+        if(!$last_income)
+        {
             $counter=1;
         }
         else{
