@@ -20,7 +20,7 @@
                                 deselect-label="Remover"
                                 selected-label="Seleccionado"
                                 label="name"
-                                track-by="name" 
+                                track-by="name"
                                 @input="mostrar()"
                                 >
                             </multiselect>
@@ -45,7 +45,7 @@
                                 deselect-label="Remover"
                                 selected-label="Seleccionado"
                                 label="name"
-                                track-by="name" 
+                                track-by="name"
                                 @input="change()"
                                 >
                             </multiselect>
@@ -119,7 +119,7 @@
                                             <td v-if="cantidad">
                                                 <input type="text" class="form-control" value="0" v-model="item.new_quantity" :disabled="isDeleted()" >
                                             </td>
-                                            
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -360,7 +360,7 @@ export default {
                        }
                   }
             },
-  
+
          mostraridart() {
                // var tipo = document.getElementById('types').value;
                // this.form.type.id

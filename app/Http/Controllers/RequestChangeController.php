@@ -130,7 +130,7 @@ class RequestChangeController extends Controller
         foreach($request_change_income_items as $request_income_item)
         {
            //return ($request_income_item->arti); //->arti;
-           
+
             if(isset($request_income_item->arti))
             {
                 $request_change_income_item = new RequestChangeIncomeItem;
@@ -153,7 +153,7 @@ class RequestChangeController extends Controller
             }
         }
              return redirect('request_change');
-        
+
     }
 
     public function store_out(Request $request)
@@ -184,7 +184,7 @@ class RequestChangeController extends Controller
             }
             else
             {
-               
+
                 $request_change_out_item = new RequestChangeOutItem;
                 $request_change_out_item->request_change_out_id = $request_change_out->id;
                 $request_change_out_item->article_id = $request_out_item->article_id;//revisar
@@ -229,7 +229,7 @@ class RequestChangeController extends Controller
                             $article_income_item->quantity = $request_change_income_item->quantity;
                             $article_income_item->cost = $request_change_income_item->cost;
                             $article_income_item->save();
-                            
+
                             $stock = Stock::where('article_income_item_id',$article_income_item->id)->first();
                             $stock->quantity -= $article_income_item->quantity;
                             $stock->cost -= $article_income_item->cost;
@@ -251,7 +251,7 @@ class RequestChangeController extends Controller
                             $stock->quantity = $article_income_item->quantity;
                             $stock->cost = $article_income_item->cost;
                             $stock->save();
-                            
+
                         }
 
                     }
@@ -317,7 +317,7 @@ class RequestChangeController extends Controller
                             $article_request_item->quantity = $request_change_out_item->quantity;
                             $article_request_item->cost = $request_change_out_item->cost;
                             $article_request_item->save();
-                            
+
                             //para el stock verificar el flujo a seguir
                             // $stock = Stock::where('article_income_item_id',$article_request_item->article_request_item_id)->first();
                             // $stock->quantity += $article_request_item->quantity;
@@ -381,7 +381,7 @@ class RequestChangeController extends Controller
                                     }
                             }
 
-                            
+
                         }
 
                     }

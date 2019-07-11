@@ -18,7 +18,7 @@
                     </small>
                 </div>
                 <div class="card-body">
-                    <span>Nombre:</span> <strong> {{user.person.prs_nombres+' '+user.person.prs_paterno+' '+user.person.prs_materno}}</strong><br>
+                    <span>Nombre:</span> <strong> {{user.employee.first_name+' '+user.employee.last_name+' '+user.employee.mother_last_name}}</strong><br>
                     <span></span>
                 </div>
             </div>
