@@ -115,7 +115,7 @@ class RequestChangeController extends Controller
     public function store(Request $request) //neto para el income
     {
         //
-      // return $request->all();
+       //return $request->all();
         $arti=null;
         $request_change = new RequestChangeIncome;
         $request_change->article_income_id = $request->article_income_id;
@@ -127,30 +127,75 @@ class RequestChangeController extends Controller
         $request_change->save();
 
         $request_change_income_items = json_decode($request->request_income_items);
+       // return $request_change_income_items;
         foreach($request_change_income_items as $request_income_item)
         {
            //return ($request_income_item->arti); //->arti;
 
             if(isset($request_income_item->arti))
             {
+                if($request_income_item->new_quantity==0 && $request_income_item->new_cost==0)
+                {
+                    $request_change_income_item = new RequestChangeIncomeItem;
+                    $request_change_income_item->article_income_item_id = $request_income_item->id;
+                    $request_change_income_item->request_change_income_id = $request_change->id;
+                    $request_change_income_item->article_id = $request_income_item->arti->id;//revisar
+
+                    $request_change_income_item->quantity = $request_income_item->quantity;
+                    $request_change_income_item->save();
+                }
+                else
+                {
                 $request_change_income_item = new RequestChangeIncomeItem;
+                $request_change_income_item->article_income_item_id = $request_income_item->id;
                 $request_change_income_item->request_change_income_id = $request_change->id;
                 $request_change_income_item->article_id = $request_income_item->arti->id;//revisar
 
                 $request_change_income_item->cost = $request_income_item->new_cost;
                 $request_change_income_item->quantity = $request_income_item->new_quantity;
                 $request_change_income_item->save();
+                }
             }
             else
             {
-              $request_change_income_item = new RequestChangeIncomeItem;
+               // $arti=null;
+              /*  if(isset($request_income_item->new_quantity) && isset($request_income_item->new_cost))
+                {
+                    $request_change_income_item = new RequestChangeIncomeItem;
+                    //$request_change_income_item->article_income_item_id = $request_income_item->id;
+                    $request_change_income_item->request_change_income_id = $request_change->id;
+                    $request_change_income_item->article_id = $request_income_item->;//revisar
+
+                    $request_change_income_item->cost = $request_income_item->cost;
+                    $request_change_income_item->quantity = $request_income_item->quantity;
+                    $request_change_income_item->save();
+                }*/
+
+                 if($request_income_item->new_quantity==0 && $request_income_item->new_cost==0)
+                {
+                    $request_change_income_item = new RequestChangeIncomeItem;
+                    $request_change_income_item->article_income_item_id = $request_income_item->id;
+                    $request_change_income_item->request_change_income_id = $request_change->id;
+                    $request_change_income_item->article_id = $request_income_item->article_id;//revisar
+
+                    $request_change_income_item->cost = $request_income_item->cost;
+                    $request_change_income_item->quantity = $request_income_item->quantity;
+                    $request_change_income_item->save();
+                }
+                else
+                {
+                $request_change_income_item = new RequestChangeIncomeItem;
                 $request_change_income_item->request_change_income_id = $request_change->id;
                 $request_change_income_item->article_id = $request_income_item->article_id;//revisar
+                $request_change_income_item->article_income_item_id = $request_income_item->id;
 
                 $request_change_income_item->cost = $request_income_item->new_cost;
                 $request_change_income_item->quantity = $request_income_item->new_quantity;
                 $request_change_income_item->save();
+                }
+
             }
+
         }
              return redirect('request_change');
 
@@ -160,6 +205,7 @@ class RequestChangeController extends Controller
     {
          //return $request->all();
         $arti=null;
+
         $request_change_out = new RequestChangeOut;
         $request_change_out->type = $request->type;
         $request_change_out->article_request_id = $request->article_request_id;
@@ -174,13 +220,29 @@ class RequestChangeController extends Controller
         {
              if(isset($request_out_item->arti))
             {
-                $request_change_out_item = new RequestChangeOutItem;
-                $request_change_out_item->request_change_out_id = $request_change_out->id;
-                $request_change_out_item->article_id = $request_out_item->arti->id;//revisar
+                if($request_out_item->new_quantity==0 && $request_out_item->new_cost==0)
+                {
+                    $request_change_out_item = new RequestChangeOutItem;
+                    $request_change_out_item->request_change_out_id = $request_change_out->id;
+                    $request_change_out_item->article_id = $request_out_item->arti->id;//revisar
+                    $request_change_out_item->article_request_item_id = $request_out_item->id;
 
-                // $request_change_out_item->cost = $request_income_item->new_cost;
-                $request_change_out_item->quantity = $request_out_item->new_quantity;
-                $request_change_out_item->save();
+                     // $request_change_out_item->cost = $request_income_item->new_cost;
+                    $request_change_out_item->quantity = $request_out_item->quantity;
+                    $request_change_out_item->save();
+                }
+                else
+                {
+                    $request_change_out_item = new RequestChangeOutItem;
+                    $request_change_out_item->request_change_out_id = $request_change_out->id;
+                    $request_change_out_item->article_id = $request_out_item->arti->id;//revisar
+                    $request_change_out_item->article_request_item_id = $request_out_item->id;
+
+
+                    // $request_change_out_item->cost = $request_income_item->new_cost;
+                    $request_change_out_item->quantity = $request_out_item->new_quantity;
+                    $request_change_out_item->save();
+                }
             }
             else
             {
@@ -188,8 +250,7 @@ class RequestChangeController extends Controller
                 $request_change_out_item = new RequestChangeOutItem;
                 $request_change_out_item->request_change_out_id = $request_change_out->id;
                 $request_change_out_item->article_id = $request_out_item->article_id;//revisar
-
-                $request_change_out_item->quantity = $request_out_item->new_quantity;
+                $request_change_out_item->quantity = $request_out_item->new_quantity==0?$request_out_item->quantity: $request_out_item->new_quantity ;
                 $request_change_out_item->save();
             }
         }
@@ -222,21 +283,79 @@ class RequestChangeController extends Controller
                     # colocar logica de codigo
                     foreach($request_change_income->request_change_income_items as $income_change_item)
                     {
+                       // return $request_change_income;
                         $request_change_income_item = RequestChangeIncomeItem::find($income_change_item->id);
+                        //return $request_change_income_item->article_income_item;
                         if($request_change_income_item->article_income_item) //si existe su entrada si no es nuevo en la modificacion
                         {
                             $article_income_item = ArticleIncomeItem::find($request_change_income_item->article_income_item->id);
+                            //return $request_change_income_item;
+                           // $cost=$request_change_income_item->cost;
+
+                            if(0==$request_change_income_item->cost && 0==$request_change_income_item->quantity)
+                            {
+                               return $article_income_item;
+                               $article_income_item->quantity = $request_change_income_item->article_income_item_id;
+
+                               /* $stock = Stock::where('article_income_item_id',$article_income_item->id)->first();
+                                $stock->quantity -= $article_income_item->quantity;
+                                $stock->cost -= $article_income_item->cost;*/
+                                //$stock->save();
+                                //}
+                                //return ;
+                            }
+                            if(isset($request_change_income_item->cost) && isset($request_change_income_item->quantity))
+                            {
+                               //return $article_income_item;
+                               $article_income_item->article_id = $request_change_income_item->article_id;
+                               $article_income_item->save();
+                               $stock = Stock::where('article_income_item_id',$article_income_item->id)->first();
+                                $stock->article_id = $article_income_item->article_id;
+                                $stock->save();
+
+                            }
+
+                            if(0==$request_change_income_item->cost)
+                            {
+
+                            //return $article_income_item;
+
                             $article_income_item->quantity = $request_change_income_item->quantity;
-                            $article_income_item->cost = $request_change_income_item->cost;
+                            //$article_income_item->cost = $request_change_income_item->cost;
                             $article_income_item->save();
 
                             $stock = Stock::where('article_income_item_id',$article_income_item->id)->first();
                             $stock->quantity -= $article_income_item->quantity;
+                            //$stock->cost -= $article_income_item->cost;
+                            $stock->save();
+                            }
+
+                            if(0==$request_change_income_item->quantity)
+                            {
+                            //$article_income_item->quantity = $request_change_income_item->quantity;
+                            $article_income_item->cost = $request_change_income_item->cost;
+                            $article_income_item->save();
+
+                            $stock = Stock::where('article_income_item_id',$article_income_item->id)->first();
+                            // $stock->quantity -= $article_income_item->quantity;
                             $stock->cost -= $article_income_item->cost;
                             $stock->save();
+                            }
+                            if(0==$request_change_income_item->cost && 0==$request_change_income_item->quantity)
+                            {
+                               /*return $article_income_item;
+                               $article_income_item->quantity = $request_change_income_item->article_income_item_id;*/
 
+                               /* $stock = Stock::where('article_income_item_id',$article_income_item->id)->first();
+                                $stock->quantity -= $article_income_item->quantity;
+                                $stock->cost -= $article_income_item->cost;*/
+                                //$stock->save();
+                                //}
+                                //return ;
+                            }
                         }else //en caso de que sea nuevo item en la modificacion
                         {
+                       // return $request_change_income_item;
                             $article_income_item = new ArticleIncomeItem;
                             $article_income_item->article_income_id = $request_change_income->article_income_id;
                             $article_income_item->article_id = $income_change_item->article_id;
@@ -253,10 +372,7 @@ class RequestChangeController extends Controller
                             $stock->save();
 
                         }
-
                     }
-
-
                 break;
         }
         $request_change_income->save();
@@ -302,8 +418,16 @@ class RequestChangeController extends Controller
         switch ($request_change_out->state) {
             case 'Pendiente Aprobacion':
                 # code...
-                    $request_change_out->state = 'Pendiente';
-                break;
+                   $request_change_out->state = 'Pendiente';
+               break;
+           //  case 'Pendiente':
+                # code...
+         //           $request_change_out->state = 'Pendiente1';
+           //     break;
+         //    case 'Pendiente1':
+                # code...
+           //         $request_change_out->state = 'Pendiente2';
+           //     break;
             case 'Pendiente':
                 # code...
                     $request_change_out->state = 'Aprobado';
@@ -319,10 +443,10 @@ class RequestChangeController extends Controller
                             $article_request_item->save();
 
                             //para el stock verificar el flujo a seguir
-                            // $stock = Stock::where('article_income_item_id',$article_request_item->article_request_item_id)->first();
-                            // $stock->quantity += $article_request_item->quantity;
-                            // $stock->cost += $article_request_item->cost;
-                            // $stock->save();
+                            $stock = Stock::where('article_income_item_id',$article_request_item->article_request_item_id)->first();
+                            $stock->quantity += $article_request_item->quantity;
+                            $stock->cost += $article_request_item->cost;
+                            $stock->save();
 
                         }else //en caso de que sea nuevo item en la modificacion
                         {
@@ -385,8 +509,6 @@ class RequestChangeController extends Controller
                         }
 
                     }
-
-
                 break;
         }
         $request_change_out->save();
