@@ -30,7 +30,7 @@
                             <input class='form-control' v-model="props.row.quantity" >
                         </template>
                         <template slot="cost" slot-scope="props">
-                            <input class='form-control' v-model="props.row.cost">
+                            <input class='form-control' v-model="props.row.cost" @keyup.enter="addIncome(props.row)"  >
                             <!--<input type="text" name="">-->
                         </template>
 
