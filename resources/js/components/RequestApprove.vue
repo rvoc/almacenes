@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -88,8 +88,8 @@
             <div class="modal-content">
                 <form enctype="multipart/form-data" id='formCategory' method="post" :action="url+'/confirm_request_Approve'" @submit.prevent="validateBeforeSubmit">
                     <div v-html='csrf'></div>
-                    <div class="modal-header" style="background-color:rgba(84, 51, 136, 0.44);">
-                        <h5 class="modal-title" id="registerModalLabel" v-if="isRequestStorage">Aprobar Solicitud de Traspaso Nro {{request.correlative}}</h5>
+                    <div class="modal-header" style="background-color:563d7c">
+                        <h5 style="color:ffffff" class="modal-title" id="registerModalLabel" v-if="isRequestStorage" >Aprobar Solicitud de Traspaso Nro {{request.correlative}}</h5>
                         <h5 class="modal-title" id="registerModalLabel" v-else><strong>Aprobar Solicitud  Nro {{request.correlative}}</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
