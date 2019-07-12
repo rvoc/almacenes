@@ -498,6 +498,17 @@ class ReportController extends Controller
         $history = ArticleHistory::where('article_id',$article_id)
                                     ->where('storage_id',Auth::user()->getStorage()->id)
                                     ->get();
+
+        $stocks = Stock::with('article_income_item')->where('storage_id',Auth::user()->getStorage()->id)
+                        ->where('quantity','>',0)
+                        ->orderby('article_income_item_id')
+                        ->get();
+        // foreach($stocks as $stock){
+            
+        //     $history= ArticleHistory::where('type',"Entrada")->where('article_income_item_id',$stock->article_income_item_id)->first();
+        //     $stock->history = $history;
+        // }
+        // return $stocks;
         $article = Article::find($article_id);
         $username = Auth::user()->usr_usuario;
         $date =Carbon::now();
@@ -516,7 +527,7 @@ class ReportController extends Controller
         // return $income_items;
         $title = "Kardex Valorado";
         // return var_dump($incomes);
-        $view = \View::make('report.kardex_valorado',compact('history','article','count','title','date','username','code','quantity','income_items'));
+        $view = \View::make('report.kardex_valorado',compact('history','article','count','title','date','username','code','quantity','income_items','stocks'));
         $html_content = $view->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html_content);

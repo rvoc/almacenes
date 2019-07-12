@@ -22,7 +22,7 @@ class CreateStocksTable extends Migration
             $table->integer('article_income_item_id');
             $table->foreign('article_income_item_id')->references('id')->on('sisme.article_income_items');
             $table->decimal('quantity');
-            $table->decimal('cost',8,5);
+            $table->decimal('cost');
             $table->timestamps();
             $table->softDeletes();
         });
