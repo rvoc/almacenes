@@ -110,7 +110,7 @@
 
             </tr>
         @endforeach
-        @foreach ($stocks as $stock)
+        {{-- @foreach ($stocks as $stock)
         <tr class="text-sm bg-grey-darker  text-white">
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count++ }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{Carbon\Carbon::parse($stock->created_at, 'UTC')->format('d-m-Y')}}</td>
@@ -125,26 +125,31 @@
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $stock->cost }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $stock->quantity * $stock->cost}}</td>
         </tr>
-            
-        @endforeach
+
+        @endforeach --}}
     </tbody>
 </table>
-{{-- <br>
+<br>
 <table class="table-info w-100">
     <thead class="bg-grey-darker">
+        {{-- <tr class="font-medium text-white text-sm">
+            <td colspan="5" class="px-15 py text-center text-xxs ">
+                    Resumen datos Actual
+            </td>
+        </tr> --}}
         <tr class="font-medium text-white text-sm">
             <td rowspan="1" class="px-15 py text-center text-xxs ">
                 Nro.
             </td>
             <td rowspan="1" class="px-15 py text-center  text-xxs">
-                Fecha Ultima Modificacion
+                Fecha Ingreso/Movimiento
             </td>
-           
+
 
             <td colspan="3" class="px-15 py text-center text-xxs">
-                Stock
+                Resumen de Saldos
             </td>
-            
+
         </tr>
         <tr class="font-medium text-white text-sm">
             <td class="px-15 py text-center  text-xxs"></td>
@@ -158,9 +163,9 @@
     <tbody>
         @php
          $total_quantity=0;
-         $total_cost=0;   
-         $total_amount=0; 
-         $count = 1; 
+         $total_cost=0;
+         $total_amount=0;
+         $count = 1;
         @endphp
         @foreach ($stocks as $index => $stock)
         <tr class="text-sm">
@@ -174,16 +179,17 @@
               $total_cost += $stock->cost;
               $total_amount +=  $stock->quantity * $stock->cost;
             @endphp
-        </tr>   
+        </tr>
         @endforeach
         <tr class="text-sm">
             <td colspan="2" class="text-center text-xxs uppercase font-bold px-5 py-3 bg-grey-darker text-white" >TOTAL:</td>
             <td class="text-center text-xxs uppercase font-bold px-5 py-3" >{{ $total_quantity }}</td>
-            <td class="text-center text-xxs uppercase font-bold px-5 py-3" >{{ $total_cost / sizeof($stocks) }}</td>
+            {{-- <td class="text-center text-xxs uppercase font-bold px-5 py-3" >{{ $total_cost / sizeof($stocks) }}</td> --}}
+            <td class="text-center text-xxs uppercase font-bold px-5 py-3" >-</td>
             <td class="text-center text-xxs uppercase font-bold px-5 py-3" >{{ $total_amount }}</td>
         </tr>
     </tbody>
-</table> --}}
+</table>
 
 
 
