@@ -8,6 +8,8 @@ require('./bootstrap');
 
 import VeeValidate from "vee-validate";
 import Multiselect from 'vue-multiselect';
+import VueTheMask from 'vue-the-mask'
+
 
 // import "gijgo";
 // import VueMaterial from 'vue-material'
@@ -26,7 +28,7 @@ window.moment.locale('es');
 
 
 window.Chart = require('chart.js');
-
+Vue.use(VueTheMask);
 toastr.options = {
     "closeButton": false,
     "debug": false,

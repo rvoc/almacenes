@@ -115,7 +115,7 @@ class RequestChangeController extends Controller
     public function store(Request $request) //neto para el income
     {
         //
-       //return $request->all();
+       return $request->all();
         $arti=null;
         $request_change = new RequestChangeIncome;
         $request_change->article_income_id = $request->article_income_id;
