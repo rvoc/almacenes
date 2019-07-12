@@ -20,10 +20,10 @@
                             <div class="row" v-if="form.article_income">
                                 <div class="col-md-9">  Funcionario: {{form.article_income.employee.first_name+ ' '+form.article_income.employee.second_name + ' '+form.article_income.employee.last_name+' '+form.article_income.employee.mother_last_name}}</div>
                             </div>
-                             <div class="row" v-if="form.article_income">
+                             <!-- <div class="row" v-if="form.article_income">
                                 <div class="col-md-9">  N° Remision: {{form.article_income.remision_number}}</div>
                                 <div class="col-md-9"><label style="color:#f70707">Nuevo N° Remision: {{form.remision_number}}</label></div>
-                            </div>
+                            </div> -->
 							<div class="row"  v-if="form.article_income">
                                 <input type="text" name="request_change_income_id" :value="form.id" hidden>
                                 <div class="col-md-6">
