@@ -48,7 +48,7 @@
                             <tr>
                                 <td>{{$count++}}</td>
                                 <td> <a href="#"  class="badge badge-primary" data-toggle="modal" data-target="#modalPdf" data-url="{{url('request_note_done/'.$item->id)}}">{{$item->correlative}}</a> </td>
-                                <td>{{$item->person->prs_nombres.' '.$item->person->prs_paterno.' '.$item->person->prs_materno}}</td>
+                                <td>{{$item->employee->first_name.' '.$item->employee->second_name.' '.$item->employee->last_name.' '.$item->employee->mother_last_name}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->storage_destiny->name}}</td>
                                 <td>
