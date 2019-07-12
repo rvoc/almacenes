@@ -171,6 +171,7 @@
                             </div>
                             <div class="form-group  col-md-3" v-if="hasFile">
                                 <label for="tipo">Fecha</label>
+                                 <input type="text" class="form-control datepickerDays" id="id_res_fin" name="id_res_fin" placeholder="yyy/mm/dd">  
                                     <input type="text" name="date" id="id_dia" class="form-control" v-model="form.date">
                                 <div class="invalid-feedback">{{ errors.first("tipo") }}</div>
                             </div>

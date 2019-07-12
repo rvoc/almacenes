@@ -16,6 +16,6 @@ class RequestChangeOutItem extends Model
 
     public function article_request_item()
     {
-        return $this->belongsTo('App\ArtileRequestItem');
+        return $this->belongsTo('App\ArticleRequestItem');
     }
 }

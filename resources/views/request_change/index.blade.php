@@ -148,13 +148,27 @@
                                                                 <span class="badge badge-danger">{{$item->state}}</span>
                                                                 @break
                                                             @case('Pendiente Aprobacion')
-                                                                <span class="badge badge-warning">{{$item->state}}</span>
+                                                                <span class="badge badge-warning">Pendiente Aprobacion</span>
                                                                 @break
                                                         @endswitch
                                                 </td>
 
                                                 <td>
-                                                        <a href="#" data-toggle="modal" data-target="#RequestChangeOutModal" data-json="{{$item}}" data-edited="true"><i class="material-icons text-primary">remove_red_eye</i></a>
+                                                    @switch($item->state)
+                                                        @case('Aprobado')
+                                                            {{-- <span class="badge badge-primary">{{$item->state}}</span> --}}
+                                                            @break
+                                                        @case('Pendiente')
+                                                             <a href="#" data-toggle="modal" data-target="#RequestChangeOutModal" data-json="{{$item}}" data-edited="true"><i class="fas fa-clipboard-check fa-lg"></i></a>
+                                                            @break
+                                                        @case('Rechazado')
+                                                            <span class="badge badge-danger">{{$item->state}}</span>
+                                                            @break
+                                                        @case('Pendiente Aprobacion')
+                                                             <a href="#" data-toggle="modal" data-target="#RequestChangeOutModal" data-json="{{$item}}" data-edited="true"><i class="fas fa-clipboard-check fa-lg"></i></a>
+                                                            @break
+                                                    @endswitch
+                                                    <!--    <a href="#" data-toggle="modal" data-target="#RequestChangeOutModal" data-json="{{$item}}" data-edited="true"><i class="material-icons text-primary">remove_red_eye</i></a>-->
                                                         {{-- 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  CODIGO DE ISABEL NO TOCAR--}}
                                                 </td>
 
