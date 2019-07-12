@@ -108,7 +108,7 @@ class ReportController extends Controller
         $title = "NOTA DE SOLICITUD";
         $date =Carbon::now();
         $user = User::where('usr_prs_id',$article_request->prs_id)->first();
-        $persona = Auth::user()->getFullName(); //esto esta mal tambien
+        $persona = Auth::user()->getFullName();
         $gerencia = Auth::user()->employee->management->name;
         $storage = $article_request->storage_destiny->name;
         $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;
@@ -137,8 +137,8 @@ class ReportController extends Controller
         $title = "NOTA DE SOLICITUD";
         $date =Carbon::now();
         $user = User::where('usr_prs_id',$article_request->prs_id)->first();
-        $persona = $user->getFullName(); //esto esta mal tambien
-        $gerencia = $user->getGerencia();
+        $persona = Auth::user()->getFullName();
+        $gerencia = Auth::user()->employee->management->name;
         $storage = $article_request->storage_origin->name;
         $storagedest = $article_request->storage_destiny->name;
         $code =  $article_request->correlative .'/'.Carbon::createFromFormat('Y-m-d H:i:s', $article_request->created_at)->year;

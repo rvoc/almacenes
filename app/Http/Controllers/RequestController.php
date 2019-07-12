@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\ArticleHistory;
 use App\UserHistory;
+use App\Employee;
 class RequestController extends Controller
 {
     /**
@@ -88,10 +89,8 @@ class RequestController extends Controller
 
     public function create_transfer(){
       //  return Auth::user()->usr_prs_id;
-        $user = Person::where('prs_id','=',Auth::user()->usr_prs_id)->get();
-        // return $user;
+        $user = Employee::where('id','=',Auth::user()->usr_prs_id)->get();
         $storages = Storage::where('id','!=',Auth::user()->getStorage()->id)->get();
-       // return $storages;
         return view('request.storage.create',compact('storages','user'));
     }
 
