@@ -42,7 +42,7 @@ class IncomeController extends Controller
     public function create()
     {
         //
-        $articles = Article::with('budget_item')->get();
+        $articles = Article::with('budget_item', 'unit')->get();
         $providers = Provider::all();
         return view('income.create',compact('articles','providers'));
     }
