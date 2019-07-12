@@ -223,7 +223,7 @@ class RequestChangeController extends Controller
             {
                 if($article_income_item->cost != $request_change_income_item->cost )
                 {
-
+                    //logica para el cambio ?
                 }
                 if($article_income_item->quantity != $request_change_income_item->quantity )
                 {
@@ -234,6 +234,8 @@ class RequestChangeController extends Controller
                         $article_income_item->quantity = $request_change_income_item->quantity;
                         $article_income_item->save();
                         $stock = Stocks::where('article_income_item_id',$article_income_item->id);
+                        $stock->quantity = $stock->quantity+$increment;
+                        $stock->save();
                         // $stock->quan
 
                     }else
@@ -248,61 +250,50 @@ class RequestChangeController extends Controller
 
             }else
             {
+                //registrando nuevos items
                 $new_article_income_item = new ArticleIncomeItem;
                 $new_article_income_item->article_income_id = $request_change_income->article_income_id;
                 $new_article_income_item->article_id = $request_change_income_item->article_id;
                 $new_article_income_item->quantity = $request_change_income_item->quantity;
                 $new_article_income_item->cost = $request_change_income_item->cost;
-                // $new_article_income_item->save();
-                // return 'crear item';
+                $new_article_income_item->save();
+
+                $stock = new Stock;
+                $stock->article_id = $new_article_income_item->article_id;
+                $stock->storage_id = $article_income->storage_id;
+                $stock->article_income_item_id = $new_article_income_item->id;
+                $stock->quantity = $new_article_income_item->quantity;
+                $stock->cost = $new_article_income_item->cost;
+                $stock->save();
 
             }
-            return $request_change_income_item;
 
-            // $request_income_item  =;
-            //return $request_change_income_item->article_income_item;
-
-           // return $request_change_income_item;
-                // $article_income_item = new ArticleIncomeItem;
-                // $article_income_item->article_income_id = $request_change_income->article_income_id;
-                // $article_income_item->article_id = $income_change_item->article_id;
-                // $article_income_item->quantity = $income_change_item->quantity;
-                // $article_income_item->cost = $income_change_item->cost;
-                // $article_income_item->save();
-
-                // $stock = new Stock;
-                // $stock->article_income_item_id = $article_income_item->id;
-                // $stock->storage_id = $request_change_income->storage_id;
-                // $stock->article_id = $article_income_item->article_id;
-                // $stock->quantity = $article_income_item->quantity;
-                // $stock->cost = $article_income_item->cost;
-                // $stock->save();
         }
 
-        return $request_change_income ;
-       // return $request_change_income;
-        switch ($request_change_income->state) {
-            case 'Pendiente Aprobacion':
-                # code...
-                    $request_change_income->state = 'Pendiente';
-                break;
-            case 'Pendiente':
-                # code...
-                    $request_change_income->state = 'Pendiente1';
-                break;
-            case 'Pendiente1':
-                # code...
-                    $request_change_income->state = 'Pendiente2';
-                break;
-            case 'Pendiente2':
-                # code...
-                    $request_change_income->state = 'Aprobado';
-                    # colocar logica de codigo.
+    //     return $request_change_income ;
+    //    // return $request_change_income;
+    //     switch ($request_change_income->state) {
+    //         case 'Pendiente Aprobacion':
+    //             # code...
+    //                 $request_change_income->state = 'Pendiente';
+    //             break;
+    //         case 'Pendiente':
+    //             # code...
+    //                 $request_change_income->state = 'Pendiente1';
+    //             break;
+    //         case 'Pendiente1':
+    //             # code...
+    //                 $request_change_income->state = 'Pendiente2';
+    //             break;
+    //         case 'Pendiente2':
+    //             # code...
+    //                 $request_change_income->state = 'Aprobado';
+    //                 # colocar logica de codigo.
 
 
-                break;
-        }
-        $request_change_income->save();
+    //             break;
+    //     }
+       // $request_change_income->save();
 
         return back()->withInput();
         // return $request->all();

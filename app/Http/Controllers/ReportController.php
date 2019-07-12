@@ -501,10 +501,11 @@ class ReportController extends Controller
 
         $stocks = Stock::with('article_income_item')->where('storage_id',Auth::user()->getStorage()->id)
                         ->where('quantity','>',0)
+                        ->where('article_id',$article_id)
                         ->orderby('article_income_item_id')
                         ->get();
         // foreach($stocks as $stock){
-            
+
         //     $history= ArticleHistory::where('type',"Entrada")->where('article_income_item_id',$stock->article_income_item_id)->first();
         //     $stock->history = $history;
         // }
