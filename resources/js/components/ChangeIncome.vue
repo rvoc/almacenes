@@ -47,7 +47,7 @@
                         <br>
 
                             <div class="form-group col-md-12 " v-if="form.type"><br>
-                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
+                                <button v-if="form.type.id==2" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newItemModal">Adicionar Item</button>
                             </div>
 
 
@@ -137,7 +137,7 @@
                             </div>
                               <div class="form-group  col-md-12" >
                                 <label for="quantity">Cantidad</label>
-                                    <input type="text" class="form-control" v-model="item.quantity">
+                                    <input type="text" class="form-control" v-model="item.quantity ">
                                 <div class="invalid-feedback">{{ errors.first("quantity") }}</div>
                             </div>
                             <div class="form-group  col-md-12">

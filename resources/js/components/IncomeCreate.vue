@@ -5,7 +5,7 @@
                 <div class="row">
                 <div class="col-md-9">
                     <div class="card-header">
-                       Ingreso Articulos: {{storage.name}}
+                       <center><h5><strong>INGRESO ARTICULOS: {{storage.name}}</strong></h5></center>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -15,7 +15,6 @@
                 </div>
                 <div class="card-body">
                     <vue-bootstrap4-table :rows="rows"  :columns="columns" :config="config">
-
                         <template slot="sort-asc-icon">
                             <i class="fa fa-sort-asc"></i>
                         </template>
@@ -60,7 +59,7 @@
                 <div class="card-header">
                     <!-- <i class="fa fa-shopping-cart"></i> -->
 
-                     Ingresos Pendientes
+                     <center><h5><strong>INGRESOS PENDIENTES</strong></h5></center>
                       <small class="float-sm-right">
                           <button class="btn btn-success" data-toggle="modal" data-target="#registerModal"><i
                                   class="fa fa-shopping-cart"></i> Registrar </button>
@@ -91,7 +90,7 @@
                             <tr >
                                 <td colspan="2" class="text-right " > <strong>TOTAL:</strong> </td>
                                 <td>{{getTotalQuantity}}</td>
-                                <td>{{getTotalCost}}</td>
+                                <td>{{getTotCost}}</td>
                                 <td>{{getTotalCost}}</td>
                                 <td></td>
                             </tr>
@@ -254,6 +253,15 @@ export default {
         incomes: [],
         types:[{name: 'Ingreso'},{name:'Traspaso'},{name:'Reingreso'}],
         columns: [
+             {
+                label: "Nombre",
+                name: "name",
+                filter: {
+                    type: "simple",
+                    placeholder: "nombre"
+                },
+                sort: true,
+            },
             {
                 label: "Partida",
                 name: "budget_item.name",
@@ -264,14 +272,10 @@ export default {
                 sort: true,
             },
             {
-                label: "Nombre",
-                name: "name",
-                filter: {
-                    type: "simple",
-                    placeholder: "nombre"
-                },
-                sort: true,
+                label: "Unidad Medida",
+                name: "unit.name",
             },
+           
              {
                 label: "Cantidad",
                 name: "quantity",

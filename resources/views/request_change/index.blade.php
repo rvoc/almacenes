@@ -84,7 +84,7 @@
                                                     @endswitch
                                             </td>
 
-                                            <td> 
+                                            <td>
                                                 @switch($item->state)
                                                         @case('Aprobado')
                                                             {{-- <span class="badge badge-primary">{{$item->state}}</span> --}}
@@ -105,7 +105,7 @@
                                                              <a href="#" data-toggle="modal" data-target="#RequestChangeIncomeModal" data-json="{{$item}}" data-edited="true"><i class="fas fa-clipboard-check fa-lg">1</i></a>
                                                             @break
                                                     @endswitch
-                                                   
+
                                                   {{-- 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  CODIGO DE ISABEL NO TOCAR--}}
                                             </td>
 
