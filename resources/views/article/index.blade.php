@@ -28,7 +28,7 @@
                             <tr>
                                 <th>Codigo</th>
                                 <th>Nombre</th>
-                                <th>Cantidad</th>
+                                {{-- <th>Cantidad</th> --}}
                                 <th>Unidad</th>
                                 <th>Categoria</th>
                                 <th>Partida</th>
@@ -42,7 +42,7 @@
                             <tr>
                                 <td>{{$item->code}}</td>
                                 <td>{{$item->name}}</td>
-                                <td>0</td>
+                                {{-- <td>0</td> --}}
                                 <td>{{$item->unit->name}}</td>
                                 <td>{{$item->category->name}}</td>
                                 <td>{{$item->budget_item->name}}</td>
