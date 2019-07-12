@@ -15,6 +15,6 @@ class Stock extends Model
     }
     public function article_income_item()
     {
-        return $this->belongsTo('App\ArticleIncomeItem');
+        return $this->belongsTo('App\ArticleIncomeItem')->with('article_income');
     }
 }

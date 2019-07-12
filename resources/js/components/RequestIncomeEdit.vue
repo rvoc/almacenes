@@ -86,7 +86,7 @@
                         </div>
                         <div class="modal-footer" >
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
-                            <button type="submit" class="btn btn-danger" v-if="" >Rechazar</button>
+                            <button type="submit" class="btn btn-danger" >Rechazar</button>
                             <button type="submit" class="btn btn-success" v-if="edited" >Aprobar</button>
                         </div>
                     </div>

@@ -14247,7 +14247,7 @@ toastr.options = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/roxana/proyectos/almacenes/resources/js/login.js */"./resources/js/login.js");
+module.exports = __webpack_require__(/*! /home/keyrus/almacenes/resources/js/login.js */"./resources/js/login.js");
 
 
 /***/ })

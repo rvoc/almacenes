@@ -9,8 +9,8 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <button class="btn btn-info" @click="addIncomemasivo()">INGRESAR TODO <i class='fa fa-cart-plus'></i>
-                    </button>
+                    <!-- <button class="btn btn-info" @click="addIncomemasivo()">INGRESAR TODO <i class='fa fa-cart-plus'></i>
+                    </button> -->
                 </div>
                 </div>
                 <div class="card-body">
@@ -22,7 +22,7 @@
                         <template slot="sort-desc-icon">
                             <i class="fa fa-sort-desc"></i>
                         </template>
-                        <template slot="option" slot-scope="props">
+                        <template slot="option" >
                             <i class="fa fa-sort"></i>
                         </template>
 
@@ -30,7 +30,7 @@
                             <input class='form-control' v-model="props.row.quantity" >
                         </template>
                         <template slot="cost" slot-scope="props">
-                            <input class='form-control' v-model="props.row.cost">
+                            <input class='form-control' v-model="props.row.cost" @keyup.enter="addIncome(props.row)"  >
                             <!--<input type="text" name="">-->
                         </template>
 
@@ -62,14 +62,10 @@
 
                      Ingresos Pendientes
                       <small class="float-sm-right">
-                           <button class="btn btn-success" data-toggle="modal" data-target="#registerModal" ><i class="fa fa-shopping-cart"></i> Registrar  </button>
-                           <button class="btn btn-default" ><i class="fa fa-ban"></i> Cancelar  </button>
-                           <datepicker :bootstrap-styling="true">
-  <div slot="beforeCalendarHeader" class="calender-header">
-    Choose a Date
-  </div>
-</datepicker>
-                        </small>
+                          <button class="btn btn-success" data-toggle="modal" data-target="#registerModal"><i
+                                  class="fa fa-shopping-cart"></i> Registrar </button>
+                          <button class="btn btn-default"><i class="fa fa-ban"></i> Cancelar </button>
+                      </small>
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -95,7 +91,7 @@
                             <tr >
                                 <td colspan="2" class="text-right " > <strong>TOTAL:</strong> </td>
                                 <td>{{getTotalQuantity}}</td>
-                                <td>{{getTotCost}}</td>
+                                <td>{{getTotalCost}}</td>
                                 <td>{{getTotalCost}}</td>
                                 <td></td>
                             </tr>
@@ -241,14 +237,13 @@
 
     </div> <!-- end row -->
 </template>
-<
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>   
+
+<script>
   // $('#id_dia',).datepicker({
-  //       format: "yyyy/mm/dd",        
+  //       format: "yyyy/mm/dd",
   //       language: "es",
   //       autoclose: true,
-  //   }).datepicker("setDate", new Date()); 
+  //   }).datepicker("setDate", new Date());
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 export default {
     props:['articles','providers','url','csrf','storage'],
@@ -317,17 +312,22 @@ export default {
         addIncome(item){
              console.log('articulossss',item.quantity);
              console.log('itemtab',this.row);
-             if(item.quantity>0 && item.cost>0) 
+             if(item.quantity>0 && item.cost>0)
              {
                 // alert('es mayor a cero');
                 this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
                 item.quantity = '';
                 item.cost ='';
              }else{
-                alert('La cantidad y costo unitario no debe ser vacio y debe ser mayor a 0!!!');
+                 Swal.fire(
+                    'La cantidad y costo unitario debe ser mayor a 0 !',
+                    '',
+                    'warning'
+                )
+
              }
-            
-           // let cant = this.articles; 
+
+           // let cant = this.articles;
             console.log(item);
         },
 
@@ -335,7 +335,7 @@ export default {
              console.log('ingreso de datos');
              console.log(this.rows);
             // console.log('articulossss',this.incomes.push({article:item,quantity:item.quantity,cost:item.cost}));
-             // if(item.quantity>0 && item.cost>0) 
+             // if(item.quantity>0 && item.cost>0)
              // {
              //    // alert('es mayor a cero');
              //    this.incomes.push({article:item,quantity:item.quantity,cost:item.cost});
@@ -344,8 +344,8 @@ export default {
              // }else{
              //    alert('La cantidad y costo unitario no debe ser vacio y debe ser mayor a 0!!!');
              // }
-            
-           // let cant = this.articles; 
+
+           // let cant = this.articles;
            // console.log(item);
         },
         deleteIncome(index){
@@ -370,15 +370,15 @@ export default {
         },
         subTotal(item){
             let sum = Number(item.quantity) * Number(item.cost);
-            return sum;
+            return numeral(sum).format('0.00');
         },
-     
+
 
         vistaprevia(){
             console.log('ingreso de datos',this.form.provider.name);
 
             let parameters = this.form.provider.name;
-            
+
             let url='/reporte_vista_previa?provider='+encodeURIComponent(this.form.provider.name)+'&type='+encodeURIComponent(this.form.type.name)+'&numremision='+encodeURIComponent(this.form.remision_number)+'&fecha='+encodeURIComponent(this.form.date)+'&incomes='+encodeURIComponent(JSON.stringify(this.incomes));
 
             console.log(url);
@@ -402,10 +402,10 @@ export default {
             let cost= 0;
             this.incomes.forEach(item => {
                 // this.cost += parseInt(item.cost)
-                cost += this.subTotal(item)
+                cost += Number(this.subTotal(item))
                 // console.log(item.cost);
             });
-            return cost;
+            return numeral(cost).format('0.00');
         },
         getTotalQuantity(){
             let quantity= 0;
@@ -414,7 +414,7 @@ export default {
                 quantity += Number(item.quantity)
                 console.log(item.quantity);
             });
-            return quantity;
+            return numeral(quantity).format('0.00');
         },
         getTotCost(){
             let cost= 0;

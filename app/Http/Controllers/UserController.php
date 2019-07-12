@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::with('person')->get();
+        $users = User::with('employee')->get();
         // return $users;
         return view('user.index',compact('users'));
     }
@@ -187,7 +187,7 @@ class UserController extends Controller
         //
         $storages = Storage::all();
 
-        $user = User::with('person')->find($id);
+        $user = User::with('employee')->find($id);
 
         foreach($storages as $storage)
         {
