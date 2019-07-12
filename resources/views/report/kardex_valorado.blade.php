@@ -60,9 +60,9 @@
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count++ }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{Carbon\Carbon::parse($item->created_at, 'UTC')->format('d-m-Y')}}</td>
                 @if($item->article_income_item_id!=null and $item->type == 'Entrada')
-                    <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NIº'.$item->article_income_item->article_income->correlative.')' }}</td>
+                    <td class="text-center text-xxxs font-bold px-5 py-3">{{ $item->type .' (NIº'.$item->article_income_item->article_income->correlative.')' }}</td>
                 @else
-                    <td class="text-center text-xxs font-bold px-5 py-3">{{ $item->type .' (NSº '.$item->article_request_item->article_request->correlative.')' }}</td>
+                    <td class="text-center text-xxxs font-bold px-5 py-3">{{ $item->type .' (NSº '.$item->article_request_item->article_request->correlative.')' }}</td>
                 @endif
                 @if($item->article_income_item_id !=null and $item->type == 'Entrada')
                     <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $item->article_income_item->quantity }}</td>
@@ -114,7 +114,7 @@
         <tr class="text-sm bg-grey-darker  text-white">
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $count++ }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{Carbon\Carbon::parse($stock->created_at, 'UTC')->format('d-m-Y')}}</td>
-                <td class="text-center text-xxs font-bold px-5 py-3">{{ 'Entrada (NIº'.$stock->article_income_item->article_income->correlative.')' }}</td>
+                <td class="text-center text-xxxs font-bold px-5 py-3">{{ 'Entrada (NIº'.$stock->article_income_item->article_income->correlative.')' }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $stock->quantity }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $stock->cost }}</td>
                 <td class="text-center text-xxs uppercase font-bold px-5 py-3">{{ $stock->quantity * $stock->cost}}</td>
