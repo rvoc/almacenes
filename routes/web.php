@@ -147,7 +147,7 @@ Route::group(['middleware' => ['auth']], function () {
             'evalsis_puntuacion' => $request['valoracion'],
             'evalsis_id_usuario' => \Auth::user()->usr_id,
             'evalsis_id_sistema' => 2,
-            'evalsis_estado' => 'A' 
+            'evalsis_estado' => 'A'
         ]);
         return response()->json(['Mensaje' => 'Se registro correctamente']);
     });
